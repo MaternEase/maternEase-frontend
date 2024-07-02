@@ -12,13 +12,13 @@ const Sidebar = ({ open }) => {
 
   return (
     <div className={`fixed top-16 left-0 h-full ${open ? 'w-64' : 'w-20'} bg-gray-800 text-white transition-width duration-300`}>
-      <div className="flex items-center justify-between p-4">
+      {/* <div className="flex items-center justify-between p-4">
         <div className="flex items-center">
           <Dashboard />
           {open && <span className="ml-2 text-xl font-bold">CodingLab</span>}
         </div>
-      </div>
-      <List>
+      </div> */}
+      <List className="flex-1">
         <ListItem button onClick={() => handleSubMenuClick('category')}>
           <ListItemIcon>
             <Category className="text-white" />
@@ -55,15 +55,8 @@ const Sidebar = ({ open }) => {
           {open && <ListItemText primary="Settings" />}
         </ListItem>
       </List>
-      <div className="absolute bottom-0 flex items-center w-full p-4">
-        <Avatar alt="User" src="/static/images/avatar/1.jpg" />
-        {open && (
-          <div className="ml-4">
-            <div className="text-sm">Prem Shahi</div>
-            <div className="text-xs text-gray-400">Web Designer</div>
-          </div>
-        )}
-        <IconButton>
+      <div className="p-3">
+        <IconButton className="mt-4 ">
           <Logout className="text-white" />
         </IconButton>
       </div>
