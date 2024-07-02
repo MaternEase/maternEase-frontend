@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import { Box } from '@mui/material';
 
 const MainLayout = ({ children }) => {
-  const [open, setOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
+  const handleDrawerToggle = () => {
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Navbar toggleDrawer={toggleDrawer} isOpen={open} />
-      <Sidebar open={open} toggleDrawer={toggleDrawer} />
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          transition: 'margin-left 0.3s',
-          marginLeft: open ? '250px' : '0',
-        }}
-      >
-        {children}
-      </Box>
-    </Box>
+    <div className="flex">
+      <Navbar handleDrawerToggle={handleDrawerToggle} />
+      <Sidebar open={sidebarOpen} />
+      <div className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-20'} mt-16`}>
+        <main className="p-4">{children}</main>
+      </div>
+    </div>
   );
 };
 

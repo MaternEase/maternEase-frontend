@@ -1,40 +1,41 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Badge } from '@mui/material';
-import { Menu as MenuIcon, Mail as MailIcon, Notifications as NotificationsIcon, AccountCircle } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, IconButton, Avatar } from '@mui/material';
+import { Menu as MenuIcon, Notifications, AccountCircle } from '@mui/icons-material';
+import logo from '../../assets/images/logo.jpg'; // Import the logo
 
-const Navbar = ({ toggleDrawer, isOpen }) => {
+
+const Navbar = ({ handleDrawerToggle }) => {
   return (
-    <AppBar
-      position="fixed"
-      sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        transition: 'width 0.3s',
-        width: isOpen ? 'calc(100% - 250px)' : '100%',
-        marginLeft: isOpen ? '250px' : '0',
-      }}
-    >
+    <AppBar position="fixed" className="bg-gray-800" style={{ width: '100%', height:'9%' }}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)} sx={{ marginRight: 2 }}>
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          MUI
-        </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="error">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" />
-          </IconButton>
-        </Box>
+        <div className="flex justify-between w-full">
+          <div className="flex items-center">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className="mr-2"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap>
+              <div className="flex items-center">
+                <img src={logo} alt="Logo" className="h-8 mr-2" />
+                <span>CodingLab</span>
+              </div>
+            </Typography>
+          </div>
+          <div className="flex items-center">
+            <IconButton color="inherit">
+              <Notifications />
+            </IconButton>
+            <IconButton color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <Avatar alt="User" src="/static/images/avatar/1.jpg" className="ml-2" />
+          </div>
+        </div>
       </Toolbar>
     </AppBar>
   );
