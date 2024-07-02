@@ -1,42 +1,73 @@
-import React from 'react';
-import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
-import { Mail as MailIcon, Inbox as InboxIcon } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { MenuOpen, Dashboard, Category, Analytics, History, Settings, Logout } from '@mui/icons-material';
+import { List, ListItem, ListItemIcon, ListItemText, Collapse, Avatar, IconButton } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-const Sidebar = ({ open, toggleDrawer }) => {
-  const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+const Sidebar = ({ open }) => {
+  const [subMenuOpen, setSubMenuOpen] = useState({});
+
+  const handleSubMenuClick = (menu) => {
+    setSubMenuOpen({ ...subMenuOpen, [menu]: !subMenuOpen[menu] });
+  };
 
   return (
-    <Drawer open={open} onClose={toggleDrawer(false)}>
-      {DrawerList}
-    </Drawer>
+    <div className={`fixed top-16 left-0 h-full ${open ? 'w-64' : 'w-20'} bg-gray-800 text-white transition-width duration-300`}>
+      <div className="flex items-center justify-between p-4">
+        <div className="flex items-center">
+          <Dashboard />
+          {open && <span className="ml-2 text-xl font-bold">CodingLab</span>}
+        </div>
+      </div>
+      <List>
+        <ListItem button onClick={() => handleSubMenuClick('category')}>
+          <ListItemIcon>
+            <Category className="text-white" />
+          </ListItemIcon>
+          {open && <ListItemText primary="Category" />}
+          {open && (subMenuOpen['category'] ? <ExpandLess /> : <ExpandMore />)}
+        </ListItem>
+        <Collapse in={subMenuOpen['category']} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem button className="pl-12">
+              <ListItemText primary="HTML & CSS" />
+            </ListItem>
+            <ListItem button className="pl-12">
+              <ListItemText primary="JavaScript" />
+            </ListItem>
+          </List>
+        </Collapse>
+        <ListItem button>
+          <ListItemIcon>
+            <Analytics className="text-white" />
+          </ListItemIcon>
+          {open && <ListItemText primary="Analytics" />}
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <History className="text-white" />
+          </ListItemIcon>
+          {open && <ListItemText primary="History" />}
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <Settings className="text-white" />
+          </ListItemIcon>
+          {open && <ListItemText primary="Settings" />}
+        </ListItem>
+      </List>
+      <div className="absolute bottom-0 flex items-center w-full p-4">
+        <Avatar alt="User" src="/static/images/avatar/1.jpg" />
+        {open && (
+          <div className="ml-4">
+            <div className="text-sm">Prem Shahi</div>
+            <div className="text-xs text-gray-400">Web Designer</div>
+          </div>
+        )}
+        <IconButton>
+          <Logout className="text-white" />
+        </IconButton>
+      </div>
+    </div>
   );
 };
 
