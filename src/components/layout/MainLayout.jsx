@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
       <Navbar handleDrawerToggle={handleDrawerToggle} />
       <Sidebar open={sidebarOpen} />
       <div className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-20'} mt-16`}>
-        <main className="p-4">{children}</main>
+        <main className="p-4 bg-EEEEEE">{children}</main>
       </div>
     </div>
   );
