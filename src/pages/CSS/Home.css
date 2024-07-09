@@ -1,0 +1,144 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #D5C6E0;
+}
+
+.logo {
+  height: 50px;
+}
+
+.navbar a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #192A51;
+  font-weight: bold;
+}
+
+.login-button {
+  background-color: #192A51;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F5E6E8;
+  padding: 0px;
+}
+
+.hero-image {
+  width: 100%;
+}
+
+.hero-text {
+  width: 40%;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  color: #192A51;
+}
+
+.sign-up-button {
+  background-color: #192A51;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.services {
+  text-align: center;
+  padding: 70px;
+}
+
+.service-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.service-item {
+  width: 30%;
+  text-align: center;
+}
+
+.service-item img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-around;
+  background-color: #D5C6E0;
+  padding: 20px;
+}
+
+.stat-item h3 {
+  font-size: 2rem;
+  color: #192A51;
+}
+
+.about-us {
+  padding: 20px;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-content img {
+  width: 40%;
+}
+
+.contact-us {
+  padding: 20px;
+}
+
+.contact-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-info {
+  width: 40%;
+}
+
+.contact-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #192A51;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  background-color: #192A51;
+  color: #FFFFFF;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  background-color: #192A51;
+  color: #FFFFFF;
+  padding: 10px;
+}
