@@ -1,69 +1,95 @@
-import React, { useState } from 'react';
-import { Category, Analytics, History, Settings, Logout } from '@mui/icons-material';
-import { List, ListItem, ListItemIcon, ListItemText, Collapse, IconButton } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+import { AppstoreFilled, MedicineBoxFilled,UserOutlined, TeamOutlined, NotificationOutlined } from '@ant-design/icons';
 
-const Sidebar = ({ open }) => {
-  const [subMenuOpen, setSubMenuOpen] = useState({});
+const { Sider } = Layout;
 
-  const handleSubMenuClick = (menu) => {
-    setSubMenuOpen({ ...subMenuOpen, [menu]: !subMenuOpen[menu] });
+const iconStyle = { fontSize: '24px' };
+
+const Sidebar = ({ collapsed, userType }) => {
+  const getMenuItems = () => {
+    switch (userType) {
+      case 'Midwife':
+        return (
+          <>
+            <Menu.Item key="/midwife/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
+              <Link to="/midwife/dashboard">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="/midwife/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
+              <Link to="/midwife/clinics">Clinics</Link>
+            </Menu.Item>
+            <Menu.Item key="/midwife/mothers" icon={<UserOutlined style={{ fontSize: '24px', fontWeight: 'bold',iconStyle }}/>}>
+              <Link to="/midwife/mothers">Mothers</Link>
+            </Menu.Item>
+            <Menu.Item key="/midwife/babies" icon={<TeamOutlined style={iconStyle} />}>
+              <Link to="/midwife/babies">Babies</Link>
+            </Menu.Item>
+            <Menu.Item key="/midwife/reports" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/midwife/reports">Reports</Link>
+            </Menu.Item>
+            <Menu.Item key="/midwife/messages" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/midwife/messages">Messages</Link>
+            </Menu.Item>
+          </>
+        );
+        case 'Doctor':
+        return (
+          <>
+            <Menu.Item key="/doctor/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
+              <Link to="/doctor/dashboard">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/mothers" icon={<UserOutlined style={iconStyle}/>}>
+              <Link to="/doctor/mothers">Mothers</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
+              <Link to="/doctor/clinis">Clinics</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/babies" icon={<TeamOutlined style={iconStyle} />}>
+              <Link to="/doctor/babies">Babies</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/shedules" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/doctor/shedules"> Clinic Schedules </Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/reports" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/doctor/reports">Reports</Link>
+            </Menu.Item>
+          </>
+        );
+      // Add cases for other user types as needed
+      default:
+        return null;
+    }
   };
 
   return (
-    <div  className={`fixed top-16 left-0 h-[calc(100%-4rem)] ${open ? 'w-64' : 'w-20'} bg-192A51 text-EEEEEE transition-width duration-300 flex flex-col`}
-     style={{ backgroundColor: '#EEEEEE', color: '#192A51' }}>
-      <div className="flex-1 overflow-y-auto">
-        <List>
-          <ListItem button onClick={() => handleSubMenuClick('clinics')}>
-            <ListItemIcon>
-              <Category className="text-EEEEEE" />
-            </ListItemIcon>
-            {open && <ListItemText primary="Clinics" />}
-            {open && (subMenuOpen['clinics'] ? <ExpandLess /> : <ExpandMore />)}
-          </ListItem>
-          <Collapse in={subMenuOpen['clinics']} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className="pl-12">
-                <ListItemText primary="Clinic 1" />
-              </ListItem>
-              <ListItem button className="pl-12">
-                <ListItemText primary="Clinic 2" />
-              </ListItem>
-            </List>
-          </Collapse>
-          <ListItem button>
-            <ListItemIcon>
-              <Analytics className="text-EEEEEE" />
-            </ListItemIcon>
-            {open && <ListItemText primary="Mothers" />}
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <History className="text-EEEEEE" />
-            </ListItemIcon>
-            {open && <ListItemText primary="Babies" />}
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <Settings className="text-EEEEEE" />
-            </ListItemIcon>
-            {open && <ListItemText primary="Reports" />}
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <Settings className="text-EEEEEE" />
-            </ListItemIcon>
-            {open && <ListItemText primary="Messages" />}
-          </ListItem>
-        </List>
-      </div>
-      <div className="p-3">
-        <IconButton>
-          <Logout className="text-EEEEEE" />
-        </IconButton>
-      </div>
-    </div>
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      width={200}
+      style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        top: 64,
+        bottom: 0,
+        background: '#EEEEEE', // Ensure the background is white
+        borderRight: '2px solid #EEEEEE', // Add a border to match the layout
+      }}
+    >
+      <Menu
+        mode="inline"
+        defaultSelectedKeys={['/']}
+        style={{
+          height: '100%',
+          borderRight: 0,
+          backgroundColor:'#EEEEEE'
+        }}
+      >
+        {getMenuItems()}
+      </Menu>
+    </Sider>
   );
 };
 
