@@ -16,9 +16,9 @@ const AppLayout = ({ userType }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <AppHeader onMenuClick={toggleSidebar} />
-      <Layout>
+      <Layout style={{ marginTop: 64 }}>
         <Sidebar collapsed={collapsed} userType={userType} />
-        <Content style={{ padding: '24px', background: '#fff', marginLeft: collapsed ? 80 : 200, transition: 'margin-left 0.2s' }}>
+        <Content style={{ padding: '24px', background: '#fff', marginLeft: collapsed ? 80 : 200, transition: 'margin-left 0.2s', overflow: 'auto' }}>
           <Outlet />
         </Content>
       </Layout>

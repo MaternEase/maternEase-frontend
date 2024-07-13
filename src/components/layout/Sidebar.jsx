@@ -56,6 +56,30 @@ const Sidebar = ({ collapsed, userType }) => {
             </Menu.Item>
           </>
         );
+
+        case 'Admin':
+        return (
+          <>
+            <Menu.Item key="/admin/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
+              <Link to="/admin/dashboard">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="/admin/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
+              <Link to="/admin/clinics">Clinics</Link>
+            </Menu.Item>
+            {/* <Menu.Item key="/doctor/mothers" icon={<UserOutlined style={iconStyle}/>}>
+              <Link to="/doctor/mothers">Mothers</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/babies" icon={<TeamOutlined style={iconStyle} />}>
+              <Link to="/doctor/babies">Babies</Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/shedules" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/doctor/shedules"> Clinic Schedules </Link>
+            </Menu.Item>
+            <Menu.Item key="/doctor/reports" icon={<NotificationOutlined style={iconStyle} />}>
+              <Link to="/doctor/reports">Reports</Link>
+            </Menu.Item> */}
+          </>
+        );
       // Add cases for other user types as needed
       default:
         return null;
