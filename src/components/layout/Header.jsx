@@ -22,18 +22,17 @@ const AppHeader = ({ onMenuClick }) => {
   );
 
   return (
-    <Header className="header" style={{ backgroundColor: '#EEEEEE', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px' }}>
+    <Header className="header" style={{ backgroundColor: '#EEEEEE', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'fixed', width: '100%', zIndex: 1000 }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img src={logo} alt="Logo" style={{ height: '50px', marginRight: '1px' }} />
         <span style={{ color: '#967AA1', fontSize: '25px' }}>MaternEase</span>
-        <Button type="link" icon={<MenuUnfoldOutlined style={{ fontSize: '24px',paddingLeft:'15px' }} />} onClick={onMenuClick} style={{ color: 'black' }} />
-
+        <Button type="link" icon={<MenuUnfoldOutlined style={{ fontSize: '24px', paddingLeft: '15px' }} />} onClick={onMenuClick} style={{ color: 'black' }} />
       </div>
       <Space size="middle">
         <Search placeholder="Search..." style={{ width: 200, marginTop: '1rem' }} />
-        <BellOutlined style={{ fontSize: '30px', color: 'Black', marginTop:'20px' }} />
+        <BellOutlined style={{ fontSize: '30px', color: 'Black', marginTop: '20px' }} />
         <Dropdown overlay={menu} placement="bottomRight">
-          <Avatar icon={<UserOutlined style={{fontSize: '30px' }} />} style={{ cursor: 'pointer',fontSize: '30px' }} />
+          <Avatar icon={<UserOutlined style={{ fontSize: '30px' }} />} style={{ cursor: 'pointer', fontSize: '30px' }} />
         </Dropdown>
       </Space>
     </Header>
