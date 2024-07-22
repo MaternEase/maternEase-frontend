@@ -35,6 +35,20 @@ const Sidebar = ({ collapsed, userType }) => {
           { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
           { key: '/admin/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
         ];
+
+        case 'MOTHER':
+            return [
+                { key: '/mother/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
+                // { key: '/mother/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
+                // { key: '/mother/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+            ];
+
+        case 'CHILD':
+            return [
+                { key: '/child/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/dashboard">Dashboard</Link> },
+                // { key: '/mother/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
+                // { key: '/mother/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+            ];
       default:
         return [];
     }
