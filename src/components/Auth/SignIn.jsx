@@ -72,6 +72,12 @@ const SignIn = () => {
         case 'DOCTOR':
           navigate('/doctor/dashboard');
           break;
+        case 'MOTHER':
+          navigate('/mother/dashboard');
+          break;
+        case 'CHILD':
+          navigate('/child/dashboard');
+          break;
         // Add other cases for different roles as needed
         default:
           navigate('/');
