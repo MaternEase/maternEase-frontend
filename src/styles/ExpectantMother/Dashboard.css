@@ -1,0 +1,28 @@
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.site-page-header {
+    margin-bottom: 20px;
+}
+
+.content {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-card {
+    margin-bottom: 20px;
+}
+
+.ant-card .ant-card-body {
+    padding: 16px;
+}
+
+.ant-card-head-title {
+    font-size: 16px;
+    font-weight: bold;
+}
