@@ -1,88 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { AppstoreFilled, MedicineBoxFilled,UserOutlined, TeamOutlined, NotificationOutlined } from '@ant-design/icons';
+import { AppstoreFilled, MedicineBoxFilled, UserOutlined, TeamOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
-
 const iconStyle = { fontSize: '24px' };
 
 const Sidebar = ({ collapsed, userType }) => {
+  console.log('Sidebar userType:', userType); // Debug log to verify userType in Sidebar
+
   const getMenuItems = () => {
     switch (userType) {
-      case 'Midwife':
-        return (
-          <>
-            <Menu.Item key="/midwife/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
-              <Link to="/midwife/dashboard">Dashboard</Link>
-            </Menu.Item>
-            <Menu.Item key="/midwife/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
-              <Link to="/midwife/clinics">Clinics</Link>
-            </Menu.Item>
-            <Menu.Item key="/midwife/mothers" icon={<UserOutlined style={{ fontSize: '24px', fontWeight: 'bold',iconStyle }}/>}>
-              <Link to="/midwife/mothers">Mothers</Link>
-            </Menu.Item>
-            <Menu.Item key="/midwife/babies" icon={<TeamOutlined style={iconStyle} />}>
-              <Link to="/midwife/babies">Babies</Link>
-            </Menu.Item>
-            <Menu.Item key="/midwife/reports" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/midwife/reports">Reports</Link>
-            </Menu.Item>
-            <Menu.Item key="/midwife/messages" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/midwife/messages">Messages</Link>
-            </Menu.Item>
-          </>
-        );
-        case 'Doctor':
-        return (
-          <>
-            <Menu.Item key="/doctor/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
-              <Link to="/doctor/dashboard">Dashboard</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/mothers" icon={<UserOutlined style={iconStyle}/>}>
-              <Link to="/doctor/mothers">Mothers</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
-              <Link to="/doctor/clinis">Clinics</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/babies" icon={<TeamOutlined style={iconStyle} />}>
-              <Link to="/doctor/babies">Babies</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/shedules" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/doctor/shedules"> Clinic Schedules </Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/reports" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/doctor/reports">Reports</Link>
-            </Menu.Item>
-          </>
-        );
-
-        case 'Admin':
-        return (
-          <>
-            <Menu.Item key="/admin/dashboard" icon={<AppstoreFilled style={iconStyle} />}>
-              <Link to="/admin/dashboard">Dashboard</Link>
-            </Menu.Item>
-            <Menu.Item key="/admin/clinics" icon={<MedicineBoxFilled style={iconStyle} />}>
-              <Link to="/admin/clinics">Clinics</Link>
-            </Menu.Item>
-            {/* <Menu.Item key="/doctor/mothers" icon={<UserOutlined style={iconStyle}/>}>
-              <Link to="/doctor/mothers">Mothers</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/babies" icon={<TeamOutlined style={iconStyle} />}>
-              <Link to="/doctor/babies">Babies</Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/shedules" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/doctor/shedules"> Clinic Schedules </Link>
-            </Menu.Item>
-            <Menu.Item key="/doctor/reports" icon={<NotificationOutlined style={iconStyle} />}>
-              <Link to="/doctor/reports">Reports</Link>
-            </Menu.Item> */}
-          </>
-        );
-      // Add cases for other user types as needed
+      case 'MIDWIFE':
+        return [
+          { key: '/midwife/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/midwife/dashboard">Dashboard</Link> },
+          { key: '/midwife/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/midwife/clinics">Clinics</Link> },
+          { key: '/midwife/mothers', icon: <UserOutlined style={iconStyle} />, label: <Link to="/midwife/mothers">Mothers</Link> },
+          { key: '/midwife/babies', icon: <TeamOutlined style={iconStyle} />, label: <Link to="/midwife/babies">Babies</Link> },
+          { key: '/midwife/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/midwife/reports">Reports</Link> },
+          { key: '/midwife/messages', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/midwife/messages">Messages</Link> },
+        ];
+      case 'DOCTOR':
+        return [
+          { key: '/doctor/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/doctor/dashboard">Dashboard</Link> },
+          { key: '/doctor/mothers', icon: <UserOutlined style={iconStyle} />, label: <Link to="/doctor/mothers">Mothers</Link> },
+          { key: '/doctor/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/doctor/clinics">Clinics</Link> },
+          { key: '/doctor/babies', icon: <TeamOutlined style={iconStyle} />, label: <Link to="/doctor/babies">Babies</Link> },
+          { key: '/doctor/schedules', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
+          { key: '/doctor/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/doctor/reports">Reports</Link> },
+        ];
+      case 'ADMIN':
+        return [
+          { key: '/admin/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/admin/dashboard">Dashboard</Link> },
+          { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
+          { key: '/admin/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+        ];
       default:
-        return null;
+        return [];
     }
   };
 
@@ -98,21 +52,20 @@ const Sidebar = ({ collapsed, userType }) => {
         left: 0,
         top: 64,
         bottom: 0,
-        background: '#EEEEEE', // Ensure the background is white
-        borderRight: '2px solid #EEEEEE', // Add a border to match the layout
+        background: '#EEEEEE',
+        borderRight: '2px solid #EEEEEE',
       }}
     >
       <Menu
         mode="inline"
         defaultSelectedKeys={['/']}
+        items={getMenuItems()}
         style={{
           height: '100%',
           borderRight: 0,
-          backgroundColor:'#EEEEEE'
+          backgroundColor: '#EEEEEE',
         }}
-      >
-        {getMenuItems()}
-      </Menu>
+      />
     </Sider>
   );
 };
