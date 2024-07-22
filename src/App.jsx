@@ -13,6 +13,7 @@ import PrivateRoute from './routes/PrivateRoute';
 
 const App = () => {
   const { user } = useAuth();
+  console.log("user details - app -----------");
 
   console.log('App user:', user);  // Debug log to verify user
   console.log('App user role:', user?.role);  // Debug log to verify user role
