@@ -33,7 +33,9 @@ const Sidebar = ({ collapsed, userType }) => {
         return [
           { key: '/admin/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/admin/dashboard">Dashboard</Link> },
           { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
-          { key: '/admin/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+          { key: '/admin/midwives', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/midwives">Midwives</Link> },
+          { key: '/admin/doctors', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/doctors">Doctors</Link> },
+          { key: '/admin/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
         ];
 
         case 'MOTHER':
