@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import loginMom from '../../assets/images/loginMom.webp'; // Import the image
 import logo from '../../assets/images/logo4.png'; // Import the logo
 
@@ -11,6 +12,10 @@ const SignIn = () => {
     marginRight: '1rem',
     marginBottom: '2rem',
   });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleResize = () => {
     const width = window.innerWidth;
@@ -52,10 +57,29 @@ const SignIn = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
-    signIn(email.value, password.value);
+    try {
+      const user = await signIn(email, password);
+      console.log('User signed in:', user); // Log the signed-in user
+      switch (user.role) {
+        case 'ADMIN':
+          navigate('/admin/dashboard');
+          break;
+        case 'MIDWIFE':
+          navigate('/midwife/dashboard');
+          break;
+        case 'DOCTOR':
+          navigate('/doctor/dashboard');
+          break;
+        // Add other cases for different roles as needed
+        default:
+          navigate('/');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Login failed. Please check your credentials.');
+    }
   };
 
   const { marginLeft, marginTop, marginRight, marginBottom } = dimensions;
@@ -90,10 +114,10 @@ const SignIn = () => {
                 <div className="py-8 space-y-4 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
                   <div className="relative">
                     <input
-                      autoComplete="off"
-                      id="email"
-                      name="email"
-                      type="text"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                       className="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-rose-600"
                       placeholder="Email address"
                     />
@@ -106,10 +130,10 @@ const SignIn = () => {
                   </div>
                   <div className="relative">
                     <input
-                      autoComplete="off"
-                      id="password"
-                      name="password"
                       type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
                       className="w-full h-10 text-gray-900 placeholder-transparent border-b-2 border-gray-300 peer focus:outline-none focus:border-rose-600"
                       placeholder="Password"
                     />
@@ -130,6 +154,7 @@ const SignIn = () => {
                   </div>
                 </div>
               </form>
+              {error && <p className="mt-2 text-center text-red-500">{error}</p>}
               <div className="mt-4 text-center">
                 <a href="/forgot-password" className="text-sm text-cyan-500 hover:underline">
                   Forgot Password?
