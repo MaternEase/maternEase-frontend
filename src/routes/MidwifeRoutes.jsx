@@ -8,14 +8,15 @@ import Reports from '../pages/Midwife/Reports';
 import Messages from '../pages/Midwife/Messages';
 
 const MidwifeRoutes = () => {
+  console.log('MidwifeRoutes rendered'); // Debug log to verify MidwifeRoutes render
   return (
     <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/clinics" element={<Clinics />} />
-      <Route path="/mothers" element={<Mothers />} />
-      <Route path="/babies" element={<Babies />} />
-      <Route path="/reports" element={<Reports />} />
-      <Route path="/messages" element={<Messages />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="clinics" element={<Clinics />} />
+      <Route path="mothers" element={<Mothers />} />
+      <Route path="babies" element={<Babies />} />
+      <Route path="reports" element={<Reports />} />
+      <Route path="messages" element={<Messages />} />
     </Routes>
   );
 };

@@ -15,8 +15,8 @@ const DoctorRoutes = () => {
       <Route path="/mothers" element={<Mothers />} />
       <Route path="/clinics" element={<Clinics />} />
       <Route path="/babies" element={<Babies />} />
-      <Route path="/reports" element={<Reports />} />
       <Route path="/shedules" element={<Shedules />} />
+      <Route path="/reports" element={<Reports />} />
     </Routes>
   );
 };
