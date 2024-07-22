@@ -1,19 +1,8 @@
-// import React from 'react';
-
-// const Dashboard = () => (
-//   <div className="container p-8 mx-auto my-8 bg-white rounded-lg shadow-lg">
-//     <h1 className="mb-4 text-2xl font-bold">Dashboard </h1>
-//   </div>
-// );
-
-// export default Dashboard;
-
-
-
 import React from 'react';
 import { Row, Col, Input, Select, Checkbox, DatePicker, Card } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
-import '../../styles/ExpectantMother/Dashboard.css';  // Ensure to create this CSS file
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import '../../styles/ExpectantMother/Dashboard.css';
 
 const { Option } = Select;
 
@@ -49,7 +38,6 @@ const Dashboard = () => (
                             <Option value="B+">B+</Option>
                             <Option value="O+">O+</Option>
                             <Option value="AB+">AB+</Option>
-                            {/* Add more options as needed */}
                         </Select>
                         <Checkbox>Firstborn</Checkbox>
                         <Checkbox>Risky</Checkbox>
@@ -77,8 +65,12 @@ const Dashboard = () => (
                 </Col>
             </Row>
         </div>
+        <div className="pagination-container">
+            <LeftOutlined />
+            <span>1 of 10</span>
+            <RightOutlined />
+        </div>
     </div>
 );
 
 export default Dashboard;
-  

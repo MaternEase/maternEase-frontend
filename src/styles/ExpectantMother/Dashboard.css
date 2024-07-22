@@ -1,28 +1,18 @@
 .container {
-    padding: 20px;
-    background-color: #f9f9f9;
+    position: relative;
+    padding-bottom: 50px; /* Add padding to make space for the pagination */
 }
 
-.site-page-header {
-    margin-bottom: 20px;
-}
-
-.content {
-    background-color: #ffffff;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.ant-card {
-    margin-bottom: 20px;
-}
-
-.ant-card .ant-card-body {
-    padding: 16px;
-}
-
-.ant-card-head-title {
+.pagination-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
     font-size: 16px;
-    font-weight: bold;
+}
+
+.pagination-container .anticon {
+    margin: 0 8px;
+    cursor: pointer;
 }
