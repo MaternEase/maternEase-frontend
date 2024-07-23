@@ -1,9 +1,12 @@
+// Dashboard.js
 import React, { useState } from 'react';
-import { Card, Row, Col, Statistic, Table, Calendar, Badge, Dropdown, Menu, Space, Button, Typography } from 'antd';
-import { EllipsisOutlined, DownOutlined, ExportOutlined, UserOutlined, WomanOutlined, ManOutlined, SolutionOutlined } from '@ant-design/icons';
+import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography } from 'antd';
+import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare } from '@mui/icons-material';
+import ReusableCard from '../../components/Card';
+import CustomCalendar from '../../components/Calendar';
 import '../../styles/Admin/Dashboard.css';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const data = [
   {
@@ -28,54 +31,26 @@ const data = [
   },
 ];
 
-// const getListData = (value) => {
-//   let listData;
-//   switch (value.date()) {
-//     case 10:
-//       listData = [
-//         { type: 'warning', content: 'DR. Rick Appointment' },
-//         { type: 'success', content: 'Dentist Meetup' },
-//         { type: 'error', content: 'Jon Surgery' },
-//       ];
-//       break;
-//     default:
-//   }
-//   return listData || [];
-// };
-
-// const dateCellRender = (value) => {
-//   const listData = getListData(value);
-//   return (
-//     <ul className="events">
-//       {listData.map((item) => (
-//         <li key={item.content}>
-//           <Badge status={item.type} text={item.content} />
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };
-
 const Dashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const handleCardClick = (card) => {
-    setSelectedCard(card);
+  const handleCardClick = (cardKey) => {
+    setSelectedCard(cardKey);
   };
 
   const menu = (
     <Menu>
       <Menu.Item key="1">View Details</Menu.Item>
-      <Menu.Item key="2">Edit</Menu.Item>
-      <Menu.Item key="3">Delete</Menu.Item>
+      {/* <Menu.Item key="2">Edit</Menu.Item>
+      <Menu.Item key="3">Delete</Menu.Item> */}
     </Menu>
   );
 
   const cardData = [
-    { key: 1, title: 'Total Children', value: 1052, icon: <UserOutlined />, color: '#3f8600' },
-    { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <WomanOutlined />, color: '#3f8600' },
-    { key: 3, title: 'Doctors', value: 8, icon: <SolutionOutlined />, color: '#3f8600' },
-    { key: 4, title: 'Midwives', value: 29, icon: <ManOutlined />, color: '#3f8600' },
+    { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
+    { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
+    { key: 3, title: 'Doctors', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
+    { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
   ];
 
   return (
@@ -84,29 +59,12 @@ const Dashboard = () => {
       <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (
           <Col span={6} key={card.key}>
-            <Card
-              className={`custom-card ${selectedCard === card.key ? 'selected' : ''}`}
-              onClick={() => handleCardClick(card.key)}
-              hoverable
-            >
-              <Row justify="space-between">
-                <Col>
-                  {card.icon}
-                  <span className="card-title">{card.title}</span>
-                </Col>
-                <Col>
-                  <Dropdown overlay={menu} trigger={['click']}>
-                    <EllipsisOutlined className="more-icon" />
-                  </Dropdown>
-                </Col>
-              </Row>
-              <Statistic
-                value={card.value}
-                valueStyle={{ color: card.color }}
-                suffix="Today"
-                style={{ marginTop: '16px' }}
-              />
-            </Card>
+            <ReusableCard
+              card={card}
+              selectedCard={selectedCard}
+              handleCardClick={handleCardClick}
+              menu={menu}
+            />
           </Col>
         ))}
       </Row>
@@ -114,11 +72,10 @@ const Dashboard = () => {
         <Col span={16}>
           <Card
             title="Overall Statistics"
-            
             extra={
               <Dropdown overlay={menu}>
                 <Button>
-                  Last Week <DownOutlined />
+                  Last Week <KeyboardArrowDown />
                 </Button>
               </Dropdown>
             }
@@ -150,8 +107,7 @@ const Dashboard = () => {
         </Col>
         <Col span={8}>
           <Card title="Calendar">
-            <Calendar fullscreen={false}  />
-            {/* <Calendar fullscreen={false} dateCellRender={dateCellRender} /> */}
+            <CustomCalendar /> {/* Use the custom calendar component */}
           </Card>
         </Col>
       </Row>

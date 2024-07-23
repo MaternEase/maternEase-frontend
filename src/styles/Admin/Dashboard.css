@@ -1,38 +1,16 @@
 .dashboard-container {
-    padding: 24px;
-    min-height: 100vh;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.events {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px;
   }
-  
-  .custom-card {
-    transition: background-color 0.3s;
-    cursor: pointer;
-  }
-  
-  .custom-card:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .custom-card.selected {
-    background-color: #e6f7ff;
-  }
-  
-  .card-title {
-    margin-left: 8px;
-  }
-  
-  .more-icon {
-    font-size: 18px;
-  }
-  
-  .events {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  @media (max-width: 768px) {
-    .dashboard-container {
-      padding: 16px;
-    }
-  }
-  
+}
