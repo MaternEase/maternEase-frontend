@@ -107,7 +107,7 @@ const Dashboard = () => {
         </Col>
         <Col span={8}>
           <Card title="Calendar">
-            <CustomCalendar /> {/* Use the custom calendar component */}
+            <CustomCalendar />
           </Card>
         </Col>
       </Row>

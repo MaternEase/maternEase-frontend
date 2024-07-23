@@ -1,4 +1,4 @@
-/* Reusable card */
+/* card component */
 .custom-card {
     transition: background-color 0.3s;
     cursor: pointer;
@@ -29,3 +29,40 @@
     font-size: 12px;
     color: #262626;
   }
+
+  /* Calendar component */
+
+.ant-calendar {
+    background-color: #967aa1;
+  }
+  
+  .ant-calendar-header {
+    background-color: #967aa1;
+    color: #fff;
+  }
+  
+  .ant-calendar-date {
+    position: relative;
+  }
+  
+  .ant-calendar-date.ant-calendar-date-selected,
+  .ant-calendar-date.ant-calendar-date-cell {
+    color: #000;
+  }
+  
+  .ant-calendar-date-event {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #192A51;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #192A51;
+    color: #fff;
+  }
+  

@@ -1,4 +1,4 @@
-// ReusableCard
+// Card Component
 import React from 'react';
 import { Card, Row, Col, Dropdown, Statistic } from 'antd';
 import { MoreHoriz } from '@mui/icons-material';
