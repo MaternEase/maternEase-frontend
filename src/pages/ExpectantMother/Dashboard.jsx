@@ -1,8 +1,9 @@
 import React from 'react';
 import { Row, Col, Input, Select, Checkbox, DatePicker, Card } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import '../../styles/ExpectantMother/Dashboard.css';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';  // Ensure to create this CSS file
 
 const { Option } = Select;
 
@@ -68,7 +69,9 @@ const Dashboard = () => (
         <div className="pagination-container">
             <LeftOutlined />
             <span>1 of 10</span>
-            <RightOutlined />
+            <Link to="./card2">
+                <RightOutlined />
+            </Link>
         </div>
     </div>
 );
