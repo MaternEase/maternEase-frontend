@@ -118,8 +118,8 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row gutter={16} style={{ marginTop: 24 }}>
-        <Col span={16}>
+      <Row gutter={24} style={{ marginTop: 24 }}>
+        <Col span={24}>
           <Card
             title="Un-Assigned Doctors/Midwives"
             extra={
@@ -146,7 +146,7 @@ const Dashboard = () => {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        {/* <Col span={8}>
           <Card title="Activity Details">
             <Space direction="vertical">
               <Button>DR. Rick Appointment</Button>
@@ -154,7 +154,7 @@ const Dashboard = () => {
               <Button>Assign Midwife</Button>
             </Space>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );
