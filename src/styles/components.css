@@ -32,7 +32,7 @@
 
   /* Calendar component */
 
-.ant-calendar {
+  .ant-calendar {
     background-color: #967aa1;
   }
   
@@ -65,4 +65,26 @@
     background-color: #192A51;
     color: #fff;
   }
+
+  /* Full Calendar Component */
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.events li {
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.ant-badge-status-dot {
+  width: 6px;
+  height: 6px;
+}
+
+.ant-badge-status-text {
+  font-size: 12px;
+}
   

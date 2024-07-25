@@ -1,7 +1,7 @@
-// Dashboard.js
 import React, { useState } from 'react';
 import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography } from 'antd';
 import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom'; 
 import ReusableCard from '../../components/Card';
 import CustomCalendar from '../../components/Calendar';
 import '../../styles/Admin/Dashboard.css';
@@ -31,6 +31,11 @@ const data = [
   },
 ];
 
+const userEvents = {
+  '2024-07-25': [{ id: 1, description: 'Event A' }],
+  '2024-07-30': [{ id: 2, description: 'Event B' }]
+};
+
 const Dashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -53,6 +58,8 @@ const Dashboard = () => {
     { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
   ];
 
+  const userFullCalendarPath = '/admin/full-calendar'; 
+
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
       <Title level={3}>Hi, Nimal 👋</Title>
@@ -73,7 +80,7 @@ const Dashboard = () => {
           <Card
             title="Overall Statistics"
             extra={
-              <Dropdown overlay={menu}>
+              <Dropdown menu={menu}>
                 <Button>
                   Last Week <KeyboardArrowDown />
                 </Button>
@@ -107,7 +114,7 @@ const Dashboard = () => {
         </Col>
         <Col span={8}>
           <Card title="Calendar">
-            <CustomCalendar />
+            <CustomCalendar events={userEvents} fullCalendarPath={userFullCalendarPath} />
           </Card>
         </Col>
       </Row>

@@ -5,7 +5,7 @@ import Clinics from '../pages/Admin/Clinics';
 import Midwives from '../pages/Admin/Midwives';
 import Doctors from '../pages/Admin/Doctors';
 import Reports from '../pages/Admin/Reports';
-// import Shedules from '../pages/Admin/ClinicShedules';
+import FullCalendarAdmin from '../pages/Admin/FullCalendar';
 
 
 const AdminRoutes = () => {
@@ -16,7 +16,7 @@ const AdminRoutes = () => {
       <Route path="/midwives" element={<Midwives />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/reports" element={<Reports />} />
-      {/* <Route path="/shedules" element={<Shedules />} /> */}
+      <Route path="/full-calendar" element={<FullCalendarAdmin />} />
     </Routes>
   );
 };
