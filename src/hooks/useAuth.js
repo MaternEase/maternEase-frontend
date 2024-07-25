@@ -7,7 +7,7 @@ export const useAuth = () => {
   const signIn = async (email, password) => {
     try {
       const userData = await AuthService.signIn(email, password);
-      // console.log('User data after signIn:', userData);
+      console.log('User data after signIn:', userData);
       localStorage.setItem('token', userData.token);
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
