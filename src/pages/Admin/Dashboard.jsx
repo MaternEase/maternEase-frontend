@@ -1,33 +1,45 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography } from 'antd';
-import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom'; 
+import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography, Input } from 'antd';
+import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import ReusableCard from '../../components/Card';
 import CustomCalendar from '../../components/Calendar';
+import { Line } from 'react-chartjs-2';
 import '../../styles/Admin/Dashboard.css';
 
 const { Title } = Typography;
+const { Search: AntSearch } = Input;
 
 const data = [
   {
     key: '1',
-    id: '#FUP12312424',
-    name: 'Isagi Yoichi',
-    age: 20,
-    date: '25 Dec 2023',
-    time: '08:30 pm',
+    id: 'D63ob',
+    name: 'Wasantha Perera',
+    age: 48,
+    date: '25 Jun 2024',
+    time: '09:30 am',
     type: 'Doctor',
     status: 'Pending',
   },
   {
     key: '2',
-    id: '#12312312424',
-    name: 'Kaiser Brown',
-    age: 23,
-    date: '01 Dec 2023',
+    id: 'M15623j',
+    name: 'Sujatha Dahanayake',
+    age: 26,
+    date: '01 Jul 2024',
     time: '12:30 pm',
     type: 'Midwife',
-    status: 'pending',
+    status: 'Pending',
+  },
+  {
+    key: '3',
+    id: 'M9586k',
+    name: 'Naduni Bandara',
+    age: 32,
+    date: '29 Jul 2024',
+    time: '12:30 pm',
+    type: 'Midwife',
+    status: 'Pending',
   },
 ];
 
@@ -38,16 +50,36 @@ const userEvents = {
 
 const Dashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);
+  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
 
   const handleCardClick = (cardKey) => {
     setSelectedCard(cardKey);
   };
 
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
+
+  const handleEdit = (key) => {
+    console.log('Edit action for record with key:', key);
+    // Implement the edit functionality here
+  };
+
   const menu = (
     <Menu>
       <Menu.Item key="1">View Details</Menu.Item>
-      {/* <Menu.Item key="2">Edit</Menu.Item>
-      <Menu.Item key="3">Delete</Menu.Item> */}
+    </Menu>
+  );
+
+  const statisticsMenu = (
+    <Menu>
+      <Menu.Item key="1" onClick={() => navigate('/admin/dashboard')}>
+        Last Week
+      </Menu.Item>
+      <Menu.Item key="2" onClick={() => navigate('/admin/dashboard')}>
+        This Week
+      </Menu.Item>
     </Menu>
   );
 
@@ -59,6 +91,175 @@ const Dashboard = () => {
   ];
 
   const userFullCalendarPath = '/admin/full-calendar'; 
+
+  const filteredData = data.filter(item => 
+    item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+    item.id.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const columns = [
+    { 
+      title: <span>No</span>, 
+      dataIndex: 'key', 
+      key: 'key', 
+      sorter: (a, b) => a.key - b.key,
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>ID Code</span>, 
+      dataIndex: 'id', 
+      key: 'id',
+      sorter: (a, b) => a.id.localeCompare(b.id),
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Patient Name</span>, 
+      dataIndex: 'name', 
+      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Age</span>, 
+      dataIndex: 'age', 
+      key: 'age',
+      sorter: (a, b) => a.age - b.age,
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Created Date</span>, 
+      dataIndex: 'date', 
+      key: 'date',
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Time</span>, 
+      dataIndex: 'time', 
+      key: 'time',
+      sorter: (a, b) => a.time.localeCompare(b.time),
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Type</span>, 
+      dataIndex: 'type', 
+      key: 'type',
+      filters: [
+        { text: 'Doctor', value: 'Doctor' },
+        { text: 'Midwife', value: 'Midwife' },
+      ],
+      onFilter: (value, record) => record.type.includes(value),
+      render: (text) => <span>{text}</span> 
+    },
+    { 
+      title: <span>Status</span>, 
+      dataIndex: 'status', 
+      key: 'status',
+      filters: [
+        { text: 'Pending', value: 'Pending' },
+        { text: 'Assigned', value: 'Assigned' },
+      ],
+      onFilter: (value, record) => record.status.includes(value),
+      render: (text) => <span style={{backgroundColor: "#f6dda9", padding: "7px", borderRadius: "10px", fontSize: "12px"}}>{text}</span> 
+    },
+    { 
+      title: <span>Action</span>, 
+      dataIndex: 'action', 
+      key: 'action',
+      render: (_, record) => (
+        <Button
+          icon={<Edit fontSize="small" />}
+          onClick={() => handleEdit(record.key)}
+          size="small"
+          style={{ border: 'none' }}
+        />
+      ),
+    },
+  ];
+
+  const components = {
+    header: {
+      cell: (props) => (
+        <th 
+          {...props}
+          style={{ 
+            backgroundColor: '#f0f0f0', 
+            color: '#192A51',
+            padding: '8px',
+          }}
+        />
+      ),
+    },
+  };
+
+  const clinicsData = [
+    { clinic: 'Clinic A', expectantMothers: 30, children: 45, deadBirths: 2, maternalDeaths: 1 },
+    { clinic: 'Clinic B', expectantMothers: 20, children: 30, deadBirths: 1, maternalDeaths: 0 },
+    { clinic: 'Clinic C', expectantMothers: 50, children: 60, deadBirths: 3, maternalDeaths: 2 },
+    { clinic: 'Clinic D', expectantMothers: 40, children: 55, deadBirths: 2, maternalDeaths: 1 },
+    { clinic: 'Clinic E', expectantMothers: 35, children: 50, deadBirths: 1, maternalDeaths: 0 },
+    { clinic: 'Clinic F', expectantMothers: 25, children: 35, deadBirths: 2, maternalDeaths: 1 },
+    { clinic: 'Clinic G', expectantMothers: 45, children: 60, deadBirths: 4, maternalDeaths: 2 },
+    { clinic: 'Clinic H', expectantMothers: 55, children: 70, deadBirths: 3, maternalDeaths: 1 },
+    { clinic: 'Clinic I', expectantMothers: 65, children: 80, deadBirths: 0, maternalDeaths: 0 },
+    { clinic: 'Clinic J', expectantMothers: 60, children: 75, deadBirths: 0, maternalDeaths: 1 },
+  ];
+
+  const chartData = {
+    labels: clinicsData.map(clinic => clinic.clinic),
+    datasets: [
+      {
+        label: 'Expectant Mothers',
+        data: clinicsData.map(clinic => clinic.expectantMothers),
+        borderColor: '#9C27B0',
+        backgroundColor: '#9C27B0',
+        fill: false,
+        pointStyle: 'circle',
+      },
+      {
+        label: 'Children Count',
+        data: clinicsData.map(clinic => clinic.children),
+        borderColor: '#4CAF50',
+        backgroundColor: '#4CAF50',
+        fill: false,
+        pointStyle: 'circle',
+      },
+      {
+        label: 'Dead Births',
+        data: clinicsData.map(clinic => clinic.deadBirths),
+        borderColor: '#ff4d4f',
+        backgroundColor: '#ff4d4f',
+        fill: false,
+        pointStyle: 'circle',
+      },
+      {
+        label: 'Maternal Deaths',
+        data: clinicsData.map(clinic => clinic.maternalDeaths),
+        borderColor: '#000',
+        backgroundColor: '#000',
+        fill: false,
+        pointStyle: 'circle',
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          usePointStyle: true,
+          pointStyle: 'circle',
+        },
+      },
+    },
+  };
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
@@ -79,41 +280,39 @@ const Dashboard = () => {
         <Col span={16}>
           <Card
             title="Overall Statistics"
-            extra={
-              <Dropdown menu={menu}>
-                <Button>
-                  Last Week <KeyboardArrowDown />
-                </Button>
-              </Dropdown>
-            }
+            // extra={
+            //   <Dropdown overlay={statisticsMenu}>
+            //     <Button>
+            //       Last Week <KeyboardArrowDown />
+            //     </Button>
+            //   </Dropdown>
+            // }
           >
-            <Row>
-              <Col span={6}>
-                <Statistic title="Total Children" value={1560} valueStyle={{ color: '#3f8600' }} />
+            <Row style={{marginBottom: "15px"}}>
+              <Col span={12}>
+                <Statistic title="Total Children" value={1052} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />
+              </Col>
+              <Col span={12}>
+                <Statistic title="Total Expectant Mothers" value={475} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />
+              </Col>
+              {/* <Col span={6}>
+                <Statistic title="Total Doctors" value={18} valueStyle={{ color: '#967aa1' }} />
               </Col>
               <Col span={6}>
-                <Statistic title="Total Expectant Mothers" value={452} valueStyle={{ color: '#3f8600' }} />
-              </Col>
-              <Col span={6}>
-                <Statistic title="Total Doctors" value={18} valueStyle={{ color: '#3f8600' }} />
-              </Col>
-              <Col span={6}>
-                <Statistic title="Total Midwives" value={32} valueStyle={{ color: '#3f8600' }} />
-              </Col>
+                <Statistic title="Total Midwives" value={32} valueStyle={{ color: '#967aa1' }} />
+              </Col> */}
             </Row>
             <Row gutter={16} style={{ marginTop: 16 }}>
               <Col span={24}>
-                <img
-                  src="https://via.placeholder.com/600x300" 
-                  alt="chart"
-                  style={{ width: '100%' }}
-                />
+                <div style={{ height: '300px' }}>
+                  <Line data={chartData} options={chartOptions} />
+                </div>
               </Col>
             </Row>
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="Calendar">
+          <Card title="Calendar" style={{ borderWidth: "2px", borderColor: "#D5C6E0", borderRadius: "10px" }}>
             <CustomCalendar events={userEvents} fullCalendarPath={userFullCalendarPath} />
           </Card>
         </Col>
@@ -124,37 +323,23 @@ const Dashboard = () => {
             title="Un-Assigned Doctors/Midwives"
             extra={
               <Space>
-                {/* <Button icon={<ExportOutlined />}>Export</Button> */}
-                <Button>Filter</Button>
+                <AntSearch
+                  placeholder="Search..."
+                  prefix={<Search />}
+                  onSearch={handleSearch}
+                  style={{ width: 200 }}
+                />
               </Space>
             }
           >
             <Table
-              columns={[
-                { title: 'No', dataIndex: 'key', key: 'key' },
-                { title: 'ID Code', dataIndex: 'id', key: 'id' },
-                { title: 'Patient Name', dataIndex: 'name', key: 'name' },
-                { title: 'Age', dataIndex: 'age', key: 'age' },
-                { title: 'Created Date', dataIndex: 'date', key: 'date' },
-                { title: 'Time', dataIndex: 'time', key: 'time' },
-                { title: 'Type', dataIndex: 'type', key: 'type' },
-                { title: 'Status', dataIndex: 'status', key: 'status' },
-                { title: 'Action', dataIndex: 'action', key: 'action' },
-              ]}
-              dataSource={data}
+              columns={columns}
+              dataSource={filteredData}
               pagination={false}
+              components={components}
             />
           </Card>
         </Col>
-        {/* <Col span={8}>
-          <Card title="Activity Details">
-            <Space direction="vertical">
-              <Button>DR. Rick Appointment</Button>
-              <Button>Doctor Meetup</Button>
-              <Button>Assign Midwife</Button>
-            </Space>
-          </Card>
-        </Col> */}
       </Row>
     </div>
   );
