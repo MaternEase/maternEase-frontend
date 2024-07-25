@@ -173,10 +173,16 @@
   }
 
 /* Event Details Modal Styling */
-.event-details-modal .ant-modal-title {
+
+.calendar-title {
   font-size: 24px;
   font-weight: bold;
 }
+
+/* .event-details-modal .ant-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+} */
 
 .event-details-modal .ant-modal-footer {
   display: flex;

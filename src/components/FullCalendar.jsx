@@ -9,7 +9,9 @@ import {
   TimePicker,
   Select,
 } from "antd";
+import { LeftOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import "../styles/components.css";
 
 const { Option } = Select;
@@ -23,7 +25,9 @@ const EventBadge = ({ type, content }) => {
   );
 };
 
-const NoticeCalendar = () => {
+const NoticeCalendar = ({ backPath }) => {
+  const navigate = useNavigate();
+
   const [isEventModalVisible, setIsEventModalVisible] = useState(false);
   const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
   const [events, setEvents] = useState({
@@ -105,9 +109,19 @@ const NoticeCalendar = () => {
     form.resetFields(); // Reset the form fields when the modal is canceled
   };
 
+  const handleBackButtonClick = () => {
+    navigate(backPath); // Navigate to the dynamic back path
+  };
+
   return (
     <div>
-      <h1>Calendar</h1>
+      <Button
+        icon={<LeftOutlined />}
+        onClick={handleBackButtonClick}
+        style={{ marginBottom: 16, backgroundColor: "#f0f0f0", borderColor: "#f0f0f0", color: "#D5C6E0", borderRadius: "30px" }}
+      >
+      </Button>
+      <h1 className="calendar-title">Calendar</h1>
       <div style={{ marginBottom: 16, marginTop: 16 }}>
         <Button
           type="primary"

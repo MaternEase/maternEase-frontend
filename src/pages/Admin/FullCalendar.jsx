@@ -4,7 +4,7 @@ import NoticeCalendar from '../../components/FullCalendar';
 const FullCalendarAdmin = () => {
   return (
     <div>
-      <NoticeCalendar />
+      <NoticeCalendar backPath="/admin/dashboard" />
     </div>
   );
 };
