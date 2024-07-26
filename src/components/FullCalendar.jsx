@@ -9,7 +9,7 @@ import {
   TimePicker,
   Select,
 } from "antd";
-import { LeftOutlined } from "@ant-design/icons";
+import { ArrowBack } from "@mui/icons-material";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "../styles/components.css";
@@ -114,13 +114,18 @@ const NoticeCalendar = ({ backPath }) => {
   };
 
   return (
-    <div>
+    <div style={{ padding: "0 20px" }}>
       <Button
-        icon={<LeftOutlined />}
+        icon={<ArrowBack style={{ fontSize: 16 }} />}
         onClick={handleBackButtonClick}
-        style={{ marginBottom: 16, backgroundColor: "#f0f0f0", borderColor: "#f0f0f0", color: "#D5C6E0", borderRadius: "30px" }}
-      >
-      </Button>
+        style={{
+          marginBottom: 16,
+          backgroundColor: "#f0f0f0",
+          borderColor: "#f0f0f0",
+          color: "#D5C6E0",
+          borderRadius: "30px",
+        }}
+      ></Button>
       <h1 className="calendar-title">Calendar</h1>
       <div style={{ marginBottom: 16, marginTop: 16 }}>
         <Button
@@ -131,7 +136,7 @@ const NoticeCalendar = ({ backPath }) => {
           Add Event
         </Button>
       </div>
-      <Calendar dateCellRender={dateCellRender} onSelect={handleDateClick} />
+      <Calendar dateCellRender={dateCellRender} />
 
       {/* Event Details Modal */}
       <Modal
@@ -207,7 +212,9 @@ const NoticeCalendar = ({ backPath }) => {
             <Select placeholder="Select event type" style={{ width: "100%" }}>
               <Option value="child-clinic">Child Clinic</Option>
               <Option value="vaccination">Vaccination</Option>
-              <Option value="expectant-mother-clinic">Expectant Mother Clinic</Option>
+              <Option value="expectant-mother-clinic">
+                Expectant Mother Clinic
+              </Option>
               <Option value="awareness-program">Awareness Program</Option>
               <Option value="home-visit">Home Visit</Option>
             </Select>
@@ -218,8 +225,23 @@ const NoticeCalendar = ({ backPath }) => {
           <Form.Item name="description" label="Description">
             <Input.TextArea rows={4} placeholder="Enter event description" />
           </Form.Item>
-          <Form.Item name="location" label="Location">
-            <Input placeholder="Enter event location" />
+          <Form.Item
+            name="location"
+            label="Location"
+            rules={[{ required: true, message: "Please select a location" }]}
+          >
+            <Select placeholder="Select location" style={{ width: "100%" }}>
+              <Option value="Clinic A">Clinic A</Option>
+              <Option value="Clinic B">Clinic B</Option>
+              <Option value="Clinic C">Clinic C</Option>
+              <Option value="Clinic D">Clinic D</Option>
+              <Option value="Clinic E">Clinic E</Option>
+              <Option value="Clinic F">Clinic F</Option>
+              <Option value="Clinic G">Clinic G</Option>
+              <Option value="Clinic H">Clinic H</Option>
+              <Option value="Clinic I">Clinic I</Option>
+              <Option value="Clinic J">Clinic J</Option>
+            </Select>
           </Form.Item>
           <Form.Item>
             <Button

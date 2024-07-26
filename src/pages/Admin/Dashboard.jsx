@@ -183,7 +183,7 @@ const Dashboard = () => {
         <th 
           {...props}
           style={{ 
-            backgroundColor: '#f0f0f0', 
+            // backgroundColor: '#f0f0f0', 
             color: '#192A51',
             padding: '8px',
           }}
@@ -304,7 +304,7 @@ const Dashboard = () => {
             </Row>
             <Row gutter={16} style={{ marginTop: 16 }}>
               <Col span={24}>
-                <div style={{ height: '300px' }}>
+                <div style={{ height: '325px', padding: '20px' }}>
                   <Line data={chartData} options={chartOptions} />
                 </div>
               </Col>
@@ -312,7 +312,8 @@ const Dashboard = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="Calendar" style={{ borderWidth: "2px", borderColor: "#D5C6E0", borderRadius: "10px" }}>
+          {/* <Card title="Calendar" style={{ borderWidth: "2px", borderColor: "#D5C6E0", borderRadius: "10px" }}> */}
+          <Card title="Calendar">
             <CustomCalendar events={userEvents} fullCalendarPath={userFullCalendarPath} />
           </Card>
         </Col>
