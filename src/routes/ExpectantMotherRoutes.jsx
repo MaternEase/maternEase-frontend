@@ -4,6 +4,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from '../pages/ExpectantMother/Dashboard.jsx';
 import PregnancyHistory from '../pages/ExpectantMother/PregnancyHistory.jsx';
+import TimeSlots from "../pages/ExpectantMother/TimeSlots.jsx";
 
 const ExpectantMotherRoutes = () => {
     console.log('ExpectantMotherRoutes rendered'); // Debug log to verify MidwifeRoutes render
@@ -11,6 +12,7 @@ const ExpectantMotherRoutes = () => {
         <Routes>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="pregnancy-history" element={<PregnancyHistory />} />
+            <Route path="timeslots" element={<TimeSlots />} />
             {/*<Route path="mothers" element={<Mothers />} />*/}
             {/*<Route path="babies" element={<Babies />} />*/}
             {/*<Route path="reports" element={<Reports />} />*/}

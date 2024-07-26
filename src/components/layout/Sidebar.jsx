@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { AppstoreFilled, MedicineBoxFilled, UserOutlined, TeamOutlined, NotificationOutlined } from '@ant-design/icons';
+import { AppstoreFilled, MedicineBoxFilled, UserOutlined, TeamOutlined, NotificationOutlined , FieldTimeOutlined} from '@ant-design/icons';
 
 const { Sider } = Layout;
 const iconStyle = { fontSize: '24px' };
@@ -39,6 +39,7 @@ const Sidebar = ({ collapsed, userType }) => {
         case 'MOTHER':
             return [
                 { key: '/mother/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
+                { key: '/mother/timeslots', icon: <FieldTimeOutlined style={iconStyle} />, label: <Link to="/mother/timeslots">Timeslots</Link> },
                 // { key: '/mother/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
                 // { key: '/mother/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
             ];
