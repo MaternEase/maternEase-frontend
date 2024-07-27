@@ -1,8 +1,8 @@
 import React from 'react';
-import { Row, Col, Input, Checkbox, DatePicker, Card, Button, Form, InputNumber } from 'antd';
+import { Row, Col, Input, Radio, DatePicker, Card, Button, Form, InputNumber } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
-import '../../styles/ExpectantMother/Dashboard.css';
+import { CalendarOutlined, UserOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 
 const validateNonNegative = (rule, value) => {
     if (value < 0) {
@@ -21,21 +21,56 @@ const validateAge = (rule, value) => {
     return Promise.resolve();
 };
 
+const styles = {
+    container: {
+        padding: '24px',
+        backgroundColor: '#ffffff',
+    },
+    pageHeader: {
+        backgroundColor: '#f5f5f5',
+    },
+    card: {
+        marginBottom: '16px',
+    },
+    sectionTitle: {
+        fontSize: '18px',
+        fontWeight: 'bold',
+        marginBottom: '12px',
+    },
+    surgicalCondition: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '16px',
+    },
+    surgicalConditionText: {
+        flex: 1,
+    },
+    paginationContainer: {
+        textAlign: 'right',
+        marginTop: '24px',
+    },
+    button: {
+        backgroundColor: '#967AA1',
+        borderColor: '#967AA1',
+    },
+};
+
 const PregnancyHistory = () => (
     <Form layout="vertical">
-        <div className="container">
+        <div style={styles.container}>
             <PageHeader
                 className="site-page-header"
                 onBack={() => window.history.back()}
                 title="Pregnancy Record"
+                style={styles.pageHeader}
             />
             <div className="content">
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Pregnancy History">
+                        <Card title={<span><UserOutlined /> Pregnancy History</span>} style={styles.card}>
                             <Row gutter={16}>
                                 <Col span={12}>
-                                    <div className="label">Present Obstetric History</div>
+                                    <div style={styles.sectionTitle}>Present Obstetric History</div>
                                     <Form.Item label="Gravidity">
                                         <Row gutter={16}>
                                             <Col span={8}>
@@ -97,18 +132,26 @@ const PregnancyHistory = () => (
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <div className="label">Conditions</div>
+                                    <div style={styles.sectionTitle}>Conditions</div>
                                     <Form.Item>
-                                        <Checkbox>Diabetes Mellitus</Checkbox>
+                                        <Radio.Group>
+                                            <Radio value="diabetesMellitus">Diabetes Mellitus</Radio>
+                                        </Radio.Group>
                                     </Form.Item>
                                     <Form.Item>
-                                        <Checkbox>Hypertension</Checkbox>
+                                        <Radio.Group>
+                                            <Radio value="hypertension">Hypertension</Radio>
+                                        </Radio.Group>
                                     </Form.Item>
                                     <Form.Item>
-                                        <Checkbox>Haematological Diseases</Checkbox>
+                                        <Radio.Group>
+                                            <Radio value="haematologicalDiseases">Haematological Diseases</Radio>
+                                        </Radio.Group>
                                     </Form.Item>
                                     <Form.Item>
-                                        <Checkbox>Twin / multiple pregnancies</Checkbox>
+                                        <Radio.Group>
+                                            <Radio value="twinPregnancies">Twin / multiple pregnancies</Radio>
+                                        </Radio.Group>
                                     </Form.Item>
                                     <Form.Item label="Others (Specify)">
                                         <Input placeholder="Others (Specify)" />
@@ -120,41 +163,83 @@ const PregnancyHistory = () => (
                 </Row>
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Surgical History">
+                        <Card title={<span><SafetyCertificateOutlined /> Surgical History</span>} style={styles.card}>
                             <Row gutter={16}>
                                 <Col span={12}>
-                                    <Form.Item>
-                                        <Checkbox>Diabetes</Checkbox>
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Checkbox>Hypertension</Checkbox>
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Checkbox>Cardiac diseases</Checkbox>
-                                    </Form.Item>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Diabetes</span>
+                                        <Form.Item name="diabetes" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Hypertension</span>
+                                        <Form.Item name="hypertension" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Cardiac diseases</span>
+                                        <Form.Item name="cardiacDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
                                 </Col>
                                 <Col span={12}>
-                                    <Form.Item>
-                                        <Checkbox>Renal diseases</Checkbox>
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Checkbox>Hepatic diseases</Checkbox>
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Checkbox>Psychiatric diseases</Checkbox>
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Checkbox>Epilepsy</Checkbox>
-                                    </Form.Item>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Renal diseases</span>
+                                        <Form.Item name="renalDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Hepatic diseases</span>
+                                        <Form.Item name="hepaticDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Psychiatric diseases</span>
+                                        <Form.Item name="psychiatricDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Epilepsy</span>
+                                        <Form.Item name="epilepsy" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
                                 </Col>
                             </Row>
                         </Card>
                     </Col>
                 </Row>
             </div>
-            <div className="pagination-container">
+            <div style={styles.paginationContainer}>
                 <Link to="/mother/dashboard">
-                    <Button type="primary">Previous</Button>
+                    <Button type="primary" style={styles.button}>Previous</Button>
                 </Link>
             </div>
         </div>
@@ -162,4 +247,3 @@ const PregnancyHistory = () => (
 );
 
 export default PregnancyHistory;
-

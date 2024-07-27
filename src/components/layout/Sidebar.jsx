@@ -42,7 +42,7 @@ const Sidebar = ({ collapsed, userType }) => {
         case 'MOTHER':
             return [
                 { key: '/mother/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
-                { key: '/mother/reports', icon: <ReportIcon style={iconStyle} />, label: <Link to="/mother/pregnancy-history">Report</Link> },
+                { key: '/mother/reports', icon: <ReportIcon style={iconStyle} />, label: <Link to="/mother/reportone">Report</Link> },
                 { key: '/mother/timeslots', icon: <FieldTimeOutlined style={iconStyle} />, label: <Link to="/mother/timeslots">Timeslots</Link> },
                 { key: '/mother/children', icon: <img src={baby} alt="Children" style={{ width: '25px', height: '25px' }} />, label: <Link to="/mother/children">Children</Link> },                // { key: '/mother/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
                 { key: '/mother/vaccines', icon: <VaccinesIcon style={iconStyle} />, label: <Link to="/mother/vaccines">Vaccines</Link> },
