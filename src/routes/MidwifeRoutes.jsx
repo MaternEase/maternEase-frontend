@@ -7,6 +7,8 @@ import DeliveredMothers from '../pages/Midwife/DeliveredMothers';
 import Babies from '../pages/Midwife/Babies';
 import Reports from '../pages/Midwife/Reports';
 import Messages from '../pages/Midwife/Messages';
+import Bcard from '../pages/Midwife/Bcard';
+
 
 const MidwifeRoutes = () => {
   console.log('MidwifeRoutes rendered'); // Debug log to verify MidwifeRoutes render
@@ -19,6 +21,7 @@ const MidwifeRoutes = () => {
       <Route path="babies" element={<Babies />} />
       <Route path="reports" element={<Reports />} />
       <Route path="messages" element={<Messages />} />
+      <Route path="/profile/:id" element={<Bcard />} />
     </Routes>
   );
 };
