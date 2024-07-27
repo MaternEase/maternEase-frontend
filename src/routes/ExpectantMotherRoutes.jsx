@@ -1,18 +1,22 @@
+// src/routes/ExpectantMotherRoutes.jsx
+
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from '../pages/ExpectantMother/Dashboard.jsx';
-// import Clinics from '../pages/Midwife/Clinics';
-// import Mothers from '../pages/Midwife/Mothers';
-// import Babies from '../pages/Midwife/Babies';
-// import Reports from '../pages/Midwife/Reports';
-// import Messages from '../pages/Midwife/Messages';
+import ReportOne from "../pages/ExpectantMother/ReportOne.jsx";
+import PregnancyHistory from '../pages/ExpectantMother/PregnancyHistory.jsx';
+import TimeSlots from "../pages/ExpectantMother/TimeSlots.jsx";
+import FullCalendar from "../pages/ExpectantMother/FullCalendar.jsx";
 
 const ExpectantMotherRoutes = () => {
-    console.log(' ExpectantMotherRoutes rendered'); // Debug log to verify MidwifeRoutes render
+    console.log('ExpectantMotherRoutes rendered'); // Debug log to verify MidwifeRoutes render
     return (
         <Routes>
             <Route path="dashboard" element={<Dashboard />} />
-            {/*<Route path="clinics" element={<Clinics />} />*/}
+            <Route path="pregnancy-history" element={<PregnancyHistory />} />
+            <Route path="timeslots" element={<TimeSlots />} />
+            <Route path="reportone" element={<ReportOne />} />
+            <Route path="full-calendar" element={<FullCalendar />} />
             {/*<Route path="mothers" element={<Mothers />} />*/}
             {/*<Route path="babies" element={<Babies />} />*/}
             {/*<Route path="reports" element={<Reports />} />*/}
