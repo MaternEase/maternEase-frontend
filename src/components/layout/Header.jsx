@@ -2,11 +2,27 @@ import React from 'react';
 import { Layout, Menu, Dropdown, Input, Button, Space, Avatar } from 'antd';
 import { MenuUnfoldOutlined, BellOutlined, UserOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons';
 import logo from '../../assets/images/logo4.png'; // Replace with the actual path to your logo file
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 const { Search } = Input;
 
 const AppHeader = ({ onMenuClick }) => {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    console.log('logout');
+    try {
+      await signOut(); // Removed email, password as they are not defined
+      navigate('/signin'); // Redirect to login page or any other desired page after logout
+    } catch (error) {
+      console.log('error', error);
+      // setError('Logout failed.');
+    }
+  };
+
   const menu = (
     <Menu>
       <Menu.Item key="1" icon={<HomeOutlined />}>
@@ -15,18 +31,26 @@ const AppHeader = ({ onMenuClick }) => {
       <Menu.Item key="2" icon={<UserOutlined />}>
         Profile
       </Menu.Item>
-      <Menu.Item key="3" icon={<LogoutOutlined />}>
+      <Menu.Item key="3" icon={<LogoutOutlined />} onClick={logout}>
         Logout
       </Menu.Item>
     </Menu>
   );
 
   return (
-    <Header className="header" style={{ backgroundColor: '#EEEEEE', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'fixed', width: '100%', zIndex: 1000 }}>
+    <Header
+      className="header"
+      style={{ backgroundColor: '#EEEEEE', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'fixed', width: '100%', zIndex: 1000 }}
+    >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img src={logo} alt="Logo" style={{ height: '50px', marginRight: '1px' }} />
         <span style={{ color: '#967AA1', fontSize: '25px' }}>MaternEase</span>
-        <Button type="link" icon={<MenuUnfoldOutlined style={{ fontSize: '24px', paddingLeft: '15px' }} />} onClick={onMenuClick} style={{ color: 'black' }} />
+        <Button
+          type="link"
+          icon={<MenuUnfoldOutlined style={{ fontSize: '24px', paddingLeft: '15px' }} />}
+          onClick={onMenuClick}
+          style={{ color: 'black' }}
+        />
       </div>
       <Space size="middle">
         <Search placeholder="Search..." style={{ width: 200, marginTop: '1rem' }} />
