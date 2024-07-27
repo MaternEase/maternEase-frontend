@@ -163,7 +163,7 @@ const Dashboard = () => {
       render: (text) => <span style={{backgroundColor: "#f6dda9", padding: "7px", borderRadius: "10px", fontSize: "12px"}}>{text}</span> 
     },
     { 
-      title: <span>Action</span>, 
+      title: <span> </span>, 
       dataIndex: 'action', 
       key: 'action',
       render: (_, record) => (

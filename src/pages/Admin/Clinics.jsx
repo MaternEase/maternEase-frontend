@@ -5,60 +5,62 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Typography from "@mui/material/Typography";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import GraphicEqSharp from "@mui/icons-material/GraphicEqSharp";
+// import Table from "@mui/material/Table";
+// import TableBody from "@mui/material/TableBody";
+// import TableCell from "@mui/material/TableCell";
+// import TableContainer from "@mui/material/TableContainer";
+// import TableHead from "@mui/material/TableHead";
+// import TableRow from "@mui/material/TableRow";
+// import Paper from "@mui/material/Paper";
+// import GraphicEqSharp from "@mui/icons-material/GraphicEqSharp";
 import Grid from "@mui/material/Grid";
-import { Modal, Form, Input, Select, message, Button } from "antd";
+import { Modal, Form, Input, Select, message, Button, Table } from "antd";
 
 const { Option } = Select;
+const { Search } = Input;
 
-const ClinicTable = ({ rows, columns, showViewMore }) => (
-  <TableContainer component={Paper} className="clinic-table">
-    <Table>
-      <TableHead>
-        <TableRow>
-          {columns.map((col) => (
-            <TableCell key={col} className="table-header-cell">
-              {col}
-            </TableCell>
-          ))}
-          {showViewMore && (
-            <TableCell className="table-header-cell">View</TableCell>
-          )}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow key={row.id}>
-            {columns.map((col) => (
-              <TableCell key={col} className="table-cell">
-                {row[col]}
-              </TableCell>
-            ))}
-            {showViewMore && (
-              <TableCell>
-                <Button variant="outlined" className="view-button">
-                  View
-                </Button>
-              </TableCell>
-            )}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-);
+// const ClinicTable = ({ rows, columns, showViewMore }) => (
+//   <TableContainer component={Paper} className="clinic-table">
+//     <Table>
+//       <TableHead>
+//         <TableRow>
+//           {columns.map((col) => (
+//             <TableCell key={col} className="table-header-cell">
+//               {col}
+//             </TableCell>
+//           ))}
+//           {showViewMore && (
+//             <TableCell className="table-header-cell">View</TableCell>
+//           )}
+//         </TableRow>
+//       </TableHead>
+//       <TableBody>
+//         {rows.map((row) => (
+//           <TableRow key={row.id}>
+//             {columns.map((col) => (
+//               <TableCell key={col} className="table-cell">
+//                 {row[col]}
+//               </TableCell>
+//             ))}
+//             {showViewMore && (
+//               <TableCell>
+//                 <Button variant="outlined" className="view-button">
+//                   View
+//                 </Button>
+//               </TableCell>
+//             )}
+//           </TableRow>
+//         ))}
+//       </TableBody>
+//     </Table>
+//   </TableContainer>
+// );
 
 const Clinics = () => {
   const [value, setValue] = useState("1");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
+  const [searchText, setSearchText] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -193,7 +195,7 @@ const Clinics = () => {
     {
       name: "Clinic D",
       location: "Location D",
-      doctors: [],
+      doctors: ["Doctor D"],
       midwives: ["Midwife9", "Midwife10"],
       expectantMothers: [
         {
@@ -216,7 +218,7 @@ const Clinics = () => {
       ],
       children: [
         {
-          id: 12,
+          id: 14,
           RegistrationID: "CD001",
           Name: "Liam",
           GuardianName: "Jane",
@@ -444,6 +446,144 @@ const Clinics = () => {
     // },
   ];
 
+  // Function to handle search text change
+  const handleSearch = (text) => {
+    setSearchText(text);
+  };
+
+  // Function to filter data based on search text
+  const filterData = (data) => {
+    return data.filter((item) => {
+      return (
+        item.RegistrationID.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.Name.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.Condition.toLowerCase().includes(searchText.toLowerCase()) ||
+        (item.GuardianName &&
+          item.GuardianName.toLowerCase().includes(searchText.toLowerCase()))
+      );
+    });
+  };
+
+  const columnsExpectantMothers = [
+    {
+      title: "Registration ID",
+      dataIndex: "RegistrationID",
+      key: "RegistrationID",
+      sorter: (a, b) => a.RegistrationID.localeCompare(b.RegistrationID),
+    },
+    {
+      title: "Name",
+      dataIndex: "Name",
+      key: "Name",
+      sorter: (a, b) => a.Name.localeCompare(b.Name),
+    },
+    {
+      title: "Age",
+      dataIndex: "Age",
+      key: "Age",
+      sorter: (a, b) => a.Age - b.Age,
+    },
+    {
+      title: "Condition",
+      dataIndex: "Condition",
+      key: "Condition",
+      filters: [
+        { text: "Normal", value: "Normal" },
+        { text: "Risky", value: "Risky" },
+      ],
+      onFilter: (value, record) => record.Condition.includes(value),
+    },
+    {
+      title: " ",
+      key: "action",
+      render: () => <Button type="link">View</Button>,
+    },
+  ];
+
+  const columnsDeliveredMothers = [
+    {
+      title: "Registration ID",
+      dataIndex: "RegistrationID",
+      key: "RegistrationID",
+      sorter: (a, b) => a.RegistrationID.localeCompare(b.RegistrationID),
+    },
+    {
+      title: "Name",
+      dataIndex: "Name",
+      key: "Name",
+      sorter: (a, b) => a.Name.localeCompare(b.Name),
+    },
+    {
+      title: "Age",
+      dataIndex: "Age",
+      key: "Age",
+      sorter: (a, b) => a.Age - b.Age,
+    },
+    {
+      title: "Condition",
+      dataIndex: "Condition",
+      key: "Condition",
+      filters: [
+        { text: "Normal", value: "Normal" },
+        { text: "Risky", value: "Risky" },
+      ],
+      onFilter: (value, record) => record.Condition.includes(value),
+    },
+    {
+      title: "Delivered Date",
+      dataIndex: "DeliveredDate",
+      key: "DeliveredDate",
+      sorter: (a, b) => new Date(a.DeliveredDate) - new Date(b.DeliveredDate),
+    },
+    {
+      title: " ",
+      key: "action",
+      render: () => <Button type="link">View</Button>,
+    },
+  ];
+
+  const columnsChildren = [
+    {
+      title: "Registration ID",
+      dataIndex: "RegistrationID",
+      key: "RegistrationID",
+      sorter: (a, b) => a.RegistrationID.localeCompare(b.RegistrationID),
+    },
+    {
+      title: "Name",
+      dataIndex: "Name",
+      key: "Name",
+      sorter: (a, b) => a.Name.localeCompare(b.Name),
+    },
+    {
+      title: "Guardian Name",
+      dataIndex: "GuardianName",
+      key: "GuardianName",
+      sorter: (a, b) => a.GuardianName.localeCompare(b.GuardianName),
+    },
+    {
+      title: "Age",
+      dataIndex: "Age",
+      key: "Age",
+      sorter: (a, b) => a.Age - b.Age,
+    },
+    {
+      title: "Condition",
+      dataIndex: "Condition",
+      key: "Condition",
+      filters: [
+        { text: "Healthy", value: "Healthy" },
+        { text: "Unhealthy", value: "Unhealthy" },
+      ],
+      onFilter: (value, record) => record.Condition.includes(value),
+    },
+    {
+      title: " ",
+      key: "action",
+      render: () => <Button type="link">View</Button>,
+    },
+  ];
+
   return (
     <Box
       sx={{ width: "100%", typography: "body1" }}
@@ -496,19 +636,24 @@ const Clinics = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    mb: 2,
+                    gap: 1,
+                    mb: 3,
+                    mt: 2,
                   }}
                 >
                   <Box>
                     <Typography
                       variant="h6"
+                      component="div"
                       sx={{ fontSize: 16, fontWeight: "bold" }}
                       className="clinic-name"
                     >
                       {clinic.name}
                     </Typography>
                     <Typography
-                      variant="body1"
+                      // variant="body1"
+                      variant="subtitle1"
+                      component="div"
                       sx={{ fontSize: 14, fontWeight: "bold" }}
                       className="clinic-location"
                     >
@@ -518,19 +663,41 @@ const Clinics = () => {
                       </span>
                     </Typography>
                   </Box>
-                  <Box sx={{ display: "flex", gap: 1 }}>
+                  {/* <Box sx={{ display: "flex", gap: 1 }}> */}
+                  <Box sx={{ display: "flex", gap: 2 }}>
                     <Button
                       variant="contained"
                       color="primary"
                       disabled={
-                        clinic.doctors.length > 0 &&
-                        clinic.midwives.length >= 3
+                        clinic.doctors.length > 0 && clinic.midwives.length >= 3
                       }
                     >
                       Assign Staff
                     </Button>
-                    <Button variant="contained" color="secondary">
+                    {/* <Button variant="contained" color="secondary">
                       Edit Clinic
+                    </Button> */}
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        borderColor: "#192A51",
+                        color: "#192A51",
+                        textTransform: "none",
+                      }}
+                      className="edit-button"
+                    >
+                      Edit Clinic
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        borderColor: "#192A51",
+                        color: "#192A51",
+                        textTransform: "none",
+                      }}
+                      className="delete-button"
+                    >
+                      Delete Clinic
                     </Button>
                   </Box>
                 </Box>
@@ -539,7 +706,7 @@ const Clinics = () => {
               <Grid container item xs={12} spacing={2}>
                 <Grid item xs={9.5}>
                   {/* Tables */}
-                  <Box sx={{ pr: 2 }}>
+                  {/* <Box sx={{ pr: 2 }}>
                     <Typography
                       variant="h6"
                       sx={{
@@ -602,7 +769,76 @@ const Clinics = () => {
                       ]}
                       showViewMore
                     />
-                  </Box>
+                  </Box> */}
+                  {/* Section for expectant mothers table */}
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="subtitle1"
+                      className="section-title"
+                      fontWeight="bold"
+                      marginBottom="15px"
+                    >
+                      Expectant Mothers
+                    </Typography>
+                    <Search
+                      placeholder="Search Expectant Mothers"
+                      onSearch={handleSearch}
+                      onChange={(e) => handleSearch(e.target.value)}
+                      style={{ width: 300, marginBottom: 16 }}
+                    />
+                    <Table
+                      dataSource={clinic.expectantMothers}
+                      columns={columnsExpectantMothers}
+                      pagination={{ pageSize: 5 }}
+                      rowKey="id"
+                    />
+                  </Grid>
+                  {/* Section for delivered mothers table */}
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="subtitle1"
+                      className="section-title"
+                      fontWeight="bold"
+                      marginBottom="15px"
+                    >
+                      Delivered Mothers
+                    </Typography>
+                    <Search
+                      placeholder="Search Delivered Mothers"
+                      onSearch={handleSearch}
+                      onChange={(e) => handleSearch(e.target.value)}
+                      style={{ width: 300, marginBottom: 16 }}
+                    />
+                    <Table
+                      dataSource={clinic.deliveredMothers}
+                      columns={columnsDeliveredMothers}
+                      pagination={{ pageSize: 5 }}
+                      rowKey="id"
+                    />
+                  </Grid>
+                  {/* Section for children table */}
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="subtitle1"
+                      className="section-title"
+                      fontWeight="bold"
+                      marginBottom="15px"
+                    >
+                      Children
+                    </Typography>
+                    <Search
+                      placeholder="Search Children"
+                      onSearch={handleSearch}
+                      onChange={(e) => handleSearch(e.target.value)}
+                      style={{ width: 300, marginBottom: 16 }}
+                    />
+                    <Table
+                      dataSource={clinic.children}
+                      columns={columnsChildren}
+                      pagination={{ pageSize: 5 }}
+                      rowKey="id"
+                    />
+                  </Grid>
                 </Grid>
 
                 {/* Doctor, midwives, and additional statistics section */}
@@ -611,22 +847,23 @@ const Clinics = () => {
                     {/* Doctor and Midwives */}
                     <Box
                       sx={{
-                        border: "1px solid #ccc",
+                        border: "1px solid #F0EEED",
                         borderRadius: 1,
                         p: 2,
-                        mb: 2,
+                        mb: 5,
+                        height: "250px",
                       }}
                     >
                       <Typography
                         variant="h6"
-                        sx={{ fontSize: 14, fontWeight: "bold", mb: 1 }}
+                        sx={{ fontSize: 14, fontWeight: "bold", mb: 2 }}
                       >
                         Doctor
                       </Typography>
                       <Typography
                         variant="body1"
                         className="clinic-info"
-                        sx={{ fontSize: 14, fontWeight: "normal", mb: 2 }}
+                        sx={{ fontSize: 14, fontWeight: "normal", mb: 3 }}
                       >
                         {clinic.doctors.length > 0
                           ? `• ${clinic.doctors[0]}`
@@ -670,17 +907,22 @@ const Clinics = () => {
 
                     {/* Additional statistics */}
                     <Box
-                      sx={{ border: "1px solid #ccc", borderRadius: 1, p: 2 }}
+                      sx={{
+                        border: "1px solid #F0EEED",
+                        borderRadius: 1,
+                        p: 2,
+                        height: "250px",
+                      }}
                     >
                       <Typography
                         variant="h6"
-                        sx={{ fontSize: 14, fontWeight: "bold" }}
+                        sx={{ fontSize: 14, fontWeight: "normal" }}
                       >
                         This Month Birth Count: {clinic.stats.birthCount}
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontSize: 14, fontWeight: "bold" }}
+                        sx={{ fontSize: 14, fontWeight: "normal" }}
                       >
                         Total Dead Birth Count:{" "}
                         <span style={{ fontWeight: "normal" }}>
@@ -690,7 +932,7 @@ const Clinics = () => {
                       <Box
                         sx={{ display: "flex", alignItems: "center", mt: 2 }}
                       >
-                        <GraphicEqSharp />
+                        {/* <GraphicEqSharp /> */}
                         <Typography
                           variant="body1"
                           sx={{ ml: 1, fontSize: 14, fontWeight: "bold" }}
