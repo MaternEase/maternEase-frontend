@@ -15,7 +15,15 @@ const Sidebar = ({ collapsed, userType }) => {
         return [
           { key: '/midwife/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/midwife/dashboard">Dashboard</Link> },
           { key: '/midwife/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/midwife/clinics">Clinics</Link> },
-          { key: '/midwife/mothers', icon: <UserOutlined style={iconStyle} />, label: <Link to="/midwife/mothers">Mothers</Link> },
+          {
+            key: 'mothers',
+            icon: <UserOutlined style={iconStyle} />,
+            label: 'Mothers',
+            children: [
+              { key: '/midwife/mothers/expected', label: <Link to="/midwife/mothers/expected">Expected Mothers</Link> },
+              { key: '/midwife/mothers/delivered', label: <Link to="/midwife/mothers/delivered">Delivered Mothers</Link> },
+            ],
+          },
           { key: '/midwife/babies', icon: <TeamOutlined style={iconStyle} />, label: <Link to="/midwife/babies">Babies</Link> },
           { key: '/midwife/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/midwife/reports">Reports</Link> },
           { key: '/midwife/messages', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/midwife/messages">Messages</Link> },
@@ -23,7 +31,15 @@ const Sidebar = ({ collapsed, userType }) => {
       case 'DOCTOR':
         return [
           { key: '/doctor/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/doctor/dashboard">Dashboard</Link> },
-          { key: '/doctor/mothers', icon: <UserOutlined style={iconStyle} />, label: <Link to="/doctor/mothers">Mothers</Link> },
+          {
+            key: 'mothers',
+            icon: <UserOutlined style={iconStyle} />,
+            label: 'Mothers',
+            children: [
+              { key: '/doctor/mothers/expected', label: <Link to="/doctor/mothers/expected">Expected Mothers</Link> },
+              { key: '/doctor/mothers/delivered', label: <Link to="/doctor/mothers/delivered">Delivered Mothers</Link> },
+            ],
+          },
           { key: '/doctor/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/doctor/clinics">Clinics</Link> },
           { key: '/doctor/babies', icon: <TeamOutlined style={iconStyle} />, label: <Link to="/doctor/babies">Babies</Link> },
           { key: '/doctor/schedules', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
@@ -32,6 +48,15 @@ const Sidebar = ({ collapsed, userType }) => {
       case 'ADMIN':
         return [
           { key: '/admin/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/admin/dashboard">Dashboard</Link> },
+          {
+            key: 'mothers',
+            icon: <UserOutlined style={iconStyle} />,
+            label: 'Mothers',
+            children: [
+              { key: '/admin/mothers/expected', label: <Link to="/admin/mothers/expected">Expected Mothers</Link> },
+              { key: '/admin/mothers/delivered', label: <Link to="/admin/mothers/delivered">Delivered Mothers</Link> },
+            ],
+          },
           { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
           { key: '/admin/midwives', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/midwives">Midwives</Link> },
           { key: '/admin/doctors', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/doctors">Doctors</Link> },
