@@ -28,6 +28,9 @@ const ExpectedMothers = () => {
       tabs={TABS}
       tableHead={TABLE_HEAD}
       tableRows={TABLE_ROWS}
+
+      tableRowStyles={{ padding: '16px 0', marginBottom: '16px' }}
+      tableHeadStyles={{ padding: '16px 0', marginBottom: '16px' }}
     />
   );
 };
