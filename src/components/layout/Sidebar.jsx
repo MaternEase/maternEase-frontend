@@ -83,6 +83,11 @@ const Sidebar = ({ collapsed, userType }) => {
         case 'CHILD':
             return [
                 { key: '/child/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/dashboard">Dashboard</Link> },
+                { key: '/child/profile1', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/profile1">Profile1</Link> },
+                { key: '/child/immunization', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/immunization">Immunization</Link> },
+                { key: '/child/health_charts', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/health_charts">Health Charts</Link> },
+                { key: '/child/progress_charts', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/progress_charts">Progress Charts</Link> },
+                { key: '/child/growth', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/growth">Growth</Link> },
                 // Additional items for CHILD user type can be added here
             ];
       default:
