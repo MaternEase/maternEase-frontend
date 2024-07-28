@@ -20,15 +20,24 @@ import {
   Space,
 } from "antd";
 
+import AssignStaffPopup from "./AssignStaffPopup";
+import ProfileDetailsPopup from "./ProfileDetailsPopup";
+
 const { Option } = Select;
 const { Search: AntSearch } = Input;
 
 const Clinics = () => {
   const [value, setValue] = useState("1");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAssignPopupVisible, setIsAssignPopupVisible] = useState(false); // State for AssignClinicPopup
+  const [selectedClinic, setSelectedClinic] = useState(null); // State for selected clinic
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [form] = Form.useForm();
-  const [searchText, setSearchText] = useState("");
+
+  // Separate search states for each table
+  const [searchTextExpectant, setSearchTextExpectant] = useState("");
+  const [searchTextDelivered, setSearchTextDelivered] = useState("");
+  const [searchTextChildren, setSearchTextChildren] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -51,12 +60,6 @@ const Clinics = () => {
     form.resetFields();
   };
 
-  const handleBoxClick = () => {
-    // Emphasize the box on click (example: changing the background color)
-    // This can be customized as per the design requirements
-    console.log("Box clicked");
-  };
-
   const handleProfileClick = (profile) => {
     setSelectedProfile(profile);
     setIsModalVisible(true);
@@ -67,23 +70,326 @@ const Clinics = () => {
   };
 
   const clinics = [
- // clinic details
+    {
+      name: "Clinic A",
+      location: "Location A",
+      doctors: ["Doctor A"],
+      midwives: ["Midwife 1", "Midwife 2", "Midwife 3"],
+      expectantMothers: [
+        {
+          id: 1,
+          RegistrationID: "A001",
+          Name: "Alice",
+          Age: 28,
+          Condition: "Normal",
+        },
+        {
+          id: 2,
+          RegistrationID: "A002",
+          Name: "Bella",
+          Age: 30,
+          Condition: "Risky",
+        },
+      ],
+      deliveredMothers: [
+        {
+          id: 3,
+          RegistrationID: "A003",
+          Name: "Catherine",
+          Age: 32,
+          Condition: "Risky",
+          DeliveredDate: "2024-07-20",
+        },
+        {
+          id: 4,
+          RegistrationID: "A004",
+          Name: "Diana",
+          Age: 29,
+          Condition: "Normal",
+          DeliveredDate: "2024-07-21",
+        },
+      ],
+      children: [
+        {
+          id: 5,
+          RegistrationID: "CA001",
+          Name: "Ethan",
+          GuardianName: "Alice",
+          Age: 1,
+          Condition: "Normal",
+        },
+        {
+          id: 6,
+          RegistrationID: "CA002",
+          Name: "Fiona",
+          GuardianName: "Catherine",
+          Age: 2,
+          Condition: "Normal",
+        },
+      ],
+      stats: { birthCount: 5, deadBirthCount: 1, maternalDeathCount: 0 },
+    },
+    {
+      name: "Clinic B",
+      location: "Location B",
+      doctors: ["Doctor B"],
+      midwives: ["Midwife 4", "Midwife 5"],
+      expectantMothers: [
+        {
+          id: 7,
+          RegistrationID: "B001",
+          Name: "Grace",
+          Age: 30,
+          Condition: "Risky",
+        },
+        {
+          id: 8,
+          RegistrationID: "B002",
+          Name: "Hannah",
+          Age: 28,
+          Condition: "Normal",
+        },
+      ],
+      deliveredMothers: [
+        {
+          id: 9,
+          RegistrationID: "B003",
+          Name: "Ivy",
+          Age: 29,
+          Condition: "Normal",
+          DeliveredDate: "2024-07-21",
+        },
+        {
+          id: 10,
+          RegistrationID: "B004",
+          Name: "Jasmine",
+          Age: 31,
+          Condition: "Risky",
+          DeliveredDate: "2024-07-22",
+        },
+      ],
+      children: [
+        {
+          id: 11,
+          RegistrationID: "CB001",
+          Name: "Kyle",
+          GuardianName: "Grace",
+          Age: 2,
+          Condition: "Normal",
+        },
+        {
+          id: 12,
+          RegistrationID: "CB002",
+          Name: "Liam",
+          GuardianName: "Ivy",
+          Age: 1,
+          Condition: "Normal",
+        },
+      ],
+      stats: { birthCount: 3, deadBirthCount: 0, maternalDeathCount: 0 },
+    },
+    {
+      name: "Clinic C",
+      location: "Location C",
+      doctors: ["Doctor C"],
+      midwives: ["Midwife 6", "Midwife 7", "Midwife 8"],
+      expectantMothers: [
+        {
+          id: 13,
+          RegistrationID: "C001",
+          Name: "Mia",
+          Age: 26,
+          Condition: "Normal",
+        },
+        {
+          id: 14,
+          RegistrationID: "C002",
+          Name: "Nina",
+          Age: 27,
+          Condition: "Risky",
+        },
+      ],
+      deliveredMothers: [
+        {
+          id: 15,
+          RegistrationID: "C003",
+          Name: "Olivia",
+          Age: 34,
+          Condition: "Normal",
+          DeliveredDate: "2024-07-22",
+        },
+        {
+          id: 16,
+          RegistrationID: "C004",
+          Name: "Piper",
+          Age: 33,
+          Condition: "Risky",
+          DeliveredDate: "2024-07-23",
+        },
+      ],
+      children: [
+        {
+          id: 17,
+          RegistrationID: "CC001",
+          Name: "Quinn",
+          GuardianName: "Mia",
+          Age: 3,
+          Condition: "Normal",
+        },
+        {
+          id: 18,
+          RegistrationID: "CC002",
+          Name: "Riley",
+          GuardianName: "Olivia",
+          Age: 1,
+          Condition: "Normal",
+        },
+      ],
+      stats: { birthCount: 7, deadBirthCount: 1, maternalDeathCount: 1 },
+    },
+    {
+      name: "Clinic D",
+      location: "Location D",
+      doctors: ["Doctor D"],
+      midwives: ["Midwife 9", "Midwife 10"],
+      expectantMothers: [
+        {
+          id: 19,
+          RegistrationID: "D001",
+          Name: "Sara",
+          Age: 29,
+          Condition: "Risky",
+        },
+        {
+          id: 20,
+          RegistrationID: "D002",
+          Name: "Tina",
+          Age: 30,
+          Condition: "Normal",
+        },
+      ],
+      deliveredMothers: [
+        {
+          id: 21,
+          RegistrationID: "D003",
+          Name: "Uma",
+          Age: 31,
+          Condition: "Risky",
+          DeliveredDate: "2024-07-23",
+        },
+        {
+          id: 22,
+          RegistrationID: "D004",
+          Name: "Violet",
+          Age: 32,
+          Condition: "Normal",
+          DeliveredDate: "2024-07-24",
+        },
+      ],
+      children: [
+        {
+          id: 23,
+          RegistrationID: "CD001",
+          Name: "Will",
+          GuardianName: "Sara",
+          Age: 2,
+          Condition: "Normal",
+        },
+        {
+          id: 24,
+          RegistrationID: "CD002",
+          Name: "Xander",
+          GuardianName: "Uma",
+          Age: 1,
+          Condition: "Normal",
+        },
+      ],
+      stats: { birthCount: 4, deadBirthCount: 2, maternalDeathCount: 0 },
+    },
   ];
 
-  // Function to handle search text change
-  const handleSearch = (text) => {
-    setSearchText(text);
+  const unassignedDoctors = [
+    { name: "Dr. John Doe", clinics: ["Clinic A"] },
+    { name: "Dr. Jane Smith", clinics: [] },
+    { name: "Dr. Emily Johnson", clinics: ["Clinic B", "Clinic C"] },
+    { name: "Dr. Michael Brown", clinics: [] },
+    { name: "Dr. Linda Davis", clinics: ["Clinic D"] },
+  ];
+
+  const unassignedMidwives = [
+    { name: "Midwife Alice Green", clinics: ["Clinic A", "Clinic B"] },
+    { name: "Midwife Barbara White", clinics: [] },
+    { name: "Midwife Carol Black", clinics: ["Clinic C"] },
+    { name: "Midwife Diana Gray", clinics: [] },
+    { name: "Midwife Evelyn Blue", clinics: ["Clinic D", "Clinic E"] },
+  ];
+
+  const handleAssignStaffClick = (clinic) => {
+    setSelectedClinic(clinic);
+    setIsAssignPopupVisible(true);
   };
 
-  // Function to filter data based on search text
-  const filterData = (data) => {
+  const handleAssignPopupCancel = () => {
+    setIsAssignPopupVisible(false);
+    setSelectedClinic(null);
+  };
+
+  const handleAssignPopupAssign = () => {
+    // Handle the assignment logic
+    setIsAssignPopupVisible(false);
+    setSelectedClinic(null);
+  };
+
+  // Function to handle search text change for each table
+  const handleSearchExpectant = (text) => {
+    setSearchTextExpectant(text);
+  };
+
+  const handleSearchDelivered = (text) => {
+    setSearchTextDelivered(text);
+  };
+
+  const handleSearchChildren = (text) => {
+    setSearchTextChildren(text);
+  };
+
+  // Function to filter data based on search text for each table
+  const filterDataExpectant = (data) => {
     return data.filter((item) => {
       return (
-        item.RegistrationID.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.Name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.Condition.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.RegistrationID.toLowerCase().includes(
+          searchTextExpectant.toLowerCase()
+        ) ||
+        item.Name.toLowerCase().includes(searchTextExpectant.toLowerCase()) ||
+        item.Condition.toLowerCase().includes(searchTextExpectant.toLowerCase())
+      );
+    });
+  };
+
+  const filterDataDelivered = (data) => {
+    return data.filter((item) => {
+      return (
+        item.RegistrationID.toLowerCase().includes(
+          searchTextDelivered.toLowerCase()
+        ) ||
+        item.Name.toLowerCase().includes(searchTextDelivered.toLowerCase()) ||
+        item.Condition.toLowerCase().includes(searchTextDelivered.toLowerCase())
+      );
+    });
+  };
+
+  const filterDataChildren = (data) => {
+    return data.filter((item) => {
+      return (
+        item.RegistrationID.toLowerCase().includes(
+          searchTextChildren.toLowerCase()
+        ) ||
+        item.Name.toLowerCase().includes(searchTextChildren.toLowerCase()) ||
         (item.GuardianName &&
-          item.GuardianName.toLowerCase().includes(searchText.toLowerCase()))
+          item.GuardianName.toLowerCase().includes(
+            searchTextChildren.toLowerCase()
+          )) ||
+        item.Condition.toLowerCase().includes(searchTextChildren.toLowerCase())
       );
     });
   };
@@ -196,8 +502,8 @@ const Clinics = () => {
       dataIndex: "Condition",
       key: "Condition",
       filters: [
-        { text: "Healthy", value: "Healthy" },
-        { text: "Unhealthy", value: "Unhealthy" },
+        { text: "Normal", value: "Normal" },
+        { text: "UnNormal", value: "UnNormal" },
       ],
       onFilter: (value, record) => record.Condition.includes(value),
     },
@@ -290,7 +596,15 @@ const Clinics = () => {
                   <Box sx={{ display: "flex", gap: 2 }}>
                     <Button
                       variant="contained"
-                      color="primary"
+                      type="primary"
+                      style={{
+                        backgroundColor: "#192A51",
+                        color: "#fff",
+                        borderRadius: "4px",
+                        fontWeight: "bold",
+                      }}
+                      onClick={() => handleAssignStaffClick(clinic)}
+                      className="assign-staff-button"
                       disabled={
                         clinic.doctors.length > 0 && clinic.midwives.length >= 3
                       }
@@ -335,16 +649,19 @@ const Clinics = () => {
                         extra={
                           <Space>
                             <AntSearch
-                              placeholder="Search Expectant Mothers"
-                              onSearch={handleSearch}
-                              onChange={(e) => handleSearch(e.target.value)}
-                              style={{ width: 300 }}
+                              placeholder="Search"
+                              value={searchTextExpectant}
+                              onChange={(e) =>
+                                handleSearchExpectant(e.target.value)
+                              }
                             />
                           </Space>
                         }
                       >
                         <Table
-                          dataSource={clinic.expectantMothers}
+                          dataSource={filterDataExpectant(
+                            clinic.expectantMothers
+                          )}
                           columns={columnsExpectantMothers}
                           pagination={{ pageSize: 5 }}
                           rowKey="id"
@@ -361,16 +678,19 @@ const Clinics = () => {
                         extra={
                           <Space>
                             <AntSearch
-                              placeholder="Search Delivered Mothers"
-                              onSearch={handleSearch}
-                              onChange={(e) => handleSearch(e.target.value)}
-                              style={{ width: 300 }}
+                              placeholder="Search"
+                              value={searchTextDelivered}
+                              onChange={(e) =>
+                                handleSearchDelivered(e.target.value)
+                              }
                             />
                           </Space>
                         }
                       >
                         <Table
-                          dataSource={clinic.deliveredMothers}
+                          dataSource={filterDataDelivered(
+                            clinic.deliveredMothers
+                          )}
                           columns={columnsDeliveredMothers}
                           pagination={{ pageSize: 5 }}
                           rowKey="id"
@@ -387,16 +707,17 @@ const Clinics = () => {
                         extra={
                           <Space>
                             <AntSearch
-                              placeholder="Search Children"
-                              onSearch={handleSearch}
-                              onChange={(e) => handleSearch(e.target.value)}
-                              style={{ width: 300 }}
+                              placeholder="Search"
+                              value={searchTextChildren}
+                              onChange={(e) =>
+                                handleSearchChildren(e.target.value)
+                              }
                             />
                           </Space>
                         }
                       >
                         <Table
-                          dataSource={clinic.children}
+                          dataSource={filterDataChildren(clinic.children)}
                           columns={columnsChildren}
                           pagination={{ pageSize: 5 }}
                           rowKey="id"
@@ -410,236 +731,131 @@ const Clinics = () => {
                 <Grid item xs={2.5}>
                   <Box sx={{ pl: 2 }}>
                     {/* Doctor and Midwives */}
-                    <Box
-                      sx={{
-                        marginTop: 3,
-                        border: "1px solid #F0EEED",
-                        borderRadius: 2,
-                        p: 3,
-                        mb: 5,
-                        height: "250px",
-                        cursor: "pointer",
-                        transition: "box-shadow 0.3s ease-in-out",
-                        "&:hover": {
-                          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-                        },
-                        "&:focus": {
-                          boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.4)", // Added for focus effect
-                          outline: "none",
-                        },
-                      }}
-                      tabIndex={0} // Added for focusable box
-                    >
-                      <Typography
-                        variant="h6"
-                        sx={{ fontSize: 14, fontWeight: "bold", mb: 2 }}
-                      >
-                        Doctor
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        className="clinic-info"
-                        sx={{
-                          fontSize: 14,
-                          fontWeight: "normal",
-                          mb: 3,
-                        }}
-                      >
-                        {clinic.doctors.length > 0 ? (
-                          <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              setSelectedProfile({
-                                type: "doctor",
-                                profile: clinic.doctors[0],
-                              })
-                            }
-                          >
-                            • {clinic.doctors[0]}
-                          </span>
-                        ) : (
-                          " "
-                        )}
-                      </Typography>
+                    <Box sx={{ pl: 2 }}>
+                      {/* Doctor and Midwives */}
+                      <Box
+      sx={{
+        marginTop: 3,
+        border: "1px solid #F0EEED",
+        borderRadius: 2,
+        p: 3,
+        mb: 5,
+        height: "250px",
+        cursor: "pointer",
+        transition: "box-shadow 0.3s ease-in-out",
+        "&:hover": {
+          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+        },
+        "&:focus": {
+          boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.4)",
+          outline: "none",
+        },
+      }}
+      tabIndex={0}
+    >
+      <Typography
+        variant="h6"
+        sx={{ fontSize: 14, fontWeight: "bold", mb: 2 }}
+      >
+        Doctor
+      </Typography>
+      <Typography
+        variant="body1"
+        className="clinic-info"
+        sx={{
+          fontSize: 14,
+          fontWeight: "normal",
+          mb: 3,
+        }}
+      >
+        {clinic.doctors.length > 0 ? (
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              setSelectedProfile({
+                type: "doctor",
+                profile: clinic.doctors[0],
+              })
+            }
+          >
+            • {clinic.doctors[0]}
+          </span>
+        ) : (
+          " "
+        )}
+      </Typography>
 
-                      <Typography
-                        variant="h6"
-                        sx={{ fontSize: 14, fontWeight: "bold", mb: 1 }}
-                      >
-                        Midwives
-                      </Typography>
-                      {clinic.midwives.length > 0 && (
-                        <Typography
-                          variant="body1"
-                          className="clinic-info"
-                          sx={{ fontSize: 14, fontWeight: "normal", mb: 1 }}
-                        >
-                          <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              setSelectedProfile({
-                                type: "midwife",
-                                profile: clinic.midwives[0],
-                              })
-                            }
-                          >
-                            • {clinic.midwives[0]}
-                          </span>
-                        </Typography>
-                      )}
-                      {clinic.midwives.length > 1 && (
-                        <Typography
-                          variant="body1"
-                          className="clinic-info"
-                          sx={{ fontSize: 14, fontWeight: "normal", mb: 1 }}
-                        >
-                          <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              setSelectedProfile({
-                                type: "midwife",
-                                profile: clinic.midwives[1],
-                              })
-                            }
-                          >
-                            • {clinic.midwives[1]}
-                          </span>
-                        </Typography>
-                      )}
-                      {clinic.midwives.length > 2 && (
-                        <Typography
-                          variant="body1"
-                          className="clinic-info"
-                          sx={{ fontSize: 14, fontWeight: "normal" }}
-                        >
-                          <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() =>
-                              setSelectedProfile({
-                                type: "midwife",
-                                profile: clinic.midwives[2],
-                              })
-                            }
-                          >
-                            • {clinic.midwives[2]}
-                          </span>
-                        </Typography>
-                      )}
+      <Typography
+        variant="h6"
+        sx={{ fontSize: 14, fontWeight: "bold", mb: 1 }}
+      >
+        Midwives
+      </Typography>
+      {clinic.midwives.length > 0 && (
+        <Typography
+          variant="body1"
+          className="clinic-info"
+          sx={{ fontSize: 14, fontWeight: "normal", mb: 1 }}
+        >
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              setSelectedProfile({
+                type: "midwife",
+                profile: clinic.midwives[0],
+              })
+            }
+          >
+            • {clinic.midwives[0]}
+          </span>
+        </Typography>
+      )}
+      {clinic.midwives.length > 1 && (
+        <Typography
+          variant="body1"
+          className="clinic-info"
+          sx={{ fontSize: 14, fontWeight: "normal", mb: 1 }}
+        >
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              setSelectedProfile({
+                type: "midwife",
+                profile: clinic.midwives[1],
+              })
+            }
+          >
+            • {clinic.midwives[1]}
+          </span>
+        </Typography>
+      )}
+      {clinic.midwives.length > 2 && (
+        <Typography
+          variant="body1"
+          className="clinic-info"
+          sx={{ fontSize: 14, fontWeight: "normal" }}
+        >
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              setSelectedProfile({
+                type: "midwife",
+                profile: clinic.midwives[2],
+              })
+            }
+          >
+            • {clinic.midwives[2]}
+          </span>
+        </Typography>
+      )}
+    </Box>
                     </Box>
 
-                    <Modal
-                      visible={!!selectedProfile}
-                      onCancel={() => setSelectedProfile(null)}
-                      footer={null}
-                    >
-                      {selectedProfile && (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                          }}
-                        >
-                          <Typography
-                            variant="h6"
-                            style={{
-                              marginBottom: "30px",
-                              fontWeight: "bold",
-                              fontSize: "20px",
-                              alignSelf: "flex-start",
-                            }}
-                          >
-                            {selectedProfile.type === "doctor"
-                              ? "Doctor's Details"
-                              : "Midwife Details"}
-                          </Typography>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "flex-start",
-                            }}
-                          >
-                            <img
-                              src="/mnt/data/image.png" // Replace with the correct path to the image file
-                              alt="Profile"
-                              style={{
-                                width: "150px",
-                                height: "150px",
-                                marginRight: "20px",
-                              }}
-                            />
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                            >
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Full name:</b> {selectedProfile.profile}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Age:</b> {selectedProfile.age}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>DOB:</b> {selectedProfile.dob}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Telephone:</b> {selectedProfile.telephone}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Address:</b> {selectedProfile.address}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Assigned Clinics:</b>{" "}
-                                {selectedProfile.clinics}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Registered Date:</b>{" "}
-                                {selectedProfile.registeredDate}
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                style={{ fontSize: "14px" }}
-                              >
-                                <b>Experience:</b> {selectedProfile.experience}
-                              </Typography>
-                            </div>
-                          </div>
-                          <Button
-                            style={{
-                              backgroundColor: "#967aa1",
-                              color: "#fff",
-                              marginTop: "10px",
-                              alignSelf: "flex-start",
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </div>
-                      )}
-                    </Modal>
+                    <ProfileDetailsPopup
+  visible={!!selectedProfile}
+  profile={selectedProfile}
+  onCancel={() => setSelectedProfile(null)}
+/>
 
                     {/* Additional statistics */}
                     <Box
@@ -783,6 +999,17 @@ const Clinics = () => {
           </Form.Item>
         </Form>
       </Modal>
+
+      {selectedClinic && (
+        <AssignStaffPopup
+          visible={isAssignPopupVisible}
+          onCancel={handleAssignPopupCancel}
+          clinic={selectedClinic}
+          unassignedDoctors={unassignedDoctors}
+          unassignedMidwives={unassignedMidwives}
+          onAssign={handleAssignPopupAssign}
+        />
+      )}
     </Box>
   );
 };

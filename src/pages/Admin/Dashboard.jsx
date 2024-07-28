@@ -326,7 +326,6 @@ const Dashboard = () => {
               <Space>
                 <AntSearch
                   placeholder="Search..."
-                  prefix={<Search />}
                   onSearch={handleSearch}
                   style={{ width: 200 }}
                 />
