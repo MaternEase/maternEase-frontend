@@ -132,7 +132,7 @@ const PregnancyHistory = () => (
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <div style={styles.sectionTitle}>Conditions</div>
+                                    <div style={styles.sectionTitle}>Family Medical History</div>
                                     <Form.Item>
                                         <Radio.Group>
                                             <Radio value="diabetesMellitus">Diabetes Mellitus</Radio>
@@ -193,8 +193,6 @@ const PregnancyHistory = () => (
                                             </Radio.Group>
                                         </Form.Item>
                                     </div>
-                                </Col>
-                                <Col span={12}>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Renal diseases</span>
                                         <Form.Item name="renalDiseases" noStyle>
@@ -214,8 +212,8 @@ const PregnancyHistory = () => (
                                         </Form.Item>
                                     </div>
                                     <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Psychiatric diseases</span>
-                                        <Form.Item name="psychiatricDiseases" noStyle>
+                                        <span style={styles.surgicalConditionText}>Psychiatric illnesses</span>
+                                        <Form.Item name="psychiatricIllnesses" noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -232,13 +230,87 @@ const PregnancyHistory = () => (
                                         </Form.Item>
                                     </div>
                                 </Col>
+                                <Col span={12}>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Malignancies</span>
+                                        <Form.Item name="malignancies" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Haematological diseases</span>
+                                        <Form.Item name="haematologicalDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Tuberculosis</span>
+                                        <Form.Item name="tuberculosis" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Thyroid diseases</span>
+                                        <Form.Item name="thyroidDiseases" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Bronchial asthma</span>
+                                        <Form.Item name="bronchialAsthma" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Previous DVT</span>
+                                        <Form.Item name="previousDVT" noStyle>
+                                            <Radio.Group>
+                                                <Radio value="yes">Yes</Radio>
+                                                <Radio value="no">No</Radio>
+                                            </Radio.Group>
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Surgeries other than LSCS</span>
+                                        <Form.Item name="surgeriesOtherThanLSCS" noStyle>
+                                            <Input placeholder="Surgeries other than LSCS" />
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Other (Specify)</span>
+                                        <Form.Item name="otherSpecify" noStyle>
+                                            <Input placeholder="Other (Specify)" />
+                                        </Form.Item>
+                                    </div>
+                                    <div style={styles.surgicalCondition}>
+                                        <span style={styles.surgicalConditionText}>Social Z score</span>
+                                        <Form.Item name="socialZScore" noStyle>
+                                            <Input placeholder="Social Z score" />
+                                        </Form.Item>
+                                    </div>
+                                </Col>
                             </Row>
                         </Card>
                     </Col>
                 </Row>
             </div>
             <div style={styles.paginationContainer}>
-                <Link to="/mother/dashboard">
+                <Link to="/mother/reporttwo">
                     <Button type="primary" style={styles.button}>Previous</Button>
                 </Link>
             </div>

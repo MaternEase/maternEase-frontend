@@ -7,6 +7,7 @@ import ReportOne from "../pages/ExpectantMother/ReportOne.jsx";
 import PregnancyHistory from '../pages/ExpectantMother/PregnancyHistory.jsx';
 import TimeSlots from "../pages/ExpectantMother/TimeSlots.jsx";
 import FullCalendar from "../pages/ExpectantMother/FullCalendar.jsx";
+import ReportTwo from "../pages/ExpectantMother/ReportTwo.jsx";
 
 const ExpectantMotherRoutes = () => {
     console.log('ExpectantMotherRoutes rendered'); // Debug log to verify MidwifeRoutes render
@@ -17,6 +18,10 @@ const ExpectantMotherRoutes = () => {
             <Route path="timeslots" element={<TimeSlots />} />
             <Route path="reportone" element={<ReportOne />} />
             <Route path="full-calendar" element={<FullCalendar />} />
+            <Route path="reporttwo" element={<ReportTwo />} />
+
+            ]
+
             {/*<Route path="mothers" element={<Mothers />} />*/}
             {/*<Route path="babies" element={<Babies />} />*/}
             {/*<Route path="reports" element={<Reports />} />*/}
