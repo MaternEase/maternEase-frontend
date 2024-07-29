@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Col, Row, DatePicker, Radio, Card, InputNumber } from 'antd';
+import { Form, Input, DatePicker, Radio, Card, Table, InputNumber } from 'antd';
 
 const styles = {
     container: {
@@ -14,205 +14,55 @@ const styles = {
     },
 };
 
-const ReportTwo = () => {
+const columns = [
+    {
+        title: 'Date of Visit',
+        dataIndex: 'dateOfVisit',
+        key: 'dateOfVisit',
+        render: () => <DatePicker style={styles.inputField} />,
+    },
+    ...Array.from({ length: 9 }).map((_, index) => ({
+        title: `Visit ${index + 1}`,
+        dataIndex: `visit${index + 1}`,
+        key: `visit${index + 1}`,
+        render: () => <DatePicker style={styles.inputField} />,
+    })),
+];
+
+const dataSource = [
+    {
+        key: '1',
+        dateOfVisit: '',
+        ...Array.from({ length: 9 }).reduce((acc, _, index) => {
+            acc[`visit${index + 1}`] = '';
+            return acc;
+        }, {}),
+    },
+    ...['Gravidity', 'POA', 'Weight', 'BP', 'Fundal Height', 'Foetal Lie', 'FHR', 'Presentation', 'FM', 'Engagement', 'Proteinuria', 'Oedema', 'Haemoglobin', 'Folate', 'Iron', 'Calcium', 'Vitamin C'].map((label, rowIndex) => ({
+        key: `${rowIndex + 2}`,
+        dateOfVisit: label,
+        ...Array.from({ length: 9 }).reduce((acc, _, colIndex) => {
+            acc[`visit${colIndex + 1}`] = rowIndex === 5 ? <Input style={styles.inputField} /> : rowIndex >= 12 ? <Radio.Group><Radio value="supplemented">Supplemented</Radio><Radio value="notSupplemented">Not Supplemented</Radio></Radio.Group> : <InputNumber style={styles.inputField} />;
+            return acc;
+        }, {}),
+    })),
+];
+
+const ClinicCareForm = () => {
     return (
         <div style={styles.container}>
             <Card title="Clinic Care" style={styles.card}>
                 <Form layout="vertical">
-                    <Row gutter={16}>
-                        <Col span={24}>
-                            <Form.Item label="Date of Visit">
-                                <DatePicker style={styles.inputField} />
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`date-visit-${index}`}>
-                                <Form.Item label={`Visit ${index + 1}`}>
-                                    <DatePicker style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`gravidity-${index}`}>
-                                <Form.Item label={`Gravidity ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`poa-${index}`}>
-                                <Form.Item label={`POA ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`weight-${index}`}>
-                                <Form.Item label={`Weight ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`bp-${index}`}>
-                                <Form.Item label={`BP ${index + 1}`}>
-                                    <Input placeholder="Systolic / Diastolic" style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`fundal-height-${index}`}>
-                                <Form.Item label={`Fundal Height ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`foetal-lie-${index}`}>
-                                <Form.Item label={`Foetal Lie ${index + 1}`}>
-                                    <Input style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`fhr-${index}`}>
-                                <Form.Item label={`FHR ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`presentation-${index}`}>
-                                <Form.Item label={`Presentation ${index + 1}`}>
-                                    <Input style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`fm-${index}`}>
-                                <Form.Item label={`FM ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="positive">Positive</Radio>
-                                        <Radio value="negative">Negative</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`engagement-${index}`}>
-                                <Form.Item label={`Engagement ${index + 1}`}>
-                                    <Input style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`proteinuria-${index}`}>
-                                <Form.Item label={`Proteinuria ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="present">Present</Radio>
-                                        <Radio value="absent">Absent</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`oedema-${index}`}>
-                                <Form.Item label={`Oedema ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="present">Present</Radio>
-                                        <Radio value="absent">Absent</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`haemoglobin-${index}`}>
-                                <Form.Item label={`Haemoglobin ${index + 1}`}>
-                                    <InputNumber style={styles.inputField} />
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`folate-${index}`}>
-                                <Form.Item label={`Folate ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="supplemented">Supplemented</Radio>
-                                        <Radio value="notSupplemented">Not Supplemented</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`iron-${index}`}>
-                                <Form.Item label={`Iron ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="supplemented">Supplemented</Radio>
-                                        <Radio value="notSupplemented">Not Supplemented</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`calcium-${index}`}>
-                                <Form.Item label={`Calcium ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="supplemented">Supplemented</Radio>
-                                        <Radio value="notSupplemented">Not Supplemented</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row gutter={16}>
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Col span={2.4} key={`vitaminC-${index}`}>
-                                <Form.Item label={`Vitamin C ${index + 1}`}>
-                                    <Radio.Group>
-                                        <Radio value="supplemented">Supplemented</Radio>
-                                        <Radio value="notSupplemented">Not Supplemented</Radio>
-                                    </Radio.Group>
-                                </Form.Item>
-                            </Col>
-                        ))}
-                    </Row>
+                    <Table
+                        bordered
+                        columns={columns}
+                        dataSource={dataSource}
+                        pagination={false}
+                    />
                 </Form>
             </Card>
         </div>
     );
 };
 
-export default ReportTwo;
+export default ClinicCareForm;
