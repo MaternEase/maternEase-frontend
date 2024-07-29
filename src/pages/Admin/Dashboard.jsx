@@ -263,6 +263,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
+      <Typography>WERT MOH Area</Typography>
       <Title level={3}>Hi, Nimal 👋</Title>
       <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (
@@ -326,7 +327,6 @@ const Dashboard = () => {
               <Space>
                 <AntSearch
                   placeholder="Search..."
-                  prefix={<Search />}
                   onSearch={handleSearch}
                   style={{ width: 200 }}
                 />
