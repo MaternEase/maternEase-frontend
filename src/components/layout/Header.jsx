@@ -5,6 +5,8 @@ import logo from '../../assets/images/logo4.png'; // Replace with the actual pat
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
+// import DehazeIcon from '@mui/icons-material/Dehaze';
+
 const { Header } = Layout;
 const { Search } = Input;
 
@@ -47,7 +49,7 @@ const AppHeader = ({ onMenuClick }) => {
         <span style={{ color: '#967AA1', fontSize: '25px' }}>MaternEase</span>
         <Button
           type="link"
-          icon={<MenuUnfoldOutlined style={{ fontSize: '24px', paddingLeft: '15px' }} />}
+          // icon={<DehazeIcon style={{ fontSize: '25px', paddingLeft: '15px' }} />}
           onClick={onMenuClick}
           style={{ color: 'black' }}
         />

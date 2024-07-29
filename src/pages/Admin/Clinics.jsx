@@ -597,12 +597,12 @@ const Clinics = () => {
                     <Button
                       variant="contained"
                       type="primary"
-                      style={{
-                        backgroundColor: "#192A51",
-                        color: "#fff",
-                        borderRadius: "4px",
-                        fontWeight: "bold",
-                      }}
+                      // style={{
+                      //   backgroundColor: "#192A51",
+                      //   color: "#fff",
+                      //   borderRadius: "4px",
+                      //   fontWeight: "bold",
+                      // }}
                       onClick={() => handleAssignStaffClick(clinic)}
                       className="assign-staff-button"
                       disabled={

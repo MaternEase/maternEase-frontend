@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography, Input } from 'antd';
-import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit } from '@mui/icons-material';
+import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit, OtherHouses } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import ReusableCard from '../../components/Card';
 import CustomCalendar from '../../components/Calendar';
@@ -86,8 +86,8 @@ const Dashboard = () => {
   const cardData = [
     { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
     { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
-    { key: 3, title: 'Doctors', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
     { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
+    { key: 3, title: 'Clinics', value: 36, icon: <OtherHouses />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
   ];
 
   const userFullCalendarPath = '/admin/full-calendar'; 
@@ -263,7 +263,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
-      <Typography>WERT MOH Area</Typography>
+      {/* <Typography>WERT MOH Area</Typography> */}
       <Title level={3}>Hi, Nimal 👋</Title>
       <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (

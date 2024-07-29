@@ -9,6 +9,12 @@ import baby from '../../assets/images/child.png';
 import graph from '../../assets/images/graph.png';
 import vac from '../../assets/images/vac.png';
 
+// AA
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import DescriptionIcon from '@mui/icons-material/Description';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 const iconStyle = { fontSize: '24px' };
@@ -54,20 +60,20 @@ const Sidebar = ({ collapsed, userType }) => {
         ];
       case 'ADMIN':
         return [
-          { key: '/admin/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/admin/dashboard">Dashboard</Link> },
+          { key: '/admin/dashboard', icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/admin/dashboard">Dashboard</Link> },
+          { key: '/admin/clinics', icon: <OtherHousesIcon style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
           {
-            key: 'mothers',
-            icon: <UserOutlined style={iconStyle} />,
-            label: 'Mothers',
+            key: 'Clinical Staff',
+            icon: <PeopleAltIcon style={iconStyle} />,
+            label: 'Clinical Staff',
             children: [
-              { key: '/admin/mothers/expected', label: <Link to="/admin/mothers/expected">Expected Mothers</Link> },
-              { key: '/admin/mothers/delivered', label: <Link to="/admin/mothers/delivered">Delivered Mothers</Link> },
+              { key: '/admin/midwives', label: <Link to="/admin/midwives">Midwives</Link> },
+              { key: '/admin/doctors', label: <Link to="/admin/doctors">Doctors</Link> },
             ],
           },
-          { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
-          { key: '/admin/midwives', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/midwives">Midwives</Link> },
-          { key: '/admin/doctors', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/doctors">Doctors</Link> },
-          { key: '/admin/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+          // { key: '/admin/midwives', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/midwives">Midwives</Link> },
+          // { key: '/admin/doctors', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/doctors">Doctors</Link> },
+          { key: '/admin/reports', icon: <DescriptionIcon style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
         ];
 
         case 'MOTHER':
