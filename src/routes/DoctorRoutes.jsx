@@ -6,6 +6,12 @@ import Babies from '../pages/Doctor/Babies';
 import Reports from '../pages/Doctor/Reports';
 import Shedules from '../pages/Doctor/ClinicShedules';
 import Clinics from '../pages/Doctor/Clinics';
+import MaternalHealth from '../pages/Doctor/MaternalHealthStats';
+import PregnacyDelivery from '../pages/Doctor/PregnancyDeliveryStats';
+import NewbornHealth from '../pages/Doctor/NewbornHealthStats';
+import ImmunizationScreening from '../pages/Doctor/ImmunizationScreeningStatics';
+import Crud1 from '../pages/Doctor/Crud1';
+
 
 
 const DoctorRoutes = () => {
@@ -17,6 +23,15 @@ const DoctorRoutes = () => {
       <Route path="/babies" element={<Babies />} />
       <Route path="/shedules" element={<Shedules />} />
       <Route path="/reports" element={<Reports />} />
+      <Route path="/maternalhealthstats" element={<MaternalHealth />} />
+      <Route path="/pregnancydeliverystats" element={<PregnacyDelivery />} />
+      <Route path="/newbornhealthstats" element={<NewbornHealth />} />
+      <Route path="/immunizationscreeningstats" element={<ImmunizationScreening />} />
+      <Route path="/crud1" element={<Crud1 />} />
+
+
+
+
     </Routes>
   );
 };
