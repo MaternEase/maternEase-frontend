@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography, Input } from 'antd';
-import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit, OtherHouses } from '@mui/icons-material';
+import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit } from '@mui/icons-material';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; //clinics
 import { useNavigate } from 'react-router-dom';
 import ReusableCard from '../../components/Card';
 import CustomCalendar from '../../components/Calendar';
 import { Line } from 'react-chartjs-2';
 import '../../styles/Admin/Dashboard.css';
+
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -87,7 +89,7 @@ const Dashboard = () => {
     { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
     { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
     { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
-    { key: 3, title: 'Clinics', value: 36, icon: <OtherHouses />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
+    { key: 3, title: 'Clinics', value: 36, icon: <HomeOutlinedIcon />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
   ];
 
   const userFullCalendarPath = '/admin/full-calendar'; 
