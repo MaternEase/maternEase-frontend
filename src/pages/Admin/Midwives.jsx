@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid, Typography, Avatar } from '@mui/material';
-import { Modal, Form, Input, Select, Button, Table, Tag } from 'antd';
+import { Modal, Form, Input, Select, Button, Table } from 'antd';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -97,31 +97,31 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
         item.FullName.toLowerCase().includes(searchText.toLowerCase()) ||
         item.RegisteredDate.toLowerCase().includes(searchText.toLowerCase()) ||
         item.Status.toLowerCase().includes(searchText.toLowerCase());
-
-      const matchesFilter = filters.length === 0 || filters.some(filter => item.AssignedClinicsDetails.includes(filter));
-
+  
+      const matchesFilter = (filters || []).length === 0 || (filters || []).some(filter => (item.AssignedClinicsDetails || '').includes(filter));
+  
       return matchesSearch && matchesFilter;
     });
-  };
+  };  
 
   const renderStatusBar = (assignedClinics) => {
     const totalSegments = 3;
-    const colors = ['#ff0000', '#ffd700', '#008000']; // Red, Yellow, Green
-
+    const baseColor = '#967aa1'; // Base color for the status bar
+    const lightColor = '#e0e4f1'; // Lighter shade of the base color
+  
+    // Calculate the percentage of the bar that should be filled
+    const percentage = (assignedClinics / totalSegments) * 100;
+  
     return (
       <Box
-        sx={{ display: 'flex', width: '100px', height: '10px', borderRadius: '5px', overflow: 'hidden', border: '1px solid #ccc' }}
-      >
-        {[...Array(totalSegments)].map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              flex: 1,
-              backgroundColor: index < assignedClinics ? colors[index] : '#e0e0e0',
-            }}
-          />
-        ))}
-      </Box>
+        sx={{
+          width: '100px',
+          height: '10px',
+          borderRadius: '5px',
+          border: '1px solid #ccc',
+          background: `linear-gradient(to right, ${lightColor}, ${baseColor} ${percentage}%, ${baseColor} ${percentage}%, #e0e0e0 ${percentage}%, #e0e0e0)`,
+        }}
+      />
     );
   };
 
@@ -152,7 +152,7 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
       onFilter: (value, record) => record.AssignedClinicsDetails.includes(value),
     },
     {
-      title: 'Status Bar',
+      title: ' ',
       key: 'StatusBar',
       render: (text, record) => renderStatusBar(record.AssignedClinics),
     },
@@ -161,13 +161,16 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
       key: 'actions',
       render: (text, record) => (
         <div>
-          <Button type="link" onClick={() => handleView(record)}>
+          <Button type="link" onClick={() => handleView(record)} style={{ color: '#192A51' }}>
             View
           </Button>
           <Button
             type="link"
             disabled={record.AssignedClinics >= 3}
             onClick={handleAddClinic}
+            style={{
+              color: record.AssignedClinics >= 3 ? '#F0EEED' : '#192A51',
+            }}
           >
             Assign
           </Button>
@@ -184,6 +187,7 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
           className="section-title"
           fontWeight="bold"
           marginBottom="15px"
+          // color="#967aa1"
         >
           Midwives
         </Typography>
@@ -191,7 +195,9 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
           placeholder="Search Midwives"
           onSearch={handleSearch}
           onChange={(e) => handleSearch(e.target.value)}
-          style={{ width: 300, marginBottom: 16 }}
+          style={{ width: 300, marginBottom: 16, color: '#967aa1' }}
+          onFocus={(e) => (e.target.style.borderColor = '#192A51')}
+          onBlur={(e) => (e.target.style.borderColor = '')}
         />
         <Table
           dataSource={filterData(clinic.midwives || [])}

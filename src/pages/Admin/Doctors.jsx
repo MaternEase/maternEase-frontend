@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Grid, Typography, Avatar } from '@mui/material';
-import { Modal, Form, Input, Select, Button, Table, Tag } from 'antd';
+import { Modal, Form, Input, Select, Button, Table } from 'antd';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -8,40 +9,59 @@ const { Search } = Input;
 // Example generated data for Doctors
 const generatedDoctors = [
   {
-    StaffId: 'M001',
-    FullName: 'Alice Johnson',
-    Age: 30,
-    RegisteredDate: '2023-01-15',
+    StaffId: 'D001',
+    FullName: 'Dr. Emily Parker',
+    Age: 34,
+    RegisteredDate: '2023-03-12',
     Status: 'Assigned',
-    Address: '123 Main St, Anytown, USA',
-    Telephone: '555-1234',
+    Address: '101 Oak Ave, Greenwood, USA',
+    Telephone: '555-1122',
     ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 2,
-    AssignedClinicsDetails: 'Clinic A, Clinic B', // New field
+    AssignedClinicsDetails: 'Clinic A',
   },
   {
-    StaffId: 'M002',
-    FullName: 'Betty Smith',
-    Age: 45,
-    RegisteredDate: '2022-05-20',
+    StaffId: 'D002',
+    FullName: 'Dr. David Wright',
+    Age: 40,
+    RegisteredDate: '2022-08-05',
     Status: 'Assigned',
-    Address: '456 Elm St, Othertown, USA',
-    Telephone: '555-5678',
+    Address: '202 Maple St, Springfield, USA',
+    Telephone: '555-2233',
     ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 3,
-    AssignedClinicsDetails: 'Clinic X, Clinic Y, Clinic Z', // New field
+    AssignedClinicsDetails: 'Clinic B',
   },
   {
-    StaffId: 'M003',
-    FullName: 'Cathy Brown',
-    Age: 28,
-    RegisteredDate: '2021-11-10',
+    StaffId: 'D003',
+    FullName: 'Dr. Karen White',
+    Age: 50,
+    RegisteredDate: '2021-12-20',
     Status: 'Unassigned',
-    Address: '789 Pine St, Sometown, USA',
-    Telephone: '555-9101',
+    Address: '303 Pine St, Rivertown, USA',
+    Telephone: '555-3344',
     ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 1,
-    AssignedClinicsDetails: 'Clinic D', // New field
+    AssignedClinicsDetails: '',
+  },
+  {
+    StaffId: 'D004',
+    FullName: 'Dr. Michael Brown',
+    Age: 29,
+    RegisteredDate: '2023-07-18',
+    Status: 'Assigned',
+    Address: '404 Birch St, Lakewood, USA',
+    Telephone: '555-4455',
+    ProfileImage: 'https://via.placeholder.com/64',
+    AssignedClinicsDetails: 'Clinic D',
+  },
+  {
+    StaffId: 'D005',
+    FullName: 'Dr. Sarah Lee',
+    Age: 38,
+    RegisteredDate: '2022-11-10',
+    Status: 'Assigned',
+    Address: '505 Cedar St, Hillside, USA',
+    Telephone: '555-5566',
+    ProfileImage: 'https://via.placeholder.com/64',
+    AssignedClinicsDetails: 'Clinic E',
   },
 ];
 
@@ -59,7 +79,7 @@ const clinicOptions = [
 const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
-  const [selectedMidwife, setSelectedMidwife] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState('');
   const [filters, setFilters] = useState([]);
@@ -81,8 +101,8 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
     setSearchText(text);
   };
 
-  const handleView = (midwife) => {
-    setSelectedMidwife(midwife);
+  const handleView = (doctor) => {
+    setSelectedDoctor(doctor);
     setIsViewModalVisible(true);
   };
 
@@ -97,33 +117,16 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
         item.FullName.toLowerCase().includes(searchText.toLowerCase()) ||
         item.RegisteredDate.toLowerCase().includes(searchText.toLowerCase()) ||
         item.Status.toLowerCase().includes(searchText.toLowerCase());
-
-      const matchesFilter = filters.length === 0 || filters.some(filter => item.AssignedClinicsDetails.includes(filter));
-
+  
+      const matchesFilter = (filters || []).length === 0 || (filters || []).some(filter => (item.AssignedClinicsDetails || '').includes(filter));
+  
       return matchesSearch && matchesFilter;
     });
   };
 
-  const renderStatusBar = (assignedClinics) => {
-    const totalSegments = 3;
-    const colors = ['#ff0000', '#ffd700', '#008000']; // Red, Yellow, Green
-
-    return (
-      <Box
-        sx={{ display: 'flex', width: '100px', height: '10px', borderRadius: '5px', overflow: 'hidden', border: '1px solid #ccc' }}
-      >
-        {[...Array(totalSegments)].map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              flex: 1,
-              backgroundColor: index < assignedClinics ? colors[index] : '#e0e0e0',
-            }}
-          />
-        ))}
-      </Box>
-    );
-  };
+  const renderAssignedStatus = (assignedClinicsDetails) => (
+    assignedClinicsDetails ? <CheckCircleOutlined style={{ color: '#967aa1' }} /> : null
+  );
 
   const columnsDoctors = [
     {
@@ -152,22 +155,25 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
       onFilter: (value, record) => record.AssignedClinicsDetails.includes(value),
     },
     {
-      title: 'Status Bar',
-      key: 'StatusBar',
-      render: (text, record) => renderStatusBar(record.AssignedClinics),
+      title: ' ',
+      key: 'AssignedStatus',
+      render: (text, record) => renderAssignedStatus(record.AssignedClinicsDetails),
     },
     {
       title: ' ',
       key: 'actions',
       render: (text, record) => (
         <div>
-          <Button type="link" onClick={() => handleView(record)}>
+          <Button type="link" onClick={() => handleView(record)} style={{ color: '#192A51' }}>
             View
           </Button>
           <Button
             type="link"
-            disabled={record.AssignedClinics >= 3}
+            disabled={!!record.AssignedClinicsDetails}
             onClick={handleAddClinic}
+            style={{
+              color: record.AssignedClinicsDetails ? '#F0EEED' : '#192A51',
+            }}
           >
             Assign
           </Button>
@@ -191,7 +197,9 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
           placeholder="Search Doctors"
           onSearch={handleSearch}
           onChange={(e) => handleSearch(e.target.value)}
-          style={{ width: 300, marginBottom: 16 }}
+          style={{ width: 300, marginBottom: 16, color: '#967aa1' }}
+          onFocus={(e) => (e.target.style.borderColor = '#192A51')}
+          onBlur={(e) => (e.target.style.borderColor = '')}
         />
         <Table
           dataSource={filterData(clinic.Doctors || [])}
@@ -220,9 +228,9 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
         </Form>
       </Modal>
 
-      {selectedMidwife && (
+      {selectedDoctor && (
         <Modal
-          title="Midwife Details"
+          title="Doctor Details"
           open={isViewModalVisible}
           onCancel={handleViewCancel}
           footer={[
@@ -233,21 +241,21 @@ const Doctors = ({ clinic = { Doctors: generatedDoctors } }) => {
               key="assign"
               type="primary"
               onClick={handleAddClinic}
-              disabled={selectedMidwife.AssignedClinics >= 3}
+              disabled={!!selectedDoctor.AssignedClinicsDetails}
             >
               Assign
             </Button>,
           ]}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-            <Avatar size={64} src={selectedMidwife.ProfileImage} />
+            <Avatar size={64} src={selectedDoctor.ProfileImage} />
             <Box sx={{ marginLeft: 2 }}>
-              <Typography variant="h6">{selectedMidwife.FullName}</Typography>
-              <Typography variant="body2">Age: {selectedMidwife.Age}</Typography>
-              <Typography variant="body2">Registered Date: {selectedMidwife.RegisteredDate}</Typography>
-              <Typography variant="body2">Status: {selectedMidwife.Status}</Typography>
-              <Typography variant="body2">Address: {selectedMidwife.Address}</Typography>
-              <Typography variant="body2">Telephone: {selectedMidwife.Telephone}</Typography>
+              <Typography variant="h6">{selectedDoctor.FullName}</Typography>
+              <Typography variant="body2">Age: {selectedDoctor.Age}</Typography>
+              <Typography variant="body2">Registered Date: {selectedDoctor.RegisteredDate}</Typography>
+              <Typography variant="body2">Status: {selectedDoctor.Status}</Typography>
+              <Typography variant="body2">Address: {selectedDoctor.Address}</Typography>
+              <Typography variant="body2">Telephone: {selectedDoctor.Telephone}</Typography>
             </Box>
           </Box>
         </Modal>
