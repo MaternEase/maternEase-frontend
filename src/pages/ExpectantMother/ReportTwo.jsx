@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, DatePicker, Radio, Card, Table, InputNumber } from 'antd';
+import {Form, Input, DatePicker, Radio, Card, Table, InputNumber, Button} from 'antd';
+import {Link} from "react-router-dom";
 
 const styles = {
     container: {
@@ -11,6 +12,30 @@ const styles = {
     },
     inputField: {
         width: '100%',
+    },
+    pageHeader: {
+        backgroundColor: '#f5f5f5',
+    },
+    sectionTitle: {
+        fontSize: '18px',
+        fontWeight: 'bold',
+        marginBottom: '12px',
+    },
+    surgicalCondition: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '16px',
+    },
+    surgicalConditionText: {
+        flex: 1,
+    },
+    paginationContainer: {
+        textAlign: 'right',
+        marginTop: '24px',
+    },
+    button: {
+        backgroundColor: '#967AA1',
+        borderColor: '#967AA1',
     },
 };
 
@@ -48,7 +73,7 @@ const dataSource = [
     })),
 ];
 
-const ClinicCareForm = () => {
+const ReportTwo = () => {
     return (
         <div style={styles.container}>
             <Card title="Clinic Care" style={styles.card}>
@@ -61,8 +86,15 @@ const ClinicCareForm = () => {
                     />
                 </Form>
             </Card>
+            <div style={styles.paginationContainer}>
+                <Link to="/mother/reportthree">
+                    <Button type="primary" style={styles.button}>
+                        Next
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 };
 
-export default ClinicCareForm;
+export default ReportTwo;

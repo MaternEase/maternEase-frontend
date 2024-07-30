@@ -345,7 +345,7 @@ const PregnancyHistory = () => (
                     </Col>
                 </Row>
                 <div style={styles.paginationContainer}>
-                    <Link to="/next-page">
+                    <Link to="/mother/reporttwo">
                         <Button type="primary" style={styles.button}>
                             Next
                         </Button>
