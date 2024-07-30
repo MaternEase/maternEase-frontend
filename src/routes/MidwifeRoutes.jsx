@@ -11,7 +11,9 @@ import Bcard from '../pages/Midwife/Bcard';
 
 
 const MidwifeRoutes = () => {
-  console.log('MidwifeRoutes rendered'); // Debug log to verify MidwifeRoutes render
+  console.log('MidwifeRoutes rendered'); 
+  // Debug log to verify MidwifeRoutes render
+  
   return (
     <Routes>
       <Route path="dashboard" element={<Dashboard />} />
