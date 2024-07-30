@@ -5,14 +5,12 @@ import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
 
-// Custom plugin to draw background areas
 const backgroundPlugin = {
     id: 'backgroundPlugin',
     beforeDraw: (chart) => {
         const ctx = chart.ctx;
         const { chartArea: { top, bottom, left, right }, scales: { x, y } } = chart;
 
-        // Define the areas
         const areas = [
             { points: [[0, 0], [16, 4], [41, 20], [41, 16], [16, 3], [0, 0]], color: '#d5c0c0' },
             { points: [[0, 0], [16, 3], [41, 16], [41, 12.5], [16.5, 2], [0, 0]], color: '#c3e7ce' },
@@ -42,10 +40,10 @@ const backgroundPlugin = {
 
 const WeightChart = () => {
     const data = {
-        labels: Array.from({ length: 43 }, (_, i) => i), // Create an array of labels from 0 to 42
+        labels: Array.from({ length: 43 }, (_, i) => i),
         datasets: [
             {
-                label: '', // Empty label to remove from legend
+                label: '',
                 data: [
                     { x: 7, y: 0 },
                     { x: 14, y: -0.8 },
@@ -59,22 +57,22 @@ const WeightChart = () => {
                 borderColor: '#3e95cd',
                 fill: false,
                 tension: 0.1,
-                showLine: true, // Show line between points
-                pointBackgroundColor: '#3e95cd' // Color of the points
+                showLine: true,
+                pointBackgroundColor: '#3e95cd'
             }
         ]
     };
 
     const options = {
         responsive: true,
-        maintainAspectRatio: false, // Prevent aspect ratio to control height
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'top',
                 labels: {
                     generateLabels: (chart) => {
                         const original = ChartJS.defaults.plugins.legend.labels.generateLabels;
-                        const labelsOriginal = original.call(this, chart).filter(label => label.text !== ''); // Filter out empty label
+                        const labelsOriginal = original.call(this, chart).filter(label => label.text !== '');
                         labelsOriginal.push(
                             { text: 'A ', fillStyle: '#d5c0c0' },
                             { text: 'B ', fillStyle: '#c3e7ce' },
@@ -89,14 +87,14 @@ const WeightChart = () => {
                 display: true,
                 text: 'BMI Variation Chart'
             },
-            backgroundPlugin: {} // activate the plugin
+            backgroundPlugin: {}
         },
         scales: {
             y: {
-                min: -2, // Set the minimum value of the y-axis to -2
-                max: 20, // Set the maximum value of the y-axis to 20
+                min: -2,
+                max: 20,
                 ticks: {
-                    stepSize: 2 // Set the step size to 2 for y-axis
+                    stepSize: 2
                 },
                 title: {
                     display: true,
@@ -107,7 +105,7 @@ const WeightChart = () => {
                 min: 0,
                 max: 42,
                 ticks: {
-                    stepSize: 2 // Set the step size to 2 for the x-axis
+                    stepSize: 2
                 },
                 title: {
                     display: true,
@@ -118,12 +116,12 @@ const WeightChart = () => {
     };
 
     return (
-        <Card style={{ maxWidth: '600px', height: '600px' }}>
-            <CardContent>
+        <Card style={{ maxWidth: '100%', height: '100%' }}>
+            <CardContent style={{ height: '100%' }}>
                 <Typography variant="h6" component="div">
                     BMI Variation Chart
                 </Typography>
-                <div style={{ height: '500px' }}> {/* Set the height of the chart */}
+                <div style={{ height: '100%' }}>
                     <Line data={data} options={options} plugins={[backgroundPlugin]} />
                 </div>
             </CardContent>

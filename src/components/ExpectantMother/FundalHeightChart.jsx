@@ -104,8 +104,8 @@ const FundalHeightChart = () => {
     };
 
     return (
-        <Card title="Fundal Height Chart" style={{ width: '100%', height: 'calc(100vh - 100px)', overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: '100%' }}>
+        <Card title="Fundal Height Chart" style={{ width: '100%', height: '100%' }}>
+            <div style={{ height: '100%' }}>
                 <Line data={data} options={options} />
             </div>
         </Card>
