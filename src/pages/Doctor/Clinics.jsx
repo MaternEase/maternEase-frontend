@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 
-const  = () => {
+const Clinics = () => {
   const [formData, setFormData] = useState({
     name: '',
     idnumber: '',
@@ -26,7 +26,6 @@ const  = () => {
   function saveDoctor(e){
     e.preventDefault();
     const doctor =(name,email,idnumber,phone)
-    console.log(doctor)
   }
   return (
     <Container maxWidth="sm">
