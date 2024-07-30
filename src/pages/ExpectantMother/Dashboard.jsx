@@ -6,6 +6,7 @@ import ReusableCard from './Card.jsx';
 import CustomCalendar from './Calendar.jsx';
 import { Line } from 'react-chartjs-2';
 import '../../styles/ExpectantMother/Dashboard.css';
+import WeightChart from "../../components/ExpectantMother/WeightChart.jsx";
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -265,7 +266,7 @@ const Dashboard = () => {
 
     return (
         <div style={{ padding: '24px', minHeight: '100vh' }}>
-            <Title level={3}>Hi, Nimal 👋</Title>
+            <Title level={3}>Hi, Renuka 👋</Title>
             <Row gutter={16} style={{ marginTop: 24 }}>
                 {cardData.map((card) => (
                     <Col span={6} key={card.key}>
@@ -281,7 +282,7 @@ const Dashboard = () => {
             <Row gutter={16} style={{ marginTop: 24 }}>
                 <Col span={16}>
                     <Card
-                        title="Overall Statistics"
+                        title="Weight Gain"
                         // extra={
                         //   <Dropdown overlay={statisticsMenu}>
                         //     <Button>
@@ -291,12 +292,12 @@ const Dashboard = () => {
                         // }
                     >
                         <Row style={{marginBottom: "15px"}}>
-                            <Col span={12}>
-                                <Statistic title="Total Children" value={1052} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />
-                            </Col>
-                            <Col span={12}>
-                                <Statistic title="Total Expectant Mothers" value={475} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />
-                            </Col>
+                            {/*<Col span={12}>*/}
+                            {/*    <Statistic title="Total Children" value={1052} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />*/}
+                            {/*</Col>*/}
+                            {/*<Col span={12}>*/}
+                            {/*    <Statistic title="Total Expectant Mothers" value={475} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />*/}
+                            {/*</Col>*/}
                             {/* <Col span={6}>
                 <Statistic title="Total Doctors" value={18} valueStyle={{ color: '#967aa1' }} />
               </Col>
@@ -306,9 +307,12 @@ const Dashboard = () => {
                         </Row>
                         <Row gutter={16} style={{ marginTop: 16 }}>
                             <Col span={24}>
-                                <div style={{ height: '325px', padding: '20px' }}>
-                                    <Line data={chartData} options={chartOptions} />
+                                <div>
+                                    <WeightChart />
                                 </div>
+                                {/*<div style={{ height: '325px', padding: '20px' }}>*/}
+                                {/*    <Line data={chartData} options={chartOptions} />*/}
+                                {/*</div>*/}
                             </Col>
                         </Row>
                     </Card>
