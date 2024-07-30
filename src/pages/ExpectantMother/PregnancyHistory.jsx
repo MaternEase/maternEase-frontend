@@ -3,6 +3,7 @@ import { Row, Col, Input, Radio, DatePicker, Card, Button, Form, InputNumber } f
 import { PageHeader } from '@ant-design/pro-layout';
 import { Link } from 'react-router-dom';
 import { CalendarOutlined, UserOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const validateNonNegative = (rule, value) => {
     if (value < 0) {
@@ -55,8 +56,49 @@ const styles = {
     },
 };
 
+const dummyData = {
+    numberOfChildrenAlive: 2,
+    ageOfYoungestChild: 5,
+    gravidity: {
+        G: 3,
+        P: 2,
+        C: 1,
+    },
+    lastMenstrualDate: moment('2023-01-15'),
+    expectedDeliveryDate: moment('2023-10-22'),
+    usCorrectedEDD: moment('2023-10-25'),
+    expectedPeriod: '38 weeks',
+    dateOfQuickening: moment('2023-04-15'),
+    poaAtRegistration: '12 weeks',
+    familyMedicalHistory: {
+        diabetesMellitus: 'yes',
+        hypertension: 'no',
+        haematologicalDiseases: 'no',
+        twinPregnancies: 'yes',
+        otherSpecify: 'None',
+    },
+    surgicalHistory: {
+        diabetes: 'no',
+        hypertension: 'yes',
+        cardiacDiseases: 'no',
+        renalDiseases: 'no',
+        hepaticDiseases: 'no',
+        psychiatricIllnesses: 'yes',
+        epilepsy: 'no',
+        malignancies: 'no',
+        haematologicalDiseases: 'no',
+        tuberculosis: 'yes',
+        thyroidDiseases: 'no',
+        bronchialAsthma: 'yes',
+        previousDVT: 'no',
+        surgeriesOtherThanLSCS: 'Appendectomy',
+        otherSpecify: 'None',
+        socialZScore: '5',
+    },
+};
+
 const PregnancyHistory = () => (
-    <Form layout="vertical">
+    <Form layout="vertical" initialValues={dummyData}>
         <div style={styles.container}>
             <PageHeader
                 className="site-page-header"
@@ -74,17 +116,17 @@ const PregnancyHistory = () => (
                                     <Form.Item label="Gravidity">
                                         <Row gutter={16}>
                                             <Col span={8}>
-                                                <Form.Item label="G">
+                                                <Form.Item label="G" name={['gravidity', 'G']}>
                                                     <Input placeholder="G" />
                                                 </Form.Item>
                                             </Col>
                                             <Col span={8}>
-                                                <Form.Item label="P">
+                                                <Form.Item label="P" name={['gravidity', 'P']}>
                                                     <Input placeholder="P" />
                                                 </Form.Item>
                                             </Col>
                                             <Col span={8}>
-                                                <Form.Item label="C">
+                                                <Form.Item label="C" name={['gravidity', 'C']}>
                                                     <Input placeholder="C" />
                                                 </Form.Item>
                                             </Col>
@@ -106,54 +148,54 @@ const PregnancyHistory = () => (
                                     </Form.Item>
                                     <Row gutter={16}>
                                         <Col span={8}>
-                                            <Form.Item label="Last Menstrual Date">
+                                            <Form.Item label="Last Menstrual Date" name="lastMenstrualDate">
                                                 <DatePicker placeholder="Select Date" style={{ width: '100%' }} />
                                             </Form.Item>
                                         </Col>
                                         <Col span={8}>
-                                            <Form.Item label="Expected Delivery Date">
+                                            <Form.Item label="Expected Delivery Date" name="expectedDeliveryDate">
                                                 <DatePicker placeholder="Select Date" style={{ width: '100%' }} />
                                             </Form.Item>
                                         </Col>
                                         <Col span={8}>
-                                            <Form.Item label="US Corrected Expected Delivery Date">
+                                            <Form.Item label="US Corrected Expected Delivery Date" name="usCorrectedEDD">
                                                 <DatePicker placeholder="Select Date" style={{ width: '100%' }} />
                                             </Form.Item>
                                         </Col>
                                     </Row>
-                                    <Form.Item label="Expected Period">
+                                    <Form.Item label="Expected Period" name="expectedPeriod">
                                         <Input placeholder="Expected Period" />
                                     </Form.Item>
-                                    <Form.Item label="Date of Quickening">
+                                    <Form.Item label="Date of Quickening" name="dateOfQuickening">
                                         <DatePicker placeholder="Select Date" style={{ width: '100%' }} />
                                     </Form.Item>
-                                    <Form.Item label="POA at Registration">
+                                    <Form.Item label="POA at Registration" name="poaAtRegistration">
                                         <Input placeholder="POA at Registration" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <div style={styles.sectionTitle}>Family Medical History</div>
-                                    <Form.Item>
+                                    <Form.Item name={['familyMedicalHistory', 'diabetesMellitus']}>
                                         <Radio.Group>
-                                            <Radio value="diabetesMellitus">Diabetes Mellitus</Radio>
+                                            <Radio value="yes">Diabetes Mellitus</Radio>
                                         </Radio.Group>
                                     </Form.Item>
-                                    <Form.Item>
+                                    <Form.Item name={['familyMedicalHistory', 'hypertension']}>
                                         <Radio.Group>
-                                            <Radio value="hypertension">Hypertension</Radio>
+                                            <Radio value="no">Hypertension</Radio>
                                         </Radio.Group>
                                     </Form.Item>
-                                    <Form.Item>
+                                    <Form.Item name={['familyMedicalHistory', 'haematologicalDiseases']}>
                                         <Radio.Group>
-                                            <Radio value="haematologicalDiseases">Haematological Diseases</Radio>
+                                            <Radio value="no">Haematological Diseases</Radio>
                                         </Radio.Group>
                                     </Form.Item>
-                                    <Form.Item>
+                                    <Form.Item name={['familyMedicalHistory', 'twinPregnancies']}>
                                         <Radio.Group>
-                                            <Radio value="twinPregnancies">Twin / multiple pregnancies</Radio>
+                                            <Radio value="yes">Twin / multiple pregnancies</Radio>
                                         </Radio.Group>
                                     </Form.Item>
-                                    <Form.Item label="Others (Specify)">
+                                    <Form.Item label="Others (Specify)" name={['familyMedicalHistory', 'otherSpecify']}>
                                         <Input placeholder="Others (Specify)" />
                                     </Form.Item>
                                 </Col>
@@ -168,7 +210,7 @@ const PregnancyHistory = () => (
                                 <Col span={12}>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Diabetes</span>
-                                        <Form.Item name="diabetes" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'diabetes']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -177,7 +219,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Hypertension</span>
-                                        <Form.Item name="hypertension" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'hypertension']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -186,7 +228,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Cardiac diseases</span>
-                                        <Form.Item name="cardiacDiseases" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'cardiacDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -195,7 +237,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Renal diseases</span>
-                                        <Form.Item name="renalDiseases" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'renalDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -204,7 +246,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Hepatic diseases</span>
-                                        <Form.Item name="hepaticDiseases" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'hepaticDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -213,7 +255,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Psychiatric illnesses</span>
-                                        <Form.Item name="psychiatricIllnesses" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'psychiatricIllnesses']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -222,18 +264,16 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Epilepsy</span>
-                                        <Form.Item name="epilepsy" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'epilepsy']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
                                             </Radio.Group>
                                         </Form.Item>
                                     </div>
-                                </Col>
-                                <Col span={12}>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Malignancies</span>
-                                        <Form.Item name="malignancies" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'malignancies']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -242,7 +282,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Haematological diseases</span>
-                                        <Form.Item name="haematologicalDiseases" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'haematologicalDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -251,7 +291,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Tuberculosis</span>
-                                        <Form.Item name="tuberculosis" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'tuberculosis']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -260,7 +300,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Thyroid diseases</span>
-                                        <Form.Item name="thyroidDiseases" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'thyroidDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -269,7 +309,7 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Bronchial asthma</span>
-                                        <Form.Item name="bronchialAsthma" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'bronchialAsthma']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
@@ -278,41 +318,39 @@ const PregnancyHistory = () => (
                                     </div>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Previous DVT</span>
-                                        <Form.Item name="previousDVT" noStyle>
+                                        <Form.Item name={['surgicalHistory', 'previousDVT']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
                                                 <Radio value="no">No</Radio>
                                             </Radio.Group>
                                         </Form.Item>
                                     </div>
-                                    <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Surgeries other than LSCS</span>
-                                        <Form.Item name="surgeriesOtherThanLSCS" noStyle>
-                                            <Input placeholder="Surgeries other than LSCS" />
-                                        </Form.Item>
-                                    </div>
-                                    <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Other (Specify)</span>
-                                        <Form.Item name="otherSpecify" noStyle>
-                                            <Input placeholder="Other (Specify)" />
-                                        </Form.Item>
-                                    </div>
-                                    <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Social Z score</span>
-                                        <Form.Item name="socialZScore" noStyle>
-                                            <Input placeholder="Social Z score" />
-                                        </Form.Item>
-                                    </div>
+                                </Col>
+                                <Col span={12}>
+                                    <Form.Item
+                                        label="Surgeries other than LSCS"
+                                        name={['surgicalHistory', 'surgeriesOtherThanLSCS']}
+                                    >
+                                        <Input placeholder="Surgeries other than LSCS" />
+                                    </Form.Item>
+                                    <Form.Item label="Others (Specify)" name={['surgicalHistory', 'otherSpecify']}>
+                                        <Input placeholder="Others (Specify)" />
+                                    </Form.Item>
+                                    <Form.Item label="Social Z Score" name={['surgicalHistory', 'socialZScore']}>
+                                        <InputNumber min={0} max={10} style={{ width: '100%' }} />
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Card>
                     </Col>
                 </Row>
-            </div>
-            <div style={styles.paginationContainer}>
-                <Link to="/mother/reporttwo">
-                    <Button type="primary" style={styles.button}>Previous</Button>
-                </Link>
+                <div style={styles.paginationContainer}>
+                    <Link to="/next-page">
+                        <Button type="primary" style={styles.button}>
+                            Next
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </div>
     </Form>

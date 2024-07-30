@@ -14,10 +14,10 @@ const backgroundPlugin = {
 
         // Define the areas
         const areas = [
-            { points: [[0, 0], [16, 4], [41, 20], [41, 16], [16, 3], [0, 0]], color: '#BB9393' },
-            { points: [[0, 0], [16, 3], [41, 16], [41, 12.5], [16.5, 2], [0, 0]], color: '#79BA93' },
-            { points: [[0, 0], [16.5, 2], [41, 12.5], [41, 11], [17, 1.8], [0, 0]], color: '#79BA93' },
-            { points: [[0, 0], [17, 1.8], [41, 11], [41, 7], [16.5, 0.8], [0, 0]], color: '#CA6363' }
+            { points: [[0, 0], [16, 4], [41, 20], [41, 16], [16, 3], [0, 0]], color: '#d5c0c0' },
+            { points: [[0, 0], [16, 3], [41, 16], [41, 12.5], [16.5, 2], [0, 0]], color: '#c3e7ce' },
+            { points: [[0, 0], [16.5, 2], [41, 12.5], [41, 11], [17, 1.8], [0, 0]], color: '#e7f6ad' },
+            { points: [[0, 0], [17, 1.8], [41, 11], [41, 7], [16.5, 0.8], [0, 0]], color: '#efaeae' }
         ];
 
         ctx.save();
@@ -42,32 +42,44 @@ const backgroundPlugin = {
 
 const WeightChart = () => {
     const data = {
-        labels: Array.from({ length: 43 }, (_, i) => (i % 2 === 0 ? i.toString() : '')), // Create an array of labels from 0 to 42 with labels at increments of 2
+        labels: Array.from({ length: 43 }, (_, i) => i), // Create an array of labels from 0 to 42
         datasets: [
             {
-                label: 'Weight Gain',
-                data: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8],
+                label: '', // Empty label to remove from legend
+                data: [
+                    { x: 7, y: 0 },
+                    { x: 14, y: -0.8 },
+                    { x: 21, y: 1 },
+                    { x: 25, y: 3.7 },
+                    { x: 30, y: 5.8 },
+                    { x: 33, y: 8.5 },
+                    { x: 35, y: 8.7 },
+                    { x: 38, y: 9.8 }
+                ],
                 borderColor: '#3e95cd',
                 fill: false,
-                tension: 0.1
+                tension: 0.1,
+                showLine: true, // Show line between points
+                pointBackgroundColor: '#3e95cd' // Color of the points
             }
         ]
     };
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false, // Prevent aspect ratio to control height
         plugins: {
             legend: {
                 position: 'top',
                 labels: {
                     generateLabels: (chart) => {
                         const original = ChartJS.defaults.plugins.legend.labels.generateLabels;
-                        const labelsOriginal = original.call(this, chart);
+                        const labelsOriginal = original.call(this, chart).filter(label => label.text !== ''); // Filter out empty label
                         labelsOriginal.push(
-                            { text: 'A - Underweight', fillStyle: '#BB9393' },
-                            { text: 'B - Normal', fillStyle: '#79BA93' },
-                            { text: 'C', fillStyle: '#79BA93' },
-                            { text: 'D', fillStyle: '#CA6363' }
+                            { text: 'A ', fillStyle: '#d5c0c0' },
+                            { text: 'B ', fillStyle: '#c3e7ce' },
+                            { text: 'C', fillStyle: '#e7f6ad' },
+                            { text: 'D', fillStyle: '#efaeae' }
                         );
                         return labelsOriginal;
                     }
@@ -75,14 +87,17 @@ const WeightChart = () => {
             },
             title: {
                 display: true,
-                text: 'Weight Gain Chart'
+                text: 'BMI Variation Chart'
             },
             backgroundPlugin: {} // activate the plugin
         },
         scales: {
             y: {
                 min: -2, // Set the minimum value of the y-axis to -2
-                max: 20,
+                max: 20, // Set the maximum value of the y-axis to 20
+                ticks: {
+                    stepSize: 2 // Set the step size to 2 for y-axis
+                },
                 title: {
                     display: true,
                     text: 'Weight Gain'
@@ -91,24 +106,26 @@ const WeightChart = () => {
             x: {
                 min: 0,
                 max: 42,
+                ticks: {
+                    stepSize: 2 // Set the step size to 2 for the x-axis
+                },
                 title: {
                     display: true,
-                    text: 'Weeks'
-                },
-                ticks: {
-                    stepSize: 1 // Set the step size to 1 to reduce the distance between labels
+                    text: 'POA'
                 }
             }
         }
     };
 
     return (
-        <Card>
+        <Card style={{ maxWidth: '600px', height: '600px' }}>
             <CardContent>
                 <Typography variant="h6" component="div">
-                    Weight Gain Chart
+                    BMI Variation Chart
                 </Typography>
-                <Line data={data} options={options} plugins={[backgroundPlugin]} />
+                <div style={{ height: '500px' }}> {/* Set the height of the chart */}
+                    <Line data={data} options={options} plugins={[backgroundPlugin]} />
+                </div>
             </CardContent>
         </Card>
     );
