@@ -3,11 +3,7 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 
 const Immunization = () => (
   <>
-    <Box sx={{ textAlign: 'center', mb: 2 }}>
-      <Typography variant="h4" sx={{ color: '#003366' }}>
-        Immunization
-      </Typography>
-    </Box>
+    
 
     <Box sx={{ p: 2, mb: 4, backgroundColor: '#192A51', borderRadius: 1, boxShadow: 1 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
