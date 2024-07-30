@@ -12,7 +12,6 @@ const Charts = () => {
                 </Col>
                 <Col span={12} style={{ height: '100%' }}>
                     <FundalHeightChart />
-
                 </Col>
             </Row>
         </div>
