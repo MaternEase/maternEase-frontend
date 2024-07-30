@@ -53,9 +53,11 @@ const Dashboard = () => {
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
 
+
     const handleCardClick = (cardKey) => {
         setSelectedCard(cardKey);
     };
+
 
     const handleSearch = (value) => {
         setSearchText(value);
