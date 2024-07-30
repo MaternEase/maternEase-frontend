@@ -222,7 +222,7 @@ const Dashboard = () => {
 
     return (
         <div style={{ padding: '24px', minHeight: '100vh' }}>
-            <Title level={3}>Hi, Nimal 👋</Title>
+            <Title level={3}>Hi, Nimali 👋</Title>
             
             <Row gutter={16} style={{ marginTop: 24 }}>
                 <Col span={16}>
