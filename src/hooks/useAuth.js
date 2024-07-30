@@ -2,7 +2,15 @@ import { useState, useEffect } from 'react';
 import AuthService from '../services/authService';
 
 export const useAuth = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(() => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      // console.error('Error parsing stored user data:', error);
+      return null;
+    }
+  });
 
   const signIn = async (email, password) => {
     try {
@@ -21,15 +29,17 @@ export const useAuth = () => {
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    // console.log('User signed out');
-
   };
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser) {
-      // console.log('Stored user data on load:', storedUser);
-      setUser(storedUser);
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser && storedUser !== 'undefined') {
+        console.log('Stored user data on load:', storedUser);
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error('Error parsing stored user data on load:', error);
     }
   }, []);
 

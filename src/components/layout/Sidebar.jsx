@@ -6,6 +6,8 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import ReportIcon from '@mui/icons-material/Description';
 import baby from '../../assets/images/child.png';
+import graph from '../../assets/images/graph.png';
+import vac from '../../assets/images/vac.png';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -63,7 +65,9 @@ const Sidebar = ({ collapsed, userType }) => {
             ],
           },
           { key: '/admin/clinics', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/clinics">Clinics</Link> },
-          { key: '/admin/reports', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+          { key: '/admin/midwives', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/midwives">Midwives</Link> },
+          { key: '/admin/doctors', icon: <MedicineBoxFilled style={iconStyle} />, label: <Link to="/admin/doctors">Doctors</Link> },
+          { key: '/admin/reports', icon: <NotificationOutlined style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
         ];
 
         case 'MOTHER':
@@ -81,6 +85,15 @@ const Sidebar = ({ collapsed, userType }) => {
         case 'CHILD':
             return [
                 { key: '/child/dashboard', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/dashboard">Dashboard</Link> },
+                { key: '/child/profile1', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/profile1">Profile1</Link> },
+                { key: '/child/immunization', icon: <img src={vac} alt="Vaccine" style={{ width: '25px', height: '25px' }} />, label: <Link to="/child/immunization">Immunization</Link> },
+                { key: '/child/health_charts', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/health_charts">Health Charts</Link> },
+                
+                { key: '/child/progress_charts', icon: <img src={graph} alt="Children" style={{ width: '25px', height: '25px' }} />, label: 'Progress Charts', children: [
+                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts/">Weight</Link> },
+                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts/">Height 2</Link> },
+              ]},
+                { key: '/child/growth', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/growth">Growth</Link> },
                 // Additional items for CHILD user type can be added here
             ];
       default:

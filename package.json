@@ -13,11 +13,11 @@
     "@ant-design/pro-layout": "^7.19.11",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^5.15.20",
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.5",
     "@mui/x-date-pickers": "^7.11.1",
-    "antd": "^5.19.1",
+    "@mui/icons-material": "^5.16.4",
+    "antd": "^5.19.3",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "chartjs-plugin-annotation": "^3.0.1",
@@ -27,7 +27,8 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "some-module": "^0.0.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -28,6 +28,8 @@ import {
   Search as SearchIcon,
   Edit as EditIcon,
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import ProfileButton from '../Shared/ProfileButton';
 
 const themeColors = {
   primary: '#F5E6E8',
@@ -42,6 +44,8 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCondition, setFilterCondition] = useState('');
   const [filterAge, setFilterAge] = useState('');
+
+  const navigate = useNavigate();
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -59,6 +63,10 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
     setFilterAge(event.target.value);
   };
 
+  const handleViewProfileClick = (id) => {
+    navigate(`/midwife/mothers/expected/profile/${id}`);
+  };
+
   const filteredRows = tableRows.filter(row => {
     const matchesSearch = row.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCondition = filterCondition ? row.condition === filterCondition : true;
@@ -67,7 +75,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
   });
 
   return (
-    <Card sx={{ height: '100%' }}>
+    <Card sx={{ height: '100%'}}>
       <CardHeader
         title={title}
         subheader={subheader}
@@ -77,48 +85,49 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
             <Button variant="contained" size="small" startIcon={<EditIcon />}>Add member</Button>
           </div>
         }
-        sx={{ backgroundColor: themeColors.primary }}
+        sx={{ backgroundColor:'' }}
       />
-      <CardContent sx={{ height: 'calc(100% - 68px)', display: 'flex', flexDirection: 'column', backgroundColor: themeColors.secondary }}>
-      <div style ={{display:'flex',gap:'10%',alignItems: 'center'}}> 
-        <Tabs style={{marginBottom:'22px'}}
-          value={tabValue}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          {tabs.map(({ label, value }) => (
-            <Tab key={value} label={label} value={value} />
-          ))}
-        </Tabs>
-        <Paper
-          component="form"
-          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, marginTop:'0px',marginBottom:'22px' }}
-        >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search Members"
-            inputProps={{ 'aria-label': 'search members' }}
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-        <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-          <Select
-            value={filterCondition}
-            onChange={handleConditionChange}
-            displayEmpty
-            sx={{ minWidth: 120 }}
+      <CardContent sx={{ height: 'calc(100% - 68px)', display: 'flex', flexDirection: 'column', backgroundColor: '' }}>
+        <div style={{ display: 'flex', gap: '10%', alignItems: 'center' }}>
+          <Tabs style={{ marginBottom: '22px' }}
+            value={tabValue}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
           >
-            <MenuItem value=""><em>Condition</em></MenuItem>
-            <MenuItem value="Risky">Risky</MenuItem>
-            <MenuItem value="Non Risky">Non Risky</MenuItem>
-          </Select>
+            {tabs.map(({ label, value }) => (
+              <Tab key={value} label={label} value={value} />
+            ))}
+          </Tabs>
+          <Paper
+            component="form"
+            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, marginTop: '0px', marginBottom: '22px',backgroundColor: '#EEEEEE' }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search Members"
+              inputProps={{ 'aria-label': 'search members' }}
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+          <div >
+            <Select
+            sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 150, mt: 2, marginTop: '0px', marginBottom: '22px' }}
+              value={filterCondition}
+              onChange={handleConditionChange}
+              displayEmpty
+              // sx={{ minWidth: 120 }}
+            >
+              <MenuItem value=""><em>Condition</em></MenuItem>
+              <MenuItem value="Risky">Risky</MenuItem>
+              <MenuItem value="Non Risky">Non Risky</MenuItem>
+            </Select>
+          </div>
         </div>
-    </div>
         <TableContainer sx={{ flexGrow: 1 }}>
           <Table>
             <TableHead>
@@ -133,24 +142,23 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ id, img, name, age, condition, referToDoctor }) => (
+              {filteredRows.map(({ id, img, name, age, condition, referToDoctor, guardianName, deliveredDate }) => (
                 <TableRow key={id}>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Avatar src={img} alt={name} />
                       <div style={{ marginLeft: '8px' }}>
-                        <Typography variant="body2">{name}</Typography>
                         <Typography variant="body2" color="textSecondary">{id}</Typography>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
                     <Typography variant="body2">{name}</Typography>
                   </TableCell>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
                     <Typography variant="body2">{age}</Typography>
                   </TableCell>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
                     <Button
                       variant="contained"
                       size="small"
@@ -162,7 +170,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
                       {condition}
                     </Button>
                   </TableCell>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
                     <Button
                       variant="outlined"
                       size="small"
@@ -174,11 +182,22 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
                       Refer to Doctor
                     </Button>
                   </TableCell>
-                  <TableCell sx={{ padding: '6px' }}>
+                  <TableCell sx={{ padding: '10px' }}>
+                    <Typography variant="body2">{deliveredDate}</Typography>
+                  </TableCell>
+                  <TableCell sx={{ padding: '10px' }}>
+                    <Typography variant="body2">{guardianName}</Typography>
+                  </TableCell>
+                  <TableCell sx={{ padding: '10px' }}>
                     <Tooltip title="View Profile">
-                      <IconButton size="small">
-                        <EditIcon />
-                      </IconButton>
+                      <ProfileButton
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        onClick={() => handleViewProfileClick(id)}
+                      >
+                        View Profile
+                      </ProfileButton>
                     </Tooltip>
                   </TableCell>
                 </TableRow>
