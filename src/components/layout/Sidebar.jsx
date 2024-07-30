@@ -1,49 +1,53 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Layout, Menu, Button } from "antd";
-import { TeamOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router-dom";
+import { Layout, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
-// MUI Icons
-import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined"; //dashboard
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"; //clinics
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined"; // clinical staff
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; //reports
-import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined"; //mothers
-import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined"; //messages
-import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined"; //clinic shedules
-import PendingActionsOutlinedIcon from "@mui/icons-material/PendingActionsOutlined"; //time slots
-import VaccinesOutlinedIcon from "@mui/icons-material/VaccinesOutlined"; //vaccines 
-// import CoPresentOutlinedIcon from "@mui/icons-material/CoPresentOutlined"; //awareness
-import MovingOutlinedIcon from '@mui/icons-material/MovingOutlined'; //progress charts
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'; //profile
-import InsertChartOutlinedOutlinedIcon from '@mui/icons-material/InsertChartOutlinedOutlined'; //charts
-import StairsOutlinedIcon from '@mui/icons-material/StairsOutlined'; //growth
+// Icons
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'; //dashboard
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; //clinics
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'; //clinical staff
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'; //reports
+import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined'; //mothers
+import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined'; //messages
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined'; //schedules
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'; //time-slots
+import VaccinesOutlinedIcon from '@mui/icons-material/VaccinesOutlined'; //vaccines
+import MovingOutlinedIcon from "@mui/icons-material/MovingOutlined"; //progress charts
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined"; //profile
+import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutlinedOutlined"; //health charts
+import StairsOutlinedIcon from "@mui/icons-material/StairsOutlined"; //growth
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
 
-import baby from "../../assets/images/child.png";
-// import graph from "../../assets/images/graph.png";
-// import vac from "../../assets/images/vac.png";
+import baby from "../../assets/images/baby.png"; //children
 
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 const iconStyle = { fontSize: "24px", color: "#4e5052" };
+const selectedStyle = {
+  backgroundColor: "#D5C6E0",
+  color: "#967aa1",
+};
+const selectedFontColor = { color: "#967aa1" };
 
 const Sidebar = ({ collapsed, userType }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const signOut = async () => {
+    localStorage.removeItem('userToken');
+    console.log('User signed out');
+  };
 
-  // Handle logout functionality
   const handleLogout = async () => {
-    console.log('logout');
     try {
-      await signOut(); // Removed email, password as they are not defined
-      navigate('/signin'); // Redirect to login page or any other desired page after logout
+      await signOut();
+      navigate('/signin');
     } catch (error) {
-      console.log('error', error);
-      // setError('Logout failed.');
+      console.error('Logout error:', error);
     }
   };
 
-  // Define menu items based on userType
   const getMenuItems = () => {
     switch (userType) {
       case "MIDWIFE":
@@ -55,7 +59,7 @@ const Sidebar = ({ collapsed, userType }) => {
               { key: "/midwife/mothers/delivered", label: <Link to="/midwife/mothers/delivered">Delivered Mothers</Link> },
             ]
           },
-          { key: "/midwife/babies", icon: <TeamOutlined style={iconStyle} />, label: <Link to="/midwife/babies">Babies</Link> },
+          { key: "/midwife/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/midwife/babies">Babies</Link> },
           { key: "/midwife/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/reports">Reports</Link> },
           { key: "/midwife/messages", icon: <MessageOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/messages">Messages</Link> },
         ];
@@ -68,7 +72,7 @@ const Sidebar = ({ collapsed, userType }) => {
             ]
           },
           { key: "/doctor/clinics", icon: <HomeOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/clinics">Clinics</Link> },
-          { key: "/doctor/babies", icon: <TeamOutlined style={iconStyle} />, label: <Link to="/doctor/babies">Babies</Link> },
+          { key: "/doctor/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/doctor/babies">Babies</Link> },
           { key: "/doctor/schedules", icon: <EventNoteOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
           { key: "/doctor/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/reports">Reports</Link> },
         ];
@@ -88,13 +92,11 @@ const Sidebar = ({ collapsed, userType }) => {
           { key: "/mother/dashboard", icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
           { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/reportone">Report</Link> },
           { key: "/mother/timeslots", icon: <PendingActionsOutlinedIcon style={iconStyle} />, label: <Link to="/mother/timeslots">Timeslots</Link> },
-          { key: "children", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px" }} />, label: "Children", children: [
+          { key: "children", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: "Children", children: [
               { key: "/mother/children/child1", label: <Link to="/mother/children/child1">Child 1</Link> },
               { key: "/mother/children/child2", label: <Link to="/mother/children/child2">Child 2</Link> },
             ]
           },
-          // { key: "/mother/vaccines", icon: <VaccinesOutlinedIcon style={iconStyle} />, label: <Link to="/mother/vaccines">Vaccines</Link> },
-          // { key: "/mother/awareness", icon: <CoPresentOutlinedIcon style={iconStyle} />, label: <Link to="/mother/awareness">Awareness</Link> },
         ];
       case "CHILD":
         return [
@@ -114,34 +116,62 @@ const Sidebar = ({ collapsed, userType }) => {
     }
   };
 
+  const renderMenuItems = (items) => {
+    return items.map(item => {
+      if (item.children) {
+        return (
+          <SubMenu
+            key={item.key}
+            icon={item.icon}
+            title={item.label}
+          >
+            {renderMenuItems(item.children)}
+          </SubMenu>
+        );
+      }
+      return (
+        <Menu.Item
+          key={item.key}
+          icon={item.icon}
+          style={location.pathname === item.key ? { ...selectedStyle, ...selectedFontColor } : null}
+        >
+          {item.label}
+        </Menu.Item>
+      );
+    });
+  };
+
   return (
     <Sider
-    collapsible
-    collapsed={collapsed}
-    width={200}
-    style={{
-      overflow: "auto",
-      height: "100vh",
-      position: "fixed",
-      left: 0,
-      top: 64,
-      bottom: 0,
-      background: "#f7f7f7", // Light background color
-    }}
-    trigger={null}
-  >
-    {/* Render the menu items */}
-    <Menu
-      mode="inline"
-      defaultSelectedKeys={["/"]}
-      items={getMenuItems()}
+      collapsible
+      collapsed={collapsed}
+      width={200}
       style={{
-        height: "100%", // Full height to accommodate all items
-        borderRight: 0,
-        backgroundColor: "inherit", // Inherit sidebar color
+        overflow: "auto",
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        backgroundColor: "#f7f7f7", // Ensure consistent background color
       }}
-    />
-  </Sider>
+      trigger={null}
+    >
+      <Menu
+        theme="light" // Set theme to light for default styling
+        mode="inline"
+        defaultSelectedKeys={['1']}
+        selectedKeys={[location.pathname]}
+        style={{ borderRight: 0, backgroundColor: "inherit" }}
+      >
+        {renderMenuItems(getMenuItems())}
+        <Menu.Item
+          key="logout"
+          icon={<LogoutOutlinedIcon style={iconStyle} />}
+          onClick={handleLogout}
+        >
+          Logout
+        </Menu.Item>
+      </Menu>
+    </Sider>
   );
 };
 

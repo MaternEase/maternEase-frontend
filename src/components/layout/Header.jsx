@@ -1,64 +1,149 @@
-import React from 'react';
-import { Layout, Menu, Dropdown, Input, Button, Space, Avatar } from 'antd';
-import { MenuUnfoldOutlined, BellOutlined, UserOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons';
-import logo from '../../assets/images/logo4.png'; // Replace with the actual path to your logo file
+import React, { useState, useEffect } from 'react';
+import { Layout, Menu, Dropdown, Space } from 'antd';
+import logo from '../../assets/images/logo4.png'; // path to logo file
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-// import DehazeIcon from '@mui/icons-material/Dehaze';
+import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined'; //notifications
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'; //account
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; //home
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'; //calendar
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined"; //profile
 
 const { Header } = Layout;
-const { Search } = Input;
 
 const AppHeader = ({ onMenuClick }) => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
+  const [isSidebarFolded, setIsSidebarFolded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const logout = async () => {
-    console.log('logout');
     try {
-      await signOut(); // Removed email, password as they are not defined
-      navigate('/signin'); // Redirect to login page or any other desired page after logout
+      await signOut();
+      navigate('/signin');
     } catch (error) {
       console.log('error', error);
-      // setError('Logout failed.');
     }
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarFolded(prevState => !prevState);
+    onMenuClick();
+  };
+
+  const getMenuItems = () => {
+    const userRole = user.role; // Assuming user object has a role property
+
+    const rolePaths = {
+      'ADMIN': {
+        home: '/admin/dashboard',
+        calendar: '/admin/full-calendar',
+        profile: `/admin/profile/${user.id}`,
+      },
+      'MIDWIFE': {
+        home: '/midwife/dashboard',
+        calendar: '/midwife/full-calendar',
+        profile: `/midwife/profile/${user.id}`,
+      },
+      'DOCTOR': {
+        home: '/doctor/dashboard',
+        calendar: '/doctor/full-calendar',
+        profile: `/doctor/profile/${user.id}`,
+      },
+      'MOTHER': {
+        home: '/mother/dashboard',
+        calendar: '/mother/full-calendar',
+        profile: `/mother/profile/${user.id}`,
+      },
+      'CHILD': {
+        home: '/child/dashboard',
+        calendar: '/child/full-calendar',
+        profile: `/child/profile/${user.id}`,
+      }
+    };
+
+    const paths = rolePaths[userRole] || {};
+
+    return [
+      { key: paths.home, icon: <HomeOutlinedIcon style={{ fontSize: '18px', color: "#4e5052" }} />, label: 'Home' },
+      { key: paths.calendar, icon: <CalendarMonthOutlinedIcon style={{ fontSize: '18px', color: "#4e5052" }} />, label: 'Calendar' },
+      { key: paths.profile, icon: <PersonOutlineOutlinedIcon style={{ fontSize: '18px', color: "#4e5052" }} />, label: 'Profile' },
+    ];
   };
 
   const menu = (
     <Menu>
-      <Menu.Item key="1" icon={<HomeOutlined />}>
-        Home
-      </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        Profile
-      </Menu.Item>
-      <Menu.Item key="3" icon={<LogoutOutlined />} onClick={logout}>
+      {getMenuItems().map(item => (
+        <Menu.Item
+          key={item.key}
+          icon={item.icon}
+          onClick={() => navigate(item.key)}
+        >
+          {item.label}
+        </Menu.Item>
+      ))}
+      <Menu.Item key="logout" icon={<LogoutOutlinedIcon style={{ fontSize: '18px', color: "#4e5052" }} />} onClick={logout}>
         Logout
       </Menu.Item>
     </Menu>
   );
 
+  const formattedDate = currentTime.toLocaleDateString(undefined, {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const formattedTime = currentTime.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+
   return (
     <Header
       className="header"
-      style={{ backgroundColor: '#EEEEEE', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'fixed', width: '100%', zIndex: 1000 }}
+      style={{
+        backgroundColor: '#f7f7f7',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 15px',
+        position: 'fixed',
+        width: '100%',
+        zIndex: 1000,
+      }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={logo} alt="Logo" style={{ height: '50px', marginRight: '1px' }} />
-        <span style={{ color: '#967AA1', fontSize: '25px' }}>MaternEase</span>
-        <Button
-          type="link"
-          // icon={<DehazeIcon style={{ fontSize: '25px', paddingLeft: '15px' }} />}
-          onClick={onMenuClick}
-          style={{ color: 'black' }}
+        <img
+          src={logo}
+          alt="Logo"
+          style={{ height: '50px', cursor: 'pointer' }}
+          onClick={toggleSidebar}
         />
+        {!isSidebarFolded && (
+          <span style={{ color: '#967AA1', fontSize: '24px', marginLeft: '5px' }}>
+            MaternEase
+          </span>
+        )}
+      </div>
+      <div style={{ flex: 1, textAlign: 'center', color: '#4e5052', fontSize: '14px' }}>
+        <span style={{ marginRight: '20px' }}>{formattedDate}</span>
+        <span>{formattedTime}</span>
       </div>
       <Space size="middle">
-        <Search placeholder="Search..." style={{ width: 200, marginTop: '1rem' }} />
-        <BellOutlined style={{ fontSize: '30px', color: 'Black', marginTop: '20px' }} />
+        <NotificationsOutlinedIcon style={{ fontSize: '20px', color: '#4e5052' }} />
         <Dropdown overlay={menu} placement="bottomRight">
-          <Avatar icon={<UserOutlined style={{ fontSize: '30px' }} />} style={{ cursor: 'pointer', fontSize: '30px' }} />
+          <AccountCircleOutlinedIcon style={{ cursor: 'pointer', fontSize: '35px', color: '#4e5052' }} />
         </Dropdown>
       </Space>
     </Header>
