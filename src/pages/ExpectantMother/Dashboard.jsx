@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import ReusableCard from './Card.jsx';
 import CustomCalendar from './Calendar.jsx';
 import { Line } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import '../../styles/ExpectantMother/Dashboard.css';
 import WeightChart from "../../components/ExpectantMother/WeightChart.jsx";
+import FundalHeightChart from "../../components/ExpectantMother/FundalHeightChart.jsx";
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -87,10 +89,10 @@ const Dashboard = () => {
     );
 
     const cardData = [
-        { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
-        { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
-        { key: 3, title: 'Doctors', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
-        { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
+        // { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
+        // { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
+        // { key: 3, title: 'Doctors', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
+        // { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
     ];
 
     const userFullCalendarPath = '/mother/full-calendar';
@@ -282,7 +284,7 @@ const Dashboard = () => {
             <Row gutter={16} style={{ marginTop: 24 }}>
                 <Col span={16}>
                     <Card
-                        title="Weight Gain"
+                        title="Variation of Fundal Height"
                         // extra={
                         //   <Dropdown overlay={statisticsMenu}>
                         //     <Button>
@@ -308,7 +310,10 @@ const Dashboard = () => {
                         <Row gutter={16} style={{ marginTop: 16 }}>
                             <Col span={24}>
                                 <div>
-                                    <WeightChart />
+                                    <FundalHeightChart/>
+                                    <Link to="/mother/fundalchart" style={{ marginLeft: '10px', color: '#1890ff', textDecoration: 'underline' }}>
+                                        View full screen
+                                    </Link>
                                 </div>
                                 {/*<div style={{ height: '325px', padding: '20px' }}>*/}
                                 {/*    <Line data={chartData} options={chartOptions} />*/}
