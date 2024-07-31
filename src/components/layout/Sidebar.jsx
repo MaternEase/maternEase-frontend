@@ -90,8 +90,8 @@ const Sidebar = ({ collapsed, userType }) => {
                 { key: '/child/health_charts', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/health_charts">Health Charts</Link> },
                 
                 { key: '/child/progress_charts', icon: <img src={graph} alt="Children" style={{ width: '25px', height: '25px' }} />, label: 'Progress Charts', children: [
-                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts/">Weight</Link> },
-                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts/">Height 2</Link> },
+                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts">Weight</Link> },
+                  { key: '/child/progress_charts/', label: <Link to="/child/progress_charts/">Height</Link> },
               ]},
                 { key: '/child/growth', icon: <AppstoreFilled style={iconStyle} />, label: <Link to="/child/growth">Growth</Link> },
                 // Additional items for CHILD user type can be added here

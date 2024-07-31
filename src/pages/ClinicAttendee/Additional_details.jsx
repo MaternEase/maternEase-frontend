@@ -29,7 +29,6 @@ const styles = {
     },
     pageHeader: {
         backgroundColor: '#f5f5f5',
-        marginBottom:'10px',
     },
     card: {
         marginBottom: '16px',
@@ -92,25 +91,23 @@ const dummyData = {
         thyroidDiseases: 'no',
         bronchialAsthma: 'yes',
         previousDVT: 'no',
-        Skin_color: 'Pink',
-        Eye: 'Normal',
-        pecania: 'Dry',
-        Temperature:35.5,
-        Stool_color: 4,
+        surgeriesOtherThanLSCS: 'Appendectomy',
+        otherSpecify: 'None',
+        socialZScore: '5',
     },
 };
 
-const Health_charts = () => (
+const Additional_details = () => (
     <Form layout="vertical" initialValues={dummyData}>
         <div style={styles.container}>
             <PageHeader
                 className="site-page-header"
-                //onBack={() => window.history.back()}
-                title="Health Chart"
+                onBack={() => window.history.back()}
+                title="Pregnancy Record"
                 style={styles.pageHeader}
             />
             <div className="content">
-                {/*<Row gutter={16}>
+                <Row gutter={16}>
                     <Col span={24}>
                         <Card title={<span><UserOutlined /> Pregnancy History</span>} style={styles.card}>
                             <Row gutter={16}>
@@ -205,28 +202,14 @@ const Health_charts = () => (
                             </Row>
                         </Card>
                     </Col>
-                </Row>*/}
+                </Row>
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title={<span> Birth Date : 21/09/2021</span>} style={styles.card}>
+                        <Card title={<span><SafetyCertificateOutlined /> Surgical History</span>} style={styles.card}>
                             <Row gutter={16}>
                                 <Col span={12}>
-                                <Col span={12}>
-                                    <Form.Item
-                                        label="Temperature (Celsius)"
-                                        name={['surgicalHistory', 'Temperature']}
-                                    >
-                                        <Input placeholder="Temperature" />
-                                    </Form.Item>
-                                    <Form.Item label="Stool Color" name={['surgicalHistory', 'Stool_color']}>
-                                        <Input placeholder="Stool Color" />
-                                    </Form.Item>
-                                    <Form.Item label="The state of the pecania" name={['surgicalHistory', 'pecania']}>
-                                        <InputNumber min={0} max={10} style={{ width: '100%' }} />
-                                    </Form.Item>
-                                </Col>
                                     <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Breastfeeding Only</span>
+                                        <span style={styles.surgicalConditionText}>Diabetes</span>
                                         <Form.Item name={['surgicalHistory', 'diabetes']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
@@ -235,7 +218,7 @@ const Health_charts = () => (
                                         </Form.Item>
                                     </div>
                                     <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Breastfeeding Only (Connection)</span>
+                                        <span style={styles.surgicalConditionText}>Hypertension</span>
                                         <Form.Item name={['surgicalHistory', 'hypertension']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
@@ -244,7 +227,7 @@ const Health_charts = () => (
                                         </Form.Item>
                                     </div>
                                     <div style={styles.surgicalCondition}>
-                                        <span style={styles.surgicalConditionText}>Other complications identified</span>
+                                        <span style={styles.surgicalConditionText}>Cardiac diseases</span>
                                         <Form.Item name={['surgicalHistory', 'cardiacDiseases']} noStyle>
                                             <Radio.Group>
                                                 <Radio value="yes">Yes</Radio>
@@ -252,7 +235,7 @@ const Health_charts = () => (
                                             </Radio.Group>
                                         </Form.Item>
                                     </div>
-                                    {/*<div style={styles.surgicalCondition}>
+                                    <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Renal diseases</span>
                                         <Form.Item name={['surgicalHistory', 'renalDiseases']} noStyle>
                                             <Radio.Group>
@@ -341,34 +324,36 @@ const Health_charts = () => (
                                                 <Radio value="no">No</Radio>
                                             </Radio.Group>
                                         </Form.Item>
-                                    </div>*/}
+                                    </div>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item
-                                        label="Skin color"
-                                        name={['surgicalHistory', 'Skin_color']}
+                                        label="Surgeries other than LSCS"
+                                        name={['surgicalHistory', 'surgeriesOtherThanLSCS']}
                                     >
-                                        <Input placeholder="Skin color" />
+                                        <Input placeholder="Surgeries other than LSCS" />
                                     </Form.Item>
-                                    <Form.Item label="Eye" name={['surgicalHistory', 'Eye']}>
-                                        <Input placeholder="Eye" />
+                                    <Form.Item label="Others (Specify)" name={['surgicalHistory', 'otherSpecify']}>
+                                        <Input placeholder="Others (Specify)" />
                                     </Form.Item>
-                                    
+                                    <Form.Item label="Social Z Score" name={['surgicalHistory', 'socialZScore']}>
+                                        <InputNumber min={0} max={10} style={{ width: '100%' }} />
+                                    </Form.Item>
                                 </Col>
                             </Row>
                         </Card>
                     </Col>
                 </Row>
-                {/*<div style={styles.paginationContainer}>
+                <div style={styles.paginationContainer}>
                     <Link to="/mother/reporttwo">
                         <Button type="primary" style={styles.button}>
                             Next
                         </Button>
                     </Link>
-                </div>*/}
+                </div>
             </div>
         </div>
     </Form>
 );
 
-export default  Health_charts;
+export default  Additional_details;
