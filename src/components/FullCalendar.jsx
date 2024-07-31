@@ -31,30 +31,30 @@ const NoticeCalendar = ({ backPath }) => {
   const [isEventModalVisible, setIsEventModalVisible] = useState(false);
   const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
   const [events, setEvents] = useState({
-    "2024-07-08": [
+    "2024-08-08": [
       { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
       { type: "vaccination", content: "Vaccination - Polio" },
     ],
-    "2024-07-10": [
+    "2024-08-10": [
       {
         type: "expectant-mother-clinic",
         content: "Expectant Mother Clinic - Dr. Johnson",
       },
       { type: "awareness-program", content: "Breastfeeding Awareness Program" },
     ],
-    "2024-07-15": [
+    "2024-08-15": [
       { type: "home-visit", content: "Home Visit - Mrs. Brown" },
       { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
       { type: "vaccination", content: "Vaccination - MMR" },
     ],
-    "2024-07-20": [
+    "2024-08-20": [
       {
         type: "expectant-mother-clinic",
         content: "Expectant Mother Clinic - Dr. Lee",
       },
       { type: "home-visit", content: "Home Visit - Mr. Green" },
     ],
-    "2024-07-25": [
+    "2024-08-25": [
       { type: "awareness-program", content: "Parenting Tips Workshop" },
     ],
   });

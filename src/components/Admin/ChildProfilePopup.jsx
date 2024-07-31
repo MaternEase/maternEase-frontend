@@ -1,37 +1,72 @@
 import React from "react";
-import { Modal, Typography, Button } from "antd";
+import { Modal, Typography, Button, Row, Col } from "antd";
 
 const ChildProfilePopup = ({ visible, profile, onCancel }) => {
   const dummyProfile = {
-    name: "Tommy Brown",
-    registrationNumber: "CH789012",
+    name: "Kiyara Manthushi",
+    registrationNumber: "CH45",
     age: 5,
-    address: "789 Kids Ave, Wellness City, Country",
+    address: "789 Kids Ave, Deyiyanadara, Mathara",
     telephone: "+1234567890",
     condition: "Non-risky",
-    guardianName: "Sarah Brown",
+    guardianName: "Sarala Kumari",
   };
 
   const displayProfile = dummyProfile;
 
   return (
-    <Modal visible={visible} onCancel={onCancel} footer={null}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-        <Typography variant="h6" style={{ marginBottom: "30px", fontWeight: "bold", fontSize: "20px", alignSelf: "flex-start" }}>
-          Child's Details
-        </Typography>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Full name:</b> {displayProfile.name}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Registration Number:</b> {displayProfile.registrationNumber}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Age:</b> {displayProfile.age}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Address:</b> {displayProfile.address}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Telephone:</b> {displayProfile.telephone}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Condition:</b> {displayProfile.condition}</Typography>
-          <Typography variant="body1" style={{ fontSize: "14px" }}><b>Guardian's Name:</b> {displayProfile.guardianName}</Typography>
-        </div>
-        <Button style={{ backgroundColor: "#967aa1", color: "#fff", marginTop: "10px", alignSelf: "flex-start" }}>
+    <Modal 
+      visible={visible} 
+      onCancel={onCancel} 
+      footer={null}
+      centered
+    >
+      <div style={{ padding: "20px" }}>
+        <Typography.Title level={4} style={{ marginBottom: "30px", color: "#967aa1" }}>
+          {displayProfile.name} - Details
+        </Typography.Title>
+        <Row gutter={[32]}>
+          <Col span={24}>
+            <Typography.Text strong>Full name:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.name}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Registration Number:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.registrationNumber}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Age:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.age}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Address:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.address}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Telephone:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.telephone}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Condition:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.condition}</Typography.Paragraph>
+          </Col>
+          <Col span={24}>
+            <Typography.Text strong>Guardian's Name:</Typography.Text>
+            <Typography.Paragraph>{displayProfile.guardianName}</Typography.Paragraph>
+          </Col>
+        </Row>
+        {/* <Button 
+          style={{ 
+            backgroundColor: "#967aa1", 
+            color: "#fff", 
+            marginTop: "20px" 
+          }}
+          onClick={() => {
+            // Handle the edit button click
+          }}
+        >
           Edit
-        </Button>
+        </Button> */}
       </div>
     </Modal>
   );
