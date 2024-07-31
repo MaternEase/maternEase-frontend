@@ -39,7 +39,7 @@ const userEvents = {
     '2024-07-30': [{ id: 2, description: 'Event B' }]
 };
 
-const Progress_charts = () => {
+const Weight = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
@@ -245,4 +245,4 @@ const Progress_charts = () => {
     );
 };
 
-export default Progress_charts;
+export default Weight;
