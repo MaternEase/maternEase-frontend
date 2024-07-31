@@ -32,12 +32,12 @@ const data = [
   {
     key: "1",
     id: "123M",
-    name: "Wasantha Perera",
+    name: "Wasanthi Perera",
     age: 48,
     date: "25 Jun 2024",
     time: "09:30 am",
     status: "Pending",
-    assignedClinics: ["Clinic A", "Clinic B"], // Dummy data
+    assignedClinics: ["Clinic A", "Clinic B"],
     availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
   },
   {
@@ -48,7 +48,7 @@ const data = [
     date: "01 Jul 2024",
     time: "12:30 pm",
     status: "Pending",
-    assignedClinics: ["Clinic D"], // Dummy data
+    assignedClinics: ["Clinic D"],
     availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
   },
   {
@@ -59,7 +59,7 @@ const data = [
     date: "29 Jul 2024",
     time: "12:30 pm",
     status: "Pending",
-    assignedClinics: ["Clinic A", "Clinic C"], // Dummy data
+    assignedClinics: ["Clinic A", "Clinic C"],
     availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
   },
 ];
