@@ -268,7 +268,7 @@ const Dashboard = () => {
 
     return (
         <div style={{ padding: '24px', minHeight: '100vh' }}>
-            <Title level={3}>Hi, Renuka 👋</Title>
+            <Title level={3}>Hi, Sepali 👋</Title>
             <Row gutter={16} style={{ marginTop: 24 }}>
                 {cardData.map((card) => (
                     <Col span={6} key={card.key}>
@@ -329,30 +329,30 @@ const Dashboard = () => {
                     </Card>
                 </Col>
             </Row>
-            <Row gutter={24} style={{ marginTop: 24 }}>
-                <Col span={24}>
-                    <Card
-                        title="Un-Assigned Doctors/Midwives"
-                        extra={
-                            <Space>
-                                <AntSearch
-                                    placeholder="Search..."
-                                    prefix={<Search />}
-                                    onSearch={handleSearch}
-                                    style={{ width: 200 }}
-                                />
-                            </Space>
-                        }
-                    >
-                        <Table
-                            columns={columns}
-                            dataSource={filteredData}
-                            pagination={false}
-                            components={components}
-                        />
-                    </Card>
-                </Col>
-            </Row>
+            {/*<Row gutter={24} style={{ marginTop: 24 }}>*/}
+            {/*    <Col span={24}>*/}
+            {/*        <Card*/}
+            {/*            title="Un-Assigned Doctors/Midwives"*/}
+            {/*            extra={*/}
+            {/*                <Space>*/}
+            {/*                    <AntSearch*/}
+            {/*                        placeholder="Search..."*/}
+            {/*                        prefix={<Search />}*/}
+            {/*                        onSearch={handleSearch}*/}
+            {/*                        style={{ width: 200 }}*/}
+            {/*                    />*/}
+            {/*                </Space>*/}
+            {/*            }*/}
+            {/*        >*/}
+            {/*            <Table*/}
+            {/*                columns={columns}*/}
+            {/*                dataSource={filteredData}*/}
+            {/*                pagination={false}*/}
+            {/*                components={components}*/}
+            {/*            />*/}
+            {/*        </Card>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
         </div>
     );
 };

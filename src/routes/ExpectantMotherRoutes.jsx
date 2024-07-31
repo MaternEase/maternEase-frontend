@@ -11,6 +11,7 @@ import ReportTwo from "../pages/ExpectantMother/ReportTwo.jsx";
 import ReportThree from "../pages/ExpectantMother/ReportThree.jsx";
 import FundalChart from "../pages/ExpectantMother/FundalChart.jsx";
 import Child1 from "../pages/ExpectantMother/Child1.jsx";
+import Child2 from "../pages/ExpectantMother/Child2.jsx";
 // import WeightGainChart from "../pages/ExpectantMother/WeightGainChart.jsx";
 
 const ExpectantMotherRoutes = () => {
@@ -26,6 +27,7 @@ const ExpectantMotherRoutes = () => {
             <Route path="reportthree" element={<ReportThree />} />
             <Route path="fundalchart" element={<FundalChart />} />
             <Route path="/children/child1" element={<Child1 />} />
+            <Route path="/children/child2" element={<Child2 />} />
             {/*<Route path="weightchart" element={<WeightGainChart />} />*/}
             ]
 
