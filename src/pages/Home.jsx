@@ -36,7 +36,7 @@ const Home = () => {
                 <div className="hero-overlay"></div>
                 <div className="hero-text">
                     <h1 className="heading">Welcome to <span className="large-text">MaternEase</span></h1>
-                    <h1 className="heading">Comprehensive Maternity and Child Care</h1>
+                    <h1 className="heading">Maternity and Child Clinic Management System</h1>
                     <h2 className="sub-heading">Providing compassionate care for mothers and children.</h2>
                     <button className="sign-up-button login-button" onClick={handleLoginClick}>Get
                         Started
