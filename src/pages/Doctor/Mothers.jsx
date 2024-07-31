@@ -12,6 +12,7 @@ const data1 = [
     name: 'Jane Doe',
     age: 28,
     contactNumber: '091452452',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -19,6 +20,7 @@ const data1 = [
     name: 'Mary Johnson',
     age: 32,
     contactNumber: '093654321',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -26,6 +28,7 @@ const data1 = [
     name: 'Emily Brown',
     age: 24,
     contactNumber: '091234567',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -33,6 +36,7 @@ const data1 = [
     name: 'Anna Smith',
     age: 30,
     contactNumber: '098765432',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -40,6 +44,7 @@ const data1 = [
     name: 'Emilya Brown',
     age: 24,
     contactNumber: '091234567',
+    motherHistory: 'View',
     reportState: 'New',
   },
 ];
@@ -50,6 +55,7 @@ const data2 = [
     name: 'Susan Green',
     age: 29,
     contactNumber: '091987654',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -57,6 +63,7 @@ const data2 = [
     name: 'Linda White',
     age: 35,
     contactNumber: '093123456',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -64,6 +71,7 @@ const data2 = [
     name: 'Nancy Black',
     age: 27,
     contactNumber: '091111111',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -71,6 +79,7 @@ const data2 = [
     name: 'Karen Red',
     age: 33,
     contactNumber: '098999999',
+    motherHistory: 'View',
     reportState: 'New',
   },
   {
@@ -78,19 +87,20 @@ const data2 = [
     name: 'Barbara Blue',
     age: 31,
     contactNumber: '091222222',
+    motherHistory: 'View',
     reportState: 'New',
   },
 ];
 
-const handleStateChange = (data, setData, key, navigate) => {
+const handleStateChange = (data, setData, key, navigate, path) => {
   const newData = data.map((item) =>
     item.key === key ? { ...item, reportState: 'Viewed' } : item
   );
   setData(newData);
-  navigate('/form'); // Replace with the actual path to your form
+  navigate(path); // Navigate to the provided path
 };
 
-const columns = (data, setData, navigate) => [
+const columnsMotherTable = (data, setData, navigate) => [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -102,7 +112,61 @@ const columns = (data, setData, navigate) => [
     key: 'age',
   },
   {
-    title: 'Contact Number',
+    title: 'Registration Number',
+    dataIndex: 'contactNumber',
+    key: 'contactNumber',
+  },
+  {
+    title: 'Mother History',
+    dataIndex: 'motherHistory',
+    key: 'motherHistory',
+    render: (text, record) => (
+      <Button
+        type="link"
+        style={{
+          color: '#7C3AED',
+          backgroundColor: record.reportState === 'Viewed' ? '#E9D5FF' : '',
+          borderColor: record.reportState === 'Viewed' ? '#D8B4FE' : '#7C3AED',
+        }}
+        onClick={() => handleStateChange(data, setData, record.key, navigate, `/doctor/motherhistory`)}
+      >
+        {text}
+      </Button>
+    ),
+  },
+  {
+    title: 'Report',
+    dataIndex: 'reportState',
+    key: 'reportState',
+    render: (text, record) => (
+      <Button
+        type="link"
+        style={{
+          color: '#7C3AED',
+          backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
+          borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
+        }}
+        onClick={() => handleStateChange(data, setData, record.key, navigate, `/doctor/motherreport1`)}
+      >
+        {text}
+      </Button>
+    ),
+  },
+];
+
+const columnsExpectantMotherTable = (data, setData, navigate) => [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Registration Number',
     dataIndex: 'contactNumber',
     key: 'contactNumber',
   },
@@ -114,15 +178,11 @@ const columns = (data, setData, navigate) => [
       <Button
         type="link"
         style={{
-          color: text === 'New' ? '#7C3AED' : '#7C3AED',
+          color: '#7C3AED',
           backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
           borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
-          hover: {
-            backgroundColor: '#D8B4FE',
-            color: '#7C3AED',
-          },
         }}
-        onClick={() => handleStateChange(data, setData, record.key, navigate)}
+        onClick={() => handleStateChange(data, setData, record.key, navigate, '/doctor/motherreport1')}
       >
         {text}
       </Button>
@@ -212,7 +272,7 @@ const Mothers = () => {
             }
           >
             <Table
-              columns={columns(filteredData1, setFilteredData1, navigate)}
+              columns={columnsExpectantMotherTable(filteredData1, setFilteredData1, navigate)}
               dataSource={filteredData1}
               pagination={false}
               scroll={{ y: 200 }}
@@ -237,7 +297,7 @@ const Mothers = () => {
             }
           >
             <Table
-              columns={columns(filteredData2, setFilteredData2, navigate)}
+              columns={columnsMotherTable(filteredData2, setFilteredData2, navigate)}
               dataSource={filteredData2}
               pagination={false}
               scroll={{ y: 200 }}

@@ -1,6 +1,24 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom'; // Import Link component
+import { Link } from 'react-router-dom';
+import eye from '../../assets/images/eye1.png';
+import ear from '../../assets/images/ear1.png';
+// Add paths for other images here
+import image3 from '../../assets/images/teeth1.png';
+import image4 from '../../assets/images/part1.png';
+import image5 from '../../assets/images/part2.png';
+import image6 from '../../assets/images/part3.jpeg';
+
+const images = [eye, ear, image3, image4, image5, image6];
+
+const urls = [
+  '/child/Child_details1',
+  '/child/Child_details2',
+  '/child/Child_details3',
+  '/child/Child_details4',
+  '/child/Child_details5',
+  '/child/Child_details6',
+];
 
 const Growth = () => (
   <>
@@ -10,9 +28,9 @@ const Growth = () => (
         Please provide the necessary details about your child to help us understand their growth and development better. Your input is valuable and will assist in creating a tailored plan.
       </p>
     </div>
-   
+
     <div className="grid grid-cols-3 gap-4 p-8 mx-auto my-8 bg-white rounded-lg shadow-lg" style={{ width: '90%' }}>
-      {[...Array(6)].map((_, index) => (
+      {images.map((image, index) => (
         <div
           key={index}
           className="container p-4 bg-white rounded-lg shadow-lg"
@@ -23,13 +41,13 @@ const Growth = () => (
             style={{ width: '100%', height: '200px', margin: '1px' }}
           >
             <img
-              src="" // Replace with your image path
-              alt={`Description of image ${index + 1}`} // Replace with a description of the image
+              src={image}
+              alt={`child-details-${index + 1}`}
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
             />
           </div>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-            <Link to="/page" style={{ textDecoration: 'none' }}>
+            <Link to={urls[index]} style={{ textDecoration: 'none' }}>
               <Button
                 variant="contained"
                 color="primary"
