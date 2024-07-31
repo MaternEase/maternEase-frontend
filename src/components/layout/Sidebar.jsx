@@ -104,9 +104,9 @@ const Sidebar = ({ collapsed, userType }) => {
           { key: "/child/profile1", icon: <PersonOutlineOutlinedIcon style={iconStyle} />, label: <Link to="/child/profile1">Profile1</Link> },
           { key: "/child/immunization", icon: <VaccinesOutlinedIcon style={iconStyle} />, label: <Link to="/child/immunization">Immunization</Link> },
           { key: "/child/health_charts", icon: <InsertChartOutlinedOutlinedIcon style={iconStyle} />, label: <Link to="/child/health_charts">Health Charts</Link> },
-          { key: "/child/progress_charts", icon: <MovingOutlinedIcon style={iconStyle} />, label: "Progress Charts", children: [
-              { key: "/child/progress_charts/weight", label: <Link to="/child/progress_charts/weight">Weight</Link> },
-              { key: "/child/progress_charts/height", label: <Link to="/child/progress_charts/height">Height</Link> },
+          { key: "/child", icon: <MovingOutlinedIcon style={iconStyle} />, label: "Progress Charts", children: [
+              { key: "/child/weight", label: <Link to="/child/weight">Weight</Link> },
+              { key: "/child/height", label: <Link to="/child/height">Height</Link> },
             ]
           },
           { key: "/child/growth", icon: <StairsOutlinedIcon style={iconStyle} />, label: <Link to="/child/growth">Growth</Link> },
