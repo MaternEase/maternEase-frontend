@@ -8,6 +8,7 @@ import {
     DatePicker,
     TimePicker,
     Select,
+    message,
 } from "antd";
 import { ArrowBack } from "@mui/icons-material";
 import moment from "moment";
@@ -138,10 +139,14 @@ const NoticeCalendar = ({ backPath }) => {
         navigate(backPath); // Navigate to the dynamic back path
     };
 
-    const handleReserveClick = (slot) => {
+    const handleReserveClick = (slot, actionType) => {
         // Handle reservation logic here
         setIsEventModalVisible(false);
-        setIsReservationModalVisible(true); // Show the Reservation Successful modal
+        if (actionType === "reserve") {
+            message.success("Reservation was successful");
+        } else if (actionType === "requestChange") {
+            message.success("Request sent successfully");
+        }
     };
 
     const renderTimeSlots = () => {
@@ -149,7 +154,7 @@ const NoticeCalendar = ({ backPath }) => {
             { time: "7:30 AM - 7:45 AM", booked: "others" },
             { time: "7:45 AM - 8:00 AM", booked: null },
             { time: "8:00 AM - 8:15 AM", booked: null },
-            { time: "8:15 AM - 8:30 AM", booked: "user" },
+            { time: "8:15 AM - 8:30 AM", booked: "others" },
             { time: "1:00 PM - 1:15 PM", booked: "user" },
         ];
 
@@ -158,7 +163,10 @@ const NoticeCalendar = ({ backPath }) => {
                 key={index}
                 type="primary"
                 disabled={slot.booked === "others"}
-                onClick={() => slot.booked !== "user" && handleReserveClick(slot)}
+                onClick={() => {
+                    const actionType = slot.booked === "user" ? "requestChange" : "reserve";
+                    handleReserveClick(slot, actionType);
+                }}
                 style={{
                     backgroundColor: slot.booked === "user" ? "#1890ff" : (slot.booked === "others" ? "#d9d9d9" : "#967aa1"),
                     borderColor: slot.booked === "user" ? "#1890ff" : (slot.booked === "others" ? "#d9d9d9" : "#967aa1"),
@@ -204,19 +212,6 @@ const NoticeCalendar = ({ backPath }) => {
                 visible={isEventModalVisible}
                 onCancel={() => setIsEventModalVisible(false)}
                 footer={[
-                    // !showTimeSlots && (
-                    //     // <Button
-                    //     //     key="add"
-                    //     //     type="primary"
-                    //     //     onClick={() => {
-                    //     //         setIsEventModalVisible(false);
-                    //     //         setIsAddEventModalVisible(true);
-                    //     //     }}
-                    //     //     style={{ backgroundColor: "#967aa1", borderColor: "#967aa1" }}
-                    //     // >
-                    //     //     Add Event
-                    //     // </Button>
-                    // ),
                     <Button key="close" onClick={() => setIsEventModalVisible(false)}>
                         Close
                     </Button>,

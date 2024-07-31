@@ -56,7 +56,7 @@ const ReportOne = () => {
         <Form
             layout="vertical"
             initialValues={{
-                motherName: 'Arachchige Renuka de Silva',
+                motherName: 'Arachchige Sepali de Silva',
                 age: 30,
                 district: 'Colombo',
                 mohArea: 'Dehiwala',
