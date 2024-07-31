@@ -98,6 +98,13 @@ const Dashboard = () => {
       // paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.',
       path: '/doctor/risky-mothers-babies',
     },
+    {
+      key: 5,
+      title: 'Special Referring',
+      // value: 29,
+      // paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.',
+      path: '/doctor/risky-mothers-babies',
+    },
   ];
 
   const userFullCalendarPath = '/admin/full-calendar';
