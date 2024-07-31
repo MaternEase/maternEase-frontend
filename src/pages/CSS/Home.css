@@ -33,7 +33,7 @@
 }
 
 .navbar a:hover {
-  color: #7c6187;
+  color: #624d6b;
 }
 
 .login-button {
@@ -113,30 +113,52 @@
   background-color: #7c6187;
 }
 
+/*Our Mission*/
+.mission {
+  padding: 50px 20%;
+  background-color: #fdfdfd;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.mission .heading {
+  text-align: center;
+  color: #565555;
+}
+
+.mission p{
+  font-size: 1.2em;
+  color: #7a7a7a;
+  line-height: 1.6;
+  padding-bottom: 10px;
+}
+
+
 /*About Section*/
 .about-us {
   padding: 50px 20%;
-  background-color: #fdfdfd;
+  background-color: #f1f1f1;
   text-align: center;
 }
 
 .about-us h2 {
-  font-size: 2.5em;
   color: #7c6187;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .about-us .about-content p {
   font-size: 1.2em;
   color: #565555;
   line-height: 1.6;
+  padding-bottom: 10px;
 }
 
 /*Services section*/
 .services{
   padding-left: 10%;
   padding-right: 10%;
-  background-color: #f3f3f3;
+  background-color: #ffffff;
 }
 
 .services .heading{
@@ -144,6 +166,17 @@
   color: #7c6187;
   text-align: center;
   padding-top: 3rem;
+  margin-top: 20px;
+}
+
+.services .sub-heading {
+  font-size: x-large;
+  font-weight: bold;
+  color: #939093;
+}
+
+.services .description{
+  color: #AAA1C8;
 }
 
 .service-list {
@@ -156,6 +189,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 60px;
 }
 
 .service-item img {
@@ -169,18 +203,9 @@
   font-size: 1.2em;
   color: #565555;
   text-align: center;
+  padding-bottom: 40px;
 }
 
-.statistics {
-  padding: 50px 20%;
-  background-color: #e0e0e0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.stat-item {
-  text-align: center;
-}
 
 .contact-us {
   padding: 50px 20%;

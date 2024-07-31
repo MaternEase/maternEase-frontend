@@ -2,9 +2,9 @@ import React from 'react';
 import './CSS/Home.css';
 import logo from '../assets/images/logo4.png';
 import hero from '../assets/images/home/baby.jpg';
-import service1 from '../assets/images/home/baby.jpg';
-import service2 from '../assets/images/home/baby.jpg';
-import service3 from '../assets/images/home/baby.jpg';
+import service1 from '../assets/images/home/service 1.png';
+import service2 from '../assets/images/home/service 2.png';
+import service3 from '../assets/images/home/service 3.png';
 
 const Home = () => {
   return (
@@ -17,8 +17,8 @@ const Home = () => {
 
           <nav className="navbar">
             <a href="#about">About Us</a>
-            <a href="#services">Our Services</a>
-            <a href="#mission">Our Mission</a>
+            <a href="#mission">Mission</a>
+            <a href="#services">Services</a>
             <a href="#contact">Contact Us</a>
             <button className="login-button">Log in</button>
           </nav>
@@ -37,6 +37,25 @@ const Home = () => {
           </div>
         </section>
 
+        {/*Mission Section*/}
+        <section className="mission">
+          <div className="mission-description">
+            <h1 className="heading">Mission</h1>
+            <p>
+              Our mission is to offer comprehensive, high-quality maternity and pediatric care by enhancing the overall effectiveness and
+              accessibility of healthcare services for expectant mothers, their children, and healthcare providers. We strive to
+              create a supportive and nurturing environment for families, empowering them through every stage of pregnancy and
+              childhood.
+            </p>
+            {/*  <h3>5.146</h3>*/}
+            {/*  <p>Infant deaths for every 1,000 live births</p>*/}
+            {/*</div>*/}
+            {/*<div className="stat-item">*/}
+            {/*  <h3>29</h3>*/}
+            {/*  <p>Maternal deaths for every 100,000 live births</p>*/}
+          </div>
+        </section>
+
 
         {/*About Section*/}
         <section className="about-us" id="about">
@@ -49,19 +68,22 @@ const Home = () => {
 
         {/*Service Section*/}
         <section className="services" id="services">
-          <h2 className="heading">Our Services</h2>
+          <h2 className="heading">Services</h2>
           <div className="service-list">
             <div className="service-item">
+              <p className="sub-heading">Digitalized Record Keeping</p>
               <img src={service1} alt="Service 1"/>
-              <p>Access medical reports anywhere anytime</p>
+              <p className="description">Access medical reports anywhere anytime</p>
             </div>
             <div className="service-item">
+              <p className="sub-heading">Data Visualization</p>
               <img src={service2} alt="Service 2"/>
-              <p>Scheduling and appointment management</p>
+              <p className="description">Scheduling and appointment management</p>
             </div>
             <div className="service-item">
+              <p className="sub-heading">Appoinment Management</p>
               <img src={service3} alt="Service 3"/>
-              <p>Comprehensive health tracking</p>
+              <p className="description">Scheduling and appointment management</p>
             </div>
             {/*<div className="service-item">*/}
             {/*  <img src={service1} alt="Service 4"/>*/}
@@ -70,17 +92,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/*Mission Section*/}
-        <section className="statistics">
-          <div className="stat-item">
-            <h3>5.146</h3>
-            <p>Infant deaths for every 1,000 live births</p>
-          </div>
-          <div className="stat-item">
-            <h3>29</h3>
-            <p>Maternal deaths for every 100,000 live births</p>
-          </div>
-        </section>
+
 
         {/*Contact Section*/}
         <section className="contact-us" id="contact">
