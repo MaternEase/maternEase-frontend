@@ -10,9 +10,16 @@ import MaternalHealth from '../pages/Doctor/MaternalHealthStats';
 import PregnacyDelivery from '../pages/Doctor/PregnancyDeliveryStats';
 import NewbornHealth from '../pages/Doctor/NewbornHealthStats';
 import ImmunizationScreening from '../pages/Doctor/ImmunizationScreeningStatics';
+import MotherHistory from '../pages/Doctor/MotherHistory';
+import MotherReport1 from '../pages/Doctor/MotherReports1';
+import MotherReport2 from '../pages/Doctor/MotherReports2';
+import MotherReport3 from '../pages/Doctor/MotherReports3';
+import BabyReport1 from '../pages/Doctor/BabyReport1';
+import BabyReport2 from '../pages/Doctor/BabyReport2';
+
+
+
 import Crud1 from '../pages/Doctor/Crud1';
-
-
 
 const DoctorRoutes = () => {
   return (
@@ -27,11 +34,18 @@ const DoctorRoutes = () => {
       <Route path="/pregnancydeliverystats" element={<PregnacyDelivery />} />
       <Route path="/newbornhealthstats" element={<NewbornHealth />} />
       <Route path="/immunizationscreeningstats" element={<ImmunizationScreening />} />
+      <Route path="/motherhistory" element={<MotherHistory />} />
+      <Route path="/motherreport1" element={<MotherReport1 />} />
+      <Route path="/motherreport2" element={<MotherReport2/>} />
+      <Route path="/motherreport3" element={<MotherReport3 />} />
+      <Route path="/babyreport1" element={<BabyReport1 />} />
+      <Route path="/babyreport2" element={<BabyReport2 />} />
+
+
+
+      //Crud routes
       <Route path="/crud1" element={<Crud1 />} />
-
-
-
-
+      <Route path="/crudupdate/:id" element={<Clinics />} />
     </Routes>
   );
 };
