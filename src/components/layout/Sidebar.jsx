@@ -147,10 +147,12 @@ const Sidebar = ({ collapsed, userType }) => {
       collapsed={collapsed}
       width={200}
       style={{
-        overflow: "auto",
-        height: "100vh",
-        position: "sticky",
-        top: 0,
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        top: 64,
+        bottom: 0,
         backgroundColor: "#f7f7f7", // Ensure consistent background color
       }}
       trigger={null}
