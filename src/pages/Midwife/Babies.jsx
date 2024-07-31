@@ -20,8 +20,8 @@ const TABLE_ROWS = [
 const Babies = () => {
   return (
     <CustomTable
-      title="Expected Mothers"
-      subheader="See information about all Expected mothers"
+      title="Babies"
+      subheader="See information about all Babies"
       tabs={TABS}
       tableHead={TABLE_HEAD}
       tableRows={TABLE_ROWS}
