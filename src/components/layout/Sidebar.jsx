@@ -18,6 +18,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutlinedOutlined"; //health charts
 import StairsOutlinedIcon from "@mui/icons-material/StairsOutlined"; //growth
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
+import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined';
 
 import baby from "../../assets/images/baby.png"; //children
 
@@ -66,14 +67,15 @@ const Sidebar = ({ collapsed, userType }) => {
       case "DOCTOR":
         return [
           { key: "/doctor/dashboard", icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/dashboard">Dashboard</Link> },
-          { key: "mothers", icon: <Person3OutlinedIcon style={iconStyle} />, label: "Mothers", children: [
-              { key: "/doctor/mothers/expected", label: <Link to="/doctor/mothers/expected">Expected Mothers</Link> },
-              { key: "/doctor/mothers/delivered", label: <Link to="/doctor/mothers/delivered">Delivered Mothers</Link> },
-            ]
-          },
-          { key: "/doctor/clinics", icon: <HomeOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/clinics">Clinics</Link> },
+          { key: "/doctor/mothers", icon: <Person3OutlinedIcon style={iconStyle} />, label: <Link to="/doctor/mothers">Mothers</Link> },
+          // { key: "mothers", icon: <Person3OutlinedIcon style={iconStyle} />, label: "Mothers", children: [
+          //     { key: "/doctor/mothers/expected", label: <Link to="/doctor/mothers/expected">Expected Mothers</Link> },
+          //     { key: "/doctor/mothers/delivered", label: <Link to="/doctor/mothers/delivered">Delivered Mothers</Link> },
+          //   ]
+          // },
+          { key: "/doctor/crud1", icon: <AssignmentLateOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/crud1">Risky List</Link> },
           { key: "/doctor/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/doctor/babies">Babies</Link> },
-          { key: "/doctor/schedules", icon: <EventNoteOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
+          // { key: "/doctor/schedules", icon: <EventNoteOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
           { key: "/doctor/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/reports">Reports</Link> },
         ];
       case "ADMIN":
@@ -91,7 +93,7 @@ const Sidebar = ({ collapsed, userType }) => {
         return [
           { key: "/mother/dashboard", icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
           { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/reportone">Report</Link> },
-          { key: "/mother/timeslots", icon: <PendingActionsOutlinedIcon style={iconStyle} />, label: <Link to="/mother/timeslots">Timeslots</Link> },
+          { key: "/mother/timeslots", icon: <PendingActionsOutlinedIcon style={iconStyle} />, label: <Link to="/mother/timeslots">Events</Link> },
           { key: "children", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: "Children", children: [
               { key: "/mother/children/child1", label: <Link to="/mother/children/child1">Child 1</Link> },
               { key: "/mother/children/child2", label: <Link to="/mother/children/child2">Child 2</Link> },
@@ -120,60 +122,60 @@ const Sidebar = ({ collapsed, userType }) => {
     return items.map(item => {
       if (item.children) {
         return (
-          <SubMenu
-            key={item.key}
-            icon={item.icon}
-            title={item.label}
-          >
-            {renderMenuItems(item.children)}
-          </SubMenu>
+            <SubMenu
+                key={item.key}
+                icon={item.icon}
+                title={item.label}
+            >
+              {renderMenuItems(item.children)}
+            </SubMenu>
         );
       }
       return (
-        <Menu.Item
-          key={item.key}
-          icon={item.icon}
-          style={location.pathname === item.key ? { ...selectedStyle, ...selectedFontColor } : null}
-        >
-          {item.label}
-        </Menu.Item>
+          <Menu.Item
+              key={item.key}
+              icon={item.icon}
+              style={location.pathname === item.key ? { ...selectedStyle, ...selectedFontColor } : null}
+          >
+            {item.label}
+          </Menu.Item>
       );
     });
   };
 
   return (
-    <Sider
-      collapsible
-      collapsed={collapsed}
-      width={200}
-      style={{
-        overflow: 'auto',
-        height: '100vh',
-        position: 'fixed',
-        left: 0,
-        top: 64,
-        bottom: 0,
-        backgroundColor: "#f7f7f7", // Ensure consistent background color
-      }}
-      trigger={null}
-    >
-      <Menu
-        theme="light" // Set theme to light for default styling
-        mode="inline"
-        defaultSelectedKeys={['1']}
-        selectedKeys={[location.pathname]}
-        style={{ borderRight: 0, backgroundColor: "inherit" }}
+      <Sider
+          collapsible
+          collapsed={collapsed}
+          width={200}
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 64,
+            bottom: 0,
+            backgroundColor: "#f7f7f7", // Ensure consistent background color
+          }}
+          trigger={null}
       >
-        {renderMenuItems(getMenuItems())}
-        <Menu.Item
-          key="logout"
-          icon={<LogoutOutlinedIcon style={iconStyle} />}
-          onClick={handleLogout}
+        <Menu
+            theme="light" // Set theme to light for default styling
+            mode="inline"
+            defaultSelectedKeys={['1']}
+            selectedKeys={[location.pathname]}
+            style={{ borderRight: 0, backgroundColor: "inherit" }}
         >
-          Logout
-        </Menu.Item>
-      </Menu>
-    </Sider>
+          {renderMenuItems(getMenuItems())}
+          <Menu.Item
+              key="logout"
+              icon={<LogoutOutlinedIcon style={iconStyle} />}
+              onClick={handleLogout}
+          >
+            Logout
+          </Menu.Item>
+        </Menu>
+      </Sider>
   );
 };
 

@@ -10,6 +10,7 @@ import FullCalendar from "../pages/ExpectantMother/FullCalendar.jsx";
 import ReportTwo from "../pages/ExpectantMother/ReportTwo.jsx";
 import ReportThree from "../pages/ExpectantMother/ReportThree.jsx";
 import FundalChart from "../pages/ExpectantMother/FundalChart.jsx";
+import Child1 from "../pages/ExpectantMother/Child1.jsx";
 // import WeightGainChart from "../pages/ExpectantMother/WeightGainChart.jsx";
 
 const ExpectantMotherRoutes = () => {
@@ -24,6 +25,7 @@ const ExpectantMotherRoutes = () => {
             <Route path="reporttwo" element={<ReportTwo />} />
             <Route path="reportthree" element={<ReportThree />} />
             <Route path="fundalchart" element={<FundalChart />} />
+            <Route path="/children/child1" element={<Child1 />} />
             {/*<Route path="weightchart" element={<WeightGainChart />} />*/}
             ]
 
