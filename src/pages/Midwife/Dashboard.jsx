@@ -97,7 +97,7 @@ const Dashboard = () => {
     { key: 4, title: 'Total Clinics', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
   ];
 
-  const userFullCalendarPath = '/admin/full-calendar'; 
+  const userFullCalendarPath = '/midwife/full-calendar'; 
 
   const filteredDataMothers = data.filter(item => 
     item.name.toLowerCase().includes(searchTextMothers.toLowerCase()) ||
@@ -244,7 +244,7 @@ const Dashboard = () => {
       <Row justify="space-between" align="middle">
         <Col>
           <Typography>WERT MOH Area</Typography>
-          <Title level={3}>Hi, Nimal 👋</Title>
+          <Title level={3}>Hi, Nimali Miss 👋</Title>
         </Col>
         <Col>
           <Row gutter={16}>
