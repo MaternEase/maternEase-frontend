@@ -10,18 +10,19 @@ const TABS = [
 const TABLE_HEAD = ["ID", "Name", "Age", "Condition", "Refer to Doctor","",  "Guardian Name",""];
 
 const TABLE_ROWS = [
-  { id: 1, img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg", name: "John Michael", age: 30, condition: "Non Risky", referToDoctor: false, guardianName: "Sadeep" },
-  { id: 2, img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg", name: "Alexa Liras", age: 25, condition: "Risky", referToDoctor: true, guardianName: "John" },
-  { id: 3, img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg", name: "Laurent Perrier", age: 28, condition: "Non Risky", referToDoctor: false, guardianName: "Doe" },
-  { id: 4, img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg", name: "Michael Levi", age: 35, condition: "Risky", referToDoctor: true, guardianName: "Smith" },
-  { id: 5, img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg", name: "Richard Gran", age: 40, condition: "Non Risky", referToDoctor: false, guardianName: "Will" },
+  { id: 1, img: "", name: "Kavindu Perera", age: 1, condition: "Non Risky", referToDoctor: false, guardianName: "Saman Perera" },
+  { id: 2, img: "", name: "Tharindu Silva", age: 2, condition: "Risky", referToDoctor: true, guardianName: "Nimal Silva" },
+  { id: 3, img: "", name: "Sanduni Fernando", age: 1, condition: "Non Risky", referToDoctor: false, guardianName: "Kamal Fernando" },
+  { id: 4, img: "", name: "Hiruni Jayasinghe", age: 3, condition: "Risky", referToDoctor: true, guardianName: "Nuwan Jayasinghe" },
+  { id: 5, img: "", name: "Naveen Rathnayake", age: 2, condition: "Non Risky", referToDoctor: false, guardianName: "Lal Rathnayake" },
 ];
+
 
 const Babies = () => {
   return (
     <CustomTable
-      title="Expected Mothers"
-      subheader="See information about all Expected mothers"
+      title="Babies"
+      subheader="See information about all Babies"
       tabs={TABS}
       tableHead={TABLE_HEAD}
       tableRows={TABLE_ROWS}

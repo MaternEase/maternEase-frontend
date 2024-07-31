@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Chip,
   IconButton,
   InputBase,
   Paper,
@@ -37,13 +36,22 @@ const themeColors = {
   tertiary: '#AAA1C8',
   quaternary: '#967AA1',
   quinary: '#192A51',
+  risky: '#E4B1B1',
+  riskyHover: '#D29C9C',
+  nonRisky: '#F5E6E8',
+  nonRiskyHover: '#7FA7D4',
+  referDoctor: '#F5E6E8',
+  referDoctorHover: '#D5C6E0',
+  referredDoctor: '#967AA1',
+  referredDoctorHover: '#7D6091'
 };
 
-const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
+const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMemberClick, showActions = true }) => {
   const [tabValue, setTabValue] = useState(tabs[0].value);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCondition, setFilterCondition] = useState('');
   const [filterAge, setFilterAge] = useState('');
+  const [rows, setRows] = useState(tableRows);
 
   const navigate = useNavigate();
 
@@ -67,7 +75,11 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
     navigate(`/midwife/mothers/expected/profile/${id}`);
   };
 
-  const filteredRows = tableRows.filter(row => {
+  const handleReferToDoctorClick = (id) => {
+    setRows(rows.map(row => row.id === id ? { ...row, referToDoctor: !row.referToDoctor } : row));
+  };
+
+  const filteredRows = rows.filter(row => {
     const matchesSearch = row.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCondition = filterCondition ? row.condition === filterCondition : true;
     const matchesAge = filterAge ? row.age === parseInt(filterAge) : true;
@@ -75,17 +87,24 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
   });
 
   return (
-    <Card sx={{ height: '100%'}}>
+    <Card sx={{ height: '100%' }}>
       <CardHeader
         title={title}
         subheader={subheader}
         action={
-          <div style={{ display: 'flex', gap: '8px' }}>
-            <Button variant="outlined" size="small">View all</Button>
-            <Button variant="contained" size="small" startIcon={<EditIcon />}>Add member</Button>
-          </div>
+          showActions && (
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <Button variant="contained" size="small" style={{
+                backgroundColor: '#192A51',
+                borderColor: '#192A51',
+                borderRadius: '20px',
+                height: '40px',
+                fontSize: '14px'
+              }} startIcon onClick={onAddMemberClick}>+ Add New Expectant Mother</Button>
+            </div>
+          )
         }
-        sx={{ backgroundColor:'' }}
+        sx={{ backgroundColor: '' }}
       />
       <CardContent sx={{ height: 'calc(100% - 68px)', display: 'flex', flexDirection: 'column', backgroundColor: '' }}>
         <div style={{ display: 'flex', gap: '10%', alignItems: 'center' }}>
@@ -101,7 +120,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
           </Tabs>
           <Paper
             component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, marginTop: '0px', marginBottom: '22px',backgroundColor: '#EEEEEE' }}
+            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, marginTop: '0px', marginBottom: '22px', backgroundColor: '#EEEEEE' }}
           >
             <InputBase
               sx={{ ml: 1, flex: 1 }}
@@ -114,13 +133,12 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
               <SearchIcon />
             </IconButton>
           </Paper>
-          <div >
+          <div>
             <Select
-            sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 150, mt: 2, marginTop: '0px', marginBottom: '22px' }}
+              sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 150, mt: 2, marginTop: '0px', marginBottom: '22px' }}
               value={filterCondition}
               onChange={handleConditionChange}
               displayEmpty
-              // sx={{ minWidth: 120 }}
             >
               <MenuItem value=""><em>Condition</em></MenuItem>
               <MenuItem value="Risky">Risky</MenuItem>
@@ -163,8 +181,13 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
                       variant="contained"
                       size="small"
                       sx={{
-                        backgroundColor: condition === "Risky" ? themeColors.quinary : themeColors.tertiary,
-                        color: themeColors.primary
+                        backgroundColor: condition === "Risky" ? themeColors.risky : themeColors.nonRisky,
+                        color: '#000',
+                        fontWeight: '',
+                        '&:hover': {
+                          backgroundColor: condition === "Risky" ? themeColors.riskyHover : themeColors.nonRiskyHover,
+                          color: '#fff',
+                        },
                       }}
                     >
                       {condition}
@@ -172,21 +195,23 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Button
-                      variant="outlined"
+                      variant="contained"
                       size="small"
                       sx={{
-                        borderColor: referToDoctor ? themeColors.quinary : themeColors.tertiary,
-                        color: referToDoctor ? themeColors.quinary : themeColors.tertiary
+                        backgroundColor: referToDoctor ? themeColors.referredDoctor : themeColors.referDoctor,
+                        color: '#000',
+                        '&:hover': {
+                          backgroundColor: referToDoctor ? themeColors.referredDoctorHover : themeColors.referDoctorHover,
+                          color: '#fff',
+                        },
                       }}
+                      onClick={() => handleReferToDoctorClick(id)}
                     >
-                      Refer to Doctor
+                      {referToDoctor ? 'Referred' : 'Refer to Doctor'}
                     </Button>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Typography variant="body2">{deliveredDate}</Typography>
-                  </TableCell>
-                  <TableCell sx={{ padding: '10px' }}>
-                    <Typography variant="body2">{guardianName}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Tooltip title="View Profile">
@@ -194,6 +219,12 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows }) => {
                         variant="contained"
                         color="secondary"
                         size="small"
+                        sx={{
+                          backgroundColor: themeColors.quaternary,
+                          '&:hover': {
+                            backgroundColor: themeColors.quinary,
+                          },
+                        }}
                         onClick={() => handleViewProfileClick(id)}
                       >
                         View Profile
