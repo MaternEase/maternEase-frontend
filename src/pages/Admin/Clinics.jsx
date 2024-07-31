@@ -42,25 +42,27 @@ const Clinics = () => {
   const [form] = Form.useForm();
 
   // Single doctor responsible for all clinics
-  const responsibleDoctor = "Dr. Jane Smith";
+  const responsibleDoctor = "Dr. Sujeewa Kumara";
 
   const clinics = [
     {
-      name: "Clinic A",
-      location: "Location A",
-      midwives: ["Midwife 1", "Midwife 2", "Midwife 3"],
+      name: "Athapaththukanda",
+      id: 'A5',
+      created_at: '2019-02-12',
+      location: "Community Hall",
+      midwives: ["Niramala Wasanthi", "Maduri Gunawardana", "Vishaka Sugandi"],
       expectantMothers: [
         {
           id: 1,
           RegistrationID: "A001",
-          Name: "Alice",
+          Name: "Waruni Kumari",
           Age: 28,
           Condition: "Normal",
         },
         {
           id: 2,
           RegistrationID: "A002",
-          Name: "Bella",
+          Name: "Bashini Darma",
           Age: 30,
           Condition: "Risky",
         },
@@ -69,7 +71,7 @@ const Clinics = () => {
         {
           id: 3,
           RegistrationID: "A003",
-          Name: "Catherine",
+          Name: "Riya Sahandi",
           Age: 32,
           Condition: "Risky",
           DeliveredDate: "2024-07-20",
@@ -77,7 +79,7 @@ const Clinics = () => {
         {
           id: 4,
           RegistrationID: "A004",
-          Name: "Diana",
+          Name: "Diana Kumari",
           Age: 29,
           Condition: "Normal",
           DeliveredDate: "2024-07-21",
@@ -87,16 +89,16 @@ const Clinics = () => {
         {
           id: 5,
           RegistrationID: "CA001",
-          Name: "Ethan",
-          GuardianName: "Alice",
+          Name: "Suramya Fernando",
+          GuardianName: "Aruni Perera",
           Age: 1,
           Condition: "Normal",
         },
         {
           id: 6,
           RegistrationID: "CA002",
-          Name: "Fiona",
-          GuardianName: "Catherine",
+          Name: "Pinidi Maheesha",
+          GuardianName: "Nilanthi Dias",
           Age: 2,
           Condition: "Normal",
         },
@@ -104,21 +106,23 @@ const Clinics = () => {
       stats: { birthCount: 5, deadBirthCount: 1, maternalDeathCount: 0 },
     },
     {
-      name: "Clinic B",
-      location: "Location B",
-      midwives: ["Midwife 4", "Midwife 5"],
+      name: "Pallewella",
+      id: 'A5',
+      created_at: '2019-02-12',
+      location: "Temple",
+      midwives: ["Niramala Wasanthi", "Maduri Gunawardana", "Vishaka Sugandi"],
       expectantMothers: [
         {
           id: 7,
           RegistrationID: "B001",
-          Name: "Grace",
+          Name: "Waruni Kumari",
           Age: 30,
           Condition: "Risky",
         },
         {
           id: 8,
           RegistrationID: "B002",
-          Name: "Hannah",
+          Name: "Bashini Darma",
           Age: 28,
           Condition: "Normal",
         },
@@ -127,7 +131,7 @@ const Clinics = () => {
         {
           id: 9,
           RegistrationID: "B003",
-          Name: "Ivy",
+          Name: "Riya Sahandi",
           Age: 29,
           Condition: "Normal",
           DeliveredDate: "2024-07-21",
@@ -135,7 +139,7 @@ const Clinics = () => {
         {
           id: 10,
           RegistrationID: "B004",
-          Name: "Jasmine",
+          Name: "Diana Kumari",
           Age: 31,
           Condition: "Risky",
           DeliveredDate: "2024-07-22",
@@ -145,16 +149,16 @@ const Clinics = () => {
         {
           id: 11,
           RegistrationID: "CB001",
-          Name: "Kyle",
-          GuardianName: "Grace",
+          Name: "Suramya Fernando",
+          GuardianName: "Aruni Perera",
           Age: 2,
           Condition: "Normal",
         },
         {
           id: 12,
           RegistrationID: "CB002",
-          Name: "Liam",
-          GuardianName: "Ivy",
+          Name: "Pinidi Maheesha",
+          GuardianName: "Nilanthi Dias",
           Age: 1,
           Condition: "Normal",
         },
@@ -162,21 +166,23 @@ const Clinics = () => {
       stats: { birthCount: 3, deadBirthCount: 0, maternalDeathCount: 0 },
     },
     {
-      name: "Clinic C",
-      location: "Location C",
-      midwives: ["Midwife 6", "Midwife 7"],
+      name: "Deyiyandara",
+      id: 'A5',
+      created_at: '2019-02-12',
+      location: "Community Hall",
+      midwives: ["Niramala Wasanthi"],
       expectantMothers: [
         {
           id: 13,
           RegistrationID: "C001",
-          Name: "Mia",
+          Name: "Waruni Kumari",
           Age: 26,
           Condition: "Normal",
         },
         {
           id: 14,
           RegistrationID: "C002",
-          Name: "Nina",
+          Name: "Bashini Darma",
           Age: 27,
           Condition: "Risky",
         },
@@ -185,7 +191,7 @@ const Clinics = () => {
         {
           id: 15,
           RegistrationID: "C003",
-          Name: "Olivia",
+          Name: "Riya Sahandi",
           Age: 34,
           Condition: "Normal",
           DeliveredDate: "2024-07-22",
@@ -193,7 +199,7 @@ const Clinics = () => {
         {
           id: 16,
           RegistrationID: "C004",
-          Name: "Piper",
+          Name: "Diana Kumari",
           Age: 33,
           Condition: "Risky",
           DeliveredDate: "2024-07-23",
@@ -203,16 +209,16 @@ const Clinics = () => {
         {
           id: 17,
           RegistrationID: "CC001",
-          Name: "Quinn",
-          GuardianName: "Mia",
+          Name: "Suramya Fernando",
+          GuardianName: "Aruni Perera",
           Age: 3,
           Condition: "Normal",
         },
         {
           id: 18,
           RegistrationID: "CC002",
-          Name: "Riley",
-          GuardianName: "Olivia",
+          Name: "Pinidi Maheesha",
+          GuardianName: "Nilanthi Dias",
           Age: 1,
           Condition: "Normal",
         },
@@ -220,21 +226,23 @@ const Clinics = () => {
       stats: { birthCount: 7, deadBirthCount: 1, maternalDeathCount: 1 },
     },
     {
-      name: "Clinic D",
-      location: "Location D",
-      midwives: ["Midwife 9", "Midwife 10"],
+      name: "Bamunugama",
+      id: 'A5',
+      created_at: '2019-02-12',
+      location: "Community Hall",
+      midwives: ["Niramala Wasanthi", "Vishaka Sugandi"],
       expectantMothers: [
         {
           id: 19,
           RegistrationID: "D001",
-          Name: "Sara",
+          Name: "Waruni Kumari",
           Age: 29,
           Condition: "Risky",
         },
         {
           id: 20,
           RegistrationID: "D002",
-          Name: "Tina",
+          Name: "Bashini Darma",
           Age: 30,
           Condition: "Normal",
         },
@@ -243,7 +251,7 @@ const Clinics = () => {
         {
           id: 21,
           RegistrationID: "D003",
-          Name: "Uma",
+          Name: "Riya Sahandi",
           Age: 31,
           Condition: "Risky",
           DeliveredDate: "2024-07-23",
@@ -251,7 +259,7 @@ const Clinics = () => {
         {
           id: 22,
           RegistrationID: "D004",
-          Name: "Violet",
+          Name: "Diana Kumari",
           Age: 32,
           Condition: "Normal",
           DeliveredDate: "2024-07-24",
@@ -261,16 +269,16 @@ const Clinics = () => {
         {
           id: 23,
           RegistrationID: "CD001",
-          Name: "Will",
-          GuardianName: "Sara",
+          Name: "Suramya Fernando",
+          GuardianName: "Aruni Perera",
           Age: 2,
           Condition: "Normal",
         },
         {
           id: 24,
           RegistrationID: "CD002",
-          Name: "Xander",
-          GuardianName: "Uma",
+          Name: "Pinidi Maheesha",
+          GuardianName: "Nilanthi Dias",
           Age: 1,
           Condition: "Normal",
         },
@@ -278,17 +286,18 @@ const Clinics = () => {
       stats: { birthCount: 4, deadBirthCount: 2, maternalDeathCount: 0 },
     },
   ];
+  
 
-  // Updated unassigned midwives data
+  // unassigned midwives data
   const unassignedMidwives = [
-    { name: "Midwife Alice Green", clinics: ["Clinic A", "Clinic B"] }, // Assigned to two clinics
-    { name: "Midwife Barbara White", clinics: [] }, // Unassigned
+    { name: "Nirmala peris", clinics: ["Bamunugama", "Deyiyanada"] }, 
+    { name: "Uma Perera", clinics: [] }, // Unassigned
     {
-      name: "Midwife Carol Black",
-      clinics: ["Clinic C", "Clinic D", "Clinic E"],
+      name: "Wasanthi Siva",
+      clinics: ["Deyiyanadara", "Athapaththukanada", "Polovita"],
     }, // Assigned to three clinics (maximum)
-    { name: "Midwife Diana Gray", clinics: [] }, // Unassigned
-    { name: "Midwife Evelyn Blue", clinics: ["Clinic F"] }, // Assigned to one clinic
+    { name: "Diana Kumari", clinics: [] }, // Unassigned
+    { name: "Sumana Disanayaka", clinics: ["Athapaththukanda"] }, // Assigned to one clinic
   ];
 
   const columnsExpectantMothers = [
@@ -1096,13 +1105,13 @@ const Clinics = () => {
             </Select>
           </Form.Item> */}
           <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife 1</span>}
+            label={<span style={{ fontWeight: "bold" }}>Midwife - 1</span>}
             name="midwife1"
             rules={[{ required: true, message: "Please select a midwife" }]}
           >
             <Select placeholder="Select a midwife">
-              <Option value="midwife1">Midwife 1</Option>
-              <Option value="midwife2">Midwife 2</Option>
+              <Option value="midwife1">Kamala Gamage</Option>
+              <Option value="midwife2">Nirmala Bandara</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -1111,8 +1120,8 @@ const Clinics = () => {
             rules={[{ required: true, message: "Please select a midwife" }]}
           >
             <Select placeholder="Select a midwife">
-              <Option value="midwife1">Midwife 2</Option>
-              <Option value="midwife2">Midwife 3</Option>
+              <Option value="midwife1">Kamala Gamage</Option>
+              <Option value="midwife2">Wasanthi Perera</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -1120,8 +1129,8 @@ const Clinics = () => {
             name="midwife3"
           >
             <Select placeholder="Select a midwife">
-              <Option value="midwife1">Midwife 3</Option>
-              <Option value="midwife2">Midwife 4</Option>
+              <Option value="midwife1">Divya Gunawaradana</Option>
+              <Option value="midwife2">Suramaya Fernando</Option>
             </Select>
           </Form.Item>
         </Form>
