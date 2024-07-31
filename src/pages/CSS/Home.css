@@ -170,7 +170,7 @@
 }
 
 .services .sub-heading {
-  font-size: x-large;
+  font-size: 20px;
   font-weight: bold;
   color: #7c6187;
 }
@@ -193,7 +193,7 @@
 }
 
 .service-item .description{
-  text-align: justify;
+  text-align: center;
 }
 .service-item img {
   width: 100%;

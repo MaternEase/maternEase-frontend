@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Home.css';
 import logo from '../assets/images/logo4.png';
 import hero from '../assets/images/home/baby.jpg';
@@ -7,6 +8,12 @@ import service2 from '../assets/images/home/service 2.png';
 import service3 from '../assets/images/home/service 3.png';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate('/signin');
+    };
+
     return (
         <div>
             {/* Navbar Section */}
@@ -19,7 +26,7 @@ const Home = () => {
                     <a href="#mission">Mission</a>
                     <a href="#services">Services</a>
                     <a href="#contact">Contact Us</a>
-                    <button className="login-button">Log in</button>
+                    <button className="login-button" onClick={handleLoginClick}>Log in</button>
                 </nav>
             </header>
 
@@ -31,7 +38,9 @@ const Home = () => {
                     <h1 className="heading">Welcome to <span className="large-text">MaternEase</span></h1>
                     <h1 className="heading">Comprehensive Maternity and Child Care</h1>
                     <h2 className="sub-heading">Providing compassionate care for mothers and children.</h2>
-                    <button className="sign-up-button">Get Started</button>
+                    <button className="sign-up-button login-button" onClick={handleLoginClick}>Get
+                        Started
+                    </button>
                 </div>
             </section>
 
