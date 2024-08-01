@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Row, Col, Input, Select, Checkbox, DatePicker, Card, Button, Form, message, AutoComplete, Radio } from 'antd';
+import { Row, Col, Input, Select, Checkbox, DatePicker, Card, Button, Form, AutoComplete, Radio } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
-import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
 import moment from 'moment';
 import '../../styles/ExpectantMother/Dashboard.css';
-// import WeightChart from "../../components/ExpectantMother/WeightChart.jsx";
 
 const { Option } = Select;
 
@@ -52,7 +49,6 @@ const ReportOne = () => {
     };
 
     return (
-
         <Form
             layout="vertical"
             initialValues={{
@@ -79,16 +75,16 @@ const ReportOne = () => {
                         <div style={{ display: 'flex', gap: '10px' }}>
                             <Checkbox
                                 defaultChecked
-                                style={{ backgroundColor: '#9DBFE6', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
+                                style={{ backgroundColor: '', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
                                 Firstborn
                             </Checkbox>
                             <Checkbox
                                 defaultChecked
-                                style={{ backgroundColor: '#E4B1B1', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
+                                style={{ backgroundColor: '#ff9999', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
                                 Risky
                             </Checkbox>
                             <div
-                                style={{ backgroundColor: '#D3D3D3', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
+                                style={{ backgroundColor: '', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
                                 Blood Group
                                 <Select
                                     defaultValue="B+"
@@ -97,7 +93,6 @@ const ReportOne = () => {
                                     <Option value="B+">B+</Option>
                                     <Option value="O+">O+</Option>
                                     <Option value="AB+">AB+</Option>
-                                    {/* Add more options as needed */}
                                 </Select>
                             </div>
                         </div>
@@ -105,10 +100,10 @@ const ReportOne = () => {
                 }
                 style={{ marginBottom: '20px' }}
             />
-            <div className="container">
+            <div className="container" style={{ backgroundColor: '#ffe6e6', padding: '20px' }}>
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Basic Information" style={{marginBottom: '16px'}}>
+                        <Card title="Basic Information" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Row gutter={16}>
                                 <Col span={12}>
                                     <Form.Item
@@ -184,7 +179,7 @@ const ReportOne = () => {
 
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Card title="Eligible Family Register" style={{marginBottom: '16px'}}>
+                        <Card title="Eligible Family Register" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Form.Item
                                 label="Registration No."
                                 name="familyRegNo"
@@ -201,7 +196,7 @@ const ReportOne = () => {
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="Pregnant Mother’s Register" style={{marginBottom: '16px'}}>
+                        <Card title="Pregnant Mother’s Register" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Form.Item
                                 label="Registration No."
                                 name="motherRegNo"
@@ -221,7 +216,7 @@ const ReportOne = () => {
 
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Health Information" style={{marginBottom: '16px'}}>
+                        <Card title="Health Information" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Form.Item
                                 label="Risk Conditions"
                                 name="riskConditions"
@@ -234,7 +229,7 @@ const ReportOne = () => {
 
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Family Planning Information" style={{marginBottom: '16px'}}>
+                        <Card title="Family Planning Information" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Form.Item label="Has the mother ever used a family planning method?">
                                 <Radio.Group onChange={handleFamilyPlanningMethodChange}>
                                     <Radio value="yes">Yes</Radio>
@@ -247,7 +242,6 @@ const ReportOne = () => {
                                         <Option value="method1">Method 1</Option>
                                         <Option value="method2">Method 2</Option>
                                         <Option value="method3">Method 3</Option>
-                                        {/* Add more options as needed */}
                                     </Select>
                                 </Form.Item>
                             )}
@@ -259,7 +253,7 @@ const ReportOne = () => {
 
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Doctor's Recommendations" style={{ marginBottom: '16px' }}>
+                        <Card title="Doctor's Recommendations" style={{ marginBottom: '16px', backgroundColor: '' }}>
                             <Form.Item
                                 label="Instructions and Recommendations"
                                 name="doctorRecommendations"
