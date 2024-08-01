@@ -16,6 +16,13 @@ import MotherReport2 from '../pages/Doctor/MotherReports2';
 import MotherReport3 from '../pages/Doctor/MotherReports3';
 import BabyReport1 from '../pages/Doctor/BabyReport1';
 import BabyReport2 from '../pages/Doctor/BabyReport2';
+import BabyRefer from '../pages/Doctor/BabyRefer';
+import MotherRefer from '../pages/Doctor/MotherRefer';
+import DoctorCalendar from '../pages/Doctor/DoctorCalendar';
+import MotherAll from '../pages/Doctor/MotherAll';
+import BabiesAll from '../pages/Doctor/BabiesAll';
+
+
 
 
 
@@ -40,6 +47,14 @@ const DoctorRoutes = () => {
       <Route path="/motherreport3" element={<MotherReport3 />} />
       <Route path="/babyreport1" element={<BabyReport1 />} />
       <Route path="/babyreport2" element={<BabyReport2 />} />
+      <Route path="/babyrefer" element={<BabyRefer />} />
+      <Route path="/motherrefer" element={<MotherRefer />} />
+      <Route path="/doctorcalendar" element={<DoctorCalendar />} />
+      <Route path="/motherall" element={<MotherAll />} />
+      <Route path="/babiesall" element={<BabiesAll />} />
+
+
+
 
 
 
