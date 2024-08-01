@@ -1,10 +1,8 @@
 import React from 'react';
-import { Row, Col, Input, Radio, DatePicker, Card, Button, Form, InputNumber } from 'antd';
+import { Row, Col, Input, Radio, DatePicker, Card, Form, InputNumber } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
-import { Link } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box } from '@mui/material';
 import moment from 'moment';
-
-const { TextArea } = Input;
 
 const validateNonNegative = (rule, value) => {
     if (value < 0) {
@@ -30,7 +28,7 @@ const styles = {
     },
     pageHeader: {
         backgroundColor: '#f5f5f5',
-        marginBottom:'10px',
+        marginBottom: '10px',
     },
     card: {
         marginBottom: '16px',
@@ -55,6 +53,21 @@ const styles = {
     button: {
         backgroundColor: '#967AA1',
         borderColor: '#967AA1',
+    },
+    immunizationHeader: {
+        backgroundColor: '#f5f5f5',
+        marginBottom: '10px',
+    },
+    immunizationCard: {
+        p: 2,
+        backgroundColor: 'white',
+        borderRadius: 1,
+        boxShadow: 1,
+        display: 'flex',
+        gap: 2,
+    },
+    immunizationTable: {
+        mt: 2,
     },
 };
 
@@ -101,18 +114,27 @@ const dummyData = {
     },
 };
 
-const Health_charts = () => (
+const Child1 = () => (
     <Form layout="vertical" initialValues={dummyData}>
         <div style={styles.container}>
             <PageHeader
                 className="site-page-header"
-                title="Health Chart"
+                title="Health Chart and Immunization"
                 style={styles.pageHeader}
             />
             <div className="content">
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title={<span>Birth Date : 21/09/2021</span>} style={styles.card}>
+                        <Card
+                            title={(
+                                <>
+                                    <div style={{ fontSize: '20px', fontWeight: 'bold' }}>Child Name: Minuka Sathsara</div>
+                                    <span>Birth Date: 21/09/2021</span>
+                                    <span style={{ marginLeft: '10px' }}>Age: 2 Years 11 Months</span>
+                                </>
+                            )}
+                            style={styles.card}
+                        >
                             <Row gutter={16}>
                                 <Col span={12}>
                                     <Form.Item
@@ -170,25 +192,85 @@ const Health_charts = () => (
                         </Card>
                     </Col>
                 </Row>
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Card title="Doctor's Recommendations and Instructions" style={styles.card}>
-                            <Form.Item name="recommendations" label="Recommendations and Instructions">
-                                <TextArea rows={4} placeholder="Enter recommendations and instructions here..." />
-                            </Form.Item>
-                        </Card>
-                    </Col>
-                </Row>
-                <div style={styles.paginationContainer}>
-                    <Link to="/doctor/babyreport2">
-                        <Button type="primary" style={styles.button}>
-                            Next
-                        </Button>
-                    </Link>
-                </div>
+
+                <PageHeader
+                    className="site-page-header"
+                    title="Immunization Details"
+                    style={styles.pageHeader}
+                />
+
+                <Box sx={styles.immunizationCard}>
+                    <Box>
+                        <Typography variant="body1">21/11/2021</Typography>
+                    </Box>
+                    <Box>
+                        <Typography variant="body1">MOH</Typography>
+                    </Box>
+                </Box>
+
+                <TableContainer component={Paper} sx={styles.immunizationTable}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Age</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Type of Vaccine</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Date</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Batch Number</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Adverse Effects</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>BCG Scar</Typography>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>At Birth</TableCell>
+                                <TableCell>BCG</TableCell>
+                                <TableCell>21/09/2021</TableCell>
+                                <TableCell>0370G070</TableCell>
+                                <TableCell>0</TableCell>
+                                <TableCell>Present</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>2 Months Completed</TableCell>
+                                <TableCell>Pentavalent 1</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>2 Months Completed</TableCell>
+                                <TableCell>OPV 1</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>4 Months Completed</TableCell>
+                                <TableCell>Pentavalent 2</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         </div>
     </Form>
 );
 
-export default Health_charts;
+export default Child1;

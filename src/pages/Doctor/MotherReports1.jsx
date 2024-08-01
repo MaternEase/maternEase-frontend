@@ -219,75 +219,63 @@ const ReportOne = () => {
                     </Col>
                 </Row>
 
-                <Card>
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            <Form.Item label="Consanguinity">
-                                <Radio.Group defaultValue="yes">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Card title="Health Information" style={{marginBottom: '16px'}}>
+                            <Form.Item
+                                label="Risk Conditions"
+                                name="riskConditions"
+                            >
+                                <Input placeholder="Risk Conditions"/>
                             </Form.Item>
-                            <Form.Item label="Rubella Immunization">
-                                <Radio.Group defaultValue="no">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Pre-pregnancy screening done">
-                                <Radio.Group defaultValue="yes">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Pre-conceptional folic acid">
-                                <Radio.Group defaultValue="no">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item label="History of subfertility">
-                                <Radio.Group defaultValue="yes">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Planned pregnancy or not">
-                                <Radio.Group defaultValue="no">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Family Planning Method Used">
-                                <Radio.Group defaultValue="no" onChange={handleFamilyPlanningMethodChange}>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Card title="Family Planning Information" style={{marginBottom: '16px'}}>
+                            <Form.Item label="Has the mother ever used a family planning method?">
+                                <Radio.Group onChange={handleFamilyPlanningMethodChange}>
                                     <Radio value="yes">Yes</Radio>
                                     <Radio value="no">No</Radio>
                                 </Radio.Group>
                             </Form.Item>
                             {isFamilyPlanningMethodUsed && (
-                                <Form.Item label="Specify Family Planning Method">
-                                    <Input placeholder="Specify Family Planning Method"/>
+                                <Form.Item label="If yes, specify the family planning method used">
+                                    <Select placeholder="Select Family Planning Method">
+                                        <Option value="method1">Method 1</Option>
+                                        <Option value="method2">Method 2</Option>
+                                        <Option value="method3">Method 3</Option>
+                                        {/* Add more options as needed */}
+                                    </Select>
                                 </Form.Item>
                             )}
-                        </Col>
-                    </Row>
-                    <Form.Item
-                        label="Identified Antenatal Risk Conditions & Morbidity"
-                        name="riskConditions"
-                    >
-                        <Input.TextArea placeholder="Identified Antenatal Risk Conditions & Morbidity" rows={4}/>
-                    </Form.Item>
-                </Card>
+                        </Card>
+                    </Col>
+                </Row>
 
-                <div className="pagination-container" style={{marginTop: '20px', textAlign: 'right'}}>
-                    <Link to="/doctor/motherreport2">
-                        <Button type="primary" style={{backgroundColor: '#967AA1', borderColor: '#967AA1'}}>
-                            Next
-                        </Button>
-                    </Link>
-                </div>
+                <hr />
+
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <Card title="Doctor's Recommendations" style={{ marginBottom: '16px' }}>
+                            <Form.Item
+                                label="Instructions and Recommendations"
+                                name="doctorRecommendations"
+                                rules={[{ required: true, message: 'Please provide instructions and recommendations!' }]}
+                            >
+                                <Input.TextArea rows={4} placeholder="Provide any instructions and recommendations for the baby here." />
+                            </Form.Item>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row gutter={16}>
+                    <Col span={24} style={{ textAlign: 'right' }}>
+                        <Button type="primary" htmlType="submit">Submit</Button>
+                    </Col>
+                </Row>
             </div>
         </Form>
     );

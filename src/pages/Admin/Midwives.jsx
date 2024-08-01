@@ -1,64 +1,59 @@
 import React, { useState } from 'react';
-import { Box, Grid, Typography, Avatar } from '@mui/material';
-import { Modal, Form, Input, Select, Button, Table } from 'antd';
+import { Box, Grid, Typography } from '@mui/material';
+import { Modal, Form, Input, Button, Table, notification } from 'antd';
+import ProfileDetailsPopup from "../../components/Admin/ProfileDetailsPopup";
+import AssignMidwifePopup from "../../components/Admin/AssignMidwifePopup"; // Import the Assign midwife popup
 
-const { Option } = Select;
 const { Search } = Input;
 
-// Example generated data for midwives
-const generatedMidwives = [
+// Updated data
+const data = [
   {
-    StaffId: 'M001',
-    FullName: 'Alice Johnson',
-    Age: 30,
-    RegisteredDate: '2023-01-15',
-    Status: 'Assigned',
-    Address: '123 Main St, Anytown, USA',
-    Telephone: '555-1234',
-    ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 2,
-    AssignedClinicsDetails: 'Clinic A, Clinic B', // New field
+    key: "1",
+    id: "123M",
+    name: "Wasanthi Perera",
+    age: 48,
+    date: "25 Jun 2024",
+    time: "09:30 am",
+    status: "Pending",
+    assignedClinics: ["Athapaththukanda", "Polovita"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
   {
-    StaffId: 'M002',
-    FullName: 'Betty Smith',
-    Age: 45,
-    RegisteredDate: '2022-05-20',
-    Status: 'Assigned',
-    Address: '456 Elm St, Othertown, USA',
-    Telephone: '555-5678',
-    ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 3,
-    AssignedClinicsDetails: 'Clinic X, Clinic Y, Clinic Z', // New field
+    key: "2",
+    id: "256M",
+    name: "Sujatha Dahanayake",
+    age: 26,
+    date: "01 Jul 2024",
+    time: "12:30 pm",
+    status: "Pending",
+    assignedClinics: ["Pallewella"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
   {
-    StaffId: 'M003',
-    FullName: 'Cathy Brown',
-    Age: 28,
-    RegisteredDate: '2021-11-10',
-    Status: 'Unassigned',
-    Address: '789 Pine St, Sometown, USA',
-    Telephone: '555-9101',
-    ProfileImage: 'https://via.placeholder.com/64',
-    AssignedClinics: 1,
-    AssignedClinicsDetails: 'Clinic D', // New field
+    key: "3",
+    id: "012M",
+    name: "Naduni Bandara",
+    age: 32,
+    date: "29 Jul 2024",
+    time: "12:30 pm",
+    status: "Pending",
+    assignedClinics: ["Athapaththukanda", "Deyiyandara"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
 ];
 
-// Define filter options
 const clinicOptions = [
-  'Clinic A',
-  'Clinic B',
-  'Clinic C',
-  'Clinic D',
-  'Clinic X',
-  'Clinic Y',
-  'Clinic Z',
+  'Athapaththukanda',
+  'Polovita',
+  'Deyiyandara',
+  'Pallewella',
 ];
 
-const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
+const Midwives = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  const [isAssignModalVisible, setIsAssignModalVisible] = useState(false);
   const [selectedMidwife, setSelectedMidwife] = useState(null);
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState('');
@@ -77,6 +72,10 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
     setIsViewModalVisible(false);
   };
 
+  const handleAssignCancel = () => {
+    setIsAssignModalVisible(false);
+  };
+
   const handleSearch = (text) => {
     setSearchText(text);
   };
@@ -86,6 +85,11 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
     setIsViewModalVisible(true);
   };
 
+  const handleAssign = (midwife) => {
+    setSelectedMidwife(midwife);
+    setIsAssignModalVisible(true);
+  };
+
   const handleFilterChange = (value) => {
     setFilters(value);
   };
@@ -93,24 +97,24 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
   const filterData = (data) => {
     return data.filter((item) => {
       const matchesSearch = 
-        item.StaffId.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.FullName.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.RegisteredDate.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.Status.toLowerCase().includes(searchText.toLowerCase());
+        item.id.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.date.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.status.toLowerCase().includes(searchText.toLowerCase());
   
-      const matchesFilter = (filters || []).length === 0 || (filters || []).some(filter => (item.AssignedClinicsDetails || '').includes(filter));
+      const matchesFilter = (filters || []).length === 0 || (filters || []).some(filter => (item.assignedClinics || []).includes(filter));
   
       return matchesSearch && matchesFilter;
     });
-  };  
+  };
 
   const renderStatusBar = (assignedClinics) => {
-    const totalSegments = 3;
+    const totalSegments = 4;
     const baseColor = '#967aa1'; // Base color for the status bar
     const lightColor = '#e0e4f1'; // Lighter shade of the base color
   
     // Calculate the percentage of the bar that should be filled
-    const percentage = (assignedClinics / totalSegments) * 100;
+    const percentage = (assignedClinics.length / totalSegments) * 100;
   
     return (
       <Box
@@ -127,34 +131,40 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
 
   const columnsMidwives = [
     {
-      title: 'Staff ID',
-      dataIndex: 'StaffId',
-      key: 'StaffId',
-      sorter: (a, b) => a.StaffId.localeCompare(b.StaffId),
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      sorter: (a, b) => a.id.localeCompare(b.id),
     },
     {
-      title: 'Full Name',
-      dataIndex: 'FullName',
-      key: 'FullName',
-      sorter: (a, b) => a.FullName.localeCompare(b.FullName),
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Registered Date',
-      dataIndex: 'RegisteredDate',
-      key: 'RegisteredDate',
-      sorter: (a, b) => new Date(a.RegisteredDate) - new Date(b.RegisteredDate),
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+    },
+    {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
     },
     {
       title: 'Assigned Clinics',
-      dataIndex: 'AssignedClinicsDetails',
-      key: 'AssignedClinicsDetails',
+      dataIndex: 'assignedClinics',
+      key: 'assignedClinics',
+      render: (text) => text.join(', '), // Join multiple clinics with a comma
       filters: clinicOptions.map(clinic => ({ text: clinic, value: clinic })),
-      onFilter: (value, record) => record.AssignedClinicsDetails.includes(value),
+      onFilter: (value, record) => record.assignedClinics.join(' , ').includes(value),
     },
     {
       title: ' ',
       key: 'StatusBar',
-      render: (text, record) => renderStatusBar(record.AssignedClinics),
+      render: (text, record) => renderStatusBar(record.assignedClinics),
     },
     {
       title: ' ',
@@ -166,10 +176,10 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
           </Button>
           <Button
             type="link"
-            disabled={record.AssignedClinics >= 3}
-            onClick={handleAddClinic}
+            disabled={record.assignedClinics.length >= 3}
+            onClick={() => handleAssign(record)}
             style={{
-              color: record.AssignedClinics >= 3 ? '#F0EEED' : '#192A51',
+              color: record.assignedClinics.length >= 3 ? '#F0EEED' : '#192A51',
             }}
           >
             Assign
@@ -200,11 +210,11 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
           onBlur={(e) => (e.target.style.borderColor = '')}
         />
         <Table
-          dataSource={filterData(clinic.midwives || [])}
+          dataSource={filterData(data)}
           columns={columnsMidwives}
           pagination={{ pageSize: 5 }}
-          rowKey="StaffId"
-          onChange={(pagination, filters) => handleFilterChange(filters.AssignedClinicsDetails)}
+          rowKey="id"
+          onChange={(pagination, filters) => handleFilterChange(filters.assignedClinics)}
         />
       </Grid>
 
@@ -227,36 +237,27 @@ const Midwives = ({ clinic = { midwives: generatedMidwives } }) => {
       </Modal>
 
       {selectedMidwife && (
-        <Modal
-          title="Midwife Details"
-          open={isViewModalVisible}
+        <ProfileDetailsPopup
+          visible={isViewModalVisible}
+          profile={selectedMidwife}
           onCancel={handleViewCancel}
-          footer={[
-            <Button key="back" onClick={handleViewCancel}>
-              Close
-            </Button>,
-            <Button
-              key="assign"
-              type="primary"
-              onClick={handleAddClinic}
-              disabled={selectedMidwife.AssignedClinics >= 3}
-            >
-              Assign
-            </Button>,
-          ]}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-            <Avatar size={64} src={selectedMidwife.ProfileImage} />
-            <Box sx={{ marginLeft: 2 }}>
-              <Typography variant="h6">{selectedMidwife.FullName}</Typography>
-              <Typography variant="body2">Age: {selectedMidwife.Age}</Typography>
-              <Typography variant="body2">Registered Date: {selectedMidwife.RegisteredDate}</Typography>
-              <Typography variant="body2">Status: {selectedMidwife.Status}</Typography>
-              <Typography variant="body2">Address: {selectedMidwife.Address}</Typography>
-              <Typography variant="body2">Telephone: {selectedMidwife.Telephone}</Typography>
-            </Box>
-          </Box>
-        </Modal>
+        />
+      )}
+
+      {selectedMidwife && (
+        <AssignMidwifePopup
+          visible={isAssignModalVisible}
+          midwifeDetails={selectedMidwife}
+          onClose={handleAssignCancel}
+          onAssign={(id, clinics) => {
+            notification.success({
+              message: 'Success',
+              description: `Midwife ${selectedMidwife.name} has been assigned to selected clinics.`,
+              placement: 'bottomRight',
+            });
+            handleAssignCancel(); // Close the modal
+          }}
+        />
       )}
     </Box>
   );

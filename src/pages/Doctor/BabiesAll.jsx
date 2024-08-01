@@ -10,42 +10,42 @@ const data1 = [
   {
     key: '1',
     name: 'Jayani Priyanka',
-    age: 28,
+    age: '8 months',
     risky: 'Risky',
-    registrationnumber: '091452452',
-    reportState: 'New',
+    registrationnumber: 'B452',
+    reportState: 'View',
   },
   {
     key: '2',
     name: 'Malki Rashmika',
-    age: 32,
+    age: '3 months',
     risky: 'Risky',
-    registrationnumber: '093654321',
-    reportState: 'New',
+    registrationnumber: 'B321',
+    reportState: 'View',
   },
   {
     key: '3',
     name: 'Emily Biyanka',
-    age: 24,
+    age:' 2 months',
     risky: 'Nonrisky',
-    registrationnumber: '091234567',
-    reportState: 'New',
+    registrationnumber: 'B567',
+    reportState: 'View',
   },
   {
     key: '4',
     name: 'Akila Janandi',
-    age: 30,
+    age: '13 months',
     risky: 'Nonrisky',
-    registrationnumber: '098765432',
-    reportState: 'New',
+    registrationnumber: 'B432',
+    reportState: 'View',
   },
   {
     key: '5',
     name: 'Emilya Dewmini',
-    age: 24,
+    age: '4 months',
     risky: 'Nonrisky',
-    registrationnumber: '091234567',
-    reportState: 'New',
+    registrationnumber: 'B567',
+    reportState: 'View',
   },
 ];
 
@@ -108,11 +108,11 @@ const cardData = [
     title: 'All Babies Details',
     link: '#link1',
   },
-  // {
-  //   key: '2',
-  //   title: 'Risky Babies Details',
-  //   link: '#link2',
-  // },
+  {
+    key: '2',
+    title: 'Risky Babies Details',
+    link: '#link2',
+  },
 ];
 
 const Babies = () => {
@@ -144,12 +144,12 @@ const Babies = () => {
   };
 
   const getRowClassName = (record) => {
-    return record.risky === 'Risky' ? 'risky-row' : '';
+    return record.risky ;
   };
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
-      <Row gutter={16} style={{ marginTop: 24 }}>
+      {/* <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (
           <Col span={6} key={card.key}>
             <Card
@@ -164,17 +164,17 @@ const Babies = () => {
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#AAA1C8')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D5C6E0')}
             >
-              <a href={'/doctor/babiesall'} className="text-xl font-semibold text-black">
+              <a href={'/doctor/matherall'} className="text-xl font-semibold text-black">
                 {card.title}
               </a>
             </Card>
           </Col>
         ))}
-      </Row>
+      </Row> */}
       <Row gutter={24} style={{ marginTop: 24 }}>
         <Col span={24}>
           <Card
-            title="Babies Reports"
+            title="Details of all babies"
             extra={
               <Space>
                 <AntSearch

@@ -26,19 +26,21 @@ const validateAge = (rule, value) => {
 const styles = {
     container: {
         padding: '24px',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#fff5f5',
     },
     pageHeader: {
-        backgroundColor: '#f5f5f5',
-        marginBottom:'10px',
+        backgroundColor: '#ffcccc',
+        marginBottom: '10px',
     },
     card: {
         marginBottom: '16px',
+        border: '1px solid #ff4d4f',
     },
     sectionTitle: {
         fontSize: '18px',
         fontWeight: 'bold',
         marginBottom: '12px',
+        color: '#a8071a',
     },
     surgicalCondition: {
         display: 'flex',
@@ -48,13 +50,18 @@ const styles = {
     surgicalConditionText: {
         flex: 1,
     },
+    inputField: {
+        backgroundColor: '#fff1f0',
+        borderColor: '#ffa39e',
+    },
     paginationContainer: {
         textAlign: 'right',
         marginTop: '24px',
     },
     button: {
-        backgroundColor: '#967AA1',
-        borderColor: '#967AA1',
+        backgroundColor: '#d32029',
+        borderColor: '#d32029',
+        color: '#ffffff',
     },
 };
 
@@ -112,20 +119,20 @@ const Health_charts = () => (
             <div className="content">
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title={<span>Birth Date : 21/09/2021</span>} style={styles.card}>
+                        <Card title={<span style={styles.sectionTitle}>Birth Date : 21/09/2021</span>} style={styles.card}>
                             <Row gutter={16}>
                                 <Col span={12}>
                                     <Form.Item
                                         label="Temperature (Celsius)"
                                         name={['surgicalHistory', 'Temperature']}
                                     >
-                                        <Input placeholder="Temperature" />
+                                        <Input placeholder="Temperature" style={styles.inputField} />
                                     </Form.Item>
                                     <Form.Item label="Stool Color" name={['surgicalHistory', 'Stool_color']}>
-                                        <Input placeholder="Stool Color" />
+                                        <Input placeholder="Stool Color" style={styles.inputField} />
                                     </Form.Item>
                                     <Form.Item label="The state of the pecania" name={['surgicalHistory', 'pecania']}>
-                                        <InputNumber min={0} max={10} style={{ width: '100%' }} />
+                                        <InputNumber min={0} max={10} style={{ width: '100%' }} className="input-number" />
                                     </Form.Item>
                                     <div style={styles.surgicalCondition}>
                                         <span style={styles.surgicalConditionText}>Breastfeeding Only</span>
@@ -160,10 +167,10 @@ const Health_charts = () => (
                                         label="Skin color"
                                         name={['surgicalHistory', 'Skin_color']}
                                     >
-                                        <Input placeholder="Skin color" />
+                                        <Input placeholder="Skin color" style={styles.inputField} />
                                     </Form.Item>
                                     <Form.Item label="Eye" name={['surgicalHistory', 'Eye']}>
-                                        <Input placeholder="Eye" />
+                                        <Input placeholder="Eye" style={styles.inputField} />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -172,19 +179,20 @@ const Health_charts = () => (
                 </Row>
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Doctor's Recommendations and Instructions" style={styles.card}>
+                        <Card title={<span style={styles.sectionTitle}>Doctor's Recommendations and Instructions</span>} style={styles.card}>
                             <Form.Item name="recommendations" label="Recommendations and Instructions">
-                                <TextArea rows={4} placeholder="Enter recommendations and instructions here..." />
+                                <TextArea rows={4} placeholder="Enter recommendations and instructions here..." style={styles.inputField} />
                             </Form.Item>
+                            <Link to="">
+                        <Button type="primary" style={styles.button}>
+                            Save
+                        </Button>
+                    </Link>
                         </Card>
                     </Col>
                 </Row>
                 <div style={styles.paginationContainer}>
-                    <Link to="/doctor/babyreport2">
-                        <Button type="primary" style={styles.button}>
-                            Next
-                        </Button>
-                    </Link>
+                    
                 </div>
             </div>
         </div>

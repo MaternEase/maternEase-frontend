@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Select, Typography, Button, message } from "antd";
+import { Modal, Form, Select, Typography, Button, message, List } from "antd";
 
 const { Option } = Select;
 
-const AssignStaffPopup = ({
-  visible,
-  onCancel,
-  clinic,
-  unassignedMidwives,
-  onAssign,
-}) => {
+const AssignStaffPopup = ({ visible, onCancel, clinic, unassignedMidwives, onAssign }) => {
   const [form] = Form.useForm();
   const [maxSelectableMidwives, setMaxSelectableMidwives] = useState(3);
 
@@ -66,7 +60,7 @@ const AssignStaffPopup = ({
       ]}
       centered
       title={
-        <Typography.Title level={4} style={{ color: "#967aa1" }}>
+        <Typography.Title level={4} style={{ color: "#967aa1", marginBottom: "30px" }}>
           Assign Midwives to {clinic.name}
         </Typography.Title>
       }
@@ -75,12 +69,25 @@ const AssignStaffPopup = ({
         <Typography.Paragraph strong>
           Already Assigned Midwives
         </Typography.Paragraph>
-        <Typography.Paragraph>
-          {clinic.midwives.length > 0
-            ? clinic.midwives.join(", ")
-            : "None"}
-        </Typography.Paragraph>
-
+        <List
+          size="small"
+          bordered
+          style={{ marginBottom: 20 }}  // Added margin at the bottom
+          dataSource={clinic.midwives.length > 0 ? clinic.midwives : ["None"]}
+          renderItem={(item) => (
+            <List.Item
+              style={{
+                // border: "1px solid #d9d9d9",
+                // borderRadius: 4,
+                // marginBottom: 8,
+                // padding: "8px 16px",
+                // backgroundColor: "#fafafa"
+              }}
+            >
+              {item}
+            </List.Item>
+          )}
+        />
         <Form.Item
           label={<span style={{ fontWeight: "bold" }}>Select Midwives</span>}
           name="midwives"
@@ -111,7 +118,7 @@ const AssignStaffPopup = ({
             ))}
           </Select>
         </Form.Item>
-        <Typography.Paragraph>
+        <Typography.Paragraph style={{color: "#f0f0fo", fontStyle: "italic"}}>
           {maxSelectableMidwives > 0 
             ? `You can select up to ${maxSelectableMidwives} more midwife${maxSelectableMidwives > 1 ? 's' : ''}.`
             : "This clinic already has the maximum number of midwives assigned."}
