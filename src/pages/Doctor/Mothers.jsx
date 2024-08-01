@@ -4,45 +4,51 @@ import { Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Admin/Dashboard.css';
 
+
 const { Search: AntSearch } = Input;
 
 const data1 = [
   {
     key: '1',
-    name: 'Jane Doe',
-    age: 28,
+    name: 'Renuka De Silva ',
+    age: 30,
+    condition: 'Risky',
     contactNumber: '091452452',
     motherHistory: 'View',
     reportState: 'New',
   },
   {
     key: '2',
-    name: 'Mary Johnson',
+    name: 'Pavani Rathnayaka',
     age: 32,
+    condition: 'Risky',
     contactNumber: '093654321',
     motherHistory: 'View',
     reportState: 'New',
   },
   {
     key: '3',
-    name: 'Emily Brown',
+    name: 'Ema Sirivardane',
     age: 24,
+    condition: 'Nonrisky',
     contactNumber: '091234567',
     motherHistory: 'View',
     reportState: 'New',
   },
   {
     key: '4',
-    name: 'Anna Smith',
+    name: 'Anushka Sharma',
     age: 30,
+    condition: 'Nonrisky',
     contactNumber: '098765432',
     motherHistory: 'View',
     reportState: 'New',
   },
   {
     key: '5',
-    name: 'Emilya Brown',
+    name: 'Sanduni Rathnayeka',
     age: 24,
+    condition: 'Nonrisky',
     contactNumber: '091234567',
     motherHistory: 'View',
     reportState: 'New',
@@ -52,7 +58,7 @@ const data1 = [
 const data2 = [
   {
     key: '1',
-    name: 'Susan Green',
+    name: 'Sumitha Nalini',
     age: 29,
     contactNumber: '091987654',
     motherHistory: 'View',
@@ -60,7 +66,7 @@ const data2 = [
   },
   {
     key: '2',
-    name: 'Linda White',
+    name: 'Lalani Rathnayake',
     age: 35,
     contactNumber: '093123456',
     motherHistory: 'View',
@@ -68,7 +74,7 @@ const data2 = [
   },
   {
     key: '3',
-    name: 'Nancy Black',
+    name: 'Anjalika Sathsarani',
     age: 27,
     contactNumber: '091111111',
     motherHistory: 'View',
@@ -76,7 +82,7 @@ const data2 = [
   },
   {
     key: '4',
-    name: 'Karen Red',
+    name: 'Kalani Disanayake',
     age: 33,
     contactNumber: '098999999',
     motherHistory: 'View',
@@ -84,7 +90,7 @@ const data2 = [
   },
   {
     key: '5',
-    name: 'Barbara Blue',
+    name: 'Bavanthi Nimna',
     age: 31,
     contactNumber: '091222222',
     motherHistory: 'View',
@@ -166,6 +172,11 @@ const columnsExpectantMotherTable = (data, setData, navigate) => [
     key: 'age',
   },
   {
+    title: 'Condition',
+    dataIndex: 'condition',
+    key: 'condition',
+  },
+  {
     title: 'Registration Number',
     dataIndex: 'contactNumber',
     key: 'contactNumber',
@@ -194,13 +205,13 @@ const cardData = [
   {
     key: '1',
     title: 'All Mother Details',
-    link: '#link1',
+    link: '',
   },
-  {
-    key: '2',
-    title: 'Risky Mother Details',
-    link: '#link2',
-  },
+  // {
+  //   key: '2',
+  //   title: 'Risky Mother Details',
+  //   link: '#link2',
+  // },
 ];
 
 const Mothers = () => {
@@ -239,16 +250,16 @@ const Mothers = () => {
             <Card
               hoverable
               style={{
-                backgroundColor: '#E9D5FF',
-                padding: '20px',
+                backgroundColor: '#D5C6E0',
+                padding: '5px',
                 cursor: 'pointer',
-                border: selectedCard === card.key ? '2px solid #7C3AED' : 'none',
+                border: selectedCard === card.key ? 'none' : 'none',
               }}
               onClick={() => handleCardClick(card.key)}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#D8B4FE')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E9D5FF')}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#AAA1C8')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D5C6E0')}
             >
-              <a href={card.link} className="text-xl font-semibold text-purple-600 hover:underline">
+              <a href={'/doctor/motherall'} className="text-xl font-semibold text-black">
                 {card.title}
               </a>
             </Card>
@@ -276,6 +287,7 @@ const Mothers = () => {
               dataSource={filteredData1}
               pagination={false}
               scroll={{ y: 200 }}
+              rowClassName={(record) => (record.condition === 'Risky' ? 'risky-row' : '')}
             />
           </Card>
         </Col>

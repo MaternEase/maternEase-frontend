@@ -20,14 +20,14 @@ const ListDoctorComponents = () => {
     getAllElements();
   }, []);
 
-  function getAllElements(){
+  function getAllElements() {
     listDoctor()
-    .then((response) => {
-      setDoctors(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+      .then((response) => {
+        setDoctors(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   const addDoctor = () => {
@@ -37,31 +37,36 @@ const ListDoctorComponents = () => {
   const updateDoctor = (id) => {
     navigate(`/doctor/crudupdate/${id}`);
   };
-  
-  const removeDoctor=(id)=> {
+
+  const removeDoctor = (id) => {
     console.log(id);
 
-    deleteDoctor(id).then((response)=>{
-      getAllElements()
-    }).catch(error=>{
+    deleteDoctor(id).then((response) => {
+      getAllElements();
+    }).catch(error => {
       console.error(error);
-    })
+    });
   }
 
   return (
     <div className="container p-8 mx-auto my-8 bg-white rounded-lg shadow-lg">
-      <h1 className="mb-4 text-2xl font-bold">Schedules</h1>
-      <Button variant="contained" color="primary" size="small" style={{ marginRight: '8px' }} onClick={addDoctor}>
-        Add Doctor
+      <h1 className="mb-4 text-2xl font-bold" style={{marginLeft:'45%'} } > Risky Mothers</h1>
+      <Button
+        variant="contained"
+        size="small"
+        style={{ backgroundColor: '#7C3AED', color: 'white', marginRight: '8px',margin:'13px',marginBottom:'45px' }}
+        onClick={addDoctor}
+      >
+        Add Mother
       </Button>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Day</TableCell>
-              <TableCell>Time</TableCell>
-              <TableCell>Location</TableCell>
+              <TableCell>Email Address</TableCell>
+              <TableCell>Registration Number</TableCell>
+              <TableCell>Phone Number</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -73,16 +78,20 @@ const ListDoctorComponents = () => {
                 <TableCell>{doctor.number}</TableCell>
                 <TableCell>{doctor.idnumber}</TableCell>
                 <TableCell>
-                  <Button
+                  {/* <Button
                     variant="contained"
-                    color="primary"
                     size="small"
-                    style={{ marginRight: '8px' }}
+                    style={{ backgroundColor: '#7C3AED', color: 'white', marginRight: '8px' }}
                     onClick={() => updateDoctor(doctor.id)}
                   >
                     Update
-                  </Button>
-                  <Button variant="contained" color="error" size="small" onClick={() => removeDoctor(doctor.id)}>
+                  </Button> */}
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="error"
+                    onClick={() => removeDoctor(doctor.id)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
