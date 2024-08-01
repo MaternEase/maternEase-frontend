@@ -16,33 +16,32 @@ const Reports = () => {
     {
       key: 1,
       title: 'Maternal Health Statistics',
-      value: 1052,
+      // value: 1052,
       paragraph:
-        'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.',
+        'Data analysis on various health conditions and outcomes during pregnancy and childbirth.',
       path: '/doctor/maternalhealthstats',
     },
     {
       key: 2,
       title: 'Pregnancy and Delivery Statistics',
-      value: 475,
+      // value: 475,
       paragraph:
-        'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.',
-      path: '/doctor/pregnancydeliverystats',
+        ' Detailed metrics on pregnancy occurrences, delivery methods, and birth outcomes.'
     },
     {
       key: 3,
       title: 'Newborn Health Statistics',
-      value: 8,
+      // value: 8,
       paragraph:
-        'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.',
+        'Comprehensive insights into pregnancy trends and childbirth practices.',
       path: '/doctor/pregnancydeliverystats',
     },
     {
       key: 4,
       title: 'Immunization and Screening Statistics',
-      value: 29,
+      // value: 29,
       paragraph:
-        'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.',
+        'Statistical overview of pregnancies, delivery types, and associated health outcomes.',
       path: '/doctor/ImmunizationScreeningstats',
     },
   ];

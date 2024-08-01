@@ -45,7 +45,7 @@ const AppHeader = ({ onMenuClick }) => {
       'ADMIN': {
         home: '/admin/dashboard',
         calendar: '/admin/full-calendar',
-        profile: `/admin/profile/${user.id}`,
+        // profile: `/admin/profile/${user.id}`,
       },
       'MIDWIFE': {
         home: '/midwife/dashboard',

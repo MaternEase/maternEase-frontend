@@ -24,6 +24,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined"; //edit
 import baby from "../../assets/images/baby.png"; //children
 
 import AssignMidwifePopup from "../../components/Admin/AssignMidwifePopup"; // Import the Assign midwife popup
+import RegisterStaffPopup from "../../components/Admin/RegisterStaffPopup"; // Import the Register staff popup
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -32,13 +33,13 @@ const data = [
   {
     key: "1",
     id: "123M",
-    name: "Wasantha Perera",
+    name: "Wasanthi Perera",
     age: 48,
     date: "25 Jun 2024",
     time: "09:30 am",
     status: "Pending",
-    assignedClinics: ["Clinic A", "Clinic B"], // Dummy data
-    availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
+    assignedClinics: ["Athapaththukanda", "Polovita"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
   {
     key: "2",
@@ -48,8 +49,8 @@ const data = [
     date: "01 Jul 2024",
     time: "12:30 pm",
     status: "Pending",
-    assignedClinics: ["Clinic D"], // Dummy data
-    availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
+    assignedClinics: ["Pallewella"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
   {
     key: "3",
@@ -59,14 +60,16 @@ const data = [
     date: "29 Jul 2024",
     time: "12:30 pm",
     status: "Pending",
-    assignedClinics: ["Clinic A", "Clinic C"], // Dummy data
-    availableClinics: ["Clinic A", "Clinic B", "Clinic C", "Clinic D"],
+    assignedClinics: ["Athapaththukanda", "Deyiyandara"],
+    availableClinics: ["Athapaththukanda", "Polovita", "Deyiyandara", "Pallewella"],
   },
 ];
 
 const userEvents = {
-  "2024-07-25": [{ id: 1, description: "Event A" }],
-  "2024-07-30": [{ id: 2, description: "Event B" }],
+  "2024-08-25": [{ id: 1, description: "Event A" }],
+  "2024-08-30": [{ id: 2, description: "Event B" }],
+  "2024-08-12": [{ id: 3, description: "Event C" }],
+  "2024-08-6": [{ id: 4, description: "Event D" }],
 };
 
 const Dashboard = () => {
@@ -74,6 +77,7 @@ const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
   const [isEditPopupVisible, setEditPopupVisible] = useState(false);
   const [selectedMidwife, setSelectedMidwife] = useState(null);
+  const [isRegisterPopupVisible, setRegisterPopupVisible] = useState(false);
 
   const navigate = useNavigate();
 
@@ -107,6 +111,11 @@ const Dashboard = () => {
     // Update the midwife's data with the assigned clinics
     // (You would typically update the state or send this data to the server)
     console.log(`Assigned clinics ${clinics} to midwife with key ${midwifeKey}`);
+  };
+
+  const handleRegisterSubmit = (values) => {
+    console.log("Register Staff Values:", values);
+    setRegisterPopupVisible(false);
   };
 
   const menu = (
@@ -233,7 +242,7 @@ const Dashboard = () => {
 
   const clinicsData = [
     {
-      clinic: "Clinic A",
+      clinic: "Athapaththukanda",
       expectantMothers: 30,
       deliveredMothers: 11,
       children: 45,
@@ -241,7 +250,7 @@ const Dashboard = () => {
       maternalDeaths: 1,
     },
     {
-      clinic: "Clinic B",
+      clinic: "Polovita",
       expectantMothers: 20,
       deliveredMothers: 5,
       children: 30,
@@ -249,7 +258,7 @@ const Dashboard = () => {
       maternalDeaths: 0,
     },
     {
-      clinic: "Clinic C",
+      clinic: "Deyiyandara",
       expectantMothers: 50,
       deliveredMothers: 19,
       children: 60,
@@ -257,7 +266,7 @@ const Dashboard = () => {
       maternalDeaths: 2,
     },
     {
-      clinic: "Clinic D",
+      clinic: "Pallewella",
       expectantMothers: 40,
       deliveredMothers: 3,
       children: 55,
@@ -265,7 +274,7 @@ const Dashboard = () => {
       maternalDeaths: 1,
     },
     {
-      clinic: "Clinic E",
+      clinic: "Mulatiyana",
       expectantMothers: 35,
       deliveredMothers: 1,
       children: 50,
@@ -273,7 +282,7 @@ const Dashboard = () => {
       maternalDeaths: 0,
     },
     {
-      clinic: "Clinic F",
+      clinic: "Seenipella",
       expectantMothers: 25,
       deliveredMothers: 4,
       children: 35,
@@ -281,7 +290,7 @@ const Dashboard = () => {
       maternalDeaths: 1,
     },
     {
-      clinic: "Clinic G",
+      clinic: "Bamunugama",
       expectantMothers: 45,
       deliveredMothers: 13,
       children: 60,
@@ -289,27 +298,11 @@ const Dashboard = () => {
       maternalDeaths: 2,
     },
     {
-      clinic: "Clinic H",
+      clinic: "Horapawita",
       expectantMothers: 55,
       deliveredMothers: 11,
       children: 70,
       deadBirths: 3,
-      maternalDeaths: 1,
-    },
-    {
-      clinic: "Clinic I",
-      expectantMothers: 65,
-      deliveredMothers: 10,
-      children: 80,
-      deadBirths: 0,
-      maternalDeaths: 0,
-    },
-    {
-      clinic: "Clinic J",
-      expectantMothers: 60,
-      deliveredMothers: 17,
-      children: 75,
-      deadBirths: 0,
       maternalDeaths: 1,
     },
   ];
@@ -380,7 +373,23 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: "24px", minHeight: "100vh" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px" }}>
       <Title level={3}>Hi, Nimal 👋</Title>
+      <Button
+        variant="contained"
+        style={{
+          backgroundColor: "#192A51",
+          color: "#fff",
+          width: "150px",
+          padding: "20px",
+          borderRadius: "10px",
+        }}
+        className="add-clinic-button"
+        onClick={() => setRegisterPopupVisible(true)}
+      >
+        + Register New Staff
+      </Button>
+    </div>
       <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (
           <Col span={6} key={card.key}>
@@ -475,6 +484,12 @@ const Dashboard = () => {
         onClose={() => setEditPopupVisible(false)}
         midwifeDetails={selectedMidwife}
         onAssign={handleAssign}
+      />
+
+      <RegisterStaffPopup
+        visible={isRegisterPopupVisible}
+        onClose={() => setRegisterPopupVisible(false)}
+        onSubmit={handleRegisterSubmit}
       />
 
     </div>

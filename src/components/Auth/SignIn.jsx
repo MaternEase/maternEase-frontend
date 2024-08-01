@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import loginMom from '../../assets/images/loginMom.webp'; // Import the image
-import logo from '../../assets/images/logo4.png'; // Import the logo
+import loginMom from '../../assets/images/baby-flipped.jpg';
+import logo from '../../assets/images/logo4.png';
 
 const SignIn = () => {
   const { signIn } = useAuth();
@@ -14,6 +14,8 @@ const SignIn = () => {
   });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -53,15 +55,42 @@ const SignIn = () => {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-    handleResize(); // Set initial dimensions
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(password);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setEmailError('');
+    setPasswordError('');
+
+    let valid = true;
+
+    if (!validateEmail(email)) {
+      setEmailError('Unable to log in. Please check your credentials and try again.');
+      valid = false;
+    }
+
+    if (!validatePassword(password)) {
+      setPasswordError('Unable to log in. Please check your credentials and try again.');
+      valid = false;
+    }
+
+    if (!valid) return;
+
     try {
       const user = await signIn(email, password);
-      console.log('User signed in:', user); // Log the signed-in user
+      console.log('User signed in:', user);
       switch (user.role) {
         case 'ADMIN':
           navigate('/admin/dashboard');
@@ -78,7 +107,6 @@ const SignIn = () => {
         case 'CHILD':
           navigate('/child/dashboard');
           break;
-        // Add other cases for different roles as needed
         default:
           navigate('/');
       }
@@ -104,9 +132,37 @@ const SignIn = () => {
         boxSizing: 'border-box',
       }}
     >
-      <div className="fixed w-full max-w-md py-3 sm:max-w-xl ">
-        <div className="absolute inset-0 transform -skew-y-6 shadow-lg bg-gradient-to-r from-cyan-400 to-sky-500 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+      <div
+        className="overlay"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 1,
+        }}
+      ></div>
+      <div
+        className="fixed w-full max-w-md py-3 sm:max-w-xl"
+        style={{
+          zIndex: 2,
+        }}
+      >
+        <div
+          className="absolute inset-0 transform -skew-y-6 shadow-lg sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
+          style={{
+            background: 'linear-gradient(to right, #7c6187, #967AA1)',
+            zIndex: 3,
+          }}
+        ></div>
+        <div
+          className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20"
+          style={{
+            zIndex: 4,
+          }}
+        >
           <div className="max-w-md mx-auto">
             <div className="flex items-center justify-center pb-0 mt-0 mb-10 text-center">
               <img src={logo} alt="Logo" className="w-20 h-45" />
@@ -133,6 +189,7 @@ const SignIn = () => {
                     >
                       Email Address
                     </label>
+                    {emailError && <p className="text-sm text-red-500">{emailError}</p>}
                   </div>
                   <div className="relative">
                     <input
@@ -149,11 +206,13 @@ const SignIn = () => {
                     >
                       Password
                     </label>
+                    {passwordError && <p className="text-sm text-red-500">{passwordError}</p>}
                   </div>
                   <div className="relative">
                     <button
                       type="submit"
-                      className="px-4 py-2 text-white rounded-md bg-cyan-500"
+                      className="px-4 py-2 text-white rounded-md"
+                      style={{ backgroundColor: '#7c6187' }}
                     >
                       Log In
                     </button>
@@ -162,7 +221,7 @@ const SignIn = () => {
               </form>
               {error && <p className="mt-2 text-center text-red-500">{error}</p>}
               <div className="mt-4 text-center">
-                <a href="/forgot-password" className="text-sm text-cyan-500 hover:underline">
+                <a href="/forgot-password" className="text-sm text-blue-500 hover:underline">
                   Forgot Password?
                 </a>
               </div>
