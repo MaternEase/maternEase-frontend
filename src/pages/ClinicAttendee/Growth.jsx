@@ -3,14 +3,12 @@ import { Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import eye from '../../assets/images/eye1.png';
 import ear from '../../assets/images/ear1.png';
-// Add paths for other images here
 import image3 from '../../assets/images/teeth1.png';
 import image4 from '../../assets/images/part1.png';
 import image5 from '../../assets/images/part2.png';
 import image6 from '../../assets/images/part3.jpeg';
 
 const images = [eye, ear, image3, image4, image5, image6];
-
 const urls = [
   '/child/Child_details1',
   '/child/Child_details2',
@@ -18,6 +16,14 @@ const urls = [
   '/child/Child_details4',
   '/child/Child_details5',
   '/child/Child_details6',
+];
+const titles = [
+  'Eye Health',
+  'Hearing Checkup',
+  'Dental Care',
+  'Steps on growth from birth to 5 years - Part 1',
+  'Steps on growth from birth to 5 years - Part 2',
+  'Steps on growth from birth to 5 years - Part 3'
 ];
 
 const Growth = () => (
@@ -34,11 +40,14 @@ const Growth = () => (
         <div
           key={index}
           className="container p-4 bg-white rounded-lg shadow-lg"
-          style={{ height: '300px' }}
+          style={{ height: '320px' }}
         >
+          <div style={{ textAlign: 'center', marginBottom: '8px' }}>
+            <h2 style={{ color: '#003366', fontSize: '18px', margin: 0 }}>{titles[index]}</h2>
+          </div>
           <div
-            className="p-4 mb-4 bg-gray-100 rounded-lg shadow-sm"
-            style={{ width: '100%', height: '200px', margin: '1px' }}
+            className="p-4 bg-gray-100 rounded-lg shadow-sm"
+            style={{ width: '100%', height: '200px', marginBottom: '16px' }}
           >
             <img
               src={image}
@@ -46,7 +55,7 @@ const Growth = () => (
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
             />
           </div>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Link to={urls[index]} style={{ textDecoration: 'none' }}>
               <Button
                 variant="contained"

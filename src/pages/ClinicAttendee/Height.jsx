@@ -4,7 +4,7 @@ import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search,
 import { useNavigate } from 'react-router-dom';
 import ReusableCard from './Card.jsx';
 import CustomCalendar from './Calendar.jsx';
-import ChildGrowthChart from './ChildGrowthChart.jsx';
+import ChildGrowthChart from './ChildHeightChart.jsx';
 import '../../styles/ClinicAttendee/Dashboard.css';
 
 const { Title } = Typography;
@@ -39,7 +39,7 @@ const userEvents = {
     '2024-07-30': [{ id: 2, description: 'Event B' }]
 };
 
-const Weight = () => {
+const Height = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
@@ -96,7 +96,7 @@ const Weight = () => {
             key: 'age',
             sorter: (a, b) => a.age - b.age,
             render: (text) => <span>{text}</span>
-        },
+        },*/
         {
             title: <span>Type of Vaccine</span>,
             dataIndex: 'name',
@@ -110,7 +110,7 @@ const Weight = () => {
             key: 'age',
             sorter: (a, b) => a.age - b.age,
             render: (text) => <span>{text}</span>
-        },
+        },*/
         {
             title: <span>Date of vaccination</span>,
             dataIndex: 'date',
@@ -205,19 +205,19 @@ const Weight = () => {
 
     // Sample data for the child growth chart
     const growthData = [
-        { age: 0, weight: 3.5 },
-        { age: 1, weight: 4.2 },
-        { age: 2, weight: 5.0 },
-        { age: 3, weight: 5.7 },
-        { age: 4, weight: 6.3 },
-        { age: 5, weight: 6.8 },
-        { age: 6, weight: 7.2 },
-        { age: 7, weight: 7.5 },
-        { age: 8, weight: 7.8 },
-        { age: 9, weight: 8.0 },
-        { age: 10, weight: 8.2 },
-        { age: 11, weight: 8.4 },
-        { age: 12, weight: 8.5 },
+        { age: 0, weight: 32 },
+        { age: 1, weight: 34 },
+        { age: 2, weight: 36 },
+        { age: 3, weight: 38 },
+        { age: 4, weight: 40 },
+        { age: 5, weight: 42 },
+        { age: 6, weight: 44 },
+        { age: 7, weight: 46 },
+        { age: 8, weight: 48 },
+        { age: 9, weight: 50 },
+        { age: 10, weight: 52 },
+        { age: 11, weight: 54 },
+        { age: 12, weight: 56 },
     ];
 
     return (
@@ -245,4 +245,4 @@ const Weight = () => {
     );
 };
 
-export default Weight;
+export default Height;
