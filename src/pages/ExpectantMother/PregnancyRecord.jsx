@@ -2,10 +2,46 @@ import React from 'react';
 import DynamicAccordion from '../../components/ExpectantMother/DynamicAccordion.jsx';
 
 const sections = [
-    { title: 'Section 1', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: 'Section 2', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: 'Section 3', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    // Add more sections as needed
+    {
+        title: 'Registration Details',
+        content: (
+            <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div>
+                    <strong>Registration No.</strong><br />
+                    C/35<br /><br />
+                    <strong>Registration Date</strong><br />
+                    2024-08-11
+                </div>
+                <div>
+                    <strong>Registration No.</strong><br />
+                    c/35/04<br /><br />
+                    <strong>Registration Date</strong><br />
+                    2024-08-11
+                </div>
+            </div>
+        )
+    },
+    {
+        title: 'Pre-Conception and Early Pregnancy Details',
+        content: (
+            <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
+                <div>
+                    <strong>Registration No.</strong><br />
+                    C/35<br /><br />
+                    <strong>Registration Date</strong><br />
+                    2024-08-11
+                </div>
+                <div>
+                    <strong>Registration No.</strong><br />
+                    c/35/04<br /><br />
+                    <strong>Registration Date</strong><br />
+                    2024-08-11
+                </div>
+            </div>
+        )
+    },
+    { title: 'Current Pregnancy', content: 'Information about the current pregnancy, including any complications.' },
+    // Add more sections with custom titles as needed
 ];
 
 const PregnancyRecord = () => {
