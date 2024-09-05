@@ -1,452 +1,424 @@
-import React from 'react';
-import { Box, Table, TableBody, TableCell, TableRow, FormControlLabel, Radio, RadioGroup, InputAdornment, TableHead, Checkbox } from '@mui/material';
-import CheckboxGroup from '../../components/Shared/Form/CheckboxGroup';
-import CustomTextField from '../../components/Shared/Form/CustomTextField ';
-import CustomSelect from '../../components/Shared/Form/CustomSelect';
-import SectionTitle from '../../components/Shared/Form/SectionTitle';
+import React, { useState } from "react";
 
 const PregnancyRecord = () => {
-  const checkboxOptions = [
-    { label: 'Firstborn', name: 'firstborn' },
-    { label: 'Risky', name: 'risky' },
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const toggleFormVisibility = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
+  const generateYears = (startYear, endYear) => {
+    const years = [];
+    for (let i = startYear; i <= endYear; i++) {
+      years.push(i);
+    }
+    return years;
+  };
+
+  const generateDays = () => {
+    const days = [];
+    for (let i = 1; i <= 31; i++) {
+      days.push(i);
+    }
+    return days;
+  };
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const antenatalOptions = [
-    { label: 'Consanguinity', name: 'consanguinity' },
-    { label: 'Rubella Immunization', name: 'rubellaImmunization' },
-    { label: 'Pre-Pregnancy Screening Done', name: 'prePregnancyScreeningDone' },
-    { label: 'Preconceptional Folic Acid', name: 'preconceptionalFolicAcid' },
-    { label: 'History of Sub-Fertility', name: 'historyOfSubFertility' },
-  ];
-
-  const selectOptions = [
-    { value: 'A+', label: 'A+' },
-    { value: 'B+', label: 'B+' },
-    { value: 'AB+', label: 'AB+' },
-    { value: 'O+', label: 'O+' },
-    { value: 'A-', label: 'A-' },
-    { value: 'B-', label: 'B-' },
-    { value: 'AB-', label: 'AB-' },
-    { value: 'O-', label: 'O-' },
-  ];
+  const years = generateYears(1950, new Date().getFullYear());
+  const days = generateDays();
 
   return (
-    <Box p={2}>
-      <SectionTitle title="Pregnancy Record" />
+    <div className="container p-6 mx-auto">
+      <h1 className="mb-4 text-2xl font-bold text-black">
+        Pregnancy Record - Part B
+      </h1>
 
-      <Box display="flex" flexDirection="column" gap={3}>
-        <Box display="flex" gap={2}>
-          <CheckboxGroup options={checkboxOptions} />
-          <CustomSelect label="Blood Group" name="bloodGroup" options={selectOptions} />
-        </Box>
+      <div id="accordion-collapse" data-accordion="collapse">
+        <h2 id="accordion-collapse-heading-1">
+          <button
+            type="button"
+            className="flex items-center justify-between w-full gap-3 p-5 font-medium text-gray-500 border border-gray-200 rtl:text-right rounded-t-xl focus:ring-4 focus:ring-gray-400 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={toggleFormVisibility}
+            aria-expanded={isFormVisible}
+            aria-controls="accordion-collapse-body-1"
+            style={{ backgroundColor: "transparent" }} // Keep the background transparent
+          >
+            <span
+              className="text-black"
+              style={{ backgroundColor: "transparent" }}
+            >
+              Antenatal Risk Assessment Form
+            </span>
+            <svg
+              data-accordion-icon
+              className={`w-3 h-3 transform ${
+                isFormVisible ? "rotate-180" : ""
+              } shrink-0`}
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5L5 1 1 5"
+              />
+            </svg>
+          </button>
+        </h2>
+        {isFormVisible && (
+          <div
+            id="accordion-collapse-body-1"
+            className="p-5 border border-b-0 border-gray-200 dark:border-gray-700"
+            aria-labelledby="accordion-collapse-heading-1"
+            style={{ backgroundColor: "transparent" }} // Remove background color
+          >
+            <form style={{ backgroundColor: "transparent" }}>
+              <div className="mb-6">
+                <label className="block mb-2 text-lg font-medium text-black">
+                  Identified Antenatal Risk Conditions & Morbidity
+                </label>
+                <textarea
+                  rows="4"
+                  className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Enter details"
+                ></textarea>
+              </div>
 
-        <CustomTextField label="Identified Antenatal Risk Conditions & Morbidity" name="riskConditions" type="text" />
-      </Box>
+              <div className="grid grid-cols-2 gap-6 mb-6">
+                {/* Existing Fields */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Name of the Mother
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter name"
+                  />
+                </div>
 
-      {/* ************************* Personal Details **************************************** */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Age
+                  </label>
+                  <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>
+                      Select age
+                    </option>
+                    {Array.from({ length: 51 }, (_, i) => (
+                      <option key={i} value={i + 15}>
+                        {i + 15}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-      <SectionTitle title="Personal Details" />
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Husband’s Name
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter name"
+                  />
+                </div>
 
-      <Box display="flex" flexDirection="column" gap={2}>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Name of the Mother" name="motherName" type="text" />
-          <CustomTextField label="Age" name="motherAge" type="number" />
-        </Box>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Husband's Name" name="husbandName" type="text" />
-          <CustomTextField label="Husband's Age" name="husbandAge" type="number" />
-        </Box>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Education Level of the Mother" name="motherEducation" type="text" />
-          <CustomTextField label="Education Level of the Husband" name="husbandEducation" type="text" />
-        </Box>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Mother's Occupation" name="motherOccupation" type="text" />
-          <CustomTextField label="Husband's Occupation" name="husbandOccupation" type="text" />
-        </Box>
-      </Box>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Age
+                  </label>
+                  <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>
+                      Select age
+                    </option>
+                    {Array.from({ length: 51 }, (_, i) => (
+                      <option key={i} value={i + 15}>
+                        {i + 15}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-      {/* ************************* Registration Details **************************************** */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Education Level of the Mother
+                  </label>
+                  <select
+                    id="countries"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option>No Formal Education</option>
+                    <option>Primary Education</option>
+                    <option>Senior Secondary (O/L)</option>
+                    <option>Advanced Level (A/L)</option>
+                    <option>Diploma</option>
+                    <option>Undergraduate Degree</option>
+                    <option>Postgraduate Diploma</option>
+                    <option>Master's Degree</option>
+                    <option>Doctorate (Ph.D.)</option>
+                  </select>
+                </div>
 
-      <SectionTitle title="Registration Details" />
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Education Level of the Husband
+                  </label>
+                  <select
+                    id="countries"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option>No Formal Education</option>
+                    <option>Primary Education</option>
+                    <option>Senior Secondary (O/L)</option>
+                    <option>Advanced Level (A/L)</option>
+                    <option>Diploma</option>
+                    <option>Undergraduate Degree</option>
+                    <option>Postgraduate Diploma</option>
+                    <option>Master's Degree</option>
+                    <option>Doctorate (Ph.D.)</option>
+                  </select>
+                </div>
 
-      <Box display="flex" flexDirection="column" gap={2}>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Registration Number" name="registrationNumber" type="text" />
-          <CustomTextField label="Registration Date" name="registrationDate" type="date" />
-        </Box>
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Registration Location" name="registrationLocation" type="text" />
-          <CustomTextField label="Registration Date in Eligible Family Register" name="registrationDateInEligibleFamilyRegister" type="date" />
-        </Box>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Mother’s Occupation
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter name"
+                  />
+                </div>
 
-        <Box display="flex" gap={2}>
-          <CustomTextField label="PHM Area" name="PHM_Area" type="text" />
-          <CustomTextField label="MOH Area" name="MOH_Area" type="text" />
-        </Box>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Husband’s Occupation
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter name"
+                  />
+                </div>
 
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Distance for the Mother’s Office" name="Distance" type="text" />
-          <CustomTextField label="Age of the Mother in Marriage" name="marriedAge" type="number" />
-        </Box>
+                {/* New Fields */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Registration Number
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="AS256"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Registration Date
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {days.map((day) => (
+                        <option key={day} value={day}>
+                          {day}
+                        </option>
+                      ))}
+                    </select>
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {months.map((month, index) => (
+                        <option key={index} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Registration Location
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Clinic A"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Registration Date in Eligible Family Register
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {days.map((day) => (
+                        <option key={day} value={day}>
+                          {day}
+                        </option>
+                      ))}
+                    </select>
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {months.map((month, index) => (
+                        <option key={index} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                    <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="No 5, Temple Road, Moratuwa."
+                  />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Telephone Number
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="071-56889964"
+                  />
+                </div>
 
-        <Box display="flex" gap={2}>
-          <CustomTextField label="Address" name="address" type="text" />
-        </Box>
-      </Box>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Distance for the Mother’s Office
+                  </label>
+                  <input
+                    type="text"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter name"
+                  />
+                </div>
 
-      {/* ************************* Antenatal Details **************************************** */}
-      <SectionTitle title="Antenatal Details" />
-      <CheckboxGroup options={antenatalOptions} />
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+                    Age of the Mother in Marriage
+                  </label>
+                  <select className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>
+                      Select age
+                    </option>
+                    {Array.from({ length: 51 }, (_, i) => (
+                      <option key={i} value={i + 15}>
+                        {i + 15}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-      {/* ************************* Present Obstetric History **************************************** */}
-      <SectionTitle title="Pregnancy History" />
-      <Box mt={2}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Gravidity</TableCell>
-              <TableCell>
-                <CustomTextField
-                  name="gravidityG"
-                  type="text"
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">G</InputAdornment>,
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                <CustomTextField
-                  name="gravidityP"
-                  type="text"
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">P</InputAdornment>,
-                  }}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Number of Children Alive</TableCell>
-              <TableCell colSpan={2}>
-                <CustomTextField name="childrenAlive" type="text" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Age of Youngest Child</TableCell>
-              <TableCell colSpan={2}>
-                <CustomTextField name="youngestChildAge" type="text" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Last Menstrual Date</TableCell>
-              <TableCell colSpan={3}>
-                <Box display="flex" gap={1}>
-                  <CustomTextField name="lastMenstrualDateD" type="text" placeholder="Day" />
-                  <CustomTextField name="lastMenstrualDateM" type="text" placeholder="Month" />
-                  <CustomTextField name="lastMenstrualDateY" type="text" placeholder="Year" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Expected Delivery Date</TableCell>
-              <TableCell colSpan={3}>
-                <Box display="flex" gap={1}>
-                  <CustomTextField name="expectedDeliveryDateD" type="text" placeholder="Day" />
-                  <CustomTextField name="expectedDeliveryDateM" type="text" placeholder="Month" />
-                  <CustomTextField name="expectedDeliveryDateY" type="text" placeholder="Year" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>US Corrected Expected Delivery Date</TableCell>
-              <TableCell colSpan={3}>
-                <Box display="flex" gap={1}>
-                  <CustomTextField name="usCorrectedExpectedDeliveryDateD" type="text" placeholder="Day" />
-                  <CustomTextField name="usCorrectedExpectedDeliveryDateM" type="text" placeholder="Month" />
-                  <CustomTextField name="usCorrectedExpectedDeliveryDateY" type="text" placeholder="Year" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Expected Period</TableCell>
-              <TableCell colSpan={3}>
-                <Box display="flex" gap={1}>
-                  <CustomTextField name="expectedPeriodD" type="text" placeholder="Day" />
-                  <CustomTextField name="expectedPeriodM" type="text" placeholder="Month" />
-                  <CustomTextField name="expectedPeriodY" type="text" placeholder="Year" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Date of Quickening</TableCell>
-              <TableCell colSpan={3}>
-                <Box display="flex" gap={1}>
-                  <CustomTextField name="dateOfQuickeningD" type="text" placeholder="Day" />
-                  <CustomTextField name="dateOfQuickeningM" type="text" placeholder="Month" />
-                  <CustomTextField name="dateOfQuickeningY" type="text" placeholder="Year" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>POA at Registration</TableCell>
-              <TableCell colSpan={2}>
-                <CustomTextField name="poaAtRegistration" type="text" placeholder="Enter POA" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Was a Family Planning Method Used Before Pregnancy? If so, Method</TableCell>
-              <TableCell colSpan={2}>
-                <RadioGroup row name="familyPlanningMethod">
-                  <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
-                  <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
-                </RadioGroup>
-                <CustomTextField name="familyPlanningMethodDetails" type="text" placeholder="Enter method" />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Box>
-
-      {/* ************************* Previous Pregnancy History **************************************** */}
-      <SectionTitle title="Previous Pregnancy History" />
-      <Box mt={2}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Pregnancy</TableCell>
-              <TableCell>Outcome</TableCell>
-              <TableCell>Delivery Details</TableCell>
-              <TableCell>Place of Delivery</TableCell>
-              <TableCell>Birth Weight</TableCell>
-              <TableCell>Pregnancy Delivery Complications</TableCell>
-              <TableCell>Gender & Age</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <TableRow key={index}>
-                <TableCell>G{index + 1}</TableCell>
-                <TableCell>
-                  <CustomTextField name={`outcome${index + 1}`} type="text" placeholder="Enter outcome" />
-                </TableCell>
-                <TableCell>
-                  <CustomTextField name={`deliveryDetails${index + 1}`} type="text" placeholder="Enter details" />
-                </TableCell>
-                <TableCell>
-                  <CustomTextField name={`placeOfDelivery${index + 1}`} type="text" placeholder="Enter place" />
-                </TableCell>
-                <TableCell>
-                  <CustomTextField name={`birthWeight${index + 1}`} type="text" placeholder="Enter weight" />
-                </TableCell>
-                <TableCell>
-                  <CustomTextField name={`complications${index + 1}`} type="text" placeholder="Enter complications" />
-                </TableCell>
-                <TableCell>
-                  <CustomTextField name={`genderAge${index + 1}`} type="text" placeholder="Enter gender & age" />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-
-      {/* ************************* Present Obstetric History **************************************** */}
-      <SectionTitle title="Present Obstetric History" />
-      <Box mt={2}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Age</TableCell>
-              <TableCell>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Below 20</TableCell>
-                      <TableCell><Checkbox name="ageBelow20" /></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Over 35</TableCell>
-                      <TableCell><Checkbox name="ageOver35" /></TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>5 or More Pregnancies</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="fiveOrMorePregnancies" />
-                  <CustomTextField name="fiveOrMorePregnanciesDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Preeclampsia / Hypertension</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="preeclampsiaHypertension" />
-                  <CustomTextField name="preeclampsiaHypertensionDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Antepartum Vaginal Bleeding</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="antepartumVaginalBleeding" />
-                  <CustomTextField name="antepartumVaginalBleedingDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Multiple Fertility</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="multipleFertility" />
-                  <CustomTextField name="multipleFertilityDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Casual Position</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="casualPosition" />
-                  <CustomTextField name="casualPositionDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Not knowing the due date of the baby</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="notKnowingDueDate" />
-                  <CustomTextField name="notKnowingDueDateDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Others (specify)</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="othersSpecify" />
-                  <CustomTextField name="othersSpecifyDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Box>
-
-      {/* ************************* Other Risky Conditions **************************************** */}
-      <SectionTitle title="Other Risky Conditions" />
-      <Box mt={2}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>BMI Below 18 or Above 25</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="bmiBelow18orAbove25" />
-                  <CustomTextField name="bmiBelow18orAbove25Details" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Diabetes Mellitus</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="diabetesMellitus" />
-                  <CustomTextField name="diabetesMellitusDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Malaria Disease</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="malariaDisease" />
-                  <CustomTextField name="malariaDiseaseDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Cardiac Diseases</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="cardiacDiseases" />
-                  <CustomTextField name="cardiacDiseasesDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Renal Diseases</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="renalDiseases" />
-                  <CustomTextField name="renalDiseasesDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Others (specify)</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="otherRiskyConditionsSpecify" />
-                  <CustomTextField name="otherRiskyConditionsDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Box>
-
-      {/* ************************* Family Medical History **************************************** */}
-      <SectionTitle title="Family Medical History" />
-      <Box mt={2}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Diabetes Mellitus</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="familyDiabetesMellitus" />
-                  <CustomTextField name="familyDiabetesMellitusDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Hypertension</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="familyHypertension" />
-                  <CustomTextField name="familyHypertensionDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Haematological Diseases</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="familyHaematologicalDiseases" />
-                  <CustomTextField name="familyHaematologicalDiseasesDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Others (specify)</TableCell>
-              <TableCell>
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Checkbox name="familyOthersSpecify" />
-                  <CustomTextField name="familyOthersDetails" type="text" placeholder="Specify" />
-                </Box>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Box>
-    </Box>
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                  <table className="w-full text-sm text-left text-gray-500">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                      <tr>
+                        <th scope="col" className="px-6 py-3">
+                          Condition
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Yes
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          No
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white border-b">
+                        <td className="px-6 py-4">Consanguinity</td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="px-6 py-4">Rubella Immunization</td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b">
+                        <td className="px-6 py-4">
+                          Pre - Pregnancy Screening Done
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="px-6 py-4">
+                          Preconceptional Folic Acid
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b">
+                        <td className="px-6 py-4">History of Sub-fertility</td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input type="checkbox" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

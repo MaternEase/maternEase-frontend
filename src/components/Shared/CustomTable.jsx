@@ -72,7 +72,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
   };
 
   const handleViewProfileClick = (id) => {
-    navigate(`/midwife/mothers/expected/profile/${id}`);
+    navigate(`/midwife/profile/${id}`);
   };
 
   const handleReferToDoctorClick = (id) => {
