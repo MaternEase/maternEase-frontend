@@ -18,7 +18,7 @@ export const registerMother = async (formData) => {
       },
     });
 
-    return response.data;
+    return response.data.responseMzg;
   } catch (error) {
     console.error('Error in mother registration:', error);
     throw new Error(error.response ? error.response.data : 'Error registering mother');
