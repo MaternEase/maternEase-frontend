@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomTable from '../../components/Shared/CustomTable';
 import { AddExpectantMotherPopup } from '../../components/Shared/Popup/AddExpectantMotherPopup';
-import { registerMother } from '../../services/midwifeService'; // Import the registration service
+import { registerMother , getExpectedMothers} from '../../services/midwifeService'; // Import the registration service
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 
 
@@ -11,21 +11,36 @@ const TABS = [
   { label: "Clinic 3", value: "clinic3" },
 ];
 
-const TABLE_HEAD = ["ID", "Name", "Age", "Condition", "Refer to Doctor", "Delivered Date", ""];
+const TABLE_HEAD = ["ID", "Name", "Age","Contact Number", "Condition", "Refer to Doctor", ""];
 
-const TABLE_ROWS = [
-  { id: 1, img: "", name: "Kumari Perera", age: 30, condition: "Non Risky", referToDoctor: false, deliveredDate: "2024-07-01" },
-  { id: 2, img: "", name: "Nimali Silva", age: 25, condition: "Risky", referToDoctor: true, deliveredDate: "2024-06-15" },
-  { id: 3, img: "", name: "Samanthi Fernando", age: 28, condition: "Non Risky", referToDoctor: false, deliveredDate: "2024-07-10" },
-  { id: 4, img: "", name: "Malkanthi Jayasinghe", age: 35, condition: "Risky", referToDoctor: true, deliveredDate: "2024-06-20" },
-  { id: 5, img: "", name: "Chandani Rathnayake", age: 40, condition: "Non Risky", referToDoctor: false, deliveredDate: "2024-07-05" },
-];
+
 
 const ExpectedMothers = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // State for success modal
+  const [mothersData , setMothersData] = useState([]);  // State to hold the backend data
+  
+
+     // Fetch data from the backend when the component mounts
+     const fetchMothersData = async () =>{
+      try {
+        const response = await getExpectedMothers();
+        // console.log(response);
+        setMothersData(response);
+      } catch (error){
+        setErrorMessage('Error fetching data from the backend');
+      }
+    };
+  
+  
+      // Run the fetch function on component mount
+       useEffect(() => {
+        fetchMothersData();
+       }, []);
+  
+
 
   // Function to open the popup
   const handleOpenPopup = () => {
@@ -61,19 +76,28 @@ const ExpectedMothers = () => {
       setErrorMessage('Failed to register mother. Please try again.'); // Display error message
       console.error('Error registering mother:', error);
     }
-  };
-  
 
+
+
+
+
+  };
+
+ 
+  
+  // console.log("Mothers Data being passed to table:", mothersData);
   return (
     <>
+    
       <CustomTable
         title="Expected Mothers"
         subheader="See information about all expected mothers"
         tabs={TABS}
         tableHead={TABLE_HEAD}
-        tableRows={TABLE_ROWS}
+        tableRows={mothersData}  // Pass the fetched data to the table
         onAddMemberClick={handleOpenPopup} // Pass the handler to open the popup
         showActions={true} // Show action buttons
+        
       />
       <AddExpectantMotherPopup
         open={isPopupOpen}
