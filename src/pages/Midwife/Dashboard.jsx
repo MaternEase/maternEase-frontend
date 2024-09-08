@@ -408,7 +408,7 @@ const Dashboard = () => {
       <AddExpectantMotherPopup open={isAddMotherPopupOpen} onClose={closeAddMotherPopup} />
 
       {/* Add Child Popup */}
-      <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} />
+      {/* <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} /> */}
     </div>
   );
 };
