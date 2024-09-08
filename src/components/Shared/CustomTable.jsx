@@ -1,32 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Avatar,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  InputBase,
-  Paper,
-  Tab,
-  Tabs,
-  Tooltip,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableFooter,
-  TablePagination,
-  MenuItem,
-  Select,
+  Avatar, Button, Card, CardContent, CardHeader, IconButton, InputBase,
+  Paper, Tab, Tabs, Tooltip, Typography, Table, TableBody, TableCell,
+  TableContainer, TableHead, TableRow, MenuItem, Select
 } from '@mui/material';
-import {
-  Search as SearchIcon,
-  Edit as EditIcon,
-} from '@mui/icons-material';
+import { Search as SearchIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import ProfileButton from '../Shared/ProfileButton';
 
@@ -51,9 +29,14 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCondition, setFilterCondition] = useState('');
   const [filterAge, setFilterAge] = useState('');
-  const [rows, setRows] = useState(tableRows);
+  const [rows, setRows] = useState([]);
 
   const navigate = useNavigate();
+
+  // Sync rows state with prop changes
+  useEffect(() => {
+    setRows(tableRows);
+  }, [tableRows]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -76,13 +59,13 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
   };
 
   const handleReferToDoctorClick = (id) => {
-    setRows(rows.map(row => row.id === id ? { ...row, referToDoctor: !row.referToDoctor } : row));
+    console.log(`Referred to doctor for ID: ${id}`);
   };
 
   const filteredRows = rows.filter(row => {
     const matchesSearch = row.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCondition = filterCondition ? row.condition === filterCondition : true;
-    const matchesAge = filterAge ? row.age === parseInt(filterAge) : true;
+    const matchesAge = filterAge ? row.age === parseInt(filterAge, 10) : true;
     return matchesSearch && matchesCondition && matchesAge;
   });
 
@@ -100,13 +83,12 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                 borderRadius: '20px',
                 height: '40px',
                 fontSize: '14px'
-              }} startIcon onClick={onAddMemberClick}>+ Add New Expectant Mother</Button>
+              }} onClick={onAddMemberClick}>+ Add New Expectant Mother</Button>
             </div>
           )
         }
-        sx={{ backgroundColor: '' }}
       />
-      <CardContent sx={{ height: 'calc(100% - 68px)', display: 'flex', flexDirection: 'column', backgroundColor: '' }}>
+      <CardContent sx={{ height: 'calc(100% - 68px)', display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', gap: '10%', alignItems: 'center' }}>
           <Tabs style={{ marginBottom: '22px' }}
             value={tabValue}
@@ -120,7 +102,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
           </Tabs>
           <Paper
             component="form"
-            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, marginTop: '0px', marginBottom: '22px', backgroundColor: '#EEEEEE' }}
+            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, mt: 2, backgroundColor: '#EEEEEE' }}
           >
             <InputBase
               sx={{ ml: 1, flex: 1 }}
@@ -133,21 +115,19 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               <SearchIcon />
             </IconButton>
           </Paper>
-          <div>
-            <Select
-              sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 150, mt: 2, marginTop: '0px', marginBottom: '22px' }}
-              value={filterCondition}
-              onChange={handleConditionChange}
-              displayEmpty
-            >
-              <MenuItem value=""><em>Condition</em></MenuItem>
-              <MenuItem value="Risky">Risky</MenuItem>
-              <MenuItem value="Non Risky">Non Risky</MenuItem>
-            </Select>
-          </div>
+          <Select
+            sx={{ p: '2px 2px', display: 'flex', alignItems: 'center', width: 150, mt: 2 }}
+            value={filterCondition}
+            onChange={handleConditionChange}
+            displayEmpty
+          >
+            <MenuItem value=""><em>Condition</em></MenuItem>
+            <MenuItem value="Risky">Risky</MenuItem>
+            <MenuItem value="Non Risky">Non Risky</MenuItem>
+          </Select>
         </div>
-        <TableContainer sx={{ flexGrow: 1 }}>
-          <Table>
+        <TableContainer sx={{ flexGrow: 1, maxHeight: '400px' }}>
+          <Table stickyHeader>
             <TableHead>
               <TableRow>
                 {tableHead.map((head) => (
@@ -160,22 +140,15 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ id, img, name, age, condition, referToDoctor, guardianName, deliveredDate }) => (
-                <TableRow key={id}>
+              {filteredRows.map(({ motherId, img, name, age, contactNo, condition, referToDoctor }) => (
+                <TableRow key={motherId}>
                   <TableCell sx={{ padding: '10px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <Avatar src={img} alt={name} />
-                      <div style={{ marginLeft: '8px' }}>
-                        <Typography variant="body2" color="textSecondary">{id}</Typography>
-                      </div>
-                    </div>
+                    <Avatar src={img} alt={name} />
+                    <Typography variant="body2" color="textSecondary">{name}</Typography>
                   </TableCell>
-                  <TableCell sx={{ padding: '10px' }}>
-                    <Typography variant="body2">{name}</Typography>
-                  </TableCell>
-                  <TableCell sx={{ padding: '10px' }}>
-                    <Typography variant="body2">{age}</Typography>
-                  </TableCell>
+                  <TableCell sx={{ padding: '10px' }}>{name}</TableCell>
+                  <TableCell sx={{ padding: '10px' }}>{age}</TableCell>
+                  <TableCell sx={{ padding: '10px' }}>{contactNo}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Button
                       variant="contained"
@@ -183,14 +156,13 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                       sx={{
                         backgroundColor: condition === "Risky" ? themeColors.risky : themeColors.nonRisky,
                         color: '#000',
-                        fontWeight: '',
                         '&:hover': {
                           backgroundColor: condition === "Risky" ? themeColors.riskyHover : themeColors.nonRiskyHover,
                           color: '#fff',
                         },
                       }}
-                    >
-                      {condition}
+                      onClick={() => handleConditionChange(motherId)}
+                      >{condition ? 'Risky' : 'Non Risky'}
                     </Button>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>
@@ -205,13 +177,9 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                           color: '#fff',
                         },
                       }}
-                      onClick={() => handleReferToDoctorClick(id)}
-                    >
-                      {referToDoctor ? 'Referred' : 'Refer to Doctor'}
+                      onClick={() => handleReferToDoctorClick(motherId)}
+                    >{referToDoctor ? 'Referred' : 'Refer to Doctor'}
                     </Button>
-                  </TableCell>
-                  <TableCell sx={{ padding: '10px' }}>
-                    <Typography variant="body2">{deliveredDate}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Tooltip title="View Profile">
@@ -225,7 +193,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                             backgroundColor: themeColors.quinary,
                           },
                         }}
-                        onClick={() => handleViewProfileClick(id)}
+                        onClick={() => handleViewProfileClick(motherId)}
                       >
                         View Profile
                       </ProfileButton>
@@ -236,17 +204,6 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
             </TableBody>
           </Table>
         </TableContainer>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              count={filteredRows.length}
-              rowsPerPage={5}
-              page={0}
-              // Implement changePage and changeRowsPerPage handlers as needed
-            />
-          </TableRow>
-        </TableFooter>
       </CardContent>
     </Card>
   );

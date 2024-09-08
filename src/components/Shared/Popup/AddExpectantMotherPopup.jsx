@@ -41,7 +41,7 @@ export const AddExpectantMotherPopup = ({ open, onClose, onSubmit }) => {
     }
 
     if (checked) {
-      onSubmit(formData); // Pass form data to the parent component if valid
+      onSubmit && onSubmit(formData); // Pass form data to the parent component if valid
     } else {
       alert('Please confirm the accuracy of the information.');
     }
