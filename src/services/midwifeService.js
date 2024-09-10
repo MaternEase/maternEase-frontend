@@ -18,7 +18,7 @@ export const getExpectedMothers = async () => {
         'Authorization': `Bearer ${token}`,
       },
     });
-console.log(response.data);
+// console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching expected mothers:',error);
@@ -26,6 +26,29 @@ console.log(response.data);
   }
 
 };
+
+
+export const getDeliveredMother = async () => {
+  try {
+    const token = AuthService.getToken();
+    if(!token){
+      throw  new error ('User not authenticated. Please log in.');
+    }
+    const response = await axios.get(`${API_URL}/get-all-delivered-mother` ,{
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching expected mothers:',error);
+    throw new Error(error.response ? error.response.data: 'Error fetching data');
+  }
+
+};
+
 
 
 
