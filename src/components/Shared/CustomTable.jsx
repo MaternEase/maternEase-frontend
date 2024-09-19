@@ -140,11 +140,11 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ motherId, img, name, age, contactNo, condition, referToDoctor }) => (
+              {filteredRows.map(({ motherId, name, age, contactNo, condition, referToDoctor }) => (
                 <TableRow key={motherId}>
                   <TableCell sx={{ padding: '10px' }}>
-                    <Avatar src={img} alt={name} />
-                    <Typography variant="body2" color="textSecondary">{name}</Typography>
+                    {/* <Avatar src={motherId} alt={name} /> */}
+                    <Typography variant="body2" color="textSecondary">{motherId}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>{name}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>{age}</TableCell>
