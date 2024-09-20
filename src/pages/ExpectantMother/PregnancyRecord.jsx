@@ -3,44 +3,101 @@ import DynamicAccordion from '../../components/ExpectantMother/DynamicAccordion.
 
 const sections = [
     {
-        title: 'Registration Details',
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                Registration Details
+            </span>
+        ),
         content: (
             <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
-                <div>
-                    <strong>Registration No.</strong><br />
-                    C/35<br /><br />
-                    <strong>Registration Date</strong><br />
-                    2024-08-11
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <span style={{ fontWeight: '600', fontSize: '16px', color: '#555' }}>
+                        Eligible Family Register
+                    </span>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration No.
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>C/35</span>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration Date
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
+                    </div>
                 </div>
-                <div>
-                    <strong>Registration No.</strong><br />
-                    c/35/04<br /><br />
-                    <strong>Registration Date</strong><br />
-                    2024-08-11
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <span style={{ fontWeight: '600', fontSize: '16px', color: '#555' }}>
+                        Pregnant Mother’s Register
+                    </span>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration No.
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>c/35/04</span>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration Date
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
+                    </div>
                 </div>
             </div>
-        )
+        ),
     },
     {
-        title: 'Pre-Conception and Early Pregnancy Details',
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                Pre-Conception and Early Pregnancy Details
+            </span>
+        ),
         content: (
             <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
-                <div>
-                    <strong>Registration No.</strong><br />
-                    C/35<br /><br />
-                    <strong>Registration Date</strong><br />
-                    2024-08-11
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration No.
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>C/35</span>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration Date
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
+                    </div>
                 </div>
-                <div>
-                    <strong>Registration No.</strong><br />
-                    c/35/04<br /><br />
-                    <strong>Registration Date</strong><br />
-                    2024-08-11
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration No.
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>c/35/04</span>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
+                            Registration Date
+                        </strong>
+                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
+                    </div>
                 </div>
             </div>
-        )
+        ),
     },
-    { title: 'Current Pregnancy', content: 'Information about the current pregnancy, including any complications.' },
+    {
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                Current Pregnancy
+            </span>
+        ),
+        content: (
+            <div style={{ fontSize: '14px', color: '#777' }}>
+                Information about the current pregnancy, including any complications.
+            </div>
+        ),
+    },
     // Add more sections with custom titles as needed
 ];
 
