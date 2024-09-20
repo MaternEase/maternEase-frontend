@@ -56,7 +56,7 @@ const Profile = () => {
             initialValues={{
                 motherName: 'Arachchige Renuka de Silva',
                 age: 30,
-                district: 'Colombo',
+                address: 'No. 4, Temple road, Kohuwala',
                 mohArea: 'Dehiwala',
                 phmArea: 'Dehiwala',
                 fieldClinic: 'Kohuwala - 001',
@@ -73,9 +73,9 @@ const Profile = () => {
                 onBack={() => window.history.back()}
                 title={
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                        <span style={{ marginRight: '600px' }}>Details from the hospital</span>
+                        <span style={{ marginRight: '600px' }}>About Baby</span>
                         <div style={{ display: 'flex', gap: '10px' }}>
-                            <Radio.Group defaultValue="girl">
+                            <Radio.Group defaultValue="girl" style={{ display: 'flex', gap: '10px' }}>
                                 <Radio
                                     value="girl"
                                     style={{ backgroundColor: '#F85CB9', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}
@@ -97,37 +97,37 @@ const Profile = () => {
             <div className="container">
                 <Row gutter={16}>
                     <Col span={24}>
-                        <Card title="Details from the hospital" style={{marginBottom: '16px'}}>
+                        <Card title="Name of the baby: Thinu Perera" style={{ marginBottom: '16px' }}>
                             <Row gutter={16}>
                                 <Col span={12}>
                                     <Form.Item
                                         label="Name of the Mother"
                                         name="motherName"
-                                        rules={[{required: true, message: 'Please input the name of the mother!'}]}
+                                       // rules={[{ required: true, message: 'Please input the name of the mother!' }]}
                                     >
-                                        <Input placeholder="Name of the Mother"/>
+                                        <Input placeholder="Name of the Mother" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item
-                                        label="Age"
+                                        label="Mother's age"
                                         name="age"
-                                        rules={[{validator: validateAge}]}
+                                        rules={[{ validator: validateAge }]}
                                     >
-                                        <Input placeholder="Age" type="number"/>
+                                        <Input placeholder="Age" type="number" />
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Row gutter={16}>
                                 <Col span={12}>
                                     <Form.Item
-                                        label="District"
-                                        name="district"
+                                        label="Address"
+                                        name="address"
                                     >
                                         <AutoComplete
-                                            options={districts.map(district => ({value: district}))}
+                                            options={districts.map(district => ({ value: district }))}
                                             onChange={handleDistrictChange}
-                                            placeholder="Type to search District"
+                                            placeholder="Type to search Address"
                                             filterOption={(inputValue, option) =>
                                                 option.value.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
                                             }
@@ -140,7 +140,7 @@ const Profile = () => {
                                         name="mohArea"
                                     >
                                         <AutoComplete
-                                            options={mohAreas.map(area => ({value: area}))}
+                                            options={mohAreas.map(area => ({ value: area }))}
                                             placeholder="Select MOH Area"
                                             filterOption={(inputValue, option) =>
                                                 option.value.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
@@ -153,19 +153,19 @@ const Profile = () => {
                                 label="PHM Area"
                                 name="phmArea"
                             >
-                                <Input placeholder="PHM Area"/>
+                                <Input placeholder="PHM Area" />
                             </Form.Item>
                             <Form.Item
                                 label="Name of Field Clinic"
                                 name="fieldClinic"
                             >
-                                <Input placeholder="Name of Field Clinic"/>
+                                <Input placeholder="Name of Field Clinic" />
                             </Form.Item>
                             <Form.Item
                                 label="Grama Niladhari Division"
                                 name="gramaNiladhari"
                             >
-                                <Input placeholder="Grama Niladhari Division"/>
+                                <Input placeholder="Grama Niladhari Division" />
                             </Form.Item>
                         </Card>
                     </Col>
@@ -173,36 +173,36 @@ const Profile = () => {
 
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Card title="Eligible Family Register" style={{marginBottom: '16px'}}>
+                        <Card title="" style={{ marginBottom: '16px' }}>
                             <Form.Item
-                                label="Registration No."
+                                label="Family Registration No."
                                 name="familyRegNo"
                             >
-                                <Input placeholder="Registration No."/>
+                                <Input placeholder="Registration No." />
                             </Form.Item>
                             <Form.Item
-                                label="Registration Date"
+                                label="Family Registration Date"
                                 name="familyRegDate"
-                                rules={[{validator: validateDate}]}
+                                rules={[{ validator: validateDate }]}
                             >
-                                <DatePicker style={{width: '100%'}} placeholder="Registration Date"/>
+                                <DatePicker style={{ width: '100%' }} placeholder="Registration Date" />
                             </Form.Item>
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="Pregnant Mother’s Register" style={{marginBottom: '16px'}}>
+                        <Card title="" style={{ marginBottom: '16px' }}>
                             <Form.Item
-                                label="Registration No."
+                                label="Mother's Registration No."
                                 name="motherRegNo"
                             >
-                                <Input placeholder="Registration No."/>
+                                <Input placeholder="Registration No." />
                             </Form.Item>
                             <Form.Item
-                                label="Registration Date"
+                                label="Mother's Registration Date"
                                 name="motherRegDate"
-                                rules={[{validator: validateDate}]}
+                                rules={[{ validator: validateDate }]}
                             >
-                                <DatePicker style={{width: '100%'}} placeholder="Registration Date"/>
+                                <DatePicker style={{ width: '100%' }} placeholder="Registration Date" />
                             </Form.Item>
                         </Card>
                     </Col>
@@ -210,73 +210,48 @@ const Profile = () => {
 
                 <Card>
                     <Row gutter={16}>
-                        <Col span={12}>
-                            <Form.Item label="Consanguinity">
-                                <Radio.Group defaultValue="yes">
+                        <Col span={24}>
+                            <Form.Item label="Did breastfeeding begin in the first hour?">
+                                <Radio.Group defaultValue="yes" style={{ display: 'flex', gap: '10px' }}>
                                     <Radio value="yes">Yes</Radio>
                                     <Radio value="no">No</Radio>
                                 </Radio.Group>
                             </Form.Item>
-                            <Form.Item label="Rubella Immunization">
-                                <Radio.Group defaultValue="no">
+                            <Form.Item label="Establishment">
+                                <Radio.Group defaultValue="no" style={{ display: 'flex', gap: '10px' }}>
                                     <Radio value="yes">Yes</Radio>
                                     <Radio value="no">No</Radio>
                                 </Radio.Group>
                             </Form.Item>
-                            <Form.Item label="Pre-pregnancy screening done">
-                                <Radio.Group defaultValue="yes">
+                            <Form.Item label="Connection">
+                                <Radio.Group defaultValue="yes" style={{ display: 'flex', gap: '10px' }}>
                                     <Radio value="yes">Yes</Radio>
                                     <Radio value="no">No</Radio>
                                 </Radio.Group>
                             </Form.Item>
-                            <Form.Item label="Pre-conceptional folic acid">
-                                <Radio.Group defaultValue="no">
+                            <Form.Item label="Did you test for argyroid arthritis?">
+                                <Radio.Group defaultValue="no" style={{ display: 'flex', gap: '10px' }}>
                                     <Radio value="yes">Yes</Radio>
                                     <Radio value="no">No</Radio>
                                 </Radio.Group>
                             </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item label="History of subfertility">
-                                <Radio.Group defaultValue="yes">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Planned pregnancy or not">
-                                <Radio.Group defaultValue="no">
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            <Form.Item label="Family Planning Method Used">
-                                <Radio.Group defaultValue="no" onChange={handleFamilyPlanningMethodChange}>
-                                    <Radio value="yes">Yes</Radio>
-                                    <Radio value="no">No</Radio>
-                                </Radio.Group>
-                            </Form.Item>
-                            {isFamilyPlanningMethodUsed && (
-                                <Form.Item label="Specify Family Planning Method">
-                                    <Input placeholder="Specify Family Planning Method"/>
-                                </Form.Item>
-                            )}
                         </Col>
                     </Row>
                     <Form.Item
-                        label="Identified Antenatal Risk Conditions & Morbidity"
+                        label="Reasons to take care of in particular"
                         name="riskConditions"
                     >
-                        <Input.TextArea placeholder="Identified Antenatal Risk Conditions & Morbidity" rows={4}/>
+                        <Input.TextArea placeholder="Identified Antenatal Risk Conditions & Morbidity" rows={4} />
                     </Form.Item>
                 </Card>
 
-                <div className="pagination-container" style={{marginTop: '20px', textAlign: 'right'}}>
-                    <Link to="/mother/pregnancy-history">
-                        <Button type="primary" style={{backgroundColor: '#967AA1', borderColor: '#967AA1'}}>
+              {/*<div className="pagination-container" style={{ marginTop: '20px', textAlign: 'right' }}>
+                    <Link to="/child/additional_details">
+                        <Button type="primary" style={{ backgroundColor: '#967AA1', borderColor: '#967AA1' }}>
                             Next
                         </Button>
                     </Link>
-                </div>
+                </div>*/}
             </div>
         </Form>
     );

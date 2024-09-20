@@ -23,9 +23,9 @@ const ProfileDetailsPopup = ({ visible, profile, onCancel }) => {
             <Typography variant="body1" style={{ fontSize: "14px" }}><b>Experience:</b> {profile.experience}</Typography>
           </div>
         </div>
-        <Button style={{ backgroundColor: "#967aa1", color: "#fff", marginTop: "10px", alignSelf: "flex-start" }}>
+        {/* <Button style={{ backgroundColor: "#967aa1", color: "#fff", marginTop: "10px", alignSelf: "flex-start" }}>
           Edit
-        </Button>
+        </Button> */}
       </div>
     </Modal>
   );

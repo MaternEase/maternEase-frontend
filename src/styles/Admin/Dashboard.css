@@ -8,7 +8,9 @@
   padding: 0;
   margin: 0;
 }
-
+.risky-row {
+  background-color: #c29b9b !important;
+}
 /* @media (max-width: 768px) {
   .dashboard-container {
     padding: 16px;

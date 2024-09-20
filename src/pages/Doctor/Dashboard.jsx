@@ -9,25 +9,16 @@ import '../../styles/Admin/Dashboard.css';
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
 
-const data = [
-  {
-    name: 'Wasanthi Perera',
-    age: 28,
-    number: '091234567',
-    report: 'Pending',
-  },
-  {
-    name: 'Sujatha Dahanayake',
-    age: 26,
-    number: '091234567',
-    report: 'Pending',
-  },
-  {
-    name: 'Naduni Bandara',
-    age: 32,
-    number: '091234567',
-    report: 'Pending',
-  },
+const mothersData = [
+  { key: 1, name: 'Wasanthi Perera', report: 'View' },
+  { key: 2, name: 'Sujatha Dahanayakce', report: 'View' },
+  { key: 3, name: 'Naduni Bandara', report: 'View' },
+];
+
+const babiesData = [
+  { key: 1, name: 'Banuka Rajapakse', report: 'View' },
+  { key: 2, name: 'Wanindu Hasaranga', report: 'View' },
+  { key: 3, name: 'Kusal Mendis3', report: 'View' },
 ];
 
 const userEvents = {
@@ -52,7 +43,6 @@ const deliveriesData = [
 const COLORS = ['#192A51', '#FF8042', '#00C49F'];
 
 const Dashboard = () => {
-  const [selectedCard, setSelectedCard] = useState(null);
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
 
@@ -64,51 +54,44 @@ const Dashboard = () => {
     setSearchText(value);
   };
 
-  const handleEdit = (key) => {
-    console.log('Edit action for record with key:', key);
-    // Implement the edit functionality here
+  const handleEdit = (path) => {
+    navigate(path);
   };
 
   const cardData = [
     {
       key: 1,
       title: 'Mothers Reports',
-      // value: 1052,
-      // paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.',
       path: '/doctor/mothers',
     },
     {
       key: 2,
       title: 'Babies Reports',
-      // value: 475,
-      // paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.',
       path: '/doctor/babies',
     },
     {
       key: 3,
       title: 'Statistical Reports',
-      // value: 8,
-      // paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.',
       path: '/doctor/reports',
     },
-    {
-      key: 4,
-      title: 'Risky Mothers & Babies',
-      // value: 29,
-      // paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.',
-      path: '/doctor/risky-mothers-babies',
-    },
+    // {
+    //   key: 4,
+    //   title: 'Risky Mothers & Babies',
+    //   path: '/doctor/risky-mothers-babies',
+    // },
   ];
 
-  const userFullCalendarPath = '/admin/full-calendar';
+  const userFullCalendarPath = '/doctor/doctorcalendar';
 
-  const filteredData = data.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.id.toLowerCase().includes(searchText.toLowerCase())
+  const filteredMothersData = mothersData.filter((item) =>
+    item.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const columns = [
+  const filteredBabiesData = babiesData.filter((item) =>
+    item.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const mothersColumns = [
     {
       title: <span>Mother Name</span>,
       dataIndex: 'name',
@@ -117,29 +100,38 @@ const Dashboard = () => {
       render: (text) => <span>{text}</span>,
     },
     {
-      title: <span>Age</span>,
-      dataIndex: 'age',
-      key: 'age',
-      sorter: (a, b) => a.age - b.age,
-      render: (text) => <span>{text}</span>,
+      title: <span>Report</span>,
+      dataIndex: 'report',
+      key: 'report',
+      render: (text, record) => (
+        <Button
+          type="link"
+          style={{ color: '#7C3AED' }}
+          onClick={() => handleEdit('/doctor/motherrefer')}
+        >
+          {text}
+        </Button>
+      ),
     },
+  ];
+
+  const babiesColumns = [
     {
-      title: <span>Contact Number</span>,
-      dataIndex: 'number',
-      key: 'number',
-      sorter: (a, b) => new Date(a.date) - new Date(b.date),
+      title: <span>Baby Name</span>,
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
       render: (text) => <span>{text}</span>,
     },
     {
       title: <span>Report</span>,
       dataIndex: 'report',
       key: 'report',
-      sorter: (a, b) => a.time.localeCompare(b.time),
       render: (text, record) => (
         <Button
           type="link"
           style={{ color: '#7C3AED' }}
-          onClick={() => handleEdit(record.key)}
+          onClick={() => handleEdit('/doctor/babyrefer')}
         >
           {text}
         </Button>
@@ -163,19 +155,20 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
-      <Row gutter={16} style={{ marginTop: 24 }}>
+      <Row gutter={16} style={{ marginTop: 24,marginLeft:'200PX' }}>
         {cardData.map((card) => (
           <Col span={6} key={card.key}>
             <Card
               hoverable
               onClick={() => handleCardClick(card.path)}
-              title={<span style={{ color: '#7C3AED' }}>{card.title}</span>}
+              title={<span style={{ color: 'black', textAlign: 'center' }}>{card.title}</span>}
               bordered={false}
               style={{
                 backgroundColor: '#eee4f9',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 transition: 'background-color 0.3s',
+                textAlign: 'center'
               }}
               bodyStyle={{ padding: '8px 16px' }}
               headStyle={{ borderBottom: 0 }}
@@ -234,10 +227,10 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row gutter={24} style={{ marginTop: 24 }}>
-        <Col span={24}>
+      <Row gutter={24} style={{ marginTop: 48 }}>
+        <Col span={12}>
           <Card
-            title="Special Referring"
+            title="Refer Mothers"
             extra={
               <Space>
                 <AntSearch
@@ -252,8 +245,32 @@ const Dashboard = () => {
           >
             <Table
               components={components}
-              dataSource={filteredData}
-              columns={columns}
+              dataSource={filteredMothersData}
+              columns={mothersColumns}
+              pagination={false}
+              scroll={{ y: 200 }}
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card
+            title="Refer Babies"
+            extra={
+              <Space>
+                <AntSearch
+                  placeholder="Search..."
+                  onSearch={handleSearch}
+                  enterButton={<Search />}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+              </Space>
+            }
+          >
+            <Table
+              components={components}
+              dataSource={filteredBabiesData}
+              columns={babiesColumns}
               pagination={false}
               scroll={{ y: 200 }}
             />

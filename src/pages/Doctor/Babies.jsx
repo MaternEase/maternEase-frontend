@@ -9,77 +9,48 @@ const { Search: AntSearch } = Input;
 const data1 = [
   {
     key: '1',
-    name: 'Jane Doe',
+    name: 'Jayani Priyanka',
     age: 28,
-    contactNumber: '091452452',
+    risky: 'Risky',
+    registrationnumber: '091452452',
     reportState: 'New',
   },
   {
     key: '2',
-    name: 'Mary Johnson',
+    name: 'Malki Rashmika',
     age: 32,
-    contactNumber: '093654321',
+    risky: 'Risky',
+    registrationnumber: '093654321',
     reportState: 'New',
   },
   {
     key: '3',
-    name: 'Emily Brown',
+    name: 'Emily Biyanka',
     age: 24,
-    contactNumber: '091234567',
+    risky: 'Nonrisky',
+    registrationnumber: '091234567',
     reportState: 'New',
   },
   {
     key: '4',
-    name: 'Anna Smith',
+    name: 'Akila Janandi',
     age: 30,
-    contactNumber: '098765432',
+    risky: 'Nonrisky',
+    registrationnumber: '098765432',
     reportState: 'New',
   },
   {
     key: '5',
-    name: 'Emilya Brown',
+    name: 'Emilya Dewmini',
     age: 24,
-    contactNumber: '091234567',
+    risky: 'Nonrisky',
+    registrationnumber: '091234567',
     reportState: 'New',
   },
 ];
 
 const data2 = [
-  {
-    key: '1',
-    name: 'Susan Green',
-    age: 29,
-    contactNumber: '091987654',
-    reportState: 'New',
-  },
-  {
-    key: '2',
-    name: 'Linda White',
-    age: 35,
-    contactNumber: '093123456',
-    reportState: 'New',
-  },
-  {
-    key: '3',
-    name: 'Nancy Black',
-    age: 27,
-    contactNumber: '091111111',
-    reportState: 'New',
-  },
-  {
-    key: '4',
-    name: 'Karen Red',
-    age: 33,
-    contactNumber: '098999999',
-    reportState: 'New',
-  },
-  {
-    key: '5',
-    name: 'Barbara Blue',
-    age: 31,
-    contactNumber: '091222222',
-    reportState: 'New',
-  },
+  // Your data2 entries if any
 ];
 
 const handleStateChange = (data, setData, key, navigate) => {
@@ -87,7 +58,7 @@ const handleStateChange = (data, setData, key, navigate) => {
     item.key === key ? { ...item, reportState: 'Viewed' } : item
   );
   setData(newData);
-  navigate('/form'); // Replace with the actual path to your form
+  navigate('/doctor/babyreport1');
 };
 
 const columns = (data, setData, navigate) => [
@@ -102,9 +73,14 @@ const columns = (data, setData, navigate) => [
     key: 'age',
   },
   {
-    title: 'Contact Number',
-    dataIndex: 'contactNumber',
-    key: 'contactNumber',
+    title: 'Registration Number',
+    dataIndex: 'registrationnumber',
+    key: 'registrationnumber',
+  },
+  {
+    title: 'Condition',
+    dataIndex: 'risky',
+    key: 'risky',
   },
   {
     title: 'Report',
@@ -117,10 +93,6 @@ const columns = (data, setData, navigate) => [
           color: text === 'New' ? '#7C3AED' : '#7C3AED',
           backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
           borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
-          hover: {
-            backgroundColor: '#D8B4FE',
-            color: '#7C3AED',
-          },
         }}
         onClick={() => handleStateChange(data, setData, record.key, navigate)}
       >
@@ -136,11 +108,11 @@ const cardData = [
     title: 'All Babies Details',
     link: '#link1',
   },
-  {
-    key: '2',
-    title: 'Risky Babies Details',
-    link: '#link2',
-  },
+  // {
+  //   key: '2',
+  //   title: 'Risky Babies Details',
+  //   link: '#link2',
+  // },
 ];
 
 const Babies = () => {
@@ -171,6 +143,10 @@ const Babies = () => {
     setFilteredData2(filtered2);
   };
 
+  const getRowClassName = (record) => {
+    return record.risky === 'Risky' ? 'risky-row' : '';
+  };
+
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
       <Row gutter={16} style={{ marginTop: 24 }}>
@@ -179,16 +155,16 @@ const Babies = () => {
             <Card
               hoverable
               style={{
-                backgroundColor: '#E9D5FF',
-                padding: '20px',
+                backgroundColor: '#D5C6E0',
+                padding: 'px',
                 cursor: 'pointer',
-                border: selectedCard === card.key ? '2px solid #7C3AED' : 'none',
+                border: selectedCard === card.key ? 'none' : 'none',
               }}
               onClick={() => handleCardClick(card.key)}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#D8B4FE')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E9D5FF')}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#AAA1C8')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D5C6E0')}
             >
-              <a href={card.link} className="text-xl font-semibold text-purple-600 hover:underline">
+              <a href={'/doctor/babiesall'} className="text-xl font-semibold text-black">
                 {card.title}
               </a>
             </Card>
@@ -215,36 +191,11 @@ const Babies = () => {
               columns={columns(filteredData1, setFilteredData1, navigate)}
               dataSource={filteredData1}
               pagination={false}
-              scroll={{ y: 200 }}
+              rowClassName={getRowClassName}
             />
           </Card>
         </Col>
       </Row>
-      {/* <Row gutter={24} style={{ marginTop: 24 }}>
-        <Col span={24}>
-          <Card
-            title="Mother Reports"
-            extra={
-              <Space>
-                <AntSearch
-                  placeholder="Search..."
-                  onSearch={handleSearch}
-                  enterButton={<Search />}
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                />
-              </Space>
-            }
-          >
-            <Table
-              columns={columns(filteredData2, setFilteredData2, navigate)}
-              dataSource={filteredData2}
-              pagination={false}
-              scroll={{ y: 200 }}
-            />
-          </Card>
-        </Col>
-      </Row> */}
     </div>
   );
 };
