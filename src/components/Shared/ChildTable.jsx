@@ -83,7 +83,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                 borderRadius: '20px',
                 height: '40px',
                 fontSize: '14px'
-              }} onClick={onAddMemberClick}>+ Add New Expectant Mother</Button>
+              }} onClick={onAddMemberClick}>+ Add New Child</Button>
             </div>
           )
         }
@@ -140,11 +140,11 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ motherId, name, age, contactNo, condition, referToDoctor }) => (
-                <TableRow key={motherId}>
+              {filteredRows.map(({ id, name, age, contactNo, condition, referToDoctor }) => (
+                <TableRow key={id}>
                   <TableCell sx={{ padding: '10px' }}>
                     {/* <Avatar src={motherId} alt={name} /> */}
-                    <Typography variant="body2" color="textSecondary">{motherId}</Typography>
+                    <Typography variant="body2" color="textSecondary">{id}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>{name}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>{age}</TableCell>
