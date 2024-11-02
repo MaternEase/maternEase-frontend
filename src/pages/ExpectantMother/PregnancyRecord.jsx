@@ -5,6 +5,239 @@ const sections = [
     {
         title: (
             <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+        Medical Report
+    </span>
+        ),
+        content: (
+            <div>
+                <div style={{
+                    display: 'flex',
+                    gap: '20px', // Space between the two sections
+                    padding: '20px',
+                    backgroundColor: '#ffffff',
+                    borderRadius: '8px',
+                }}>
+                    {/* Left Section */}
+                    <div style={{
+                        flex: 1, // Make each section take half the available width
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                        gap: '10px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        width: '100%',
+                    }}>
+                        <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
+                        <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
+
+                        {[
+                            {condition: 'Diabetes', status: 'No'},
+                            {condition: 'Hypertension', status: 'Yes'},
+                            {condition: 'Cardiac diseases', status: 'No'},
+                            {condition: 'Renal diseases', status: 'No'},
+                            {condition: 'Hepatic diseases', status: 'Yes'},
+                            {condition: 'Psychiatric illnesses', status: 'No'},
+                        ].map((item, index) => (
+                            <React.Fragment key={index}>
+                        <span style={{
+                            fontSize: '14px',
+                            color: item.status === 'No' ? '#b9b9b9' : '#555', // Grey for 'No', default color otherwise
+                            padding: '8px 0',
+                            borderBottom: '1px solid #e0e0e0', // Border between rows
+                        }}>
+                            {item.condition}
+                        </span>
+                                <span style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    fontWeight: 'bold',
+                                    color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9', // Grey for 'No' status
+                                    gap: '5px',
+                                    padding: '8px 0',
+                                    borderBottom: '1px solid #e0e0e0', // Border between rows
+                                }}>
+                            {item.status}
+                        </span>
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                    {/* Right Section */}
+                    <div style={{
+                        flex: 1, // Make each section take half the available width
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                        gap: '10px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        width: '100%',
+                    }}>
+                        <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
+                        <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
+
+                        {[
+                            {condition: 'Epilepsy', status: 'No'},
+                            {condition: 'Malignancies', status: 'No'},
+                            {condition: 'Haematological diseases', status: 'No'},
+                            {condition: 'Tuberculosis', status: 'Yes'},
+                            {condition: 'Thyroid diseases', status: 'No'},
+                            {condition: 'Bronchial asthma', status: 'Yes'},
+                            {condition: 'Previous DVT', status: 'No'},
+                        ].map((item, index) => (
+                            <React.Fragment key={index}>
+                        <span style={{
+                            fontSize: '14px',
+                            color: item.status === 'No' ? '#b9b9b9' : '#555', // Grey for 'No', default color otherwise
+                            padding: '8px 0',
+                            borderBottom: '1px solid #e0e0e0', // Border between rows
+                        }}>
+                            {item.condition}
+                        </span>
+                                <span style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    fontWeight: 'bold',
+                                    color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9', // Grey for 'No' status
+                                    gap: '5px',
+                                    padding: '8px 0',
+                                    borderBottom: '1px solid #e0e0e0', // Border between rows
+                                }}>
+                            {item.status}
+                        </span>
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                </div>
+                <div>Surgeries other than LCSC</div>
+            </div>
+        ),
+    },
+
+    // ////////////
+    {
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                    Pregnancy Details
+                </span>
+            ),
+        content: (
+        <div>
+            <div style={{
+                display: 'flex',
+                gap: '20px', // Space between the two sections
+                padding: '20px',
+                backgroundColor: '#ffffff',
+                borderRadius: '8px',
+            }}>
+                {/* Left Section */}
+                <div style={{
+                    flex: 1, // Make each section take half the available width
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                    gap: '10px',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    width: '100%',
+                }}>
+                    <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
+                    <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
+
+                    {[
+                        {condition: 'Consanguinity', status: 'No'},
+                        {condition: 'Rubella Immunization', status: 'Yes'},
+                        {condition: 'Pre-pregnancy screening done', status: 'No'},
+                        {condition: 'Pre-conceptional folic acid', status: 'No'},
+                        {condition: 'History of subfertility', status: 'Yes'},
+                        {condition: 'Planned pregnancy or not', status: 'No'},
+                    ].map((item, index) => (
+                        <React.Fragment key={index}>
+                                <span style={{
+                                    fontSize: '14px',
+                                    color: '#555',
+                                    padding: '8px 0',
+                                    borderBottom: '1px solid #e0e0e0', // Border between rows
+                                }}>
+                                    {item.condition}
+                                </span>
+                            <span style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                                color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
+                                gap: '5px',
+                                padding: '8px 0',
+                                borderBottom: '1px solid #e0e0e0', // Border between rows
+                            }}>
+                                    {item.status}
+                                </span>
+                        </React.Fragment>
+                    ))}
+                </div>
+
+                {/* Right Section */}
+                <div style={{
+                    flex: 1, // Make each section take half the available width
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                    gap: '10px',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    width: '100%',
+                }}>
+                    <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
+                    <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
+
+                    {[
+                        {condition: 'Family Planning Method Used', status: 'No'},
+                        {condition: 'xyz', status: 'No'},
+                        {condition: 'xyz', status: 'No'},
+                        {condition: 'xyz', status: 'Yes'},
+                        {condition: 'xyz', status: 'No'},
+                        {condition: 'xyz', status: 'Yes'},
+                        {condition: 'xyz', status: 'No'},
+                    ].map((item, index) => (
+                        <React.Fragment key={index}>
+                                <span style={{
+                                    fontSize: '14px',
+                                    color: '#555',
+                                    padding: '8px 0',
+                                    borderBottom: '1px solid #e0e0e0', // Border between rows
+                                }}>
+                                    {item.condition}
+                                </span>
+                            <span style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                                color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
+                                gap: '5px',
+                                padding: '8px 0',
+                                borderBottom: '1px solid #e0e0e0', // Border between rows
+                            }}>
+                                    {item.status}
+                                </span>
+                        </React.Fragment>
+                    ))}
+                </div>
+
+            </div>
+            <div>Surgeries other that LCSC</div>
+        </div>
+    ),
+    },
+
+    // ////////////////
+
+
+
+    {
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
                 Registration Details
             </span>
         ),
@@ -98,6 +331,21 @@ const sections = [
             </div>
         ),
     },
+
+    {
+        title: (
+            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                Current Pregnancy
+            </span>
+        ),
+        content: (
+            <div style={{ fontSize: '14px', color: '#777' }}>
+               Charts
+            </div>
+        ),
+    },
+
+
     // Add more sections with custom titles as needed
 ];
 
