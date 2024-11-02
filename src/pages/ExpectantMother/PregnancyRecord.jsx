@@ -1,5 +1,7 @@
 import React from 'react';
 import DynamicAccordion from '../../components/ExpectantMother/DynamicAccordion.jsx';
+import WeightChart from "../Doctor/MotherReports5.jsx";
+import FundalHeightChart from "../Doctor/MotherReports4.jsx";
 
 const sections = [
     {
@@ -120,116 +122,117 @@ const sections = [
     {
         title: (
             <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
-                    Pregnancy Details
-                </span>
-            ),
+            Pregnancy Details
+        </span>
+        ),
         content: (
-        <div>
-            <div style={{
-                display: 'flex',
-                gap: '20px', // Space between the two sections
-                padding: '20px',
-                backgroundColor: '#ffffff',
-                borderRadius: '8px',
-            }}>
-                {/* Left Section */}
+            <div>
                 <div style={{
-                    flex: 1, // Make each section take half the available width
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
-                    gap: '10px',
-                    border: '1px solid #e0e0e0',
+                    display: 'flex',
+                    gap: '20px', // Space between the two sections
+                    padding: '20px',
+                    backgroundColor: '#ffffff',
                     borderRadius: '8px',
-                    padding: '10px',
-                    width: '100%',
                 }}>
-                    <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
-                    <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
+                    {/* Left Section */}
+                    <div style={{
+                        flex: 1, // Make each section take half the available width
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                        gap: '10px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        width: '100%',
+                    }}>
+                        <strong style={{ fontSize: '16px', color: '#555' }}>Condition</strong>
+                        <strong style={{ fontSize: '16px', color: '#555' }}>Status</strong>
 
-                    {[
-                        {condition: 'Consanguinity', status: 'No'},
-                        {condition: 'Rubella Immunization', status: 'Yes'},
-                        {condition: 'Pre-pregnancy screening done', status: 'No'},
-                        {condition: 'Pre-conceptional folic acid', status: 'No'},
-                        {condition: 'History of subfertility', status: 'Yes'},
-                        {condition: 'Planned pregnancy or not', status: 'No'},
-                    ].map((item, index) => (
-                        <React.Fragment key={index}>
-                                <span style={{
-                                    fontSize: '14px',
-                                    color: '#555',
-                                    padding: '8px 0',
-                                    borderBottom: '1px solid #e0e0e0', // Border between rows
-                                }}>
-                                    {item.condition}
-                                </span>
+                        {[
+                            { condition: 'Consanguinity', status: 'No' },
+                            { condition: 'Rubella Immunization', status: 'Yes' },
+                            { condition: 'Pre-pregnancy screening done', status: 'No' },
+                            { condition: 'Pre-conceptional folic acid', status: 'No' },
+                            { condition: 'History of subfertility', status: 'Yes' },
+                            { condition: 'Planned pregnancy or not', status: 'No' },
+                        ].map((item, index) => (
+                            <React.Fragment key={index}>
                             <span style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                fontWeight: 'bold',
-                                color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
-                                gap: '5px',
+                                fontSize: '14px',
+                                color: item.status === 'Yes' ? '#555' : '#b9b9b9',
                                 padding: '8px 0',
                                 borderBottom: '1px solid #e0e0e0', // Border between rows
                             }}>
-                                    {item.status}
-                                </span>
-                        </React.Fragment>
-                    ))}
-                </div>
-
-                {/* Right Section */}
-                <div style={{
-                    flex: 1, // Make each section take half the available width
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
-                    gap: '10px',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '8px',
-                    padding: '10px',
-                    width: '100%',
-                }}>
-                    <strong style={{fontSize: '16px', color: '#555'}}>Condition</strong>
-                    <strong style={{fontSize: '16px', color: '#555'}}>Status</strong>
-
-                    {[
-                        {condition: 'Family Planning Method Used', status: 'No'},
-                        {condition: 'xyz', status: 'No'},
-                        {condition: 'xyz', status: 'No'},
-                        {condition: 'xyz', status: 'Yes'},
-                        {condition: 'xyz', status: 'No'},
-                        {condition: 'xyz', status: 'Yes'},
-                        {condition: 'xyz', status: 'No'},
-                    ].map((item, index) => (
-                        <React.Fragment key={index}>
+                                {item.condition}
+                            </span>
                                 <span style={{
-                                    fontSize: '14px',
-                                    color: '#555',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    fontWeight: 'bold',
+                                    color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
+                                    gap: '5px',
                                     padding: '8px 0',
                                     borderBottom: '1px solid #e0e0e0', // Border between rows
                                 }}>
-                                    {item.condition}
-                                </span>
+                                {item.status}
+                            </span>
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                    {/* Right Section */}
+                    <div style={{
+                        flex: 1, // Make each section take half the available width
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 0.5fr', // Two columns: condition and status
+                        gap: '10px',
+                        border: '1px solid #e0e0e0',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        width: '100%',
+                    }}>
+                        <strong style={{ fontSize: '16px', color: '#555' }}>Condition</strong>
+                        <strong style={{ fontSize: '16px', color: '#555' }}>Status</strong>
+
+                        {[
+                            { condition: 'Family Planning Method Used', status: 'No' },
+                            { condition: 'xyz', status: 'No' },
+                            { condition: 'xyz', status: 'No' },
+                            { condition: 'xyz', status: 'Yes' },
+                            { condition: 'xyz', status: 'No' },
+                            { condition: 'xyz', status: 'Yes' },
+                            { condition: 'xyz', status: 'No' },
+                        ].map((item, index) => (
+                            <React.Fragment key={index}>
                             <span style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                fontWeight: 'bold',
-                                color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
-                                gap: '5px',
+                                fontSize: '14px',
+                                color: item.status === 'Yes' ? '#555' : '#b9b9b9',
                                 padding: '8px 0',
                                 borderBottom: '1px solid #e0e0e0', // Border between rows
                             }}>
-                                    {item.status}
-                                </span>
-                        </React.Fragment>
-                    ))}
-                </div>
+                                {item.condition}
+                            </span>
+                                <span style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    fontWeight: 'bold',
+                                    color: item.status === 'Yes' ? '#0a0a0a' : '#b9b9b9',
+                                    gap: '5px',
+                                    padding: '8px 0',
+                                    borderBottom: '1px solid #e0e0e0', // Border between rows
+                                }}>
+                                {item.status}
+                            </span>
+                            </React.Fragment>
+                        ))}
+                    </div>
 
+                </div>
+                <div>Antenatal Risk Conditions</div>
             </div>
-            <div>Surgeries other that LCSC</div>
-        </div>
-    ),
+        ),
     },
+
 
     // ////////////////
 
@@ -283,58 +286,36 @@ const sections = [
     {
         title: (
             <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
-                Pre-Conception and Early Pregnancy Details
-            </span>
+            BMI Variation
+        </span>
         ),
         content: (
-            <div style={{ display: 'flex', justifyContent: 'space-around', padding: '10px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div style={{ display: 'flex' }}>
-                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
-                            Registration No.
-                        </strong>
-                        <span style={{ fontSize: '14px', color: '#777' }}>C/35</span>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
-                            Registration Date
-                        </strong>
-                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div style={{ display: 'flex' }}>
-                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
-                            Registration No.
-                        </strong>
-                        <span style={{ fontSize: '14px', color: '#777' }}>c/35/04</span>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <strong style={{ minWidth: '150px', fontSize: '14px', color: '#777' }}>
-                            Registration Date
-                        </strong>
-                        <span style={{ fontSize: '14px', color: '#777' }}>2024-08-11</span>
-                    </div>
+            <div style={{ height: '100vh', padding: '16px', overflowY: 'auto' }}>
+                <div style={{ height: '90vh', width: '60vw' ,marginBottom: '24px' }}>
+                    <WeightChart />
                 </div>
             </div>
         ),
-    },
+    }
+    ,
     {
         title: (
-            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
-                Current Pregnancy
+            <span style={{fontWeight: 'bold', fontSize: '20px', color: '#333'}}>
+                Fundal Height Variation
             </span>
         ),
         content: (
-            <div style={{ fontSize: '14px', color: '#777' }}>
-                Information about the current pregnancy, including any complications.
+            <div style={{height: '100vh', padding: '16px', overflowY: 'auto'}}>
+                <div style={{marginBottom: '24px'}}>
+                    <FundalHeightChart/>
+                </div>
             </div>
         ),
     },
 
     {
         title: (
-            <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+            <span style={{fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
                 Current Pregnancy
             </span>
         ),

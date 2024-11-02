@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AuthService from '../services/authService';
 
-const API_URL = 'http://localhost:8082/api/v1/midwife';
+const API_URL = 'http://localhost:15000/api/v1/midwife';
 
 export const getExpectedMothers = async () => {
   try {

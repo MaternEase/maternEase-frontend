@@ -117,7 +117,7 @@ const WeightChart = () => {
 
     return (
         <Card style={{ maxWidth: '100%', height: '100%' }}>
-            <CardContent style={{ height: '100%' }}>
+            <CardContent style={{ height: '100%' , paddingBottom:'80px'}}>
                 <Typography variant="h6" component="div">
                     BMI Variation Chart
                 </Typography>
