@@ -24,6 +24,7 @@ const Profile = () => {
         phmarea: 'Weligama',
         regNo: 'avc1245',
         profilePhoto: null,
+        location: { latitude: 6.033, longitude: 80.217 }, // Example coordinates for Weligama
     };
 
     const [userInfo, setUserInfo] = useState(initialUserInfo);
@@ -168,10 +169,33 @@ const Profile = () => {
                         <Text strong>Registration No:</Text>
                         <Text>{userInfo.regNo}</Text>
                     </Row>
+
+                    <Row justify="space-between" align="middle">
+                        <Text strong>Location:</Text>
+                        <a
+                            href={`https://www.google.com/maps?q=${userInfo.location.latitude},${userInfo.location.longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#1890ff' }}
+                        >
+                            View on Google Maps
+                        </a>
+                    </Row>
                 </Space>
 
                 <Divider />
 
+                {/* Optional Embedded Google Map */}
+                <div style={{ width: '100%', height: '200px', borderRadius: '8px', overflow: 'hidden', marginTop: '20px' }}>
+                    <iframe
+                        width="100%"
+                        height="200"
+                        frameBorder="0"
+                        style={{ border: 0 }}
+                        src={`https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=${userInfo.location.latitude},${userInfo.location.longitude}&zoom=14`}
+                        allowFullScreen
+                    ></iframe>
+                </div>
 
             </Card>
 
