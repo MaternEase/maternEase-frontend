@@ -10,7 +10,7 @@ export const AddChildPopup = ({ open, onClose, onSubmit }) => {
     dob: '',
     contactNo: '',
     email: '',
-    clinicId: '',
+    clinicName: '',
     nic: '',
     gender: '',
   });
@@ -130,9 +130,9 @@ export const AddChildPopup = ({ open, onClose, onSubmit }) => {
         />
         <TextField
           margin="dense"
-          label="Clinic ID"
-          name="clinicId"
-          value={formData.age}
+          label="Clinic Name"
+          name="clinicName"
+          value={formData.clinicName}
           onChange={handleChange}
           fullWidth
           InputProps={{ style: { backgroundColor: '#fff' } }}
@@ -147,7 +147,7 @@ export const AddChildPopup = ({ open, onClose, onSubmit }) => {
           Cancel
         </Button>
         <Button onClick={handleSubmit} style={{ backgroundColor: '#192A51', color: '#fff' }}>
-          Register Mother
+          Register Child
         </Button>
       </DialogActions>
     </Dialog>
