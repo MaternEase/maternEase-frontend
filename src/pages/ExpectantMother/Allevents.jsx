@@ -194,7 +194,7 @@ const NoticeCalendar = ({ backPath }) => {
                     borderRadius: "30px",
                 }}
             ></Button>
-            <h1 className="calendar-title">Calendar</h1>
+            <h1 className="calendar-title">Book a time-slot for Events</h1>
             <div style={{ marginBottom: 16, marginTop: 16 }}>
                 {/*<Button*/}
                 {/*    type="primary"*/}
