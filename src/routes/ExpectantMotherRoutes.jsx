@@ -36,7 +36,7 @@ const ExpectantMotherRoutes = () => {
             <Route path="reporttwo" element={<ReportTwo />} />
             <Route path="reportthree" element={<ReportThree />} />
 
-            <Route path="/children/childrendetails" element={<ChildrenDetails />} />
+            <Route path="/childrendetails" element={<ChildrenDetails />} />
             <Route path="/children/child2" element={<Child2 />} />
             {/*<Route path="weightchart" element={<WeightGainChart />} />*/}
             ]
