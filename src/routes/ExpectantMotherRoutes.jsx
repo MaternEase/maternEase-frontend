@@ -15,6 +15,7 @@ import Child2 from "../pages/ExpectantMother/Child2.jsx";
 import PregnancyRecord from "../pages/ExpectantMother/PregnancyRecord.jsx";
 import Profile from "../pages/ExpectantMother/Profile.jsx";
 import Allevents from "../pages/ExpectantMother/Allevents.jsx";
+import ChildrenDetails from "../pages/ExpectantMother/ChildrenDetails.jsx";
 // import WeightGainChart from "../pages/ExpectantMother/WeightGainChart.jsx";
 
 const ExpectantMotherRoutes = () => {
@@ -35,7 +36,7 @@ const ExpectantMotherRoutes = () => {
             <Route path="reporttwo" element={<ReportTwo />} />
             <Route path="reportthree" element={<ReportThree />} />
 
-            <Route path="/children/child1" element={<Child1 />} />
+            <Route path="/children/childrendetails" element={<ChildrenDetails />} />
             <Route path="/children/child2" element={<Child2 />} />
             {/*<Route path="weightchart" element={<WeightGainChart />} />*/}
             ]
