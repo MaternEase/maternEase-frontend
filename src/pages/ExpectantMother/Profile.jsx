@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
     Card,
     Avatar,
@@ -17,20 +18,31 @@ import { EditOutlined, UploadOutlined, PlusOutlined } from '@ant-design/icons';
 const { Title, Text } = Typography;
 
 const Profile = () => {
-    const initialUserInfo = {
-        name: 'Sepali Kumari',
-        email: 'sepali@example.com',
-        phone: '+123 456 7890',
-        phmarea: 'Weligama',
-        regNo: 'avc1245',
+    const [userInfo, setUserInfo] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        phmarea: '',
+        regNo: '',
         profilePhoto: null,
-        location: { latitude: 6.033, longitude: 80.217 }, // Example coordinates for Weligama
-    };
-
-    const [userInfo, setUserInfo] = useState(initialUserInfo);
+        location: { latitude: 0, longitude: 0 },
+    });
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
     const [fileList, setFileList] = useState([]);
+
+    // Fetch profile data from the backend
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/v1/mother/profile/motherId`);
+                setUserInfo(response.data);
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+            }
+        };
+        fetchProfile();
+    }, []);
 
     // Handle Edit Profile button click
     const showModal = () => {
@@ -109,7 +121,7 @@ const Profile = () => {
     };
 
     return (
-        <div style={{ padding: '24px', minHeight: '100vh', background: '#f5f5f5' }}>
+        <div style={{ padding: '24px', minHeight: '100vh' }}>
             <Card
                 style={{
                     maxWidth: '600px',
@@ -196,7 +208,6 @@ const Profile = () => {
                         allowFullScreen
                     ></iframe>
                 </div>
-
             </Card>
 
             {/* Edit Profile Modal */}
