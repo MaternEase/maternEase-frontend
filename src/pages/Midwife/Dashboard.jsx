@@ -6,7 +6,7 @@ import ReusableCard from '../../components/Card';
 import CustomCalendar from '../../components/Calendar';
 import { Line } from 'react-chartjs-2';
 import '../../styles/Admin/Dashboard.css';
-import { AddExpectantMotherPopup, AddChildPopup } from '../../components/Shared/Popup/AddExpectantMotherPopup';
+import { AddExpectantMotherPopup } from '../../components/Shared/Popup/AddExpectantMotherPopup';
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -408,7 +408,7 @@ const Dashboard = () => {
       <AddExpectantMotherPopup open={isAddMotherPopupOpen} onClose={closeAddMotherPopup} />
 
       {/* Add Child Popup */}
-      <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} />
+      {/* <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} /> */}
     </div>
   );
 };

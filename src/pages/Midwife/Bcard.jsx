@@ -1,9 +1,14 @@
 import React from 'react';
+import StepOne from '../../components/Shared/Bcard/Stepone'
+import PregnancyHistory from '../../components/Shared/Bcard/PregnancyHistory';
 
-const Bcard = () => (
-  <div className="container p-8 mx-auto my-8 bg-white rounded-lg shadow-lg">
-    <h1 className="mb-4 text-2xl font-bold">Bcard</h1>
-  </div>
-);
+const Bcard = () => {
+  return(
+    <div>
+      <StepOne/>
+      <PregnancyHistory/>
+    </div>
+  )
+}
 
 export default Bcard;
