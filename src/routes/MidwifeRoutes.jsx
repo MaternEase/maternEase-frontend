@@ -8,6 +8,7 @@ import Babies from '../pages/Midwife/Babies';
 import Reports from '../pages/Midwife/Reports';
 import Messages from '../pages/Midwife/Messages';
 import Bcard from '../pages/Midwife/Bcard';
+import FullCalendarAdmin from '../pages/Admin/FullCalendar';
 
 
 const MidwifeRoutes = () => {
@@ -24,6 +25,7 @@ const MidwifeRoutes = () => {
       <Route path="reports" element={<Reports />} />
       <Route path="messages" element={<Messages />} />
       <Route path="/profile/:id" element={<Bcard />} />
+      <Route path="/full-calendar" element={<FullCalendarAdmin />} />
     </Routes>
   );
 };

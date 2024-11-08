@@ -96,7 +96,7 @@ const Weight = () => {
             key: 'age',
             sorter: (a, b) => a.age - b.age,
             render: (text) => <span>{text}</span>
-        },*/
+        },
         {
             title: <span>Type of Vaccine</span>,
             dataIndex: 'name',
@@ -110,7 +110,7 @@ const Weight = () => {
             key: 'age',
             sorter: (a, b) => a.age - b.age,
             render: (text) => <span>{text}</span>
-        },*/
+        },
         {
             title: <span>Date of vaccination</span>,
             dataIndex: 'date',
@@ -221,12 +221,12 @@ const Weight = () => {
     ];
 
     return (
-        <div style={{ padding: '24px', minHeight: '100vh' }}>
+        <div style={{ padding: '24px', minHeight: '120vh' }}>
             <Title level={3}>Birth Weight - 3.560 kg</Title>
             <Title level={3}>1 year old</Title>
             
             <Row gutter={16} style={{ marginTop: 24 }}>
-                <Col span={16}>
+                <Col span={24}>
                     
                     
                         <Row gutter={16} style={{ marginTop: 16 }}>

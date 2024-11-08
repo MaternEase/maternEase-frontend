@@ -1,353 +1,228 @@
-import React, { useState } from 'react';
-import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography, Input } from 'antd';
-import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import ReusableCard from './Card.jsx';
+import React, { useState, useEffect, useRef } from 'react';
+import {Card, Row, Col, Typography, Space, Divider, Button, Modal} from 'antd';
+import { CalendarOutlined, ClockCircleOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from 'react-router-dom';
 import CustomCalendar from './Calendar.jsx';
-import { Line } from 'react-chartjs-2';
-import '../../styles/ExpectantMother/Dashboard.css';
-import WeightChart from "../../components/ExpectantMother/WeightChart.jsx";
+import dayjs from 'dayjs';
 
-const { Title } = Typography;
-const { Search: AntSearch } = Input;
-
-const data = [
-    {
-        key: '1',
-        id: 'D63ob',
-        name: 'Wasantha Perera',
-        age: 48,
-        date: '25 Jun 2024',
-        time: '09:30 am',
-        type: 'Doctor',
-        status: 'Pending',
-    },
-    {
-        key: '2',
-        id: 'M15623j',
-        name: 'Sujatha Dahanayake',
-        age: 26,
-        date: '01 Jul 2024',
-        time: '12:30 pm',
-        type: 'Midwife',
-        status: 'Pending',
-    },
-    {
-        key: '3',
-        id: 'M9586k',
-        name: 'Naduni Bandara',
-        age: 32,
-        date: '29 Jul 2024',
-        time: '12:30 pm',
-        type: 'Midwife',
-        status: 'Pending',
-    },
-];
+const { Title, Text } = Typography;
 
 const userEvents = {
-    '2024-07-25': [{ id: 1, description: 'Event A' }],
-    '2024-07-30': [{ id: 2, description: 'Event B' }]
+    '2024-11-25': [{ id: 1, description: 'Event A' }],
+    '2024-11-06': [{ id: 1, description: 'Event A' }],
+    '2024-11-12': [{ id: 1, description: 'Event A' }],
+    '2024-11-30': [{ id: 2, description: 'Event B' }]
 };
 
 const Dashboard = () => {
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [searchText, setSearchText] = useState('');
+    const [deliveryDate] = useState(dayjs('2025-01-01'));
+    const eventContainerRef = useRef(null);
     const navigate = useNavigate();
+    const [isUpPressed, setIsUpPressed] = useState(false);
+    const [isDownPressed, setIsDownPressed] = useState(false);
 
-
-    const handleCardClick = (cardKey) => {
-        setSelectedCard(cardKey);
-    };
-
-
-    const handleSearch = (value) => {
-        setSearchText(value);
-    };
-
-    const handleEdit = (key) => {
-        console.log('Edit action for record with key:', key);
-        // Implement the edit functionality here
-    };
-
-    const menu = (
-        <Menu>
-            <Menu.Item key="1">View Details</Menu.Item>
-        </Menu>
-    );
-
-    const statisticsMenu = (
-        <Menu>
-            <Menu.Item key="1" onClick={() => navigate('/admin/dashboard')}>
-                Last Week
-            </Menu.Item>
-            <Menu.Item key="2" onClick={() => navigate('/admin/dashboard')}>
-                This Week
-            </Menu.Item>
-        </Menu>
-    );
-
-    const cardData = [
-        { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
-        { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
-        { key: 3, title: 'Doctors', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
-        { key: 4, title: 'Midwives', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
+    const upcomingEvents = [
+        { id: 1, date: '2024-11-02', description: 'Regular Clinic', type: 'Expectant Mother Clinic', venue: 'Field Clinic - Weligama', startTime: '10:00 AM', endTime: '12:00 PM' },
+        { id: 2, date: '2024-11-10', description: 'Importance of Prenatal Care', type: 'Awareness Session', venue: 'Public Hall - Welipitiya', startTime: '2:00 PM', endTime: '3:30 PM', online: true, zoomLink: 'https://zoom.us/j/123456789' },        { id: 3, date: '2024-11-18', description: 'Polio Vaccination', type: 'Vaccination', venue: 'Field Clinic - Weligama', startTime: '9:00 AM', endTime: '11:00 AM' },
+        { id: 4, date: '2024-11-24', description: 'Prenatal Yoga Class', type: 'Other', venue: 'Agbo Vihara Premises', startTime: '4:00 PM', endTime: '5:30 PM' },
+        { id: 5, date: '2024-11-24', description: 'Prenatal Yoga Class', type: 'Other', venue: 'Public Hall - Welipitiya', startTime: '5:30 PM', endTime: '7:00 PM' }
     ];
 
-    const userFullCalendarPath = '/mother/full-calendar';
 
-    const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.id.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    const columns = [
-        {
-            title: <span>No</span>,
-            dataIndex: 'key',
-            key: 'key',
-            sorter: (a, b) => a.key - b.key,
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>ID Code</span>,
-            dataIndex: 'id',
-            key: 'id',
-            sorter: (a, b) => a.id.localeCompare(b.id),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Patient Name</span>,
-            dataIndex: 'name',
-            key: 'name',
-            sorter: (a, b) => a.name.localeCompare(b.name),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Age</span>,
-            dataIndex: 'age',
-            key: 'age',
-            sorter: (a, b) => a.age - b.age,
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Created Date</span>,
-            dataIndex: 'date',
-            key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Time</span>,
-            dataIndex: 'time',
-            key: 'time',
-            sorter: (a, b) => a.time.localeCompare(b.time),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Type</span>,
-            dataIndex: 'type',
-            key: 'type',
-            filters: [
-                { text: 'Doctor', value: 'Doctor' },
-                { text: 'Midwife', value: 'Midwife' },
-            ],
-            onFilter: (value, record) => record.type.includes(value),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Status</span>,
-            dataIndex: 'status',
-            key: 'status',
-            filters: [
-                { text: 'Pending', value: 'Pending' },
-                { text: 'Assigned', value: 'Assigned' },
-            ],
-            onFilter: (value, record) => record.status.includes(value),
-            render: (text) => <span style={{backgroundColor: "#f6dda9", padding: "7px", borderRadius: "10px", fontSize: "12px"}}>{text}</span>
-        },
-        {
-            title: <span>Action</span>,
-            dataIndex: 'action',
-            key: 'action',
-            render: (_, record) => (
-                <Button
-                    icon={<Edit fontSize="small" />}
-                    onClick={() => handleEdit(record.key)}
-                    size="small"
-                    style={{ border: 'none' }}
-                />
-            ),
-        },
-    ];
-
-    const components = {
-        header: {
-            cell: (props) => (
-                <th
-                    {...props}
-                    style={{
-                        // backgroundColor: '#f0f0f0',
-                        color: '#192A51',
-                        padding: '8px',
-                    }}
-                />
-            ),
-        },
+    const eventColors = {
+        'Expectant Mother Clinic': 'rgba(193,225,255,0.62)',
+        'Awareness Session': 'rgba(234,193,255,0.62)',
+        'Vaccination': 'rgba(255,221,193,0.62)',
+        'Other': '#F0F0F0'
     };
 
-    const clinicsData = [
-        { clinic: 'Clinic A', expectantMothers: 30, children: 45, deadBirths: 2, maternalDeaths: 1 },
-        { clinic: 'Clinic B', expectantMothers: 20, children: 30, deadBirths: 1, maternalDeaths: 0 },
-        { clinic: 'Clinic C', expectantMothers: 50, children: 60, deadBirths: 3, maternalDeaths: 2 },
-        { clinic: 'Clinic D', expectantMothers: 40, children: 55, deadBirths: 2, maternalDeaths: 1 },
-        { clinic: 'Clinic E', expectantMothers: 35, children: 50, deadBirths: 1, maternalDeaths: 0 },
-        { clinic: 'Clinic F', expectantMothers: 25, children: 35, deadBirths: 2, maternalDeaths: 1 },
-        { clinic: 'Clinic G', expectantMothers: 45, children: 60, deadBirths: 4, maternalDeaths: 2 },
-        { clinic: 'Clinic H', expectantMothers: 55, children: 70, deadBirths: 3, maternalDeaths: 1 },
-        { clinic: 'Clinic I', expectantMothers: 65, children: 80, deadBirths: 0, maternalDeaths: 0 },
-        { clinic: 'Clinic J', expectantMothers: 60, children: 75, deadBirths: 0, maternalDeaths: 1 },
-    ];
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
-    const chartData = {
-        labels: clinicsData.map(clinic => clinic.clinic),
-        datasets: [
-            {
-                label: 'Expectant Mothers',
-                data: clinicsData.map(clinic => clinic.expectantMothers),
-                borderColor: '#9C27B0',
-                backgroundColor: '#9C27B0',
-                fill: false,
-                pointStyle: 'circle',
-            },
-            {
-                label: 'Children Count',
-                data: clinicsData.map(clinic => clinic.children),
-                borderColor: '#4CAF50',
-                backgroundColor: '#4CAF50',
-                fill: false,
-                pointStyle: 'circle',
-            },
-            {
-                label: 'Dead Births',
-                data: clinicsData.map(clinic => clinic.deadBirths),
-                borderColor: '#ff4d4f',
-                backgroundColor: '#ff4d4f',
-                fill: false,
-                pointStyle: 'circle',
-            },
-            {
-                label: 'Maternal Deaths',
-                data: clinicsData.map(clinic => clinic.maternalDeaths),
-                borderColor: '#000',
-                backgroundColor: '#000',
-                fill: false,
-                pointStyle: 'circle',
-            },
-        ],
+    const calculateTimeLeft = () => {
+        const now = dayjs();
+        const difference = deliveryDate.diff(now);
+        let timeLeft = {};
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60),
+            };
+        }
+
+        return timeLeft;
     };
 
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-            },
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                },
-            },
-        },
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [deliveryDate]);
+
+    const scrollEvents = (direction) => {
+        if (eventContainerRef.current) {
+            eventContainerRef.current.scrollBy({
+                top: direction === 'down' ? 50 : -50,
+                behavior: 'smooth'
+            });
+        }
     };
+
+    const showModal = (event) => {
+        setSelectedEvent(event);
+        setIsModalVisible(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalVisible(false);
+        setSelectedEvent(null);
+    };
+
 
     return (
         <div style={{ padding: '24px', minHeight: '100vh' }}>
-            <Title level={3}>Hi, Renuka 👋</Title>
-            <Row gutter={16} style={{ marginTop: 24 }}>
-                {cardData.map((card) => (
-                    <Col span={6} key={card.key}>
-                        <ReusableCard
-                            card={card}
-                            selectedCard={selectedCard}
-                            handleCardClick={handleCardClick}
-                            menu={menu}
-                        />
-                    </Col>
-                ))}
-            </Row>
+            <Title level={3}>Hi, Sepali 👋</Title>
             <Row gutter={16} style={{ marginTop: 24 }}>
                 <Col span={16}>
                     <Card
-                        title="Weight Gain"
-                        // extra={
-                        //   <Dropdown overlay={statisticsMenu}>
-                        //     <Button>
-                        //       Last Week <KeyboardArrowDown />
-                        //     </Button>
-                        //   </Dropdown>
-                        // }
-                    >
-                        <Row style={{marginBottom: "15px"}}>
-                            {/*<Col span={12}>*/}
-                            {/*    <Statistic title="Total Children" value={1052} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />*/}
-                            {/*</Col>*/}
-                            {/*<Col span={12}>*/}
-                            {/*    <Statistic title="Total Expectant Mothers" value={475} valueStyle={{ color: '#967aa1', fontSize: "15px" }} />*/}
-                            {/*</Col>*/}
-                            {/* <Col span={6}>
-                <Statistic title="Total Doctors" value={18} valueStyle={{ color: '#967aa1' }} />
-              </Col>
-              <Col span={6}>
-                <Statistic title="Total Midwives" value={32} valueStyle={{ color: '#967aa1' }} />
-              </Col> */}
-                        </Row>
-                        <Row gutter={16} style={{ marginTop: 16 }}>
-                            <Col span={24}>
-                                <div>
-                                    <WeightChart />
-                                </div>
-                                {/*<div style={{ height: '325px', padding: '20px' }}>*/}
-                                {/*    <Line data={chartData} options={chartOptions} />*/}
-                                {/*</div>*/}
-                            </Col>
-                        </Row>
-                    </Card>
-                </Col>
-                <Col span={8}>
-                    {/* <Card title="Calendar" style={{ borderWidth: "2px", borderColor: "#D5C6E0", borderRadius: "10px" }}> */}
-                    <Card title="Calendar">
-                        <CustomCalendar events={userEvents} fullCalendarPath={userFullCalendarPath} />
-                    </Card>
-                </Col>
-            </Row>
-            <Row gutter={24} style={{ marginTop: 24 }}>
-                <Col span={24}>
-                    <Card
-                        title="Un-Assigned Doctors/Midwives"
-                        extra={
+                        title={
                             <Space>
-                                <AntSearch
-                                    placeholder="Search..."
-                                    prefix={<Search />}
-                                    onSearch={handleSearch}
-                                    style={{ width: 200 }}
-                                />
+                                <CalendarOutlined style={{ color: '#0a0a0a' }} />
+                                <span style={{ color: '#0a0a0a', fontSize: '18px', fontWeight: 'bold' }}>Your Upcoming Events</span>
                             </Space>
                         }
+                        style={{ marginBottom: 50, borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
+                        bodyStyle={{ padding: '20px', position: 'relative', maxHeight: '220px' }}
                     >
-                        <Table
-                            columns={columns}
-                            dataSource={filteredData}
-                            pagination={false}
-                            components={components}
-                        />
+                        <div ref={eventContainerRef} style={{ maxHeight: '150px', overflow: 'hidden' }}>
+                            {upcomingEvents.map((event) => (
+                                <div
+                                    key={event.id}
+                                    onClick={() => showModal(event)}
+                                    style={{
+                                        marginBottom: '10px',
+                                        padding: '10px',
+                                        borderRadius: '8px',
+                                        backgroundColor: eventColors[event.type] || eventColors['Other'],
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <Text strong style={{ color: '#0a0a0a' }}>{event.date}</Text>
+                                    <Divider type="vertical" />
+                                    <span>{event.description}</span>
+                                    <Text type="secondary" style={{ float: 'right' }}>{event.type}</Text>
+                                </div>
+                            ))}
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'right', marginTop: '10px' }}>
+                            <Button
+                                style={{
+                                    borderRadius: '100%',
+                                    background: '#f7f7f7',
+                                    marginRight: '2%',
+                                    color: isUpPressed ? '#967aa1' : '#000',
+                                    borderColor: isUpPressed ? '#967aa1' : '#f7f7f7',
+                                    transition: 'color 0.2s, border-color 0.2s'
+                                }}
+                                icon={<UpOutlined />}
+                                onClick={() => scrollEvents('up')}
+                                onMouseDown={() => setIsUpPressed(true)}
+                                onMouseUp={() => setIsUpPressed(false)}
+                                onMouseLeave={() => setIsUpPressed(false)}
+                            />
+                            <Button
+                                style={{
+                                    borderRadius: '100%',
+                                    background: '#f7f7f7',
+                                    color: isDownPressed ? '#967aa1' : '#000',
+                                    borderColor: isDownPressed ? '#967aa1' : '#f7f7f7',
+                                    transition: 'color 0.2s, border-color 0.2s'
+                                }}
+                                icon={<DownOutlined />}
+                                onClick={() => scrollEvents('down')}
+                                onMouseDown={() => setIsDownPressed(true)}
+                                onMouseUp={() => setIsDownPressed(false)}
+                                onMouseLeave={() => setIsDownPressed(false)}
+                            />
+                        </div>
+                    </Card>
+
+                    <Row gutter={16}>
+                        <Col span={18}>
+                            <Card
+                                title={
+                                    <Space>
+                                        <ClockCircleOutlined style={{ color: '#0a0a0a' }} />
+                                        <span style={{ color: '#0a0a0a', fontSize: '18px', fontWeight: 'bold' }}>Countdown to Delivery Date</span>
+                                    </Space>
+                                }
+                                style={{ borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
+                                bodyStyle={{ padding: '20px', textAlign: 'center' }}
+                            >
+                                <Text type="secondary">Estimated Delivery Date: {deliveryDate.format('MMMM D, YYYY')}</Text>
+                                <div style={{ marginTop: '20px', fontSize: '32px', fontWeight: 'bold', color: '#967aa1' }}>
+                                    {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m : {timeLeft.seconds}s
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col span={6}>
+                            <Row gutter={8} style={{ margin: '10px' }}>
+                                <Button
+                                    type="primary"
+                                    block
+                                    style={{
+                                        height: '80px',
+                                        borderRadius: '10px',
+                                        background: '#967aa1',
+                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                        fontWeight: 'bold'
+                                    }}
+                                    onClick={() => navigate('/mother/allevents')}
+                                >
+                                    Book a Timeslot
+                                </Button>
+                            </Row>
+                            <Row gutter={8} style={{ margin: '10px' }}>
+                                <Button type="primary" block style={{ height: '80px', borderRadius: '10px', background: '#967aa1', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', fontWeight: 'bold' }}>
+                                    Community
+                                </Button>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col span={8}>
+                    <Card title="Calendar" style={{ borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                        <CustomCalendar events={userEvents} fullCalendarPath="/mother/full-calendar" />
                     </Card>
                 </Col>
             </Row>
+
+            {/* Modal for Event Details */}
+            <Modal
+                title={selectedEvent?.description}
+                visible={isModalVisible}
+                onCancel={handleModalClose}
+                footer={null}
+            >
+                {selectedEvent && (
+                    <div>
+                        <p><strong>Date:</strong> {selectedEvent.date}</p>
+                        {/*<p><strong>Type:</strong> {selectedEvent.type}</p>*/}
+                        <p><strong>Venue:</strong> {selectedEvent.venue}</p>
+                        <p><strong>Time:</strong> {selectedEvent.startTime} - {selectedEvent.endTime}</p> {/* Updated to show from - to */}
+
+                        {selectedEvent.online && (
+                            <p><strong>Join Zoom:</strong> <a href={selectedEvent.zoomLink} target="_blank" rel="noopener noreferrer" style={{color:'#186faf'}}>Click Here to Join</a></p>
+                        )}
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 };
