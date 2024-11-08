@@ -12,7 +12,7 @@ const data1 = [
     name: 'Jayani Priyanka',
     age: 28,
     risky: 'Risky',
-    registrationnumber: 'B452',
+    registrationnumber: '091452452',
     reportState: 'New',
   },
   {
@@ -20,7 +20,7 @@ const data1 = [
     name: 'Malki Rashmika',
     age: 32,
     risky: 'Risky',
-    registrationnumber: 'B321',
+    registrationnumber: '093654321',
     reportState: 'New',
   },
   {
@@ -28,7 +28,7 @@ const data1 = [
     name: 'Emily Biyanka',
     age: 24,
     risky: 'Nonrisky',
-    registrationnumber: 'B4567',
+    registrationnumber: '091234567',
     reportState: 'New',
   },
   {
@@ -36,7 +36,7 @@ const data1 = [
     name: 'Akila Janandi',
     age: 30,
     risky: 'Nonrisky',
-    registrationnumber: 'B832',
+    registrationnumber: '098765432',
     reportState: 'New',
   },
   {
@@ -44,7 +44,7 @@ const data1 = [
     name: 'Emilya Dewmini',
     age: 24,
     risky: 'Nonrisky',
-    registrationnumber: 'B567',
+    registrationnumber: '091234567',
     reportState: 'New',
   },
 ];
