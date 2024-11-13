@@ -78,8 +78,7 @@ const sections = [
                             { condition: 'Rubella Immunization', status: 'Yes' },
                             { condition: 'Pre-pregnancy screening done', status: 'No' },
                             { condition: 'Pre-conceptional folic acid', status: 'No' },
-                            { condition: 'History of subfertility', status: 'Yes' },
-                            { condition: 'Planned pregnancy or not', status: 'No' },
+
                         ].map((item, index) => (
                             <React.Fragment key={index}>
                         <span style={{
@@ -121,12 +120,10 @@ const sections = [
 
                         {[
                             { condition: 'Family Planning Method Used', status: 'No' },
-                            { condition: 'xyz', status: 'No' },
-                            { condition: 'xyz', status: 'No' },
-                            { condition: 'xyz', status: 'Yes' },
-                            { condition: 'xyz', status: 'No' },
-                            { condition: 'xyz', status: 'Yes' },
-                            { condition: 'xyz', status: 'No' },
+                            { condition: 'History of subfertility', status: 'Yes' },
+                            { condition: 'Planned pregnancy or not', status: 'No' },
+
+
                         ].map((item, index) => (
                             <React.Fragment key={index}>
                         <span style={{
@@ -145,7 +142,7 @@ const sections = [
                                     gap: '5px',
                                     padding: '8px 0',
                                     borderBottom: '1px solid #e0e0e0',
-                                }}>I want to create a page whic
+                                }}>
                                     {item.status}
                         </span>
                             </React.Fragment>

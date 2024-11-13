@@ -397,15 +397,27 @@ const PregnancyHistory = () => {
             aria-labelledby="accordion-collapse-heading-1"
             style={{ backgroundColor: "transparent" }} // Remove background color
           >
-            <form style={{ backgroundColor: "transparent" }}>
+            <form style={{backgroundColor: "transparent"}}>
+
+              <div className="mb-6">
+                <label className="block mb-2 text-lg font-medium text-black">
+                  Identified Antenatal Risk Conditions & Morbidity
+                </label>
+                <textarea
+                    rows="4"
+                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter details"
+                ></textarea>
+              </div>
+
               <div className="grid grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-black">
                     Age
                   </label>
                   <select
-                    id="countries"
-                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      id="countries"
+                      className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option>Below 20</option>
                     <option>Over 35</option>
@@ -417,8 +429,8 @@ const PregnancyHistory = () => {
                     Pregnancies
                   </label>
                   <select
-                    id="countries"
-                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      id="countries"
+                      className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   >
                     <option>1</option>
                     <option>2</option>
@@ -430,8 +442,8 @@ const PregnancyHistory = () => {
                 </div>
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left text-black-600">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                  <table className="w-full text-sm text-left text-black-600">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                       <th scope="col" className="px-6 py-3">
                         Condition
@@ -443,35 +455,35 @@ const PregnancyHistory = () => {
                         No
                       </th>
                     </tr>
-                  </thead>
-                  <tbody>
+                    </thead>
+                    <tbody>
                     <tr className="bg-white border-b">
                       <td className="px-6 py-4 ">
-                      Preeclampsia
+                        Preeclampsia
                       </td>
                       <td className="px-6 py-4">
-                        <input type="checkbox" />
+                        <input type="checkbox"/>
                       </td>
                       <td className="px-6 py-4">
-                        <input type="checkbox" />
+                        <input type="checkbox"/>
                       </td>
                     </tr>
                     <tr className="bg-white border-b">
                       <td className="px-6 py-4 ">
-                      Preeclampsia
+                        Preeclampsia
                       </td>
                       <td className="px-6 py-4">
-                        <input type="checkbox" />
+                        <input type="checkbox"/>
                       </td>
                       <td className="px-6 py-4">
-                        <input type="checkbox" />
+                        <input type="checkbox"/>
                       </td>
                     </tr>
-                  </tbody>
-                </table>
-              </div>
+                    </tbody>
+                  </table>
+                </div>
 
-                
+
               </div>
             </form>
           </div>

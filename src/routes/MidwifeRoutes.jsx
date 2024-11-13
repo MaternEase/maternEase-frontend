@@ -9,6 +9,8 @@ import Reports from '../pages/Midwife/Reports';
 import Messages from '../pages/Midwife/Messages';
 import Bcard from '../pages/Midwife/Bcard';
 import FullCalendarAdmin from '../pages/Admin/FullCalendar';
+import PreFieldNote from "../components/Shared/Bcard/PreFieldNote.jsx";
+import PostFieldNote from "../components/Shared/Bcard/PostFieldNote.jsx";
 
 
 const MidwifeRoutes = () => {
@@ -26,6 +28,11 @@ const MidwifeRoutes = () => {
       <Route path="messages" element={<Messages />} />
       <Route path="/profile/:id" element={<Bcard />} />
       <Route path="/full-calendar" element={<FullCalendarAdmin />} />
+        <Route path="/prefieldnote" element={<PreFieldNote />} />
+        <Route path="/postfieldnote" element={<PostFieldNote />} />
+
+
+
     </Routes>
   );
 };
