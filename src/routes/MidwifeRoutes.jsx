@@ -11,6 +11,7 @@ import Bcard from '../pages/Midwife/Bcard';
 import FullCalendarAdmin from '../pages/Admin/FullCalendar';
 import PreFieldNote from "../components/Shared/Bcard/PreFieldNote.jsx";
 import PostFieldNote from "../components/Shared/Bcard/PostFieldNote.jsx";
+import HomeVisit from "../components/Shared/Bcard/HomeVisit.jsx";
 
 
 const MidwifeRoutes = () => {
@@ -30,6 +31,7 @@ const MidwifeRoutes = () => {
       <Route path="/full-calendar" element={<FullCalendarAdmin />} />
         <Route path="/prefieldnote" element={<PreFieldNote />} />
         <Route path="/postfieldnote" element={<PostFieldNote />} />
+        <Route path="/homevisit" element={<HomeVisit />} />
 
 
 

@@ -54,8 +54,9 @@ const PostFieldNote = () => {
             <div
                 className="p-5 border border-b-0 border-gray-200 dark:border-gray-700"
                 aria-labelledby="accordion-collapse-heading-1"
-                style={{ backgroundColor: "transparent" }} //form background color
-            >
+                style={{ backgroundColor: "" }} >
+                {/*//form background color*/}
+
                 <form style={{backgroundColor: "transparent"}}>
 
                     <div className="grid grid-cols-2 gap-6 mb-6">
