@@ -12,12 +12,14 @@ import FullCalendarAdmin from '../pages/Admin/FullCalendar';
 import PreFieldNote from "../components/Shared/Bcard/PreFieldNote.jsx";
 import PostFieldNote from "../components/Shared/Bcard/PostFieldNote.jsx";
 import HomeVisit from "../components/Shared/Bcard/HomeVisit.jsx";
+import PrePregnancyDataTable from "../components/Shared/Bcard/PrePregnancyDataTable.jsx";
+import MotherHomeVisitdata from "../components/Shared/Bcard/MotherHomeVisitdata.jsx";
 
 
 const MidwifeRoutes = () => {
-  console.log('MidwifeRoutes rendered'); 
+  console.log('MidwifeRoutes rendered');
   // Debug log to verify MidwifeRoutes render
-  
+
   return (
     <Routes>
       <Route path="dashboard" element={<Dashboard />} />
@@ -32,6 +34,9 @@ const MidwifeRoutes = () => {
         <Route path="/prefieldnote" element={<PreFieldNote />} />
         <Route path="/postfieldnote" element={<PostFieldNote />} />
         <Route path="/homevisit" element={<HomeVisit />} />
+        <Route path="/pretable" element={<PrePregnancyDataTable />} />
+
+        <Route path="/motherhomevisits" element={<MotherHomeVisitdata />} />
 
 
 

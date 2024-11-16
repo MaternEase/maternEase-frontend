@@ -90,6 +90,26 @@ const MotherForm = ({ selectedDate, onDateChange }) => (
                 {/* Existing Fields */}
 
                 <div>
+                    <div className="grid grid-cols-2 gap-6 mb-6">
+                        <div className="flex justify-between items-center">
+                            <label className="block mb-2 text-sm font-medium text-black ml-8">
+                                Temperature
+                            </label>
+                            <div className="flex">
+                                <input
+                                    type="number"
+                                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Enter fetal heart rate"
+                                />
+                                <span
+                                    className="flex items-center px-3 bg-gray-200 border border-l-0 border-gray-300 text-sm text-black rounded-r-lg">
+                                            cm
+                                        </span>
+                            </div>
+
+                        </div>
+
+                    </div>
 
                     <table className="w-full text-sm text-left text-gray-500">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -100,11 +120,6 @@ const MotherForm = ({ selectedDate, onDateChange }) => (
                         </tr>
                         </thead>
                         <tbody>
-                        <tr className="bg-white border-b">
-                            <td className="px-6 py-4">Temperature</td>
-                            <td className="px-6 py-4"><input type="checkbox"/></td>
-                            <td className="px-6 py-4"><input type="checkbox"/></td>
-                        </tr>
                         <tr className="bg-gray-50 border-b">
                             <td className="px-6 py-4">Anemia</td>
                             <td className="px-6 py-4"><input type="checkbox"/></td>
@@ -194,6 +209,26 @@ const ChildForm = ({selectedDate, onDateChange}) => (
                 {/* Existing Fields */}
 
                 <div>
+                    <div className="grid grid-cols-2 gap-6 mb-6">
+                        <div className="flex justify-between items-center">
+                            <label className="block mb-2 text-sm font-medium text-black ml-8">
+                                Temperature
+                            </label>
+                            <div className="flex">
+                                <input
+                                    type="number"
+                                    className="bg-gray-50 border border-gray-300 text-black text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Enter fetal heart rate"
+                                />
+                                <span
+                                    className="flex items-center px-3 bg-gray-200 border border-l-0 border-gray-300 text-sm text-black rounded-r-lg">
+                                            cm
+                                        </span>
+                            </div>
+
+                        </div>
+
+                    </div>
 
                     <table className="w-full text-sm text-left text-gray-500">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -204,11 +239,7 @@ const ChildForm = ({selectedDate, onDateChange}) => (
                         </tr>
                         </thead>
                         <tbody>
-                        <tr className="bg-white border-b">
-                            <td className="px-6 py-4">Temperature</td>
-                            <td className="px-6 py-4"><input type="checkbox"/></td>
-                            <td className="px-6 py-4"><input type="checkbox"/></td>
-                        </tr>
+
                         <tr className="bg-gray-50 border-b">
                             <td className="px-6 py-4">Abnormalities</td>
                             <td className="px-6 py-4"><input type="checkbox"/></td>
