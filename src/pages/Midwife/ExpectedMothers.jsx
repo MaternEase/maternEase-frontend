@@ -50,8 +50,8 @@ const ExpectedMothers = () => {
   // Function to close the popup
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-    setErrorMessage(''); // Reset error message when the popup closes
-    setSuccessMessage(responseMessage); // Reset success message when the popup closes
+    setErrorMessage(""); // Reset error message when the popup closes
+    setSuccessMessage(""); // Reset success message when the popup closes
   };
 
    // Function to close the success modal
@@ -62,6 +62,18 @@ const ExpectedMothers = () => {
   // Function to handle the form submission from the popup
   const handleFormSubmit = async (formData) => {
     try {
+
+    //   // Convert "yes"/"no" strings to boolean
+    // const convertedData = {
+    //   ...formData,
+    //   consanguinity: formData.consanguinity === "yes",
+    //   rubellaImmunization: formData.rubellaImmunization === "yes",
+    //   prePregnancyScreeningDone: formData.prePregnancyScreeningDone === "yes",
+    //   preconceptionalFolicAcid: formData.preconceptionalFolicAcid === "yes",
+    //   historyOfSubfertility: formData.historyOfSubfertility === "yes",
+    // };
+
+    
       const responseMessage = await registerMother(formData); // Call the service to register the mother and get the actual message
       setSuccessMessage(responseMessage || 'Mother registered successfully!'); // Use the message from the backend or fallback to a default one
       setIsSuccessModalOpen(true); // Open the success modal
@@ -100,10 +112,13 @@ const ExpectedMothers = () => {
         
       />
       <AddExpectantMotherPopup
-        open={isPopupOpen}
-        onClose={handleClosePopup}
-        onSubmit={handleFormSubmit} // Pass the form submit handler to the popup
-      />
+  open={isPopupOpen}
+  onClose={handleClosePopup}
+  onSubmit={(data) => {
+    console.log("Form submitted with data:", data);
+    handleFormSubmit(data);
+  }}
+/>
       {errorMessage && <div style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</div>}
       {successMessage && <div style={{ color: 'green', textAlign: 'center' }}>{successMessage}</div>}
      
