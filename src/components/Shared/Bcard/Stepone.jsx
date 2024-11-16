@@ -45,7 +45,7 @@ const Stepone = () => {
   return (
     <div className="container p-6 mx-auto">
       <h1 className="mb-4 text-2xl font-bold text-black">
-        Basic Details
+        Details of Expectant Mother
       </h1>
 
       <div id="accordion-collapse" data-accordion="collapse">
