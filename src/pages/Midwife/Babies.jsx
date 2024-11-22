@@ -16,7 +16,7 @@ const TABLE_ROWS = [
   { id: 2, img: "", name: "Tharindu Silva", age: 2, guardianName: "Nimal Silva", contactNumber: "0712345679", condition: "Risky", referToDoctor: true },
   { id: 3, img: "", name: "Sanduni Fernando", age: 1, guardianName: "Kamal Fernando", contactNumber: "0712345680", condition: "Non Risky", referToDoctor: false },
   { id: 4, img: "", name: "Hiruni Jayasinghe", age: 3, guardianName: "Nuwan Jayasinghe", contactNumber: "0712345681", condition: "Risky", referToDoctor: true },
-  { id: 5, img: "", name: "Naveen Rathnayake", age: 2, guardianName: "Lal Rathnayake", contactNumber: "0712345682", condition: "Non Risky", referToDoctor: false },
+  { id: 5, img: "", name: "Naveen Rathnayake", age: 2, guardianName: "Lal Rathnayake", contactNumber: "0712345682", condition: "Non Risky", referToDoctor: true},
 ];
 
 

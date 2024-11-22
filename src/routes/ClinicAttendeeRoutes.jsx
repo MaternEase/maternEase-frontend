@@ -16,6 +16,8 @@ import Weight from '../pages/ClinicAttendee/Weight';
 import Height from '../pages/ClinicAttendee/Height';
 import Additional_details from '../pages/ClinicAttendee/Additional_details';
 import ChildGrowthChart from '../pages/ClinicAttendee/ChildGrowthChart';
+
+
 // import Reports from '../pages/Doctor/Reports';
 // import Shedules from '../pages/Doctor/ClinicShedules';
 // import Clinics from '../pages/Doctor/Clinics';
@@ -40,6 +42,8 @@ const ClinicAttendeeRoutes = () => {
             <Route path="/height" element={<Height/>} />
             <Route path="/additional_details" element={<Additional_details/>} />
             <Route path="/ChildGrowthChart" element={<ChildGrowthChart />} />
+            
+            
             {/*<Route path="/reports" element={<Reports />} />*/}
         </Routes>
     );

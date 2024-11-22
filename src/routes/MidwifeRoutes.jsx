@@ -32,6 +32,7 @@ const MidwifeRoutes = () => {
         <Route path="/prefieldnote" element={<PreFieldNote />} />
         <Route path="/postfieldnote" element={<PostFieldNote />} />
         <Route path="/homevisit" element={<HomeVisit />} />
+        
 
 
 
