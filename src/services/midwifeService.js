@@ -70,7 +70,7 @@ export const registerMother = async (formData) => {
 
     return response.data.responseMzg;
   } catch (error) {
-    console.error('Error in mother registration:', error);
+    console.error('Error in mother registration:', error?.response?.data || error.message);
     throw new Error(error.response ? error.response.data : 'Error registering mother');
   }
 };
