@@ -54,8 +54,8 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
     setFilterAge(event.target.value);
   };
 
-  const handleViewProfileClick = (id) => {
-    navigate(`/midwife/profile/${id}`);
+  const handleViewProfileClick = (motherId) => {
+    navigate(`/midwife/profile/${motherId}`);
   };
 
   const handleReferToDoctorClick = (id) => {
