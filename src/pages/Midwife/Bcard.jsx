@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams
 import StepOne from '../../components/Shared/Bcard/Stepone';
 import PregnancyHistory from '../../components/Shared/Bcard/PregnancyHistory';
 import PrePregnancyDataTable from "../../components/Shared/Bcard/PrePregnancyDataTable.jsx";
 
 const Bcard = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const { id } = useParams(); // Extract the `id` parameter from the URL
+
+  console.log("Mother ID:", id); // Debugging log to ensure `id` is captured correctly
 
     // Function to open and close the modal
     const toggleModal = () => {
@@ -271,7 +276,7 @@ const Bcard = () => {
             )}
 
             {/* Other Components */}
-            <StepOne/>
+            <StepOne motherId={id}/>
             <PregnancyHistory/>
             <PrePregnancyDataTable/>
         </div>
