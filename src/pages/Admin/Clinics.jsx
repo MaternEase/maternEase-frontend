@@ -1094,22 +1094,12 @@ const Clinics = () => {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Doctor</span>}
-            name="doctor"
-            rules={[{ required: true, message: "Please select a doctor" }]}
-          >
-            <Select placeholder="Select a doctor">
-              <Option value="doctor1">Doctor 1</Option>
-              <Option value="doctor2">Doctor 2</Option>
-            </Select>
-          </Form.Item> */}
           <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife - 1</span>}
+            label={<span style={{ fontWeight: "bold" }}>Main Midwife</span>}
             name="midwife1"
-            rules={[{ required: true, message: "Please select a midwife" }]}
+            rules={[{ required: true, message: "Please select the main midwife" }]}
           >
-            <Select placeholder="Select a midwife">
+            <Select placeholder="Select the main midwife">
               <Option value="midwife1">Kamala Gamage</Option>
               <Option value="midwife2">Nirmala Bandara</Option>
             </Select>
@@ -1117,7 +1107,7 @@ const Clinics = () => {
           <Form.Item
             label={<span style={{ fontWeight: "bold" }}>Midwife 2</span>}
             name="midwife2"
-            rules={[{ required: true, message: "Please select a midwife" }]}
+            rules={[{ required: true, message: "Please select a reserved midwife" }]}
           >
             <Select placeholder="Select a midwife">
               <Option value="midwife1">Kamala Gamage</Option>
@@ -1202,11 +1192,11 @@ const Clinics = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife 1</span>}
+            label={<span style={{ fontWeight: "bold" }}>Main Midwife</span>}
             name="midwife1"
-            rules={[{ required: true, message: "Please select a midwife" }]}
+            rules={[{ required: true, message: "Please select the main midwife" }]}
           >
-            <Select placeholder="Select a midwife">
+            <Select placeholder="Select main midwife">
               {unassignedMidwives.map((midwife) => (
                 <Option key={midwife.name} value={midwife.name}>
                   {midwife.name}
@@ -1217,7 +1207,7 @@ const Clinics = () => {
           <Form.Item
             label={<span style={{ fontWeight: "bold" }}>Midwife 2</span>}
             name="midwife2"
-            rules={[{ required: true, message: "Please select a midwife" }]}
+            rules={[{ required: true, message: "Please select a reserved midwife" }]}
           >
             <Select placeholder="Select a midwife">
               {unassignedMidwives.map((midwife) => (

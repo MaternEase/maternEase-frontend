@@ -22,6 +22,7 @@ import "../../styles/Admin/Dashboard.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"; //clinics
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"; //edit
 import baby from "../../assets/images/baby.png"; //children
+import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 
 import AssignMidwifePopup from "../../components/Admin/AssignMidwifePopup"; // Import the Assign midwife popup
 import RegisterStaffPopup from "../../components/Admin/RegisterStaffPopup"; // Import the Register staff popup
@@ -85,12 +86,16 @@ const Dashboard = () => {
     setSelectedCard(cardKey);
     switch (cardKey) {
       case 1:
+        navigate("/admin/moh");
+        break;
       case 2:
+        navigate("/admin/clinics");
+        break;
       case 3:
         navigate("/admin/clinics");
         break;
       case 4:
-        navigate("/admin/midwives");
+        navigate("/admin/moh");
         break;
       default:
         break;
@@ -136,35 +141,35 @@ const Dashboard = () => {
   );
 
   const cardData = [
-    {
-      key: 1,
-      title: "Children",
-      value: 1052,
-      icon: (
-        <img
-          src={baby}
-          alt="Children"
-          style={{ width: "25px", height: "25px" }}
-        />
-      ),
-      color: "#192A51",
-      paragraph:
-        "Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.",
-    },
-    {
-      key: 2,
-      title: "Mothers",
-      value: 475,
-      icon: <Face4 />,
-      color: "#192A51",
-      paragraph:
-        "The system tracks expectant and delivered mothers, enabling effective planning and resource allocation for comprehensive care.",
-    },
+    // {
+    //   key: 1,
+    //   title: "Children",
+    //   value: 1052,
+    //   icon: (
+    //     <img
+    //       src={baby}
+    //       alt="Children"
+    //       style={{ width: "25px", height: "25px" }}
+    //     />
+    //   ),
+    //   color: "#192A51",
+    //   paragraph:
+    //     "Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.",
+    // },
+    // {
+    //   key: 2,
+    //   title: "Mothers",
+    //   value: 475,
+    //   icon: <Face4 />,
+    //   color: "#192A51",
+    //   paragraph:
+    //     "The system tracks expectant and delivered mothers, enabling effective planning and resource allocation for comprehensive care.",
+    // },
     {
       key: 4,
-      title: "Midwives",
+      title: "MOH Details",
       value: 29,
-      icon: <Face2 />,
+      icon: <OtherHousesOutlinedIcon />,
       color: "#192A51",
       paragraph:
         "With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.",
@@ -392,7 +397,7 @@ const Dashboard = () => {
     </div>
       <Row gutter={16} style={{ marginTop: 24 }}>
         {cardData.map((card) => (
-          <Col span={6} key={card.key}>
+          <Col span={12} key={card.key}>
             <ReusableCard
               card={card}
               selectedCard={selectedCard}
