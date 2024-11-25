@@ -54,8 +54,8 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
     setFilterAge(event.target.value);
   };
 
-  const handleViewProfileClick = (id) => {
-    navigate(`/midwife/profile/${id}`);
+  const handleViewProfileClick = (motherId) => {
+    navigate(`/midwife/profile/${motherId}`);
   };
 
   const handleReferToDoctorClick = (id) => {
@@ -140,11 +140,11 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ id, name, age, contactNo, condition, referToDoctor }) => (
-                <TableRow key={id}>
+              {filteredRows.map(({ motherId, name, age, contactNo, condition, referToDoctor }) => (
+                <TableRow key={motherId}>
                   <TableCell sx={{ padding: '10px' }}>
                     {/* <Avatar src={motherId} alt={name} /> */}
-                    <Typography variant="body2" color="textSecondary">{id}</Typography>
+                    <Typography variant="body2" color="textSecondary">{motherId}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>{name}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>{age}</TableCell>
