@@ -126,7 +126,7 @@ const SignIn = () => {
 
   const handleLocationPopupConfirm = () => {
     setShowLocationPopup(false);
-    navigate("/mother/location"); // Navigate to the location page after confirming the pop-up
+    navigate("/mother/edit-location"); // Navigate to the location page after confirming the pop-up
   };
 
   const { marginLeft, marginTop, marginRight, marginBottom } = dimensions;
