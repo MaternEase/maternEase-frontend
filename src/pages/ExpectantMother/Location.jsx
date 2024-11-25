@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
+import SearchIcon from "@mui/icons-material/Search";
+import { Tooltip } from "@mui/material";
 
 // Marker Component
 const Marker = ({ lat, lng }) => (
@@ -26,7 +28,9 @@ const Location = () => {
   const [zoom, setZoom] = useState(defaultProps.zoom); // Zoom level
   const [locationInput, setLocationInput] = useState(""); // User input for location
   const [markerPosition, setMarkerPosition] = useState(defaultProps.center); // Temporary marker position
-  const [confirmedPosition, setConfirmedPosition] = useState(defaultProps.center); // Confirmed marker position
+  const [confirmedPosition, setConfirmedPosition] = useState(
+    defaultProps.center
+  ); // Confirmed marker position
   const [confirmedAddress, setConfirmedAddress] = useState(""); // Confirmed address
   const [address, setAddress] = useState(""); // Address for temporary marker position
   const [isLoadingAddress, setIsLoadingAddress] = useState(false); // Loading state for address
@@ -80,7 +84,9 @@ const Location = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "OK") {
-          setAddress(data.results[0].formatted_address || "Address not available");
+          setAddress(
+            data.results[0].formatted_address || "Address not available"
+          );
         } else {
           setAddress("Address not found");
         }
@@ -97,62 +103,153 @@ const Location = () => {
     setConfirmedPosition(markerPosition);
     setConfirmedAddress(address);
     alert(
-      `Location confirmed:\nLatitude: ${markerPosition.lat}, Longitude: ${markerPosition.lng}\nAddress: ${address || "Address not available"}`
+      `Location confirmed:\nLatitude: ${markerPosition.lat}, Longitude: ${
+        markerPosition.lng
+      }\nAddress: ${address || "Address not available"}`
     );
   };
 
   return (
-    <div>
-      <div style={{ marginBottom: "10px" }}>
-        <input
-          type="text"
-          value={locationInput}
-          onChange={(e) => setLocationInput(e.target.value)}
-          placeholder="Enter a location (e.g., Colombo, Sri Lanka)"
-          style={{ width: "300px", padding: "5px", marginRight: "5px" }}
-        />
-        <button onClick={handleSearch} style={{ padding: "5px 10px" }}>
-          Search
-        </button>
-      </div>
-      <div style={{ height: "70vh", width: "100%", marginBottom: "10px" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyCcc5SDrNKsnCoo_hUNN9r0fvv-SJws7s8" }}
-          center={center} // Map center
-          zoom={zoom} // Zoom level
-          onClick={handleMapClick} // Allow marker to be updated on map click
+    <div style={{ minHeight: "100vh", padding: "20px" }}>
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            backgroundColor: "#967aa1",
+            borderRadius: "10px",
+            padding: "6px 10px",
+          }}
         >
-          <Marker
-            lat={markerPosition.lat} // Temporary marker position
-            lng={markerPosition.lng}
+          <input
+            type="text"
+            value={locationInput}
+            onChange={(e) => setLocationInput(e.target.value)}
+            placeholder="Enter a location"
+            style={{
+              width: "300px",
+              padding: "10px",
+              borderRadius: "10px",
+              marginRight: "10px",
+              backgroundColor: "#fff",
+            }}
           />
-        </GoogleMapReact>
+          <Tooltip title="Search" placement="top">
+            <SearchIcon
+              onClick={handleSearch}
+              style={{
+                color: "#192A5",
+                fontSize: "40px",
+                cursor: "pointer",
+                backgroundColor: "#D5C6E0",
+                borderRadius: "50%",
+                padding: "10px",
+              }}
+            />
+          </Tooltip>
+        </div>
       </div>
-      <div>
-        <p>
-          <strong>Temporary Coordinates:</strong> Latitude: {markerPosition.lat}, Longitude: {markerPosition.lng}
-        </p>
-        <p>
-          <strong>Temporary Address:</strong>{" "}
-          {isLoadingAddress ? "Fetching address..." : address || "No address selected yet"}
-        </p>
-        <p>
-          <strong>Confirmed Coordinates:</strong> Latitude: {confirmedPosition.lat}, Longitude: {confirmedPosition.lng}
-        </p>
-        <p>
-          <strong>Confirmed Address:</strong> {confirmedAddress || "No address confirmed yet"}
-        </p>
-      </div>
-      <button
-        onClick={handleConfirm}
+
+      <div
         style={{
-          padding: "10px 15px",
-          backgroundColor: "green",
-          color: "white",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          flexWrap: "wrap", // Allow items to wrap
         }}
       >
-        Confirm Location
-      </button>
+        {/* Map Div */}
+        <div
+          style={{
+            height: "70vh",
+            width: "70%",
+            marginBottom: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: "AIzaSyCcc5SDrNKsnCoo_hUNN9r0fvv-SJws7s8",
+            }}
+            center={center} // Map center
+            zoom={zoom} // Zoom level
+            onClick={handleMapClick} // Allow marker to be updated on map click
+          >
+            <Marker
+              lat={markerPosition.lat} // Temporary marker position
+              lng={markerPosition.lng}
+            />
+          </GoogleMapReact>
+        </div>
+
+        {/* Details Div */}
+        <div
+          style={{
+            height: "70vh",
+            width: "28%",
+            backgroundColor: "#D5C6E0",
+            borderRadius: "10px",
+            padding: "20px",
+            marginLeft: "20px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            // Flex and responsiveness for smaller screens
+            flex: "1 1", // Ensure it takes full width on small screens
+          }}
+        >
+          {/* Guide Section */}
+          <div style={{ marginBottom: "20px" }}>
+            <h3 style={{ color: "#192A51", marginBottom: "10px" }}>
+              How to Select Your Location
+            </h3>
+            <p style={{ color: "#333", fontSize: "14px", lineHeight: "1.6" }}>
+              Please search your location and click on the map to select the
+              exact location. Use the zoom in/out buttons to refine your
+              selection. Once you've selected the correct location, click on the
+              marker and click the "Confirm Location" button to save your
+              choice.
+            </p>
+          </div>
+
+          {/* Temporary Location */}
+          <div style={{ marginBottom: "20px" }}>
+            <h4 style={{ color: "#192A51" }}>Temporary Location</h4>
+            <p style={{ color: "#333", fontSize: "14px" }}>
+              {isLoadingAddress
+                ? "Fetching address..."
+                : address || "No address selected yet"}
+            </p>
+          </div>
+
+          {/* Confirmed Location */}
+          <div style={{ marginBottom: "30px" }}>
+            <h4 style={{ color: "#192A51" }}>Confirmed Location</h4>
+            <p style={{ color: "#333", fontSize: "14px" }}>
+              {confirmedAddress || "No address confirmed yet"}
+            </p>
+          </div>
+
+          {/* Confirm Button */}
+          <div style={{ textAlign: "center" }}>
+            <button
+              onClick={handleConfirm}
+              style={{
+                padding: "12px 25px",
+                backgroundColor: "#0808c2",
+                color: "white",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontSize: "16px",
+                transition: "background-color 0.3s ease",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#0808c2")}
+            >
+              Confirm Location
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
