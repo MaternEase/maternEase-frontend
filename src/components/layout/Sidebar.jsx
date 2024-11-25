@@ -19,6 +19,7 @@ import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutl
 import StairsOutlinedIcon from "@mui/icons-material/StairsOutlined"; //growth
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined';
+import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 
 import baby from "../../assets/images/baby.png"; //children
 
@@ -88,6 +89,7 @@ const Sidebar = ({ collapsed, userType }) => {
             ]
           },
           { key: "/admin/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+          { key: "/admin/moh", icon: <OtherHousesOutlinedIcon style={iconStyle} />, label: <Link to="/admin/moh">MOH</Link> },
         ];
       case "MOTHER":
         return [

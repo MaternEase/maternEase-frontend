@@ -6,6 +6,7 @@ import Midwives from '../pages/Admin/Midwives';
 import Doctors from '../pages/Admin/Doctors';
 import Reports from '../pages/Admin/Reports';
 import FullCalendarAdmin from '../pages/Admin/FullCalendar';
+import MOH from '../pages/Admin/MohDetails';
 
 
 const AdminRoutes = () => {
@@ -17,6 +18,7 @@ const AdminRoutes = () => {
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/full-calendar" element={<FullCalendarAdmin />} />
+      <Route path="/moh" element={<MOH />} />
     </Routes>
   );
 };
