@@ -17,6 +17,7 @@ import Profile from "../pages/ExpectantMother/Profile.jsx";
 import Allevents from "../pages/ExpectantMother/Allevents.jsx";
 import ChildrenDetails from "../pages/ExpectantMother/ChildrenDetails.jsx";
 import DeliveredMotherRecord from "../pages/ExpectantMother/DeliveredMotherRecord.jsx";
+import Location from "../pages/ExpectantMother/Location.jsx";
 import FundalHeight from "../pages/ExpectantMother/FundalHeight.jsx";
 // import WeightGainChart from "../pages/ExpectantMother/WeightGainChart.jsx";
 
@@ -41,8 +42,8 @@ const ExpectantMotherRoutes = () => {
             <Route path="/childrendetails" element={<ChildrenDetails />} />
             <Route path="/children/child2" element={<Child2 />} />
             <Route path="/delivered" element={<DeliveredMotherRecord />} />
+            <Route path="/location" element={<Location />} />
             <Route path="/fh" element={<FundalHeight />} />
-
             {/*<Route path="weightchart" element={<WeightGainChart />} />*/}
             {/*<Route path="mothers" element={<Mothers />} />*/}
             {/*<Route path="babies" element={<Babies />} />*/}
