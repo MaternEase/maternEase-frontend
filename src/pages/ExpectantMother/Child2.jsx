@@ -1,8 +1,7 @@
 import React from 'react';
-import { Row, Col, Input, Radio, Card, Form, InputNumber, Collapse } from 'antd';
+import { Row, Col, Card, Collapse } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box } from '@mui/material';
-import moment from 'moment';
 
 const { Panel } = Collapse;
 
@@ -26,7 +25,7 @@ const dummyData = {
     },
 };
 
-const Child2 = () => (
+const ChildCombined = () => (
     <div style={styles.container}>
         <PageHeader
             className="site-page-header"
@@ -58,15 +57,6 @@ const Child2 = () => (
             </Panel>
 
             <Panel header="Immunization Details" key="3">
-                <Box sx={styles.immunizationCard}>
-                    <Box>
-                        <Typography variant="body1">21/11/2021</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant="body1">MOH</Typography>
-                    </Box>
-                </Box>
-
                 <TableContainer component={Paper} sx={styles.immunizationTable}>
                     <Table>
                         <TableHead>
@@ -88,13 +78,31 @@ const Child2 = () => (
                                 <TableCell>0</TableCell>
                                 <TableCell>Present</TableCell>
                             </TableRow>
-                            {/* Add other rows as needed */}
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </Panel>
+
+            {/* Adding three additional panels */}
+            <Panel header="Growth Monitoring" key="4">
+                <Card>
+                    <Typography>Details about the child's growth monitoring metrics such as height, weight, and head circumference.</Typography>
+                </Card>
+            </Panel>
+
+            <Panel header="Allergies and Medications" key="5">
+                <Card>
+                    <Typography>Details about known allergies, medications, and medical history.</Typography>
+                </Card>
+            </Panel>
+
+            <Panel header="Family Medical History" key="6">
+                <Card>
+                    <Typography>Information about family medical history, such as hereditary conditions and health risks.</Typography>
+                </Card>
             </Panel>
         </Collapse>
     </div>
 );
 
-export default Child2;
+export default ChildCombined;

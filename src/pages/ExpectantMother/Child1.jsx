@@ -24,6 +24,20 @@ const dummyData = {
         Skin_color: 'Pink',
         Eye: 'Normal',
     },
+    growthDetails: {
+        height: '85 cm',
+        weight: '12 kg',
+        headCircumference: '45 cm',
+    },
+    dentalHealth: {
+        teethCount: 16,
+        cavities: 'None',
+        fluorideIntake: 'Yes',
+    },
+    nutritionDetails: {
+        breastfeeding: 'Exclusive for 6 months',
+        diet: 'Balanced with fruits and vegetables',
+    },
 };
 
 const Child1 = () => (
@@ -58,15 +72,6 @@ const Child1 = () => (
             </Panel>
 
             <Panel header="Immunization Details" key="3">
-                <Box sx={styles.immunizationCard}>
-                    <Box>
-                        <Typography variant="body1">21/11/2021</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant="body1">MOH</Typography>
-                    </Box>
-                </Box>
-
                 <TableContainer component={Paper} sx={styles.immunizationTable}>
                     <Table>
                         <TableHead>
@@ -92,6 +97,25 @@ const Child1 = () => (
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </Panel>
+
+            <Panel header="Growth Details" key="4">
+                <Row>
+                    <Col span={8}><strong>Height:</strong> {dummyData.growthDetails.height}</Col>
+                    <Col span={8}><strong>Weight:</strong> {dummyData.growthDetails.weight}</Col>
+                    <Col span={8}><strong>Head Circumference:</strong> {dummyData.growthDetails.headCircumference}</Col>
+                </Row>
+            </Panel>
+
+            <Panel header="Dental Health" key="5">
+                <div><strong>Teeth Count:</strong> {dummyData.dentalHealth.teethCount}</div>
+                <div><strong>Cavities:</strong> {dummyData.dentalHealth.cavities}</div>
+                <div><strong>Fluoride Intake:</strong> {dummyData.dentalHealth.fluorideIntake}</div>
+            </Panel>
+
+            <Panel header="Nutrition Details" key="6">
+                <div><strong>Breastfeeding:</strong> {dummyData.nutritionDetails.breastfeeding}</div>
+                <div><strong>Diet:</strong> {dummyData.nutritionDetails.diet}</div>
             </Panel>
         </Collapse>
     </div>

@@ -24,7 +24,7 @@ const themeColors = {
   referredDoctorHover: '#7D6091'
 };
 
-const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMemberClick, showActions = true }) => {
+const ChildTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMemberClick, showActions = true }) => {
   const [tabValue, setTabValue] = useState(tabs[0].value);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCondition, setFilterCondition] = useState('');
@@ -54,8 +54,8 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
     setFilterAge(event.target.value);
   };
 
-  const handleViewProfileClick = (motherId) => {
-    navigate(`/midwife/profile/${motherId}`);
+  const handleViewProfileClick = (childId) => {
+    navigate(`clinicattendee/childprofile${childId}`);
   };
 
   const handleReferToDoctorClick = (id) => {
@@ -63,11 +63,19 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
   };
 
   const filteredRows = rows.filter(row => {
-    const matchesSearch = row.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = row.name? row.name.toLowerCase().includes(searchTerm.toLowerCase()):true;
     const matchesCondition = filterCondition ? row.condition === filterCondition : true;
     const matchesAge = filterAge ? row.age === parseInt(filterAge, 10) : true;
     return matchesSearch && matchesCondition && matchesAge;
-  });
+  }).map(row => ({
+    id: row.id || "-",
+    name: row.name || "Not Available",
+    age:row.age !== null && row.age !== undefined ? row.age : "Not Available",
+    guardianName: row.guardianName || "Not Available",
+    contactNumber: row.contactNumber || "Not Available",
+    condition: row.condition || "Not Available",
+    referToDoctor: row.referToDoctor !== null ? row.referToDoctor: false,
+  }));
 
   return (
     <Card sx={{ height: '100%' }}>
@@ -140,15 +148,16 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredRows.map(({ motherId, name, age, contactNo, condition, referToDoctor }) => (
-                <TableRow key={motherId}>
+              {filteredRows.map(({ id, name, age, guardianName, contactNumber, condition, referToDoctor }) => (
+                <TableRow key={id}>
                   <TableCell sx={{ padding: '10px' }}>
                     {/* <Avatar src={motherId} alt={name} /> */}
-                    <Typography variant="body2" color="textSecondary">{motherId}</Typography>
+                    <Typography variant="body2" color="textSecondary">{id}</Typography>
                   </TableCell>
                   <TableCell sx={{ padding: '10px' }}>{name}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>{age}</TableCell>
-                  <TableCell sx={{ padding: '10px' }}>{contactNo}</TableCell>
+                  <TableCell sx={{ padding: '10px' }}>{guardianName}</TableCell> 
+                  <TableCell sx={{ padding: '10px' }}>{contactNumber}</TableCell>
                   <TableCell sx={{ padding: '10px' }}>
                     <Button
                       variant="contained"
@@ -161,7 +170,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                           color: '#fff',
                         },
                       }}
-                      onClick={() => handleConditionChange(motherId)}
+                      onClick={() => handleConditionChange(id)}
                       >{condition ? 'Risky' : 'Non Risky'}
                     </Button>
                   </TableCell>
@@ -177,7 +186,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                           color: '#fff',
                         },
                       }}
-                      onClick={() => handleReferToDoctorClick(motherId)}
+                      onClick={() => handleReferToDoctorClick(id)}
                     >{referToDoctor ? 'Referred' : 'Refer to Doctor'}
                     </Button>
                   </TableCell>
@@ -193,7 +202,7 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
                             backgroundColor: themeColors.quinary,
                           },
                         }}
-                        onClick={() => handleViewProfileClick(motherId)}
+                        onClick={() => handleViewProfileClick(id)}
                       >
                         View Profile
                       </ProfileButton>
@@ -209,4 +218,4 @@ const CustomTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMember
   );
 };
 
-export default CustomTable;
+export default ChildTable;
