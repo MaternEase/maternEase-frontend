@@ -14,7 +14,12 @@ import PostFieldNote from "../components/Shared/Bcard/PostFieldNote.jsx";
 import HomeVisit from "../components/Shared/Bcard/HomeVisit.jsx";
 import PrePregnancyDataTable from "../components/Shared/Bcard/PrePregnancyDataTable.jsx";
 import MotherHomeVisitdata from "../components/Shared/Bcard/MotherHomeVisitdata.jsx";
-
+import ChildProfile from '../pages/ClinicAttendee/ChildProfile';
+import HealthChart from '../pages/ClinicAttendee/Health_charts';
+import Immunization from '../pages/ClinicAttendee/Immunization';
+import Weight from '../pages/ClinicAttendee/Weight';
+import Height from '../pages/ClinicAttendee/Height';
+import Growth from '../pages/ClinicAttendee/Growth';
 
 const MidwifeRoutes = () => {
   console.log('MidwifeRoutes rendered');
@@ -27,6 +32,12 @@ const MidwifeRoutes = () => {
       <Route path="mothers/expected/" element={< ExpectedMothers />} />
       <Route path="mothers/delivered/" element={< DeliveredMothers />} />
       <Route path="babies" element={<Babies />} />
+      <Route path="babies/clinicattendee/childprofile/:id" element={<ChildProfile />} />
+      <Route path="health_charts" element={<HealthChart/>} />
+      <Route path="immunization" element={<Immunization/>} />
+      <Route path="weight" element={<Weight/>} />
+      <Route path="height" element={<Height/>} />
+      <Route path="growth" element={<Growth />} />
       <Route path="reports" element={<Reports />} />
       <Route path="messages" element={<Messages />} />
       <Route path="/profile/:id" element={<Bcard />} />

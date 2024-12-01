@@ -64,7 +64,13 @@ const Immunization = () => {
       >
         <Button
           variant="contained"
-          color="primary"
+          sx={{
+            backgroundColor: "#003366",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "#002244",
+            },
+          }}
           onClick={() => setOpen(true)}
         >
           Add A Record
@@ -180,7 +186,17 @@ const Immunization = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleAddRecord}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#003366",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#002244",
+              },
+            }}
+            onClick={handleAddRecord}
+          >
             OK
           </Button>
         </DialogActions>
