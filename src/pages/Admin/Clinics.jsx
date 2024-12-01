@@ -47,8 +47,8 @@ const Clinics = () => {
   const clinics = [
     {
       name: "Athapaththukanda",
-      id: 'A5',
-      created_at: '2019-02-12',
+      id: "A5",
+      created_at: "2019-02-12",
       location: "Community Hall",
       midwives: ["Niramala Wasanthi", "Maduri Gunawardana", "Vishaka Sugandi"],
       expectantMothers: [
@@ -58,13 +58,6 @@ const Clinics = () => {
           Name: "Waruni Kumari",
           Age: 28,
           Condition: "Normal",
-        },
-        {
-          id: 2,
-          RegistrationID: "A002",
-          Name: "Bashini Darma",
-          Age: 30,
-          Condition: "Risky",
         },
       ],
       deliveredMothers: [
@@ -76,14 +69,6 @@ const Clinics = () => {
           Condition: "Risky",
           DeliveredDate: "2024-07-20",
         },
-        {
-          id: 4,
-          RegistrationID: "A004",
-          Name: "Diana Kumari",
-          Age: 29,
-          Condition: "Normal",
-          DeliveredDate: "2024-07-21",
-        },
       ],
       children: [
         {
@@ -94,21 +79,13 @@ const Clinics = () => {
           Age: 1,
           Condition: "Normal",
         },
-        {
-          id: 6,
-          RegistrationID: "CA002",
-          Name: "Pinidi Maheesha",
-          GuardianName: "Nilanthi Dias",
-          Age: 2,
-          Condition: "Normal",
-        },
       ],
       stats: { birthCount: 5, deadBirthCount: 1, maternalDeathCount: 0 },
     },
     {
       name: "Pallewella",
-      id: 'A5',
-      created_at: '2019-02-12',
+      id: "A5",
+      created_at: "2019-02-12",
       location: "Temple",
       midwives: ["Niramala Wasanthi", "Maduri Gunawardana", "Vishaka Sugandi"],
       expectantMothers: [
@@ -118,13 +95,6 @@ const Clinics = () => {
           Name: "Waruni Kumari",
           Age: 30,
           Condition: "Risky",
-        },
-        {
-          id: 8,
-          RegistrationID: "B002",
-          Name: "Bashini Darma",
-          Age: 28,
-          Condition: "Normal",
         },
       ],
       deliveredMothers: [
@@ -136,14 +106,6 @@ const Clinics = () => {
           Condition: "Normal",
           DeliveredDate: "2024-07-21",
         },
-        {
-          id: 10,
-          RegistrationID: "B004",
-          Name: "Diana Kumari",
-          Age: 31,
-          Condition: "Risky",
-          DeliveredDate: "2024-07-22",
-        },
       ],
       children: [
         {
@@ -154,21 +116,13 @@ const Clinics = () => {
           Age: 2,
           Condition: "Normal",
         },
-        {
-          id: 12,
-          RegistrationID: "CB002",
-          Name: "Pinidi Maheesha",
-          GuardianName: "Nilanthi Dias",
-          Age: 1,
-          Condition: "Normal",
-        },
       ],
       stats: { birthCount: 3, deadBirthCount: 0, maternalDeathCount: 0 },
     },
     {
       name: "Deyiyandara",
-      id: 'A5',
-      created_at: '2019-02-12',
+      id: "A5",
+      created_at: "2019-02-12",
       location: "Community Hall",
       midwives: ["Niramala Wasanthi"],
       expectantMothers: [
@@ -178,13 +132,6 @@ const Clinics = () => {
           Name: "Waruni Kumari",
           Age: 26,
           Condition: "Normal",
-        },
-        {
-          id: 14,
-          RegistrationID: "C002",
-          Name: "Bashini Darma",
-          Age: 27,
-          Condition: "Risky",
         },
       ],
       deliveredMothers: [
@@ -196,14 +143,6 @@ const Clinics = () => {
           Condition: "Normal",
           DeliveredDate: "2024-07-22",
         },
-        {
-          id: 16,
-          RegistrationID: "C004",
-          Name: "Diana Kumari",
-          Age: 33,
-          Condition: "Risky",
-          DeliveredDate: "2024-07-23",
-        },
       ],
       children: [
         {
@@ -214,21 +153,13 @@ const Clinics = () => {
           Age: 3,
           Condition: "Normal",
         },
-        {
-          id: 18,
-          RegistrationID: "CC002",
-          Name: "Pinidi Maheesha",
-          GuardianName: "Nilanthi Dias",
-          Age: 1,
-          Condition: "Normal",
-        },
       ],
       stats: { birthCount: 7, deadBirthCount: 1, maternalDeathCount: 1 },
     },
     {
       name: "Bamunugama",
-      id: 'A5',
-      created_at: '2019-02-12',
+      id: "A5",
+      created_at: "2019-02-12",
       location: "Community Hall",
       midwives: ["Niramala Wasanthi", "Vishaka Sugandi"],
       expectantMothers: [
@@ -238,13 +169,6 @@ const Clinics = () => {
           Name: "Waruni Kumari",
           Age: 29,
           Condition: "Risky",
-        },
-        {
-          id: 20,
-          RegistrationID: "D002",
-          Name: "Bashini Darma",
-          Age: 30,
-          Condition: "Normal",
         },
       ],
       deliveredMothers: [
@@ -256,14 +180,6 @@ const Clinics = () => {
           Condition: "Risky",
           DeliveredDate: "2024-07-23",
         },
-        {
-          id: 22,
-          RegistrationID: "D004",
-          Name: "Diana Kumari",
-          Age: 32,
-          Condition: "Normal",
-          DeliveredDate: "2024-07-24",
-        },
       ],
       children: [
         {
@@ -274,23 +190,14 @@ const Clinics = () => {
           Age: 2,
           Condition: "Normal",
         },
-        {
-          id: 24,
-          RegistrationID: "CD002",
-          Name: "Pinidi Maheesha",
-          GuardianName: "Nilanthi Dias",
-          Age: 1,
-          Condition: "Normal",
-        },
       ],
       stats: { birthCount: 4, deadBirthCount: 2, maternalDeathCount: 0 },
     },
   ];
-  
 
   // unassigned midwives data
   const unassignedMidwives = [
-    { name: "Nirmala peris", clinics: ["Bamunugama", "Deyiyanada"] }, 
+    { name: "Nirmala peris", clinics: ["Bamunugama", "Deyiyanada"] },
     { name: "Uma Perera", clinics: [] }, // Unassigned
     {
       name: "Wasanthi Siva",
@@ -932,32 +839,32 @@ const Clinics = () => {
                     <Box
                       sx={{
                         marginTop: 3,
-                          border: "1px solid #F0EEED",
-                          borderRadius: 2,
-                          p: 3,
-                          mb: 5,
-                          minHeight: "250px",
-                          Width: "250px",
-                          cursor: "pointer",
-                          transition: "box-shadow 0.3s ease-in-out",
-                          "&:hover": {
-                            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-                          },
-                          "&:focus": {
-                            boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.4)",
-                            outline: "none",
-                          },
+                        border: "1px solid #F0EEED",
+                        borderRadius: 2,
+                        p: 3,
+                        mb: 5,
+                        minHeight: "250px",
+                        Width: "250px",
+                        cursor: "pointer",
+                        transition: "box-shadow 0.3s ease-in-out",
+                        "&:hover": {
+                          boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+                        },
+                        "&:focus": {
+                          boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.4)",
+                          outline: "none",
+                        },
                       }}
                     >
                       <Typography
                         variant="h6"
-                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1  }}
+                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1 }}
                       >
                         This Month Birth Count: {clinic.stats.birthCount}
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1  }}
+                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1 }}
                       >
                         Total Expectant Mothers Count:{" "}
                         <span style={{ fontWeight: "normal" }}>
@@ -966,7 +873,7 @@ const Clinics = () => {
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1  }}
+                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1 }}
                       >
                         Total Delivered Mothers Count:{" "}
                         <span style={{ fontWeight: "normal" }}>
@@ -975,7 +882,7 @@ const Clinics = () => {
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1  }}
+                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1 }}
                       >
                         Total Dead Birth Count:{" "}
                         <span style={{ fontWeight: "normal" }}>
@@ -984,7 +891,7 @@ const Clinics = () => {
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1  }}
+                        sx={{ fontSize: 13, fontWeight: "normal", mb: 1 }}
                       >
                         Total Maternal Death Count:{" "}
                         <span style={{ fontWeight: "normal" }}>
@@ -996,39 +903,42 @@ const Clinics = () => {
                       >
                         <Typography
                           variant="body1"
-                          sx={{ ml: 1, fontSize: 13, fontWeight: "bold", marginBottom: "50px" }}
-                        >
-                          
-                        </Typography>
+                          sx={{
+                            ml: 1,
+                            fontSize: 13,
+                            fontWeight: "bold",
+                            marginBottom: "50px",
+                          }}
+                        ></Typography>
                       </Box>
 
                       <Button
-                      variant="contained"
-                      style={{
-                        padding: "20px",
-                        width: "150px",
-                        backgroundColor: "#D5C6E0",
-                        color: "#967aa1",
-                        borderRadius: "10px",
-                        marginBottom: "10px",
-                      }}
-                      className="edit-button"
-                    >
+                        variant="contained"
+                        style={{
+                          padding: "20px",
+                          width: "150px",
+                          backgroundColor: "#D5C6E0",
+                          color: "#967aa1",
+                          borderRadius: "10px",
+                          marginBottom: "10px",
+                        }}
+                        className="edit-button"
+                      >
                         Generate Report
                       </Button>
 
                       <Button
-                      variant="contained"
-                      style={{
-                        padding: "20px",
-                        width: "150px",
-                        backgroundColor: "#D5C6E0",
-                        color: "#967aa1",
-                        borderRadius: "10px",
-                      }}
-                      className="edit-button"
-                    >
-                      Statistics Chart
+                        variant="contained"
+                        style={{
+                          padding: "20px",
+                          width: "150px",
+                          backgroundColor: "#D5C6E0",
+                          color: "#967aa1",
+                          borderRadius: "10px",
+                        }}
+                        className="edit-button"
+                      >
+                        Statistics Chart
                       </Button>
                     </Box>
                   </Box>
@@ -1094,16 +1004,6 @@ const Clinics = () => {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Doctor</span>}
-            name="doctor"
-            rules={[{ required: true, message: "Please select a doctor" }]}
-          >
-            <Select placeholder="Select a doctor">
-              <Option value="doctor1">Doctor 1</Option>
-              <Option value="doctor2">Doctor 2</Option>
-            </Select>
-          </Form.Item> */}
           <Form.Item
             label={<span style={{ fontWeight: "bold" }}>Midwife - 1</span>}
             name="midwife1"
@@ -1118,12 +1018,7 @@ const Clinics = () => {
             label={<span style={{ fontWeight: "bold" }}>Midwife 2</span>}
             name="midwife2"
             rules={[{ required: true, message: "Please select a midwife" }]}
-          >
-            <Select placeholder="Select a midwife">
-              <Option value="midwife1">Kamala Gamage</Option>
-              <Option value="midwife2">Wasanthi Perera</Option>
-            </Select>
-          </Form.Item>
+          ></Form.Item>
           <Form.Item
             label={<span style={{ fontWeight: "bold" }}>Midwife 3</span>}
             name="midwife3"
