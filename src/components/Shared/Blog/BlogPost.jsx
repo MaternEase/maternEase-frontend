@@ -8,15 +8,18 @@ const BlogPost = ({ post }) => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <h3 className="text-2xl font-bold text-gray-800 mb-2">{post.title}</h3>
-      {post.mediaType === "image" && post.media && (
+    <div className="p-6 transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
+      <h3 className="mb-2 text-2xl font-bold text-gray-800">{post.title}</h3>
+
+      {/* Check if the mediaPath exists and render the image */}
+      {post.mediaPath && (
         <img
-          src={post.media}
+          src={post.mediaPath} // This now has the full URL to the image
           alt={post.title}
-          className="rounded-lg mb-4 w-full object-cover max-h-60"
+          className="object-cover w-full mb-4 rounded-lg max-h-60"
         />
       )}
+
       <div
         className={`text-gray-700 transition-all duration-300 overflow-hidden ${
           expanded ? "max-h-full" : "max-h-20"
@@ -25,7 +28,7 @@ const BlogPost = ({ post }) => {
         {post.content}
       </div>
       <button
-        className="mt-4 text-blue-600 hover:text-blue-800 font-semibold"
+        className="mt-4 font-semibold text-blue-600 hover:text-blue-800"
         onClick={toggleExpanded}
       >
         {expanded ? "See Less" : "See More"}

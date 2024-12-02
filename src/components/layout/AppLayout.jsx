@@ -13,6 +13,7 @@ const AppLayout = () => {
 
   useEffect(() => {
     console.log('AppLayout mounted with userType:', user?.role); // Debug log to verify userType
+    localStorage.setItem('user_id', user?.userId);
   }, [user?.role]);
 
   const toggleSidebar = () => {

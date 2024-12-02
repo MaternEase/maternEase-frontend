@@ -1,13 +1,12 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { createPost } from "../../../services/midwifeService"; // import the createPost API function
 
 const NewPost = ({ onClose, addPost }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("Newborn baby");
   const [media, setMedia] = useState(null);
-  const [mediaType, setMediaType] = useState(null);
 
-  // Disable scrolling when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -15,38 +14,28 @@ const NewPost = ({ onClose, addPost }) => {
     };
   }, []);
 
-
   const handleMediaChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileType = file.type.split("/")[0];
-      if (fileType === "image" || fileType === "video") {
-        setMedia(file);
-        setMediaType(fileType);
-      } else {
-        alert("Please upload a valid image or video file.");
-      }
+      setMedia(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      addPost({
-        title,
-        content,
-        category,
-        media: reader.result,
-        mediaType,
-      });
-      onClose();
+    const newPost = {
+      title,
+      content,
+      category,
+      media,
     };
-    if (media) {
-      reader.readAsDataURL(media);
-    } else {
-      addPost({ title, content, category, media: null, mediaType: null });
-      onClose();
+
+    try {
+      await createPost(newPost); // create post via API
+      addPost(newPost); // update the UI with the new post
+      onClose(); // close the modal
+    } catch (error) {
+      console.error("Error creating post:", error);
     }
   };
 
@@ -77,9 +66,8 @@ const NewPost = ({ onClose, addPost }) => {
           >
             <option value="Newborn baby">Newborn baby</option>
             <option value="1-3 Months">1-3 Months</option>
-            <option value="3-6 months">3-6 months</option>
-            <option value="6 months to 1 year">6 months to 1 year</option>
             <option value="Pregnant mother">Pregnant mother</option>
+            <option value="6 months to 1 year">6 months to 1 year</option>
           </select>
           <input
             type="file"
@@ -99,7 +87,7 @@ const NewPost = ({ onClose, addPost }) => {
               type="submit"
               className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
             >
-              Add Post
+              Create Post
             </button>
           </div>
         </form>
