@@ -3,7 +3,7 @@ import AuthService from "../services/authService";
 
 const API_URL = "http://localhost:8082/api/v1/admin";
 
-export const registerClinic = async () => {
+export const registerClinic = async (formData) => {
   try {
     const token = AuthService.getToken();
     if (!token) {
