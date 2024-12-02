@@ -165,24 +165,64 @@ const Dashboard = () => {
     //   paragraph:
     //     "The system tracks expectant and delivered mothers, enabling effective planning and resource allocation for comprehensive care.",
     // },
+    // {
+    //   key: 4,
+    //   title: "MOH Details",
+    //   value: 12,
+    //   icon: <OtherHousesOutlinedIcon />,
+    //   color: "#192A51",
+    //   paragraph:
+    //     "With 12 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.",
+    // },
+    // {
+    //   key: 3,
+    //   title: "Clinics",
+    //   value: 17,
+    //   icon: <HomeOutlinedIcon />,
+    //   color: "#192A51",
+    //   paragraph:
+    //     "Our clinics are fully equipped to handle patient needs, with detailed data aiding in continuous service improvement.",
+    // },
     {
       key: 4,
       title: "MOH Details",
-      value: 29,
       icon: <OtherHousesOutlinedIcon />,
       color: "#192A51",
-      paragraph:
-        "With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.",
+      paragraph: (
+        <div>
+          <ul>
+            <li><strong>Midwives on Duty Today:</strong> 12</li>
+            <li><strong>Total Expectant Mothers in Care:</strong> 93</li>
+            <li><strong>Total Delivered Mothers Today:</strong> 2</li>
+            <li><strong>Total Children Born Today:</strong> 2</li>
+            <li><strong>Maternal Deaths:</strong> 0</li>
+            <li><strong>Dead Births:</strong> 1</li>
+            {/* <li><strong>MOH Operational Areas:</strong> 6 different locations supported by MOH clinics.</li>
+            <li><strong>Clinic Visits by MOH Staff:</strong> Regular monitoring and assistance for ongoing clinic operations.</li> */}
+          </ul>
+        </div>
+      ),
     },
     {
       key: 3,
       title: "Clinics",
-      value: 36,
+      // value: 17,
       icon: <HomeOutlinedIcon />,
       color: "#192A51",
-      paragraph:
-        "Our clinics are fully equipped to handle patient needs, with detailed data aiding in continuous service improvement.",
+      paragraph: (
+        <div>
+          <ul>
+            <li><strong>Total Clinics Running:</strong> 17</li>
+            <li><strong>New Clinics Registered:</strong> 0</li>
+            <li><strong>Clinics by Area:</strong> Athapaththukanda, Polovita, Pallevella, Seenipella, ...</li>
+            <li><strong>Upcoming Clinics:</strong> 2 scheduled for the next week.</li>
+            <li><strong>Total Appointments:</strong> 300 appointments scheduled across all clinics.</li>
+            <li><strong>Clinic Staff Availability:</strong> All midwives assigned for the day’s clinic operations.</li>
+          </ul>
+        </div>
+      ),
     },
+    
   ];
 
   const userFullCalendarPath = "/admin/full-calendar";

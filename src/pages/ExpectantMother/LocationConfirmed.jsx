@@ -24,7 +24,7 @@ const LocationConfirmed = () => {
   const { confirmedPosition, confirmedAddress } = location.state || {};
 
   // Hardcoded address
-  const hardcodedAddress = "123 Main St\nSpringfield\nUSA";
+  const hardcodedAddress = "123 Temple St\nAhangama\nSri Lanka";
 
   if (!confirmedPosition) {
     return <div>Location data not available</div>;
