@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -6,25 +6,14 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {
-  Modal,
-  Form,
-  Input,
-  Select,
-  message,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  Space,
-} from "antd";
+import {Modal,Form,Input,Select,message,Button,Card,Row,Col,Table,Space} from "antd";
 
 import AssignStaffPopup from "../../components/Admin/AssignStaffPopup";
 import ProfileDetailsPopup from "../../components/Admin/ProfileDetailsPopup";
 import ExpectantMotherProfilePopup from "../../components/Admin/ExpectantMotherProfilePopup";
 import DeliveredMotherProfilePopup from "../../components/Admin/DeliveredMotherProfilePopup";
 import ChildProfilePopup from "../../components/Admin/ChildProfilePopup";
+import {getClinicNames} from "../../services/adminService";
 
 const { Option } = Select;
 const { Search: AntSearch } = Input;
@@ -41,6 +30,46 @@ const Clinics = () => {
   const [visibleChild, setVisibleChild] = useState(false);
   const [form] = Form.useForm();
 
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [clinicNameData, setClinicNameData] = useState([]);
+
+
+
+  const fetchClinicNames = async () =>{
+    try {
+      const response = await getClinicNames();
+      console.log(response);
+      setClinicNameData(response);
+      // if (response.length > 0) {
+      //   setValue(response[0]); // This sets the first clinic as the default value
+      // }
+    } catch (error){
+      setErrorMessage('Error fetching data from the backend');
+    }
+  };
+
+  
+  
+  
+  // Run the fetch function on component mount
+  useEffect(()=>{
+    fetchClinicNames();
+  },[]);
+
+
+
+
+  const handleClinicChange = (value) => {
+    setValue(value);
+    // const selectedClinicName = clinicNameData[value]; // Get the selected clinic name based on the index
+    // console.log("Selected Clinic:", selectedClinicName);
+    // Handle the selection of the clinic (perhaps fetch more data or update state)
+  };
+  
+
+
+  
   // Single doctor responsible for all clinics
   const responsibleDoctor = "Dr. Sujeewa Kumara";
 
@@ -400,10 +429,7 @@ const Clinics = () => {
     setSelectedProfile(null);
   };
 
-  // Function to handle dropdown selection change
-  const handleClinicChange = (value) => {
-    setValue(value);
-  };
+
 
   const handleAssignStaffClick = (clinic) => {
     setSelectedClinic(clinic);
@@ -489,9 +515,7 @@ const Clinics = () => {
 
   return (
     <Box
-      sx={{ width: "100%", typography: "body1" }}
-      className="clinics-container"
-    >
+      sx={{ width: "100%", typography: "body1" }} className="clinics-container">  
       <div
         style={{
           display: "flex",
@@ -510,15 +534,15 @@ const Clinics = () => {
             height: "40px",
           }}
         >
-          {clinics.map((clinic, index) => (
-            <Option
-              key={clinic.id}
-              value={`${index + 1}`}
-              // sx={{ padding: "10px", backgroundColor: '#000' }}
-            >
-              {clinic.name}
-            </Option>
-          ))}
+          {clinicNameData.length > 0 ? (
+    clinicNameData.map((clinicName, index) => (
+      <Option key={clinicName} value={clinicName}>  {/* Use index as value */}
+        {clinicName}  {/* Display clinic name */}
+      </Option>
+    ))
+  ) : (
+    <Option value="no-clinics">No Clinics Available</Option>
+  )}
         </Select>
 
         <Button
