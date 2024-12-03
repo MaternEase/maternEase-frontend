@@ -2,29 +2,34 @@ import React, { useState } from 'react';
 import { Card, Row, Col, Table, Space, Typography, Input, Button } from 'antd';
 import { Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import CustomCalendar from '../../components/Calendar';
-import { LineChart, Line, PieChart, Pie, Cell, Tooltip, Legend, CartesianGrid, XAxis, YAxis } from 'recharts';
 import '../../styles/Admin/Dashboard.css';
+import {
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
 
 const mothersData = [
-  { key: 1, name: 'Wasanthi Perera', report: 'View' },
-  { key: 2, name: 'Sujatha Dahanayakce', report: 'View' },
-  { key: 3, name: 'Naduni Bandara', report: 'View' },
+  { key: 1, name: 'Renuka De Silva', pagePath: '/doctor/expectantmother/1' },
+  { key: 2, name: 'Pavani Rathnayaka', pagePath: '/doctor/expectantmother/2' },
+  { key: 3, name: 'Sumitha Nalini', pagePath: '/doctor/mother/1' },
 ];
 
 const babiesData = [
-  { key: 1, name: 'Banuka Rajapakse', report: 'View' },
-  { key: 2, name: 'Wanindu Hasaranga', report: 'View' },
-  { key: 3, name: 'Kusal Mendis3', report: 'View' },
+  { key: 1, name: 'Shanthu Liyanage', pagePath: '/doctor/baby/1' },
+  { key: 2, name: 'Wanindu Hasaranga', pagePath: '/doctor/baby/2' },
+  { key: 3, name: 'Kusal Mendis', pagePath: '/doctor/baby/3' },
 ];
-
-const userEvents = {
-  '2024-07-25': [{ id: 1, description: 'Event A' }],
-  '2024-07-30': [{ id: 2, description: 'Event B' }],
-};
 
 const pregnanciesData = [
   { year: '2019', pregnancies: 120 },
@@ -46,42 +51,9 @@ const Dashboard = () => {
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
 
-  const handleCardClick = (path) => {
-    navigate(path);
-  };
-
   const handleSearch = (value) => {
     setSearchText(value);
   };
-
-  const handleEdit = (path) => {
-    navigate(path);
-  };
-
-  const cardData = [
-    {
-      key: 1,
-      title: 'Mothers Reports',
-      path: '/doctor/mothers',
-    },
-    {
-      key: 2,
-      title: 'Babies Reports',
-      path: '/doctor/babies',
-    },
-    {
-      key: 3,
-      title: 'Statistical Reports',
-      path: '/doctor/reports',
-    },
-    // {
-    //   key: 4,
-    //   title: 'Risky Mothers & Babies',
-    //   path: '/doctor/risky-mothers-babies',
-    // },
-  ];
-
-  const userFullCalendarPath = '/doctor/doctorcalendar';
 
   const filteredMothersData = mothersData.filter((item) =>
     item.name.toLowerCase().includes(searchText.toLowerCase())
@@ -101,15 +73,15 @@ const Dashboard = () => {
     },
     {
       title: <span>Report</span>,
-      dataIndex: 'report',
-      key: 'report',
-      render: (text, record) => (
+      dataIndex: 'pagePath',
+      key: 'pagePath',
+      render: (pagePath) => (
         <Button
           type="link"
           style={{ color: '#7C3AED' }}
-          onClick={() => handleEdit('/doctor/motherrefer')}
+          onClick={() => navigate(pagePath)}
         >
-          {text}
+          Check
         </Button>
       ),
     },
@@ -125,67 +97,72 @@ const Dashboard = () => {
     },
     {
       title: <span>Report</span>,
-      dataIndex: 'report',
-      key: 'report',
-      render: (text, record) => (
+      dataIndex: 'pagePath',
+      key: 'pagePath',
+      render: (pagePath) => (
         <Button
           type="link"
           style={{ color: '#7C3AED' }}
-          onClick={() => handleEdit('/doctor/babyrefer')}
+          onClick={() => navigate(pagePath)}
         >
-          {text}
+          Check
         </Button>
       ),
     },
   ];
 
-  const components = {
-    header: {
-      cell: (props) => (
-        <th
-          {...props}
-          style={{
-            color: '#192A51',
-            padding: '8px',
-          }}
-        />
-      ),
-    },
-  };
-
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
-      <Row gutter={16} style={{ marginTop: 24,marginLeft:'200PX' }}>
-        {cardData.map((card) => (
-          <Col span={6} key={card.key}>
-            <Card
-              hoverable
-              onClick={() => handleCardClick(card.path)}
-              title={<span style={{ color: 'black', textAlign: 'center' }}>{card.title}</span>}
-              bordered={false}
-              style={{
-                backgroundColor: '#eee4f9',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s',
-                textAlign: 'center'
-              }}
-              bodyStyle={{ padding: '8px 16px' }}
-              headStyle={{ borderBottom: 0 }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#d9c3f1')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#eee4f9')}
-            >
-              <Title level={3}>{card.value}</Title>
-              <p>{card.paragraph}</p>
-            </Card>
-          </Col>
-        ))}
+      <Row gutter={16} style={{ marginTop: 24, marginLeft: '200px' }}>
+        <Col span={6}>
+          <Card
+            hoverable
+            title="Mothers Reports"
+            bordered={false}
+            style={{
+              backgroundColor: '#eee4f9',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+            onClick={() => navigate('/doctor/mothers')}
+          />
+        </Col>
+        <Col span={6}>
+          <Card
+            hoverable
+            title="Babies Reports"
+            bordered={false}
+            style={{
+              backgroundColor: '#eee4f9',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+            onClick={() => navigate('/doctor/babies')}
+          />
+        </Col>
+        <Col span={6}>
+          <Card
+            hoverable
+            title="Stastical Reports"
+            bordered={false}
+            style={{
+              backgroundColor: '#eee4f9',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              textAlign: 'center',
+            }}
+            onClick={() => navigate('/doctor/reports')}
+          />
+        </Col>
       </Row>
-      <Row gutter={16} style={{ marginTop: 24 }}>
-        <Col span={8}>
+
+      <Row gutter={16} justify="center" style={{ marginTop: 24 }}>
+        <Col span={10}>
           <Card title="Number of Pregnancies per Year">
             <LineChart
-              width={300}
+              width={400}
               height={300}
               data={pregnanciesData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -199,12 +176,12 @@ const Dashboard = () => {
             </LineChart>
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           <Card title="Types of Deliveries">
-            <PieChart width={300} height={300}>
+            <PieChart width={400} height={300}>
               <Pie
                 data={deliveriesData}
-                cx={150}
+                cx={200}
                 cy={150}
                 labelLine={false}
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
@@ -221,12 +198,8 @@ const Dashboard = () => {
             </PieChart>
           </Card>
         </Col>
-        <Col span={8}>
-          <Card title="Calendar">
-            <CustomCalendar events={userEvents} fullCalendarPath={userFullCalendarPath} />
-          </Card>
-        </Col>
       </Row>
+
       <Row gutter={24} style={{ marginTop: 48 }}>
         <Col span={12}>
           <Card
@@ -244,7 +217,6 @@ const Dashboard = () => {
             }
           >
             <Table
-              components={components}
               dataSource={filteredMothersData}
               columns={mothersColumns}
               pagination={false}
@@ -268,7 +240,6 @@ const Dashboard = () => {
             }
           >
             <Table
-              components={components}
               dataSource={filteredBabiesData}
               columns={babiesColumns}
               pagination={false}
@@ -276,6 +247,7 @@ const Dashboard = () => {
             />
           </Card>
         </Col>
+        
       </Row>
     </div>
   );
