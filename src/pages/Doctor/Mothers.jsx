@@ -4,7 +4,6 @@ import { Search } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Admin/Dashboard.css';
 
-
 const { Search: AntSearch } = Input;
 
 const data1 = [
@@ -14,8 +13,9 @@ const data1 = [
     age: 30,
     condition: 'Risky',
     contactNumber: '091452452',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/expectantmother/1',
   },
   {
     key: '2',
@@ -23,8 +23,9 @@ const data1 = [
     age: 32,
     condition: 'Risky',
     contactNumber: '093654321',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/expectantmother/2',
   },
   {
     key: '3',
@@ -32,8 +33,9 @@ const data1 = [
     age: 24,
     condition: 'Nonrisky',
     contactNumber: '091234567',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/expectantmother/3',
   },
   {
     key: '4',
@@ -41,8 +43,9 @@ const data1 = [
     age: 30,
     condition: 'Nonrisky',
     contactNumber: '098765432',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/expectantmother/4',
   },
   {
     key: '5',
@@ -50,8 +53,9 @@ const data1 = [
     age: 24,
     condition: 'Nonrisky',
     contactNumber: '091234567',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/expectantmother/5',
   },
 ];
 
@@ -61,49 +65,59 @@ const data2 = [
     name: 'Sumitha Nalini',
     age: 29,
     contactNumber: '091987654',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/mother/1',
   },
   {
     key: '2',
     name: 'Lalani Rathnayake',
     age: 35,
     contactNumber: '093123456',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/mother/2',
   },
   {
     key: '3',
     name: 'Anjalika Sathsarani',
     age: 27,
     contactNumber: '091111111',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/mother/3',
   },
   {
     key: '4',
     name: 'Kalani Disanayake',
     age: 33,
     contactNumber: '098999999',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/mother/5',
   },
   {
     key: '5',
     name: 'Bavanthi Nimna',
     age: 31,
     contactNumber: '091222222',
-    motherHistory: 'View',
-    reportState: 'New',
+    motherHistory: 'Check',
+    reportState: 'Ckeck',
+    reportPath: '/doctor/mother/6',
   },
 ];
 
-const handleStateChange = (data, setData, key, navigate, path) => {
+const handleStateChange = (data, setData, key, navigate) => {
   const newData = data.map((item) =>
     item.key === key ? { ...item, reportState: 'Viewed' } : item
   );
   setData(newData);
-  navigate(path); // Navigate to the provided path
+
+  // Find the selected item and navigate to its unique report path
+  const selectedItem = data.find((item) => item.key === key);
+  if (selectedItem) {
+    navigate(selectedItem.reportPath);
+  }
 };
 
 const columnsMotherTable = (data, setData, navigate) => [
@@ -118,28 +132,11 @@ const columnsMotherTable = (data, setData, navigate) => [
     key: 'age',
   },
   {
-    title: 'Registration Number',
+    title: 'Contact Number',
     dataIndex: 'contactNumber',
     key: 'contactNumber',
   },
-  {
-    title: 'Mother History',
-    dataIndex: 'motherHistory',
-    key: 'motherHistory',
-    render: (text, record) => (
-      <Button
-        type="link"
-        style={{
-          color: '#7C3AED',
-          backgroundColor: record.reportState === 'Viewed' ? '#E9D5FF' : '',
-          borderColor: record.reportState === 'Viewed' ? '#D8B4FE' : '#7C3AED',
-        }}
-        onClick={() => handleStateChange(data, setData, record.key, navigate, `/doctor/motherhistory`)}
-      >
-        {text}
-      </Button>
-    ),
-  },
+  
   {
     title: 'Report',
     dataIndex: 'reportState',
@@ -152,7 +149,7 @@ const columnsMotherTable = (data, setData, navigate) => [
           backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
           borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
         }}
-        onClick={() => handleStateChange(data, setData, record.key, navigate, `/doctor/motherreport1`)}
+        onClick={() => handleStateChange(data, setData, record.key, navigate)}
       >
         {text}
       </Button>
@@ -177,7 +174,7 @@ const columnsExpectantMotherTable = (data, setData, navigate) => [
     key: 'condition',
   },
   {
-    title: 'Registration Number',
+    title: 'Contact Number',
     dataIndex: 'contactNumber',
     key: 'contactNumber',
   },
@@ -193,25 +190,12 @@ const columnsExpectantMotherTable = (data, setData, navigate) => [
           backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
           borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
         }}
-        onClick={() => handleStateChange(data, setData, record.key, navigate, '/doctor/motherreport1')}
+        onClick={() => handleStateChange(data, setData, record.key, navigate)}
       >
         {text}
       </Button>
     ),
   },
-];
-
-const cardData = [
-  {
-    key: '1',
-    title: 'All Mother Details',
-    link: '',
-  },
-  // {
-  //   key: '2',
-  //   title: 'Risky Mother Details',
-  //   link: '#link2',
-  // },
 ];
 
 const Mothers = () => {
@@ -245,26 +229,22 @@ const Mothers = () => {
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
       <Row gutter={16} style={{ marginTop: 24 }}>
-        {cardData.map((card) => (
-          <Col span={6} key={card.key}>
-            <Card
-              hoverable
-              style={{
-                backgroundColor: '#D5C6E0',
-                padding: '5px',
-                cursor: 'pointer',
-                border: selectedCard === card.key ? 'none' : 'none',
-              }}
-              onClick={() => handleCardClick(card.key)}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#AAA1C8')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D5C6E0')}
-            >
-              <a href={'/doctor/motherall'} className="text-xl font-semibold text-black">
-                {card.title}
-              </a>
-            </Card>
-          </Col>
-        ))}
+        <Col span={6}>
+          <Card
+            hoverable
+            style={{
+              backgroundColor: '#D5C6E0',
+              padding: '5px',
+              cursor: 'pointer',
+              border: selectedCard ? 'none' : 'none',
+            }}
+            onClick={() => handleCardClick('1')}
+          >
+            <a href={'/doctor/motherall'} className="text-xl font-semibold text-black">
+              All Mother Details
+            </a>
+          </Card>
+        </Col>
       </Row>
       <Row gutter={24} style={{ marginTop: 24 }}>
         <Col span={24}>
@@ -287,7 +267,6 @@ const Mothers = () => {
               dataSource={filteredData1}
               pagination={false}
               scroll={{ y: 200 }}
-              rowClassName={(record) => (record.condition === 'Risky' ? 'risky-row' : '')}
             />
           </Card>
         </Col>

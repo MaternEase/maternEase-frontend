@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Button } from '@mui/material';
 
-const ProfileButton = ({ variant, color, children, ...props }) => {
+const ProfileButton = React.forwardRef(({ variant, color, children, ...props }, ref) => {
   return (
-    <Button variant={variant} color={color} {...props}>
+    <Button ref = {ref} variant={variant} color={color} {...props}>
       {children}
     </Button>
   );
-};
+});
 
 export default ProfileButton;
 

@@ -10,7 +10,7 @@ const ChildProfile = () => {
   const profileData = {
     name: '',
     age: '',
-    gender: '',
+    //gender: '',
   };
 
   const handleNavigation = (path) => {
@@ -21,7 +21,7 @@ const ChildProfile = () => {
     <Box sx={{ maxWidth: 900, mx: 'auto', p: 4 }}>
       {/* Title */}
       <Typography variant="h4" sx={{ color: '#000', mb: 4, textAlign: 'center' }}>
-        Basic Details of Child Health and Development Record
+        Child Health and Development Record
       </Typography>
 
       {/* Profile Card */}
@@ -37,24 +37,24 @@ const ChildProfile = () => {
           backgroundColor: '#f9f9f9',
         }}
       >
-        <Typography variant="h6" sx={{ color: '#003366' }}>
+        <Typography variant="h6" sx={{ color: '#666' }}>
           Name: {profileData.name}
         </Typography>
         <Typography variant="body1" sx={{ color: '#666' }}>
           Age: {profileData.age}
         </Typography>
-        <Typography variant="body1" sx={{ color: '#666' }}>
+        {/*<Typography variant="body1" sx={{ color: '#666' }}>
           Gender: {profileData.gender}
-        </Typography>
+        </Typography>*/}
       </Box>
 
       {/* Health Records Section */}
-      <Typography variant="h5" sx={{ color: '#003366', mb: 2 }}>
+      <Typography variant="h5" sx={{ color: '#000', mb: 2 }}>
         Health Records
       </Typography>
 
       <Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h6" sx={{ color: '#003366', mb: 1 }}>
+        <Typography variant="h6" sx={{ color: '#000', mb: 1 }}>
           Special Health Records
         </Typography>
         <Typography variant="body1" sx={{ mb: 1 }}>
@@ -75,7 +75,7 @@ const ChildProfile = () => {
 
       {/* Immunization Section */}
       <Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h6" sx={{ color: '#003366', mb: 1 }}>
+        <Typography variant="h6" sx={{ color: '#000', mb: 1 }}>
           Immunization
         </Typography>
         <Typography variant="body1" sx={{ mb: 1 }}>
@@ -98,7 +98,7 @@ const ChildProfile = () => {
 
       {/* Growth Charts Section */}
       <Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h6" sx={{ color: '#003366', mb: 1 }}>
+        <Typography variant="h6" sx={{ color: '#000', mb: 1 }}>
           Growth Chart - Weight
         </Typography>
         <Typography variant="body1" sx={{ mb: 1 }}>
@@ -119,7 +119,7 @@ const ChildProfile = () => {
 
       {/*  Section */}
       <Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h6" sx={{ color: '#003366', mb: 1 }}>
+        <Typography variant="h6" sx={{ color: '#000', mb: 1 }}>
         Growth Chart - Height
         </Typography>
         <Typography variant="body1" sx={{ mb: 1 }}>
@@ -138,8 +138,8 @@ const ChildProfile = () => {
         </Button>
       </Paper>
 
-      <Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
-        <Typography variant="h6" sx={{ color: '#003366', mb: 1 }}>
+      {/*<Paper sx={{ p: 2, mb: 2, borderRadius: 2, boxShadow: 1 }}>
+        <Typography variant="h6" sx={{ color: '#000', mb: 1 }}>
         Growth Record
         </Typography>
         <Typography variant="body1" sx={{ mb: 1 }}>
@@ -156,7 +156,8 @@ const ChildProfile = () => {
         >
           View Child's Growth
         </Button>
-      </Paper>
+      </Paper>*/}
+
 
      
     </Box>
