@@ -155,6 +155,32 @@ export const getClinicNames = async () => {
 
 
 
+
+export const fetchClinicDetails = async (clinicName) => {
+  try {
+    const token = AuthService.getToken();
+    if (!token) {
+      throw new Error("User not authenticated. Please log in.");
+    }
+
+    const response = await axios.get(`${API_URL}/clinicDetails/${clinicName}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching expected mothers:", error);
+    throw new Error(
+      error.response ? error.response.data : "Error fetching data"
+    );
+  }
+};
+
+
+
 export const getClinics = async () => {
   try {
     const token = AuthService.getToken();

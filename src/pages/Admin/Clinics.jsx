@@ -32,6 +32,8 @@ const Clinics = () => {
   const [midwives1, setMidwives1] = useState([]);
   const [midwives2, setMidwives2] = useState([]);
   const [midwives3, setMidwives3] = useState([]);
+
+  const [clinicDetails, setClinicDetails] = useState(null);
   
 
 
@@ -82,14 +84,27 @@ const Clinics = () => {
     fetchClinicNames();
   },[]);
 
-
-
-  const handleClinicChange = (value) => {
-    setValue(value);
-    // const selectedClinicName = clinicNameData[value]; // Get the selected clinic name based on the index
-    // console.log("Selected Clinic:", selectedClinicName);
-    // Handle the selection of the clinic (perhaps fetch more data or update state)
+  const handleClinicChange = async (clinicName) => {
+    setValue(clinicName); // Assuming value is clinic name
+    try {
+      const details = await fetchClinicDetails(clinicName);
+      setClinicDetails(details);
+    } catch (error) {
+      console.error("Error fetching clinic details:", error);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to fetch clinic details.',
+        duration: 5,
+      });
+    }
   };
+
+  // const handleClinicChange = (value) => {
+  //   setValue(value);
+  //   // const selectedClinicName = clinicNameData[value]; // Get the selected clinic name based on the index
+  //   // console.log("Selected Clinic:", selectedClinicName);
+  //   // Handle the selection of the clinic (perhaps fetch more data or update state)
+  // };
 
 
 //Asigned midwifes get for clinic add
