@@ -3,7 +3,6 @@ import { Line } from 'react-chartjs-2';
 import { Card, Form, InputNumber, Button } from 'antd';
 
 const Height = () => {
-    // Initial data for the chart
     const [data, setData] = useState([
         { age: 0, weight: 3.5 },
         { age: 1, weight: 4.5 },
@@ -12,31 +11,27 @@ const Height = () => {
         { age: 4, weight: 7.5 },
     ]);
 
-    // State for form inputs
     const [newEntry, setNewEntry] = useState({ age: '', weight: '' });
 
-    // Handle input changes
     const handleInputChange = (key, value) => {
         setNewEntry({ ...newEntry, [key]: value });
     };
 
-    // Handle form submission to add new data point
     const handleAddData = () => {
         if (newEntry.age !== '' && newEntry.weight !== '') {
             setData([...data, { age: parseFloat(newEntry.age), weight: parseFloat(newEntry.weight) }]);
-            setNewEntry({ age: '', weight: '' }); // Reset form
+            setNewEntry({ age: '', weight: '' });
         }
     };
 
-    // Chart data and options
     const chartData = {
         labels: data.map(entry => entry.age),
         datasets: [
             {
                 label: 'Height (cm)',
                 data: data.map(entry => entry.weight),
-                borderColor: '#FFA500',
-                backgroundColor: '#FFA500',
+                borderColor: '#003366', 
+                backgroundColor: '#003366', 
                 fill: false,
                 pointStyle: 'circle',
             },
@@ -95,7 +90,14 @@ const Height = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" onClick={handleAddData}>
+                        <Button
+                            type="primary"
+                            style={{
+                                backgroundColor: '#003366', 
+                                borderColor: '#003366', 
+                            }}
+                            onClick={handleAddData}
+                        >
                             Add Entry
                         </Button>
                     </Form.Item>
