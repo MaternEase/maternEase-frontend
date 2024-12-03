@@ -1,247 +1,115 @@
 import React, { useState } from 'react';
-import { Card, Row, Col, Statistic, Table, Dropdown, Menu, Space, Button, Typography, Input } from 'antd';
-import { ArrowForward, KeyboardArrowDown, Face, Face2, Face4, ChildCare, Search, Edit } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import ReusableCard from './Card.jsx';
-import CustomCalendar from './Calendar.jsx';
-import ChildGrowthChart from './ChildGrowthChart.jsx';
-import '../../styles/ClinicAttendee/Dashboard.css';
-
-const { Title } = Typography;
-const { Search: AntSearch } = Input;
-
-const data = [
-    {
-        key: '1',
-        age: 2,
-        name: 'Pentavalent 1',
-        date: '25 Jun 2024',
-        num: '25140G',
-    },
-    {
-        key: '2',
-        age: 2,
-        name: 'OPV 1',
-        date: '25 Jun 2024',
-        num: '25140G',
-    },
-    {
-        key: '3',
-        age: 4,
-        name: 'Pentavalent 2',
-        date: '25 Aug 2024',
-        num: '25140G',
-    },
-];
-
-const userEvents = {
-    '2024-07-25': [{ id: 1, description: 'Event A' }],
-    '2024-07-30': [{ id: 2, description: 'Event B' }]
-};
+import { Line } from 'react-chartjs-2';
+import { Card, Form, InputNumber, Button } from 'antd';
 
 const Weight = () => {
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [searchText, setSearchText] = useState('');
-    const navigate = useNavigate();
-
-    const handleCardClick = (cardKey) => {
-        setSelectedCard(cardKey);
-    };
-
-    const handleSearch = (value) => {
-        setSearchText(value);
-    };
-
-    const handleEdit = (key) => {
-        console.log('Edit action for record with key:', key);
-        // Implement the edit functionality here
-    };
-
-    const menu = (
-        <Menu>
-            <Menu.Item key="1">View Details</Menu.Item>
-        </Menu>
-    );
-
-    const statisticsMenu = (
-        <Menu>
-            <Menu.Item key="1" onClick={() => navigate('/admin/dashboard')}>
-                Last Week
-            </Menu.Item>
-            <Menu.Item key="2" onClick={() => navigate('/admin/dashboard')}>
-                This Week
-            </Menu.Item>
-        </Menu>
-    );
-
-    
-    const userFullCalendarPath = '/mother/full-calendar';
-
-    const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.id.toLowerCase().includes(searchText.toLowerCase())
-    );
-
-    const columns = [
-        {
-            title: <span>No</span>,
-            dataIndex: 'key',
-            key: 'key',
-            sorter: (a, b) => a.key - b.key,
-            render: (text) => <span>{text}</span>
-        },
-        /*{
-            title: <span>Age</span>,
-            dataIndex: 'age',
-            key: 'age',
-            sorter: (a, b) => a.age - b.age,
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Type of Vaccine</span>,
-            dataIndex: 'name',
-            key: 'name',
-            sorter: (a, b) => a.name.localeCompare(b.name),
-            render: (text) => <span>{text}</span>
-        },
-        /*{
-            title: <span>Age</span>,
-            dataIndex: 'age',
-            key: 'age',
-            sorter: (a, b) => a.age - b.age,
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Date of vaccination</span>,
-            dataIndex: 'date',
-            key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
-            render: (text) => <span>{text}</span>
-        },
-        /*{
-            title: <span>Time</span>,
-            dataIndex: 'time',
-            key: 'time',
-            sorter: (a, b) => a.time.localeCompare(b.time),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Type</span>,
-            dataIndex: 'type',
-            key: 'type',
-            filters: [
-                { text: 'Doctor', value: 'Doctor' },
-                { text: 'Midwife', value: 'Midwife' },
-            ],
-            onFilter: (value, record) => record.type.includes(value),
-            render: (text) => <span>{text}</span>
-        },
-        {
-            title: <span>Status</span>,
-            dataIndex: 'status',
-            key: 'status',
-            filters: [
-                { text: 'Pending', value: 'Pending' },
-                { text: 'Assigned', value: 'Assigned' },
-            ],
-            onFilter: (value, record) => record.status.includes(value),
-            render: (text) => <span style={{backgroundColor: "#f6dda9", padding: "7px", borderRadius: "10px", fontSize: "12px"}}>{text}</span>
-        },
-        {
-            title: <span>Action</span>,
-            dataIndex: 'action',
-            key: 'action',
-            render: (_, record) => (
-                <Button
-                    icon={<Edit fontSize="small" />}
-                    onClick={() => handleEdit(record.key)}
-                    size="small"
-                    style={{ border: 'none' }}
-                />
-            ),
-        },*/
-    ];
-
-    const columns2 = [
-        {
-            title: <span>No</span>,
-            dataIndex: 'key',
-            key: 'key',
-            sorter: (a, b) => a.key - b.key,
-            render: (text) => <span>{text}</span>
-        },
-       
-        {
-            title: <span>Batch Number </span>,
-            dataIndex: 'num',
-            key: 'num',
-            sorter: (a, b) => a.num.localeCompare(b.num),
-            render: (text) => <span>{text}</span>
-        },
-       
-        {
-            title: <span>Date of vaccination</span>,
-            dataIndex: 'date',
-            key: 'date',
-            sorter: (a, b) => new Date(a.date) - new Date(b.date),
-            render: (text) => <span>{text}</span>
-        },
-            ];
-
-    const components = {
-        header: {
-            cell: (props) => (
-                <th
-                    {...props}
-                    style={{
-                        // backgroundColor: '#f0f0f0',
-                        color: '#192A51',
-                        padding: '8px',
-                    }}
-                />
-            ),
-        },
-    };
-
-    // Sample data for the child growth chart
-    const growthData = [
+    // Initial data for the chart
+    const [data, setData] = useState([
         { age: 0, weight: 3.5 },
-        { age: 1, weight: 4.2 },
-        { age: 2, weight: 5.0 },
-        { age: 3, weight: 5.7 },
-        { age: 4, weight: 6.3 },
-        { age: 5, weight: 6.8 },
-        { age: 6, weight: 7.2 },
-        { age: 7, weight: 7.5 },
-        { age: 8, weight: 7.8 },
-        { age: 9, weight: 8.0 },
-        { age: 10, weight: 8.2 },
-        { age: 11, weight: 8.4 },
-        { age: 12, weight: 8.5 },
-    ];
+        { age: 1, weight: 4.5 },
+        { age: 2, weight: 5.8 },
+        { age: 3, weight: 6.7 },
+        { age: 4, weight: 7.5 },
+    ]);
+
+    // State for form inputs
+    const [newEntry, setNewEntry] = useState({ age: '', weight: '' });
+
+    // Handle input changes
+    const handleInputChange = (key, value) => {
+        setNewEntry({ ...newEntry, [key]: value });
+    };
+
+    // Handle form submission to add new data point
+    const handleAddData = () => {
+        if (newEntry.age !== '' && newEntry.weight !== '') {
+            setData([...data, { age: parseFloat(newEntry.age), weight: parseFloat(newEntry.weight) }]);
+            setNewEntry({ age: '', weight: '' }); // Reset form
+        }
+    };
+
+    // Chart data and options
+    const chartData = {
+        labels: data.map(entry => entry.age),
+        datasets: [
+            {
+                label: 'Weight (kg)',
+                data: data.map(entry => entry.weight),
+                borderColor: '#4CAF50',
+                backgroundColor: '#4CAF50',
+                fill: false,
+                pointStyle: 'circle',
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Weight (kg)',
+                },
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Age (months)',
+                },
+            },
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                },
+            },
+        },
+    };
 
     return (
-        <div style={{ padding: '24px', minHeight: '120vh' }}>
-            <Title level={3}>Birth Weight - 3.560 kg</Title>
-            <Title level={3}>1 year old</Title>
-            
-            <Row gutter={16} style={{ marginTop: 24 }}>
-                <Col span={24}>
-                    
-                    
-                        <Row gutter={16} style={{ marginTop: 16 }}>
-                            <Col span={24}>
-                                <div style={{ height: '325px', padding: '20px' }}>
-                                    <ChildGrowthChart data={growthData} />
-                                </div>
-                            </Col>
-                        </Row>
-                   
-                </Col>
-                
-            </Row>
-           
-        </div>
+        <Card title="Child Growth Chart - Weight">
+            <div style={{ height: '325px', padding: '20px' }}>
+                <Line data={chartData} options={chartOptions} />
+            </div>
+            <div style={{ marginTop: '20px' }}>
+                <Form layout="inline" onFinish={handleAddData}>
+                    <Form.Item label="Age (months)" required>
+                        <InputNumber
+                            value={newEntry.age}
+                            onChange={value => handleInputChange('age', value)}
+                            min={0}
+                            placeholder="Age"
+                        />
+                    </Form.Item>
+                    <Form.Item label="Weight (kg)" required>
+                        <InputNumber
+                            value={newEntry.weight}
+                            onChange={value => handleInputChange('weight', value)}
+                            min={0}
+                            placeholder="Weight"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" 
+                        variant="contained"
+                        sx={{
+                          backgroundColor: "#003366",
+                          color: "#fff",
+                          "&:hover": {
+                            backgroundColor: "#002244",
+                          },
+                        }}onClick={handleAddData}>
+                            Add Entry
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        </Card>
     );
 };
 

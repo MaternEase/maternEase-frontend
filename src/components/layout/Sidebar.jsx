@@ -19,6 +19,7 @@ import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutl
 import StairsOutlinedIcon from "@mui/icons-material/StairsOutlined"; //growth
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined';
+import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 
 import baby from "../../assets/images/baby.png"; //children
 
@@ -61,7 +62,7 @@ const Sidebar = ({ collapsed, userType }) => {
             ]
           },
           { key: "/midwife/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/midwife/babies">Babies</Link> },
-          { key: "/midwife/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/reports">Reports</Link> },
+          { key: "/midwife/blog", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/blog">Blog</Link> },
           { key: "/midwife/messages", icon: <MessageOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/messages">Messages</Link> },
         ];
       case "DOCTOR":
@@ -88,12 +89,13 @@ const Sidebar = ({ collapsed, userType }) => {
             ]
           },
           { key: "/admin/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/admin/reports">Reports</Link> },
+          { key: "/admin/moh", icon: <OtherHousesOutlinedIcon style={iconStyle} />, label: <Link to="/admin/moh">MOH</Link> },
         ];
       case "MOTHER":
         return [
           { key: "/mother/dashboard", icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
           // { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/reportone">Report</Link> },
-          { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/pregnancyrecord">Report</Link> },
+          { key: "/mother/clinicrecord", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/pregnancyrecord">Clinic Record</Link> },
           { key: "/mother/allevents", icon: <PendingActionsOutlinedIcon style={iconStyle} />, label: <Link to="/mother/allevents">Events</Link> },
           { key: "children", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label:<Link to="/mother/childrendetails">Children</Link>
             //     "Children", children: [

@@ -16,6 +16,13 @@ import Weight from '../pages/ClinicAttendee/Weight';
 import Height from '../pages/ClinicAttendee/Height';
 import Additional_details from '../pages/ClinicAttendee/Additional_details';
 import ChildGrowthChart from '../pages/ClinicAttendee/ChildGrowthChart';
+import BlogList from '../components/Shared/Blog/BlogList';
+import BlogPost from '../components/Shared/Blog/BlogPost';
+import NewPost from '../components/Shared/Blog/NewPost';
+import ChildList from '../pages/ClinicAttendee/ChildList';
+import ChildProfile from '../pages/ClinicAttendee/ChildProfile';
+import ChildDetails from '../pages/ClinicAttendee/ChildDetails';
+
 // import Reports from '../pages/Doctor/Reports';
 // import Shedules from '../pages/Doctor/ClinicShedules';
 // import Clinics from '../pages/Doctor/Clinics';
@@ -40,6 +47,15 @@ const ClinicAttendeeRoutes = () => {
             <Route path="/height" element={<Height/>} />
             <Route path="/additional_details" element={<Additional_details/>} />
             <Route path="/ChildGrowthChart" element={<ChildGrowthChart />} />
+            <Route path="/BlogList" element={<BlogList />} />
+            <Route path="/BlogPost" element={<BlogPost />} />
+            <Route path="/NewPost" element={<NewPost />} />
+            <Route path="/ChildList" element={<ChildList />} />
+            <Route path="/child_profile/:childId" element={<ChildProfile />} />
+            <Route path="/child-details/:childId" element={<ChildDetails />} />
+
+            
+            
             {/*<Route path="/reports" element={<Reports />} />*/}
         </Routes>
     );

@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
-import loginMom from '../../assets/images/baby-flipped.jpg';
-import logo from '../../assets/images/logo4.png';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import loginMom from "../../assets/images/baby-flipped.jpg";
+import logo from "../../assets/images/logo4.png";
 
 const SignIn = () => {
   const { signIn } = useAuth();
   const [dimensions, setDimensions] = useState({
-    marginLeft: '1rem',
-    marginTop: '2rem',
-    marginRight: '1rem',
-    marginBottom: '2rem',
+    marginLeft: "1rem",
+    marginTop: "2rem",
+    marginRight: "1rem",
+    marginBottom: "2rem",
   });
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState(null);
+  const [showLocationPopup, setShowLocationPopup] = useState(false); // New state for the pop-up
   const navigate = useNavigate();
 
   const handleResize = () => {
@@ -24,39 +25,39 @@ const SignIn = () => {
 
     if (width <= 480) {
       setDimensions({
-        marginLeft: '1rem',
-        marginTop: '2rem',
-        marginRight: '1rem',
-        marginBottom: '2rem',
+        marginLeft: "1rem",
+        marginTop: "2rem",
+        marginRight: "1rem",
+        marginBottom: "2rem",
       });
     } else if (width <= 768) {
       setDimensions({
-        marginLeft: '2rem',
-        marginTop: '3rem',
-        marginRight: '2rem',
-        marginBottom: '3rem',
+        marginLeft: "2rem",
+        marginTop: "3rem",
+        marginRight: "2rem",
+        marginBottom: "3rem",
       });
     } else if (width <= 1024) {
       setDimensions({
-        marginLeft: '3rem',
-        marginTop: '4rem',
-        marginRight: '3rem',
-        marginBottom: '4rem',
+        marginLeft: "3rem",
+        marginTop: "4rem",
+        marginRight: "3rem",
+        marginBottom: "4rem",
       });
     } else {
       setDimensions({
-        marginLeft: '5rem',
-        marginTop: '5rem',
-        marginRight: '5rem',
-        marginBottom: '5rem',
+        marginLeft: "5rem",
+        marginTop: "5rem",
+        marginRight: "5rem",
+        marginBottom: "5rem",
       });
     }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const validateEmail = (email) => {
@@ -65,25 +66,29 @@ const SignIn = () => {
   };
 
   const validatePassword = (password) => {
-    const re = /^(?:\d{12}|\d{9}V|(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,})$/;
-    // const re=  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    const re =
+      /^(?:\d{12}|\d{9}V|(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,})$/;
     return re.test(password);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setEmailError('');
-    setPasswordError('');
+    setEmailError("");
+    setPasswordError("");
 
     let valid = true;
 
     if (!validateEmail(email)) {
-      setEmailError('Unable to log in. Please check your credentials and try again.');
+      setEmailError(
+        "Unable to log in. Please check your credentials and try again."
+      );
       valid = false;
     }
 
     if (!validatePassword(password)) {
-      setPasswordError('Unable to log in. Please check your credentials and try again.');
+      setPasswordError(
+        "Unable to log in. Please check your credentials and try again."
+      );
       valid = false;
     }
 
@@ -91,30 +96,53 @@ const SignIn = () => {
 
     try {
       const user = await signIn(email, password);
-      console.log('User signed in:', user);
-      switch (user.role) {
-        case 'ADMIN':
-          navigate('/admin/dashboard');
-          break;
-        case 'MIDWIFE':
-          navigate('/midwife/dashboard');
-          break;
-        case 'DOCTOR':
-          navigate('/doctor/dashboard');
-          break;
-        case 'MOTHER':
-          navigate('/mother/dashboard');
-          break;
-        case 'CHILD':
-          navigate('/child/dashboard');
-          break;
-        default:
-          navigate('/');
+      console.log("User role after login:", user.role);
+
+      if (user.role === "MOTHER") {
+        // Check if the location is set for this specific user
+        const userKey = `locationSet_${email}`;
+        const isFirstLogin = !localStorage.getItem(userKey);
+
+        console.log("Is first login:", isFirstLogin);
+
+        if (isFirstLogin) {
+          setShowLocationPopup(true);
+          return;
+        }
+
+        navigate("/mother/dashboard");
+      } else {
+        // Handle navigation for other roles
+        switch (user.role) {
+          case "ADMIN":
+            navigate("/admin/dashboard");
+            break;
+          case "MIDWIFE":
+            navigate("/midwife/dashboard");
+            break;
+          case "DOCTOR":
+            navigate("/doctor/dashboard");
+            break;
+          case "CHILD":
+            navigate("/child/dashboard");
+            break;
+          default:
+            navigate("/");
+        }
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      setError('Login failed. Please check your credentials.');
+      console.error("Error during login:", error);
+      setError("Login failed. Please check your credentials.");
     }
+  };
+
+  const handleLocationPopupConfirm = () => {
+    // Use email or user ID as part of the key to make it user-specific
+    const userKey = `locationSet_${email}`;
+    localStorage.setItem(userKey, "true");
+
+    setShowLocationPopup(false);
+    navigate("/mother/edit-location");
   };
 
   const { marginLeft, marginTop, marginRight, marginBottom } = dimensions;
@@ -124,24 +152,24 @@ const SignIn = () => {
       className="flex items-center justify-end bg-center bg-cover responsive-background"
       style={{
         backgroundImage: `url(${loginMom})`,
-        minHeight: '100vh',
-        overflow: 'hidden',
+        minHeight: "100vh",
+        overflow: "hidden",
         paddingLeft: marginLeft,
         paddingTop: marginTop,
         paddingRight: marginRight,
         paddingBottom: marginBottom,
-        boxSizing: 'border-box',
+        boxSizing: "border-box",
       }}
     >
       <div
         className="overlay"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           zIndex: 1,
         }}
       ></div>
@@ -154,7 +182,7 @@ const SignIn = () => {
         <div
           className="absolute inset-0 transform -skew-y-6 shadow-lg sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
           style={{
-            background: 'linear-gradient(to right, #7c6187, #967AA1)',
+            background: "linear-gradient(to right, #7c6187, #967AA1)",
             zIndex: 3,
           }}
         ></div>
@@ -167,10 +195,17 @@ const SignIn = () => {
           <div className="max-w-md mx-auto">
             <div className="flex items-center justify-center pb-0 mt-0 mb-10 text-center">
               <img src={logo} alt="Logo" className="w-20 h-45" />
-              <h1 className="ml-1 text-4xl font-bold" style={{ color: '#967AA1' }}>MaternEase</h1>
+              <h1
+                className="ml-1 text-4xl font-bold"
+                style={{ color: "#967AA1" }}
+              >
+                MaternEase
+              </h1>
             </div>
             <div className="mb-4 text-center">
-              <p className="mt-2 text-gray-600">Welcome back! Please login to your account.</p>
+              <p className="mt-2 text-gray-600">
+                Welcome back! Please login to your account.
+              </p>
             </div>
             <div className="divide-y divide-gray-200">
               <form onSubmit={handleSubmit}>
@@ -190,7 +225,9 @@ const SignIn = () => {
                     >
                       Email Address
                     </label>
-                    {emailError && <p className="text-sm text-red-500">{emailError}</p>}
+                    {emailError && (
+                      <p className="text-sm text-red-500">{emailError}</p>
+                    )}
                   </div>
                   <div className="relative">
                     <input
@@ -207,29 +244,55 @@ const SignIn = () => {
                     >
                       Password
                     </label>
-                    {passwordError && <p className="text-sm text-red-500">{passwordError}</p>}
+                    {passwordError && (
+                      <p className="text-sm text-red-500">{passwordError}</p>
+                    )}
                   </div>
                   <div className="relative">
                     <button
                       type="submit"
                       className="px-4 py-2 text-white rounded-md"
-                      style={{ backgroundColor: '#7c6187' }}
+                      style={{ backgroundColor: "#7c6187" }}
                     >
                       Log In
                     </button>
                   </div>
                 </div>
               </form>
-              {error && <p className="mt-2 text-center text-red-500">{error}</p>}
-              <div className="mt-4 text-center">
-                <a href="/forgot-password" className="text-sm text-blue-500 hover:underline">
-                  Forgot Password?
-                </a>
-              </div>
+              {error && (
+                <p className="mt-2 text-center text-red-500">{error}</p>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {showLocationPopup && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          style={{ zIndex: 9999 }}
+        >
+          <div
+            className="bg-white p-8 rounded-lg shadow-lg max-w-lg"
+            style={{ zIndex: 10000 }}
+          >
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              Please Select Your Location
+            </h3>
+            <p className="text-sm text-gray-600 mb-6">
+              You must select your location before continuing.
+            </p>
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={handleLocationPopupConfirm}
+                className="px-6 py-3 bg-[#192A51] text-white rounded-lg shadow-md hover:bg-[#1a3b63] transition-all"
+              >
+                Set the Location
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

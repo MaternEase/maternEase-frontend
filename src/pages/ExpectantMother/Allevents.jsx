@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Calendar,
     Modal,
@@ -14,8 +14,13 @@ import { ArrowBack } from "@mui/icons-material";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ExpectantMother/Components.css";
+import { getSchedules } from "../../services/motherService";
 
 const { Option } = Select;
+
+
+
+const userId = localStorage.getItem('user_id');
 
 const EventBadge = ({ type, content }) => {
     return (
@@ -28,47 +33,97 @@ const EventBadge = ({ type, content }) => {
 
 const NoticeCalendar = ({ backPath }) => {
     const navigate = useNavigate();
-
     const [isEventModalVisible, setIsEventModalVisible] = useState(false);
-    const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
+    // const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
     const [isReservationModalVisible, setIsReservationModalVisible] = useState(false);
-    const [events, setEvents] = useState({
-        "2024-11-08": [
-            { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
-            { type: "vaccination", content: "Vaccination - Polio" },
-        ],
-        "2024-11-10": [
-            {
-                type: "expectant-mother-clinic",
-                content: "Expectant Mother Clinic - Dr. Johnson",
-            },
-            { type: "awareness-program", content: "Breastfeeding Awareness Program" },
-        ],
-        "2024-11-15": [
-            { type: "home-visit", content: "Home Visit - Mrs. Brown" },
-            { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
-            { type: "vaccination", content: "Vaccination - MMR" },
-        ],
-        "2024-11-20": [
-            {
-                type: "expectant-mother-clinic",
-                content: "Expectant Mother Clinic - Dr. Lee",
-            },
-            { type: "home-visit", content: "Home Visit - Mr. Green" },
-        ],
-        "2024-11-25": [
-            { type: "awareness-program", content: "Parenting Tips Workshop" },
-        ],
-    });
+
+    const [currentDate, setCurrentDate] = useState(null); // Track the currently clicked date
+    const [currentEvent, setCurrentEvent] = useState(null); // Track the currently clicked event
+    const [showTimeSlots, setShowTimeSlots] = useState(false); // Track if time slots should be shown
+    const [form] = Form.useForm(); // Create a form reference
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [events, setEvents] = useState({});
+    // const [events, setEvents] = useState({
+    //     "2024-12-01": [
+    //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
+    //         { type: "vaccination", content: "Vaccination - Polio" },
+    //     ],
+    //     "2024-12-10": [
+    //         {
+    //             type: "expectant-mother-clinic",
+    //             content: "Expectant Mother Clinic - Dr. Johnson",
+    //         },
+    //         { type: "awareness-program", content: "Breastfeeding Awareness Program" },
+    //     ],
+    //     "2024-11-15": [
+    //         { type: "home-visit", content: "Home Visit - Mrs. Brown" },
+    //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
+    //         { type: "vaccination", content: "Vaccination - MMR" },
+    //     ],
+    //     "2024-11-20": [
+    //         {
+    //             type: "expectant-mother-clinic",
+    //             content: "Expectant Mother Clinic - Dr. Lee",
+    //         },
+    //         { type: "home-visit", content: "Home Visit - Mr. Green" },
+    //     ],
+    //     "2024-11-25": [
+    //         { type: "awareness-program", content: "Parenting Tips Workshop" },
+    //     ],
+    // });
+
+
+
     const [userBookedTimeslots, setUserBookedTimeslots] = useState({
         "2024-11-08": [
             { type: "vaccination", content: "Vaccination - Polio", time: "1:00 PM - 1:15 PM" },
         ],
     });
-    const [currentDate, setCurrentDate] = useState(null); // Track the currently clicked date
-    const [currentEvent, setCurrentEvent] = useState(null); // Track the currently clicked event
-    const [showTimeSlots, setShowTimeSlots] = useState(false); // Track if time slots should be shown
-    const [form] = Form.useForm(); // Create a form reference
+
+    useEffect(() => {
+          fetchDetails(); 
+      }, []);
+
+    const fetchDetails = async () => {
+        setLoading(true);
+        try {
+            const response = await getSchedules();
+            console.log("Data is ", response);
+            setSchedules(response);
+            setLoading(false);
+        } catch (err) {
+            // console.error("Error fetching basic details:", err.message);
+            setError(err.message || "Failed to fetch data");
+            setLoading(false);
+        }
+    };
+
+    const setSchedules = (responseData) => {
+        let updatedEvents = { ...events };
+        console.log(responseData);
+        responseData.forEach((clinic) => {
+            const clinicDate = clinic.clinicDate;  
+            const clinicType = clinic.clinicType;  
+
+            const event = {
+                type: clinicType.toLowerCase().replace(/ /g, "-"), 
+                content: `${clinic.clinic.clinicName} - ${clinicType}`, 
+            };
+
+            if (!updatedEvents[clinicDate]) {
+                updatedEvents[clinicDate] = [];
+            }
+
+            updatedEvents[clinicDate].push(event);
+            console.log(updatedEvents);
+        });
+
+        setEvents(updatedEvents);
+    };
+
+
+
 
     const getListData = (value) => {
         const dateKey = value.format("YYYY-MM-DD");
@@ -92,7 +147,7 @@ const NoticeCalendar = ({ backPath }) => {
                 ))}
                 {userBookedData.map((item, index) => (
                     <li key={index} onClick={() => handleDateClick(value)}>
-                        <EventBadge type={item.type} content={`${item.content} (Booked by You)`} />
+                        {/*<EventBadge type={item.type} content={`${item.content} (Booked by You)`} />*/}
                     </li>
                 ))}
             </ul>
@@ -110,44 +165,74 @@ const NoticeCalendar = ({ backPath }) => {
         setShowTimeSlots(true); // Show the time slots for the clicked event
     };
 
-    const handleAddEvent = (values) => {
-        const dateKey = values.date.format("YYYY-MM-DD");
-        const newEvent = {
-            type: values.type,
-            content: values.title,
-        };
+    // const handleAddEvent = (values) => {
+    //     const dateKey = values.date.format("YYYY-MM-DD");
+    //     const newEvent = {
+    //         type: values.type,
+    //         content: values.title,
+    //     };
+    //
+    //     setEvents((prevEvents) => {
+    //         const updatedEvents = { ...prevEvents };
+    //         if (!updatedEvents[dateKey]) {
+    //             updatedEvents[dateKey] = [];
+    //         }
+    //         updatedEvents[dateKey].push(newEvent);
+    //         return updatedEvents;
+    //     });
+    //
+    //     setIsAddEventModalVisible(false);
+    //     form.resetFields(); // Reset the form fields after saving
+    // };
 
-        setEvents((prevEvents) => {
-            const updatedEvents = { ...prevEvents };
-            if (!updatedEvents[dateKey]) {
-                updatedEvents[dateKey] = [];
-            }
-            updatedEvents[dateKey].push(newEvent);
-            return updatedEvents;
-        });
-
-        setIsAddEventModalVisible(false);
-        form.resetFields(); // Reset the form fields after saving
-    };
-
-    const handleCancelAddEvent = () => {
-        setIsAddEventModalVisible(false);
-        form.resetFields(); // Reset the form fields when the modal is canceled
-    };
+    // const handleCancelAddEvent = () => {
+    //     setIsAddEventModalVisible(false);
+    //     form.resetFields(); // Reset the form fields when the modal is canceled
+    // };
 
     const handleBackButtonClick = () => {
         navigate(backPath); // Navigate to the dynamic back path
     };
 
+    const [isReservePopupVisible, setIsReservePopupVisible] = useState(false);
+    const [reserveMessage, setReserveMessage] = useState(""); // To store the custom message
+
+
+    // const handleReserveClick = (slot, actionType) => {
+    //     // Handle reservation logic here
+    //     setIsEventModalVisible(false); // Close the current modal
+    //
+    //     if (actionType === "reserve") {
+    //         setReserveMessage("Confirm booking timeslot"); // Set your custom message
+    //         setIsReservePopupVisible(true);  // Open the new reservation popup
+    //     } else if (actionType === "requestChange") {
+    //         message.success("Request sent successfully");
+    //     }
+    // };
+
+    const [isClinicSelectionVisible, setIsClinicSelectionVisible] = useState(false);
+    const [selectedClinicType, setSelectedClinicType] = useState(null);
+
+    // Handle the click for reserving a timeslot
     const handleReserveClick = (slot, actionType) => {
-        // Handle reservation logic here
-        setIsEventModalVisible(false);
+        setIsEventModalVisible(false); // Close the current modal
+
         if (actionType === "reserve") {
-            message.success("Reservation was successful");
+            setReserveMessage("Confirm booking timeslot");
+            setIsClinicSelectionVisible(true); // Show the clinic selection modal
         } else if (actionType === "requestChange") {
             message.success("Request sent successfully");
         }
     };
+
+    // Handle clinic type selection
+    const handleClinicTypeSelect = (type) => {
+        setSelectedClinicType(type); // Store the selected clinic type
+        setIsClinicSelectionVisible(false); // Close the clinic selection modal
+        setIsReservePopupVisible(true); // Open the reservation status modal
+    };
+
+
 
     const renderTimeSlots = () => {
         const timeSlots = [
@@ -155,7 +240,7 @@ const NoticeCalendar = ({ backPath }) => {
             { time: "7:45 AM - 8:00 AM", booked: null },
             { time: "8:00 AM - 8:15 AM", booked: null },
             { time: "8:15 AM - 8:30 AM", booked: "others" },
-            { time: "1:00 PM - 1:15 PM", booked: "user" },
+            { time: "1:00 PM - 1:15 PM", booked: null },
         ];
 
         return timeSlots.map((slot, index) => (
@@ -170,16 +255,39 @@ const NoticeCalendar = ({ backPath }) => {
                 style={{
                     backgroundColor: slot.booked === "user" ? "#1890ff" : (slot.booked === "others" ? "#d9d9d9" : "#967aa1"),
                     borderColor: slot.booked === "user" ? "#1890ff" : (slot.booked === "others" ? "#d9d9d9" : "#967aa1"),
-                    marginBottom: "8px",
+                    marginBottom: "12px",
+                    padding: "12px",
                     width: "100%",
-                    color: slot.booked === "user" ? "#fff" : "",
+                    color: slot.booked === "user" ? "#fff" : "#000",
+                    borderRadius: "8px",
+                    boxShadow: slot.booked === "others" ? "none" : "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                    cursor: slot.booked === "others" ? "not-allowed" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    transition: "transform 0.2s ease, background-color 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                    if (slot.booked !== "others") {
+                        e.currentTarget.style.transform = "scale(1.02)";
+                        e.currentTarget.style.backgroundColor = slot.booked === "user" ? "#1464c8" : "#7a5a8b";
+                    }
+                }}
+                onMouseLeave={(e) => {
+                    if (slot.booked !== "others") {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.backgroundColor = slot.booked === "user" ? "#1890ff" : "#967aa1";
+                    }
                 }}
             >
-                {slot.booked === "user" ? "Request to change" : (slot.booked === "others" ? "Booked" : "Reserve")}
-                <div>{slot.time}</div>
+                <span>{slot.booked === "user" ? "Request to change" : (slot.booked === "others" ? "Booked" : "Reserve")}</span>
+                <span style={{ fontSize: "14px", color: "#333" }}>{slot.time}</span>
             </Button>
         ));
     };
+
 
     return (
         <div style={{ padding: "0 20px" }}>
@@ -205,6 +313,7 @@ const NoticeCalendar = ({ backPath }) => {
                 {/*</Button>*/}
             </div>
             <Calendar dateCellRender={dateCellRender} />
+
 
             {/* Event Details Modal */}
             <Modal
@@ -235,7 +344,7 @@ const NoticeCalendar = ({ backPath }) => {
                                         </div>
                                     ))
                                 ) : (
-                                    <p>No events for this date. <a onClick={() => setIsAddEventModalVisible(true)}> <b>Add a new event</b></a></p>
+                                    <p>No events for this date.</p>
                                 )}
                             </>
                         ) : (
@@ -246,94 +355,78 @@ const NoticeCalendar = ({ backPath }) => {
             </Modal>
 
             {/* Reservation Successful Modal */}
+            {/*<Modal*/}
+            {/*    title="Reservation Successful"*/}
+            {/*    visible={isReservationModalVisible}*/}
+            {/*    onCancel={() => setIsReservationModalVisible(false)}*/}
+            {/*    footer={[*/}
+            {/*        <Button key="close" onClick={() => setIsReservationModalVisible(false)}>*/}
+            {/*            Close*/}
+            {/*        </Button>,*/}
+            {/*    ]}*/}
+            {/*    className="reservation-modal"*/}
+            {/*>*/}
+            {/*    <p>Your reservation was successful!</p>*/}
+            {/*</Modal>*/}
+
+            {/* Clinic Selection Modal */}
             <Modal
-                title="Reservation Successful"
-                visible={isReservationModalVisible}
-                onCancel={() => setIsReservationModalVisible(false)}
-                footer={[
-                    <Button key="close" onClick={() => setIsReservationModalVisible(false)}>
-                        Close
-                    </Button>,
-                ]}
-                className="reservation-modal"
+                title="Select Clinic Type"
+                visible={isClinicSelectionVisible}
+                onCancel={() => setIsClinicSelectionVisible(false)}
+                footer={null}
             >
-                <p>Your reservation was successful!</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                    <Button
+                        type="primary"
+                        style={{ backgroundColor: "#967aa1", borderColor: "#967aa1" }}
+                        onClick={() => handleClinicTypeSelect("Expectant Mother Clinic")}
+                    >
+                        Expectant Mother Clinic
+                    </Button>
+                    <Button
+                        type="primary"
+                        style={{ backgroundColor: "#967aa1", borderColor: "#967aa1" }}
+                        onClick={() => handleClinicTypeSelect("Child Clinic")}
+                    >
+                        Child Clinic
+                    </Button>
+                </div>
             </Modal>
 
-            {/* Add Event Modal */}
+
+
+            {/*Reservation status modal*/}
             <Modal
-                title="New Event"
-                visible={isAddEventModalVisible}
-                onCancel={handleCancelAddEvent}
-                footer={null}
-                className="add-event-modal"
+                title="Reservation Status"
+                visible={isReservePopupVisible}
+                onCancel={() => setIsReservePopupVisible(false)}
+                footer={[
+                    <button key="close" onClick={() => setIsReservePopupVisible(false)} style={{
+                        backgroundColor: "#676767",
+                        color: "white",
+                        padding: "8px 16px",
+                        border: "none",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+                        marginRight: "8px",
+                    }}>
+                        Close
+                    </button>,
+                    <button type="submit" key="confirm" onClick={() => setIsReservePopupVisible(false)} style={{
+                        backgroundColor: "#967aa1",
+                        color: "white",
+                        padding: "8px 16px",
+                        border: "none",
+                        borderRadius: "10px",
+                        cursor: "pointer",
+
+                    }}>
+                        Confirm
+                    </button>,
+                ]}
             >
-                <Form form={form} onFinish={handleAddEvent} layout="vertical">
-                    <Form.Item
-                        name="title"
-                        label="Event Title"
-                        rules={[
-                            { required: true, message: "Please enter the event title" },
-                        ]}
-                    >
-                        <Input placeholder="Enter event title" />
-                    </Form.Item>
-                    <Form.Item
-                        name="date"
-                        label="Date"
-                        rules={[{ required: true, message: "Please select a date" }]}
-                    >
-                        <DatePicker style={{ width: "100%" }} />
-                    </Form.Item>
-                    <Form.Item
-                        name="type"
-                        label="Event Type"
-                        rules={[{ required: true, message: "Please select an event type" }]}
-                    >
-                        <Select placeholder="Select event type" style={{ width: "100%" }}>
-                            <Option value="child-clinic">Child Clinic</Option>
-                            <Option value="vaccination">Vaccination</Option>
-                            <Option value="expectant-mother-clinic">
-                                Expectant Mother Clinic
-                            </Option>
-                            <Option value="awareness-program">Awareness Program</Option>
-                            <Option value="home-visit">Home Visit</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item name="time" label="Time">
-                        <TimePicker style={{ width: "100%" }} />
-                    </Form.Item>
-                    <Form.Item name="description" label="Description">
-                        <Input.TextArea rows={4} placeholder="Enter event description" />
-                    </Form.Item>
-                    <Form.Item
-                        name="location"
-                        label="Location"
-                        rules={[{ required: true, message: "Please select a location" }]}
-                    >
-                        <Select placeholder="Select location" style={{ width: "100%" }}>
-                            <Option value="Clinic A">Clinic A</Option>
-                            <Option value="Clinic B">Clinic B</Option>
-                            <Option value="Clinic C">Clinic C</Option>
-                            <Option value="Clinic D">Clinic D</Option>
-                            <Option value="Clinic E">Clinic E</Option>
-                            <Option value="Clinic F">Clinic F</Option>
-                            <Option value="Clinic G">Clinic G</Option>
-                            <Option value="Clinic H">Clinic H</Option>
-                            <Option value="Clinic I">Clinic I</Option>
-                            <Option value="Clinic J">Clinic J</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            style={{ backgroundColor: "#967aa1", borderColor: "#967aa1" }}
-                        >
-                            Save
-                        </Button>
-                    </Form.Item>
-                </Form>
+                <p>{reserveMessage}</p>
             </Modal>
         </div>
     );

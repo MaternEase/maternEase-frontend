@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Card } from 'antd';
 import 'chart.js/auto';
+import axios from 'axios';
 
 const FundalHeightChart = () => {
-    const labels = ['16', '20', '24', '28', '32', '36']; // x-coordinates
-    const fundalHeightData = [16, 21, 25, 29, 33, 37]; // y-coordinates
-    const normalRangeMin = [14, 18, 22, 26, 30, 34];
-    const normalRangeMax = [18, 22, 26, 30, 34, 38];
+    const [fundalHeightData, setFundalHeightData] = useState([]);
+    const [labels, setLabels] = useState([]);
+    const [normalRangeMin, setNormalRangeMin] = useState([]);
+    const [normalRangeMax, setNormalRangeMax] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/v1/mother/AS9/fundal-height'); // Update with your actual API endpoint
+                const { weeks, fundalHeight, normalRangeMin, normalRangeMax } = response.data;
+
+                setLabels(weeks);
+                setFundalHeightData(fundalHeight);
+                setNormalRangeMin(normalRangeMin);
+                setNormalRangeMax(normalRangeMax);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching fundal height data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <Card>Loading...</Card>;
+    }
 
     const data = {
         labels: labels,
@@ -18,34 +43,8 @@ const FundalHeightChart = () => {
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
                 fill: false,
-                pointBackgroundColor: (context) => {
-                    const index = context.dataIndex;
-                    const specificPoints = [
-                        [21, 22],
-                        [25, 26],
-                        [29, 30],
-                        [33, 32],
-                        [35, 37],
-                        [37, 38],
-                    ];
-                    return specificPoints.some(point => point[0] === labels[index] && point[1] === fundalHeightData[index])
-                        ? 'rgba(75, 192, 192, 1)'
-                        : 'transparent';
-                },
-                pointRadius: (context) => {
-                    const index = context.dataIndex;
-                    const specificPoints = [
-                        [21, 22],
-                        [25, 26],
-                        [29, 30],
-                        [33, 32],
-                        [35, 37],
-                        [37, 38],
-                    ];
-                    return specificPoints.some(point => point[0] === labels[index] && point[1] === fundalHeightData[index])
-                        ? 5
-                        : 0;
-                },
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                pointRadius: 4,
                 pointBorderWidth: 2,
                 pointHoverRadius: 7,
             },
@@ -81,8 +80,9 @@ const FundalHeightChart = () => {
                 grid: {
                     drawOnChartArea: true,
                     borderDash: [4, 4],
-                    color: (context) => context.tick && context.tick.value % 4 === 0 ? '#000' : '#ccc',
                 },
+                min: 20,
+                max: 40,
             },
             y: {
                 title: {
@@ -95,7 +95,6 @@ const FundalHeightChart = () => {
                 grid: {
                     drawOnChartArea: true,
                     borderDash: [5, 5],
-                    color: (context) => context.tick && context.tick.value % 5 === 0 ? '#000' : '#ccc',
                 },
                 min: 0,
                 max: 40,

@@ -31,11 +31,11 @@ const NoticeCalendar = ({ backPath }) => {
   const [isEventModalVisible, setIsEventModalVisible] = useState(false);
   const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
   const [events, setEvents] = useState({
-    "2024-08-08": [
+    "2024-12-08": [
       { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
       { type: "vaccination", content: "Vaccination - Polio" },
     ],
-    "2024-08-10": [
+    "2024-12-10": [
       {
         type: "expectant-mother-clinic",
         content: "Expectant Mother Clinic - Dr. Johnson",
