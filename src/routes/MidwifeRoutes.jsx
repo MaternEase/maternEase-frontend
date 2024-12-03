@@ -14,6 +14,7 @@ import PostFieldNote from "../components/Shared/Bcard/PostFieldNote.jsx";
 import HomeVisit from "../components/Shared/Bcard/HomeVisit.jsx";
 import PrePregnancyDataTable from "../components/Shared/Bcard/PrePregnancyDataTable.jsx";
 import MotherHomeVisitdata from "../components/Shared/Bcard/MotherHomeVisitdata.jsx";
+import Location from "../pages/Midwife/Location.jsx";
 import ChildProfile from '../pages/ClinicAttendee/ChildProfile';
 import HealthChart from '../pages/ClinicAttendee/Health_charts';
 import Immunization from '../pages/ClinicAttendee/Immunization';
@@ -54,6 +55,8 @@ const MidwifeRoutes = () => {
         <Route path="/pretable" element={<PrePregnancyDataTable />} />
 
         <Route path="/motherhomevisits" element={<MotherHomeVisitdata />} />
+
+        <Route path="/location" element={<Location />} />
 
 
 

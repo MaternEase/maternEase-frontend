@@ -20,6 +20,7 @@ import StairsOutlinedIcon from "@mui/icons-material/StairsOutlined"; //growth
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'; //logout
 import AssignmentLateOutlinedIcon from '@mui/icons-material/AssignmentLateOutlined';
 import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 import baby from "../../assets/images/baby.png"; //children
 
@@ -63,6 +64,7 @@ const Sidebar = ({ collapsed, userType }) => {
           },
           { key: "/midwife/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/midwife/babies">Babies</Link> },
           { key: "/midwife/blog", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/blog">Blog</Link> },
+          { key: "/midwife/location", icon: <LocationOnOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/location">Locations</Link> },
           { key: "/midwife/messages", icon: <MessageOutlinedIcon style={iconStyle} />, label: <Link to="/midwife/messages">Messages</Link> },
         ];
       case "DOCTOR":

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:15000'; // Your API URL
+const API_URL = 'http://localhost:8082'; // Your API URL
 
 const AuthService = {
   // Sign in method (save token on successful login)
@@ -37,6 +37,12 @@ const AuthService = {
   getUserRole() {
     const user = JSON.parse(localStorage.getItem('user'));
     return user?.role;
+  },
+
+  // Get the user ID from localStorage (new method)
+  getUserId() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user?.userId; // Assuming user object has an 'id' field
   },
 
   // Method to get the token from localStorage

@@ -36,7 +36,6 @@ const NoticeCalendar = ({ backPath }) => {
     const [isEventModalVisible, setIsEventModalVisible] = useState(false);
     // const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
     const [isReservationModalVisible, setIsReservationModalVisible] = useState(false);
-
     const [currentDate, setCurrentDate] = useState(null); // Track the currently clicked date
     const [currentEvent, setCurrentEvent] = useState(null); // Track the currently clicked event
     const [showTimeSlots, setShowTimeSlots] = useState(false); // Track if time slots should be shown
@@ -72,7 +71,6 @@ const NoticeCalendar = ({ backPath }) => {
     //         { type: "awareness-program", content: "Parenting Tips Workshop" },
     //     ],
     // });
-
 
 
     const [userBookedTimeslots, setUserBookedTimeslots] = useState({
@@ -147,7 +145,7 @@ const NoticeCalendar = ({ backPath }) => {
                 ))}
                 {userBookedData.map((item, index) => (
                     <li key={index} onClick={() => handleDateClick(value)}>
-                        {/*<EventBadge type={item.type} content={`${item.content} (Booked by You)`} />*/}
+                        <EventBadge type={item.type} content={`${item.content} (Booked by You)`} />
                     </li>
                 ))}
             </ul>
@@ -240,7 +238,7 @@ const NoticeCalendar = ({ backPath }) => {
             { time: "7:45 AM - 8:00 AM", booked: null },
             { time: "8:00 AM - 8:15 AM", booked: null },
             { time: "8:15 AM - 8:30 AM", booked: "others" },
-            { time: "1:00 PM - 1:15 PM", booked: null },
+            { time: "1:00 PM - 1:15 PM", booked: "user" },
         ];
 
         return timeSlots.map((slot, index) => (
