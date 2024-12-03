@@ -51,7 +51,7 @@ const ClinicAttendeeRoutes = () => {
             <Route path="/BlogPost" element={<BlogPost />} />
             <Route path="/NewPost" element={<NewPost />} />
             <Route path="/ChildList" element={<ChildList />} />
-            <Route path="/child_profile/:childId" element={<ChildProfile />} />
+            <Route path="/child_profile1" element={<ChildProfile />} />
             <Route path="/child-details/:childId" element={<ChildDetails />} />
 
             

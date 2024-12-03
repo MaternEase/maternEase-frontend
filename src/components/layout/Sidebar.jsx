@@ -74,8 +74,8 @@ const Sidebar = ({ collapsed, userType }) => {
           //     { key: "/doctor/mothers/delivered", label: <Link to="/doctor/mothers/delivered">Delivered Mothers</Link> },
           //   ]
           // },
-          { key: "/doctor/crud1", icon: <AssignmentLateOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/crud1">Risky List</Link> },
-          { key: "/doctor/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/doctor/babies">Babies</Link> },
+          // { key: "/doctor/crud1", icon: <AssignmentLateOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/crud1">Risky List</Link> },
+          { key: "/doctor/babies", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label: <Link to="/doctor/babiesall">Babies</Link> },
           // { key: "/doctor/schedules", icon: <EventNoteOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/schedules">Clinic Schedules</Link> },
           { key: "/doctor/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/doctor/reports">Reports</Link> },
         ];
@@ -95,7 +95,7 @@ const Sidebar = ({ collapsed, userType }) => {
         return [
           { key: "/mother/dashboard", icon: <DashboardOutlinedIcon style={iconStyle} />, label: <Link to="/mother/dashboard">Dashboard</Link> },
           // { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/reportone">Report</Link> },
-          { key: "/mother/reports", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/pregnancyrecord">Report</Link> },
+          { key: "/mother/clinicrecord", icon: <DescriptionOutlinedIcon style={iconStyle} />, label: <Link to="/mother/pregnancyrecord">Clinic Record</Link> },
           { key: "/mother/allevents", icon: <PendingActionsOutlinedIcon style={iconStyle} />, label: <Link to="/mother/allevents">Events</Link> },
           { key: "children", icon: <img src={baby} alt="Children" style={{ width: "25px", height: "25px", objectFit: "contain", fontSize: "24px", color: "#4e5052" }} />, label:<Link to="/mother/childrendetails">Children</Link>
             //     "Children", children: [

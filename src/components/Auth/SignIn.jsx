@@ -96,27 +96,39 @@ const SignIn = () => {
 
     try {
       const user = await signIn(email, password);
-      console.log("User signed in:", user);
+      console.log("User role after login:", user.role);
+
       if (user.role === "MOTHER") {
-        setShowLocationPopup(true); // Show the location pop-up for mothers
-        return; // Don't proceed to dashboard until location is selected
-      }
-      // For other roles, navigate as usual
-      switch (user.role) {
-        case "ADMIN":
-          navigate("/admin/dashboard");
-          break;
-        case "MIDWIFE":
-          navigate("/midwife/dashboard");
-          break;
-        case "DOCTOR":
-          navigate("/doctor/dashboard");
-          break;
-        case "CHILD":
-          navigate("/child/dashboard");
-          break;
-        default:
-          navigate("/");
+        // Check if the location is set for this specific user
+        const userKey = `locationSet_${email}`;
+        const isFirstLogin = !localStorage.getItem(userKey);
+
+        console.log("Is first login:", isFirstLogin);
+
+        if (isFirstLogin) {
+          setShowLocationPopup(true);
+          return;
+        }
+
+        navigate("/mother/dashboard");
+      } else {
+        // Handle navigation for other roles
+        switch (user.role) {
+          case "ADMIN":
+            navigate("/admin/dashboard");
+            break;
+          case "MIDWIFE":
+            navigate("/midwife/dashboard");
+            break;
+          case "DOCTOR":
+            navigate("/doctor/dashboard");
+            break;
+          case "CHILD":
+            navigate("/child/dashboard");
+            break;
+          default:
+            navigate("/");
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -125,8 +137,12 @@ const SignIn = () => {
   };
 
   const handleLocationPopupConfirm = () => {
+    // Use email or user ID as part of the key to make it user-specific
+    const userKey = `locationSet_${email}`;
+    localStorage.setItem(userKey, "true");
+
     setShowLocationPopup(false);
-    navigate("/mother/edit-location"); // Navigate to the location page after confirming the pop-up
+    navigate("/mother/edit-location");
   };
 
   const { marginLeft, marginTop, marginRight, marginBottom } = dimensions;

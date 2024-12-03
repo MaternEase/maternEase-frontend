@@ -10,12 +10,12 @@ import image6 from '../../assets/images/part3.jpeg';
 
 const images = [eye, ear, image3, image4, image5, image6];
 const urls = [
-  '/child/Child_details1',
-  '/child/Child_details2',
-  '/child/Child_details3',
-  '/child/Child_details4',
-  '/child/Child_details5',
-  '/child/Child_details6',
+  '../Child_details1',
+  '../Child_details2',
+  '../Child_details3',
+  '../Child_details4',
+  '../Child_details5',
+  '../Child_details6',
 ];
 const titles = [
   'Eye Health',
@@ -23,7 +23,7 @@ const titles = [
   'Dental Care',
   'Steps on growth from birth to 5 years - Part 1',
   'Steps on growth from birth to 5 years - Part 2',
-  'Steps on growth from birth to 5 years - Part 3'
+  'Steps on growth from birth to 5 years - Part 3',
 ];
 
 const Growth = () => (
@@ -59,8 +59,14 @@ const Growth = () => (
             <Link to={urls[index]} style={{ textDecoration: 'none' }}>
               <Button
                 variant="contained"
-                color="primary"
-                sx={{ textTransform: 'none' }}
+                sx={{
+                  backgroundColor: '#003366',
+                  color: '#fff',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#002244',
+                  },
+                }}
               >
                 Fill the form
               </Button>
