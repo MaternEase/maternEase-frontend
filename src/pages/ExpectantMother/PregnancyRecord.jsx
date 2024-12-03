@@ -1,10 +1,130 @@
 import React from 'react';
 import DynamicAccordion from '../../components/ExpectantMother/DynamicAccordion.jsx';
-import WeightChart from "../Doctor/MotherReports5.jsx";
-import FundalHeightChart from "../Doctor/MotherReports4.jsx";
-import {Col} from "antd";
+
+import { Carousel, Button } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import WeightChart from "../../components/ExpectantMother/WeightChart.jsx";
+import FundalHeightChart from "../../components/ExpectantMother/FundalHeightChart.jsx";
+import PostDeliveryCard from "./PostDeliveryCard.jsx";
+
+const motherStatus = "delivered"; // Hardcoded status for now
+
+// Mock data for post-delivery health records over 5 days
+// const postDeliveryDataByDays = [
+//     {
+//         day: "Day 1",
+//         data: [
+//             { label: "Temperature (°C)", value: "37.5" },
+//             { label: "Anemia", value: "No" },
+//             { label: "Breast Cracks", value: "Yes" },
+//             { label: "Surgical Site Infection", value: "No" },
+//             { label: "Mental Changes", value: "No" },
+//             { label: "Upper Abdominal Pain", value: "Yes" },
+//             { label: "Diarrhea", value: "No" },
+//             { label: "Vomiting", value: "Yes" },
+//             { label: "Difficulty Breathing", value: "No" },
+//             { label: "Poor Vision", value: "No" },
+//             { label: "Migraine", value: "Yes" },
+//             { label: "Muscle Cramp", value: "No" },
+//             { label: "Taking Micronutrients", value: "Yes" },
+//         ],
+//     },
+//     {
+//         day: "Day 2",
+//         data: [
+//             { label: "Temperature (°C)", value: "37.2" },
+//             { label: "Anemia", value: "No" },
+//             { label: "Breast Cracks", value: "No" },
+//             { label: "Surgical Site Infection", value: "No" },
+//             { label: "Mental Changes", value: "No" },
+//             { label: "Upper Abdominal Pain", value: "No" },
+//             { label: "Diarrhea", value: "No" },
+//             { label: "Vomiting", value: "No" },
+//             { label: "Difficulty Breathing", value: "No" },
+//             { label: "Poor Vision", value: "No" },
+//             { label: "Migraine", value: "No" },
+//             { label: "Muscle Cramp", value: "No" },
+//             { label: "Taking Micronutrients", value: "Yes" },
+//         ],
+//     },
+// ];
+//
+// // Ensure the latest data appears first (reverse the array)
+// const sortedData = [...postDeliveryDataByDays].reverse();
+//
+// const PostDeliveryCarousel = () => {
+//     const carouselRef = React.useRef(null);
+//
+//     const handlePrev = () => {
+//         carouselRef.current?.prev();
+//     };
+//
+//     const handleNext = () => {
+//         carouselRef.current?.next();
+//     };
+//
+//     return (
+//         <div style={{ textAlign: 'center', padding: '20px' }}>
+//             <div style={{ marginBottom: '10px' }}>
+//                 <Button
+//                     type="primary"
+//                     shape="circle"
+//                     icon={<LeftOutlined />}
+//                     onClick={handlePrev}
+//                     style={{ marginRight: '10px' }}
+//                 />
+//                 <Button
+//                     type="primary"
+//                     shape="circle"
+//                     icon={<RightOutlined />}
+//                     onClick={handleNext}
+//                 />
+//             </div>
+//             <Carousel
+//                 ref={carouselRef}
+//                 dots={true}
+//                 style={{ width: '80%', margin: '0 auto', maxWidth: '600px' }}
+//                 initialSlide={0} // Start with the latest date
+//             >
+//                 {sortedData.map((entry, index) => (
+//                     <div key={index} style={{ padding: '20px', backgroundColor: '#f7f7f7', borderRadius: '8px' }}>
+//                         <h3 style={{ fontWeight: 'bold', marginBottom: '20px', color: '#333' }}>{entry.day}</h3>
+//                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '14px', color: '#333' }}>
+//                             {entry.data.map((item, idx) => (
+//                                 <li
+//                                     key={idx}
+//                                     style={{
+//                                         display: 'flex',
+//                                         justifyContent: 'space-between',
+//                                         padding: '8px 0',
+//                                         borderBottom: '1px solid #e0e0e0',
+//                                     }}
+//                                 >
+//                                     <span style={{ fontWeight: 'bold', color: '#555' }}>{item.label}</span>
+//                                     <span>{item.value}</span>
+//                                 </li>
+//                             ))}
+//                         </ul>
+//                     </div>
+//                 ))}
+//             </Carousel>
+//         </div>
+//     );
+// };
 
 const sections = [
+    ...(motherStatus === "delivered"
+        ? [
+            {
+                title: (
+                    <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
+                        Post-Delivery Health Data
+                    </span>
+                ),
+                content: <PostDeliveryCard />,
+            }
+        ]
+        : []),
     {
         title: (
             <span style={{ fontWeight: 'bold', fontSize: '20px', color: '#333' }}>
@@ -326,18 +446,18 @@ const PregnancyRecord = () => {
         <div style={{ padding: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                 <span style={{ fontWeight: 'normal', fontSize: '24px' }}>Pregnancy Record</span>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                    <span style={{ backgroundColor: '#9DBFE6', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
-                        Firstborn
-                    </span>
-                    <span style={{ backgroundColor: '#E4B1B1', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
-                        Risky
-                    </span>
-                    <div
-                        style={{ backgroundColor: '#D3D3D3', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>
-                        Blood Group: B+
-                    </div>
-                </div>
+                {/*<div style={{ display: 'flex', gap: '10px' }}>*/}
+                {/*    <span style={{ backgroundColor: '#9DBFE6', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>*/}
+                {/*        Firstborn*/}
+                {/*    </span>*/}
+                {/*    <span style={{ backgroundColor: '#E4B1B1', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>*/}
+                {/*        Risky*/}
+                {/*    </span>*/}
+                {/*    <div*/}
+                {/*        style={{ backgroundColor: '#D3D3D3', padding: '5px 10px', borderRadius: '5px', display: 'flex', alignItems: 'center', fontSize: '14px' }}>*/}
+                {/*        Blood Group: B+*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
             <DynamicAccordion sections={sections} />
         </div>

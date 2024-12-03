@@ -45,10 +45,10 @@ const NoticeCalendar = ({ backPath }) => {
     const [error, setError] = useState("");
     const [events, setEvents] = useState({});
     // const [events, setEvents] = useState({
-    //     "2024-12-01": [
-    //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
-    //         { type: "vaccination", content: "Vaccination - Polio" },
-    //     ],
+    //     // "2024-12-01": [
+    //     //     { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
+    //     //     // { type: "vaccination", content: "Vaccination - Polio" },
+    //     // ],
     //     "2024-12-10": [
     //         {
     //             type: "expectant-mother-clinic",
@@ -59,7 +59,7 @@ const NoticeCalendar = ({ backPath }) => {
     //     "2024-11-15": [
     //         { type: "home-visit", content: "Home Visit - Mrs. Brown" },
     //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
-    //         { type: "vaccination", content: "Vaccination - MMR" },
+    //         // { type: "vaccination", content: "Vaccination - MMR" },
     //     ],
     //     "2024-11-20": [
     //         {
