@@ -15,7 +15,7 @@ const userEvents = {
 };
 
 const Dashboard = () => {
-    const [deliveryDate] = useState(dayjs('2025-01-01'));
+    const [deliveryDate] = useState(dayjs('2025-04-22'));
     const eventContainerRef = useRef(null);
     const navigate = useNavigate();
     const [isUpPressed, setIsUpPressed] = useState(false);
