@@ -74,48 +74,7 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
         <Form.Item
           name="fullName"
           label="Full Name"
-          rules={[{ required: true, message: "Please input the full name!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="dob"
-          label="Date of Birth"
-          rules={[{ required: true, message: "Please select a date of birth!" }]}
-        >
-          <DatePicker onChange={handleDobChange} format="YYYY-MM-DD" />
-        </Form.Item>
-        {/* <Form.Item
-          name="age"
-          label="Age"
-        >
-          <Input value={age} readOnly />
-        </Form.Item> */}
-        <Form.Item
-          name="nic"
-          label="NIC"
-          rules={[{ required: true, message: "Please input the NIC!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="address"
-          label="Address"
-          rules={[{ required: true, message: "Please input the address!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="telephone"
-          label="Telephone"
-          rules={[{ required: true, message: "Please input the telephone number!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          label="Email"
-          rules={[{ required: true, message: "Please input a valid email!" }, { type: 'email', message: 'Please enter a valid email!' }]}
+          rules={[{ required: true, message: "Please enter the full name!" }]}
         >
           <Input />
         </Form.Item>
@@ -129,12 +88,51 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
             <Option value="doctor">Doctor</Option>
           </Select>
         </Form.Item>
-        {/* <Form.Item
-          name="registeredDate"
-          label="Registered Date"
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[{ required: true, message: "Please enter a valid email!" }, { type: 'email', message: 'Please enter a valid email!' }]}
         >
-          <Input value={moment().format('YYYY-MM-DD')} readOnly />
-        </Form.Item> */}
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="gender"
+          label="Gender"
+          rules={[{ required: true, message: "Please select the gender!" }]}
+        >
+          <Select placeholder="Select gender">
+            <Option value="male">Male</Option>
+            <Option value="female">Female</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="dob"
+          label="Date of Birth"
+          rules={[{ required: true, message: "Please select date of birth!" }]}
+        >
+          <DatePicker onChange={handleDobChange} format="YYYY-MM-DD" />
+        </Form.Item>
+        <Form.Item
+          name="nic"
+          label="NIC"
+          rules={[{ required: true, message: "Please enter the NIC!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="address"
+          label="Address"
+          rules={[{ required: true, message: "Please enter the address!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="telephone"
+          label="Telephone"
+          rules={[{ required: true, message: "Please enter the telephone number!" }]}
+        >
+          <Input />
+        </Form.Item>
       </Form>
     </Modal>
   );

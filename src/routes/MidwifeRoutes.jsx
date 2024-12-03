@@ -27,13 +27,16 @@ const MidwifeRoutes = () => {
       <Route path="mothers/expected/" element={< ExpectedMothers />} />
       <Route path="mothers/delivered/" element={< DeliveredMothers />} />
       <Route path="babies" element={<Babies />} />
-      <Route path="reports" element={<Reports />} />
+      <Route path="blog" element={<Reports />} />
       <Route path="messages" element={<Messages />} />
       <Route path="/profile/:id" element={<Bcard />} />
       <Route path="/full-calendar" element={<FullCalendarAdmin />} />
         <Route path="/prefieldnote" element={<PreFieldNote />} />
         <Route path="/postfieldnote" element={<PostFieldNote />} />
         <Route path="/homevisit" element={<HomeVisit />} />
+
+        
+
         <Route path="/pretable" element={<PrePregnancyDataTable />} />
 
         <Route path="/motherhomevisits" element={<MotherHomeVisitdata />} />

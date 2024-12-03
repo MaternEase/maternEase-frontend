@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Calendar,
     Modal,
@@ -14,8 +14,13 @@ import { ArrowBack } from "@mui/icons-material";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ExpectantMother/Components.css";
+import { getSchedules } from "../../services/motherService";
 
 const { Option } = Select;
+
+
+
+const userId = localStorage.getItem('user_id');
 
 const EventBadge = ({ type, content }) => {
     return (
@@ -28,47 +33,97 @@ const EventBadge = ({ type, content }) => {
 
 const NoticeCalendar = ({ backPath }) => {
     const navigate = useNavigate();
-
     const [isEventModalVisible, setIsEventModalVisible] = useState(false);
     // const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
     const [isReservationModalVisible, setIsReservationModalVisible] = useState(false);
-    const [events, setEvents] = useState({
-        // "2024-11-08": [
-        //     { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
-        //     // { type: "vaccination", content: "Vaccination - Polio" },
-        // ],
-        "2024-11-10": [
-            {
-                type: "expectant-mother-clinic",
-                content: "Expectant Mother Clinic - Dr. Johnson",
-            },
-            { type: "awareness-program", content: "Breastfeeding Awareness Program" },
-        ],
-        "2024-11-15": [
-            { type: "home-visit", content: "Home Visit - Mrs. Brown" },
-            { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
-            // { type: "vaccination", content: "Vaccination - MMR" },
-        ],
-        "2024-11-20": [
-            {
-                type: "expectant-mother-clinic",
-                content: "Expectant Mother Clinic - Dr. Lee",
-            },
-            { type: "home-visit", content: "Home Visit - Mr. Green" },
-        ],
-        "2024-11-25": [
-            { type: "awareness-program", content: "Parenting Tips Workshop" },
-        ],
-    });
+
+    const [currentDate, setCurrentDate] = useState(null); // Track the currently clicked date
+    const [currentEvent, setCurrentEvent] = useState(null); // Track the currently clicked event
+    const [showTimeSlots, setShowTimeSlots] = useState(false); // Track if time slots should be shown
+    const [form] = Form.useForm(); // Create a form reference
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [events, setEvents] = useState({});
+    // const [events, setEvents] = useState({
+    //     "2024-12-01": [
+    //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
+    //         { type: "vaccination", content: "Vaccination - Polio" },
+    //     ],
+    //     "2024-12-10": [
+    //         {
+    //             type: "expectant-mother-clinic",
+    //             content: "Expectant Mother Clinic - Dr. Johnson",
+    //         },
+    //         { type: "awareness-program", content: "Breastfeeding Awareness Program" },
+    //     ],
+    //     "2024-11-15": [
+    //         { type: "home-visit", content: "Home Visit - Mrs. Brown" },
+    //         { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
+    //         { type: "vaccination", content: "Vaccination - MMR" },
+    //     ],
+    //     "2024-11-20": [
+    //         {
+    //             type: "expectant-mother-clinic",
+    //             content: "Expectant Mother Clinic - Dr. Lee",
+    //         },
+    //         { type: "home-visit", content: "Home Visit - Mr. Green" },
+    //     ],
+    //     "2024-11-25": [
+    //         { type: "awareness-program", content: "Parenting Tips Workshop" },
+    //     ],
+    // });
+
+
+
     const [userBookedTimeslots, setUserBookedTimeslots] = useState({
         "2024-11-08": [
             { type: "vaccination", content: "Vaccination - Polio", time: "1:00 PM - 1:15 PM" },
         ],
     });
-    const [currentDate, setCurrentDate] = useState(null); // Track the currently clicked date
-    const [currentEvent, setCurrentEvent] = useState(null); // Track the currently clicked event
-    const [showTimeSlots, setShowTimeSlots] = useState(false); // Track if time slots should be shown
-    const [form] = Form.useForm(); // Create a form reference
+
+    useEffect(() => {
+          fetchDetails(); 
+      }, []);
+
+    const fetchDetails = async () => {
+        setLoading(true);
+        try {
+            const response = await getSchedules();
+            console.log("Data is ", response);
+            setSchedules(response);
+            setLoading(false);
+        } catch (err) {
+            // console.error("Error fetching basic details:", err.message);
+            setError(err.message || "Failed to fetch data");
+            setLoading(false);
+        }
+    };
+
+    const setSchedules = (responseData) => {
+        let updatedEvents = { ...events };
+        console.log(responseData);
+        responseData.forEach((clinic) => {
+            const clinicDate = clinic.clinicDate;  
+            const clinicType = clinic.clinicType;  
+
+            const event = {
+                type: clinicType.toLowerCase().replace(/ /g, "-"), 
+                content: `${clinic.clinic.clinicName} - ${clinicType}`, 
+            };
+
+            if (!updatedEvents[clinicDate]) {
+                updatedEvents[clinicDate] = [];
+            }
+
+            updatedEvents[clinicDate].push(event);
+            console.log(updatedEvents);
+        });
+
+        setEvents(updatedEvents);
+    };
+
+
+
 
     const getListData = (value) => {
         const dateKey = value.format("YYYY-MM-DD");
@@ -158,7 +213,7 @@ const NoticeCalendar = ({ backPath }) => {
     const [isClinicSelectionVisible, setIsClinicSelectionVisible] = useState(false);
     const [selectedClinicType, setSelectedClinicType] = useState(null);
 
-// Handle the click for reserving a timeslot
+    // Handle the click for reserving a timeslot
     const handleReserveClick = (slot, actionType) => {
         setIsEventModalVisible(false); // Close the current modal
 
@@ -170,7 +225,7 @@ const NoticeCalendar = ({ backPath }) => {
         }
     };
 
-// Handle clinic type selection
+    // Handle clinic type selection
     const handleClinicTypeSelect = (type) => {
         setSelectedClinicType(type); // Store the selected clinic type
         setIsClinicSelectionVisible(false); // Close the clinic selection modal
@@ -345,7 +400,7 @@ const NoticeCalendar = ({ backPath }) => {
             <Modal
                 title="Reservation Status"
                 visible={isReservePopupVisible}
-                onCancel={() => setIsReservePopupVisible(false) }
+                onCancel={() => setIsReservePopupVisible(false)}
                 footer={[
                     <button key="close" onClick={() => setIsReservePopupVisible(false)} style={{
                         backgroundColor: "#676767",
@@ -368,7 +423,7 @@ const NoticeCalendar = ({ backPath }) => {
 
                     }}>
                         Confirm
-                    </button> ,
+                    </button>,
                 ]}
             >
                 <p>{reserveMessage}</p>

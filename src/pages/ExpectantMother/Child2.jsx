@@ -23,14 +23,30 @@ const dummyData = {
         hypertension: 'yes',
         Skin_color: 'Pink',
         Eye: 'Normal',
+        Birth_Weight:'2 kg 500g',
+        Birth_Height:'40 cm',
+    },
+    growthDetails: {
+        height: '85 cm',
+        weight: '12 kg',
+        headCircumference: '45 cm',
+    },
+    dentalHealth: {
+        teethCount: '',
+        cavities: '',
+        fluorideIntake: '',
+    },
+    nutritionDetails: {
+        breastfeeding: 'Exclusive for 6 months',
+        diet: 'Balanced with fruits and vegetables',
     },
 };
 
-const Child2 = () => (
+const Childcombined = () => (
     <div style={styles.container}>
         <PageHeader
             className="site-page-header"
-            title="Health Chart and Immunization"
+            title=" Child Health Development Record "
             style={styles.pageHeader}
         />
 
@@ -38,35 +54,29 @@ const Child2 = () => (
             <Panel header="Basic Information" key="1">
                 <Card style={styles.sectionTitle}>
                     <div><strong>Child Name:</strong> Minuka Sathsara</div>
-                    <div><strong>Birth Date:</strong> 21/09/2021</div>
-                    <div><strong>Age:</strong> 2 Years 11 Months</div>
+                    <div><strong>Gender:</strong> Boy</div>
+                    <div><strong>Age:</strong> 1 Months</div>
                 </Card>
             </Panel>
 
-            <Panel header="Health Chart" key="2">
+            <Panel header="New Born Baby Health Chart" key="2">
                 <Row gutter={16}>
                     <Col span={12}>
+                        <div><strong>Birth Weight:</strong> {dummyData.surgicalHistory.Birth_Weight}</div>
                         <div><strong>Temperature (Celsius):</strong> {dummyData.surgicalHistory.Temperature}</div>
                         <div><strong>Stool Color:</strong> {dummyData.surgicalHistory.Stool_color}</div>
                         <div><strong>Pecania:</strong> {dummyData.surgicalHistory.pecania}</div>
                     </Col>
                     <Col span={12}>
-                        <div><strong>Skin Color:</strong> {dummyData.surgicalHistory.Skin_color}</div>
+                        <div><strong>Birth Height:</strong> {dummyData.surgicalHistory.Birth_Height}</div>
                         <div><strong>Eye:</strong> {dummyData.surgicalHistory.Eye}</div>
+                        <div><strong>Skin Color:</strong> {dummyData.surgicalHistory.Skin_color}</div>
+                        
                     </Col>
                 </Row>
             </Panel>
 
             <Panel header="Immunization Details" key="3">
-                <Box sx={styles.immunizationCard}>
-                    <Box>
-                        <Typography variant="body1">21/11/2021</Typography>
-                    </Box>
-                    <Box>
-                        <Typography variant="body1">MOH</Typography>
-                    </Box>
-                </Box>
-
                 <TableContainer component={Paper} sx={styles.immunizationTable}>
                     <Table>
                         <TableHead>
@@ -83,7 +93,7 @@ const Child2 = () => (
                             <TableRow>
                                 <TableCell>At Birth</TableCell>
                                 <TableCell>BCG</TableCell>
-                                <TableCell>21/09/2021</TableCell>
+                                <TableCell>21/10/2024</TableCell>
                                 <TableCell>0370G070</TableCell>
                                 <TableCell>0</TableCell>
                                 <TableCell>Present</TableCell>
@@ -93,8 +103,59 @@ const Child2 = () => (
                     </Table>
                 </TableContainer>
             </Panel>
+
+            <Panel header="Growth Details" key="4">
+            <TableContainer component={Paper} sx={styles.immunizationTable}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Date</Typography></TableCell>
+                                <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Weight</Typography></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>21/10/2024</TableCell>
+                                <TableCell>4 kg 600g</TableCell>
+                            </TableRow>
+                            
+                            {/* Add other rows as needed */}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                <TableContainer component={Paper} sx={styles.immunizationTable}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Date</Typography></TableCell>
+                                <TableCell><Typography variant="body1" sx={{ fontWeight: 'bold' }}>Height</Typography></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>21/10/2024</TableCell>
+                                <TableCell>40 cm</TableCell>
+                            </TableRow>
+                            
+                            {/* Add other rows as needed */}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Panel>
+
+            <Panel header="Dental Health" key="5">
+                <div><strong>Teeth Count:</strong> {dummyData.dentalHealth.teethCount}</div>
+                <div><strong>Cavities:</strong> {dummyData.dentalHealth.cavities}</div>
+                <div><strong>Fluoride Intake:</strong> {dummyData.dentalHealth.fluorideIntake}</div>
+            </Panel>
+
+           {/*} <Panel header="Nutrition Details" key="6">
+                <div><strong>Breastfeeding:</strong> {dummyData.nutritionDetails.breastfeeding}</div>
+                <div><strong>Diet:</strong> {dummyData.nutritionDetails.diet}</div>
+            </Panel>*/}
         </Collapse>
     </div>
 );
 
-export default Child2;
+export default Childcombined;

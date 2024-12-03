@@ -7,6 +7,7 @@ import CustomCalendar from '../../components/Calendar';
 import { Line } from 'react-chartjs-2';
 import '../../styles/Admin/Dashboard.css';
 import { AddExpectantMotherPopup } from '../../components/Shared/Popup/AddExpectantMotherPopup';
+import { AddChildPopup } from '../../components/Shared/Popup/AddChildPopup';
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -14,9 +15,9 @@ const { Search: AntSearch } = Input;
 const data = [
   {
     key: '1',
-    id: 'D63ob',
-    name: 'Wasantha Perera',
-    age: 48,
+    id: 'AS880',
+    name: 'Dushen Madushika',
+    age: 28,
     date: '25 Jun 2024',
     time: '09:30 am',
     type: 'Expected Mother',
@@ -24,9 +25,9 @@ const data = [
   },
   {
     key: '2',
-    id: 'M15623j',
+    id: 'AS003',
     name: 'Sujatha Dahanayake',
-    age: 26,
+    age: 23,
     date: '01 Jul 2024',
     time: '12:30 pm',
     type: 'Expected Mother',
@@ -34,7 +35,7 @@ const data = [
   },
   {
     key: '3',
-    id: 'M9586k',
+    id: 'AS043',
     name: 'Naduni Bandara',
     age: 32,
     date: '29 Jul 2024',
@@ -91,9 +92,9 @@ const Dashboard = () => {
   };
 
   const cardData = [
-    { key: 1, title: 'Total Children', value: 1052, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
-    { key: 2, title: 'Total Expectant Mothers', value: 475, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
-    { key: 3, title: 'Total Delivered Mothers', value: 8, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
+    { key: 1, title: 'Total Children', value: 28, icon: <ChildCare />, color: '#192A51', paragraph: 'Newborns this week have reached a significant number. Keep track of their progress and ensure proper care is provided.', },
+    { key: 2, title: 'Total Expectant Mothers', value: 45, icon: <Face4 />, color: '#192A51', paragraph: 'The count of expectant mothers is vital for planning and resource allocation. Ensure all are receiving the necessary prenatal care.', },
+    { key: 3, title: 'Total Delivered Mothers', value: 28, icon: <Face />, color: '#192A51', paragraph: 'We currently have a total of 8 doctors available. Their expertise and availability are crucial for providing quality medical care.', },
     { key: 4, title: 'Total Clinics', value: 29, icon: <Face2 />, color: '#192A51', paragraph: 'With 29 midwives on duty, we are well-prepared to assist in childbirth and provide essential support to new mothers.', },
   ];
 
@@ -172,7 +173,7 @@ const Dashboard = () => {
   const clinicsData = [
     { clinic: 'Clinic A', expectantMothers: 30, children: 45, deadBirths: 2, maternalDeaths: 1 },
     { clinic: 'Clinic B', expectantMothers: 20, children: 30, deadBirths: 1, maternalDeaths: 0 },
-    { clinic: 'Clinic C', expectantMothers: 50, children: 60, deadBirths: 3, maternalDeaths: 2 },
+    { clinic: 'Clinic C', expectantMothers: 0, children: 60, deadBirths: 3, maternalDeaths: 2 },
     { clinic: 'Clinic D', expectantMothers: 40, children: 55, deadBirths: 2, maternalDeaths: 1 },
     { clinic: 'Clinic E', expectantMothers: 35, children: 50, deadBirths: 1, maternalDeaths: 0 },
     { clinic: 'Clinic F', expectantMothers: 25, children: 35, deadBirths: 2, maternalDeaths: 1 },
@@ -408,7 +409,7 @@ const Dashboard = () => {
       <AddExpectantMotherPopup open={isAddMotherPopupOpen} onClose={closeAddMotherPopup} />
 
       {/* Add Child Popup */}
-      {/* <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} /> */}
+       <AddChildPopup open={isAddChildPopupOpen} onClose={closeAddChildPopup} /> 
     </div>
   );
 };
