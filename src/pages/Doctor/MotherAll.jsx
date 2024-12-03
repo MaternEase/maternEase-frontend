@@ -9,61 +9,91 @@ const { Search: AntSearch } = Input;
 const data1 = [
   {
     key: '1',
-    name: 'Jayani Priyanka',
+    name: 'Renuka De Silva',
     age: 28,
     risky: 'Risky',
-    profile:'View',
-    registrationnumber: 'M452',
-    reportState: 'View',
+    reportState: 'Check',
+    page: '/doctor/expectantmother/1',
   },
   {
     key: '2',
-    name: 'Malki Rashmika',
+    name: 'Pavani Rathnayaka',
     age: 32,
     risky: 'Risky',
-    profile:'View',
-    registrationnumber: 'M321',
-    reportState: 'View',
+    reportState: 'Check',
+    page: '/doctor/expectantmother/2',
   },
   {
     key: '3',
-    name: 'Emily Biyanka',
+    name: 'Sumitha Nalini',
     age: 24,
     risky: 'Nonrisky',
-    profile:'View',
-    registrationnumber: 'M567',
-    reportState: 'View',
+    reportState: 'Check',
+    page: '/doctor/mother/1',
   },
   {
     key: '4',
-    name: 'Akila Janandi',
-    age: 30,
+    name: 'Ema Sirivardane',
+    age: 24,
     risky: 'Nonrisky',
-    profile:'View',
-    registrationnumber: 'M432',
-    reportState: 'View',
+    reportState: 'Check',
+    page: '/doctor/expectantmother/3',
   },
   {
     key: '5',
-    name: 'Emilya Dewmini',
-    age: 24,
+    name: 'Lalani Rathnayake',
+    age: 35,
     risky: 'Nonrisky',
-    profile:'View',
-    registrationnumber: 'M567',
-    reportState: 'View',
+    reportState: 'Check',
+    page: '/doctor/mother/2',
+  },
+  {
+    key: '5',
+    name: 'Anjalika Sathsarani',
+    age: 27,
+    risky: 'Nonrisky',
+    reportState: 'Check',
+    page: '/doctor/mother/3',
+  },
+  {
+    key: '5',
+    name: 'Anushka Sharma',
+    age: 30,
+    risky: 'Nonrisky',
+    reportState: 'Check',
+    page: '/doctor/expectantmother/4',
+  },
+  {
+    key: '5',
+    name: 'Kalani Disanayake',
+    age: 33,
+    risky: 'Nonrisky',
+    reportState: 'Check',
+    page: '/doctor/mother/5',
+  },
+  {
+    key: '5',
+    name: 'Bavanthi Nimna',
+    age: 31,
+    risky: 'Nonrisky',
+    reportState: 'Check',
+    page: '/doctor/mother/6',
+  },
+  {
+    key: '5',
+    name: 'Bavanthi Nimna',
+    age: 31,
+    risky: 'Nonrisky',
+    reportState: 'Check',
+    page: '/doctor/expectantmother/5',
   },
 ];
 
-const data2 = [
-  // Your data2 entries if any
-];
-
 const handleStateChange = (data, setData, key, navigate) => {
-  const newData = data.map((item) =>
-    item.key === key ? { ...item, reportState: 'Viewed' } : item
-  );
-  setData(newData);
-  navigate('/doctor/babyreport1');
+  const selectedItem = data.find((item) => item.key === key);
+  if (selectedItem?.page) {
+    navigate(selectedItem.page);
+  }
 };
 
 const columns = (data, setData, navigate) => [
@@ -78,33 +108,9 @@ const columns = (data, setData, navigate) => [
     key: 'age',
   },
   {
-    title: 'Registration Number',
-    dataIndex: 'registrationnumber',
-    key: 'registrationnumber',
-  },
-  {
     title: 'Condition',
     dataIndex: 'risky',
     key: 'risky',
-  },
-  
-  {
-    title: 'Profile',
-    dataIndex: 'profile',
-    key: 'profile',
-    render: (text, record) => (
-      <Button
-        type="link"
-        style={{
-          color: text === 'New' ? '#7C3AED' : '#7C3AED',
-          backgroundColor: text === 'Viewed' ? '#E9D5FF' : '',
-          borderColor: text === 'Viewed' ? '#D8B4FE' : '#7C3AED',
-        }}
-        onClick={() => handleStateChange(data, setData, record.key, navigate)}
-      >
-        {text}
-      </Button>
-    ),
   },
   {
     title: 'Report',
@@ -126,75 +132,26 @@ const columns = (data, setData, navigate) => [
   },
 ];
 
-const cardData = [
-  {
-    key: '1',
-    title: 'All Babies Details',
-    link: '#link1',
-  },
-  {
-    key: '2',
-    title: 'Risky Babies Details',
-    link: '#link2',
-  },
-];
-
 const Babies = () => {
-  const [selectedCard, setSelectedCard] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [filteredData1, setFilteredData1] = useState(data1);
-  const [filteredData2, setFilteredData2] = useState(data2);
   const navigate = useNavigate();
-
-  const handleCardClick = (cardKey) => {
-    setSelectedCard(cardKey);
-  };
 
   const handleSearch = (value) => {
     setSearchText(value);
     const lowerCaseValue = value.toLowerCase();
-    const filtered1 = data1.filter(
-      (item) =>
-        item.name.toLowerCase().includes(lowerCaseValue) ||
-        item.contactNumber.toLowerCase().includes(lowerCaseValue)
-    );
-    const filtered2 = data2.filter(
-      (item) =>
-        item.name.toLowerCase().includes(lowerCaseValue) ||
-        item.contactNumber.toLowerCase().includes(lowerCaseValue)
+    const filtered1 = data1.filter((item) =>
+      item.name.toLowerCase().includes(lowerCaseValue)
     );
     setFilteredData1(filtered1);
-    setFilteredData2(filtered2);
   };
 
   const getRowClassName = (record) => {
-    return record.risky ;
+    return record.risky;
   };
 
   return (
     <div style={{ padding: '24px', minHeight: '100vh' }}>
-      {/* <Row gutter={16} style={{ marginTop: 24 }}>
-        {cardData.map((card) => (
-          <Col span={6} key={card.key}>
-            <Card
-              hoverable
-              style={{
-                backgroundColor: '#D5C6E0',
-                padding: 'px',
-                cursor: 'pointer',
-                border: selectedCard === card.key ? 'none' : 'none',
-              }}
-              onClick={() => handleCardClick(card.key)}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#AAA1C8')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#D5C6E0')}
-            >
-              <a href={'/doctor/matherall'} className="text-xl font-semibold text-black">
-                {card.title}
-              </a>
-            </Card>
-          </Col>
-        ))}
-      </Row> */}
       <Row gutter={24} style={{ marginTop: 24 }}>
         <Col span={24}>
           <Card

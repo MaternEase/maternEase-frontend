@@ -35,8 +35,8 @@ const Weight = () => {
             {
                 label: 'Weight (kg)',
                 data: data.map(entry => entry.weight),
-                borderColor: '#4CAF50',
-                backgroundColor: '#4CAF50',
+                borderColor: '#003366', 
+                backgroundColor: '#003366', 
                 fill: false,
                 pointStyle: 'circle',
             },
@@ -95,15 +95,15 @@ const Weight = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" 
-                        variant="contained"
-                        sx={{
-                          backgroundColor: "#003366",
-                          color: "#fff",
-                          "&:hover": {
-                            backgroundColor: "#002244",
-                          },
-                        }}onClick={handleAddData}>
+                        <Button
+                            type="primary"
+                            style={{
+                                backgroundColor: '#003366', 
+                                borderColor: '#003366', 
+                                color: '#fff', 
+                            }}
+                            onClick={handleAddData}
+                        >
                             Add Entry
                         </Button>
                     </Form.Item>

@@ -1,0 +1,80 @@
+/* BabyGrowthChecker.css */
+.container {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f9f9f9, #e0eafc);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    font-size: 16px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 60%;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .results {
+    margin-top: 20px;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+  }
+  
+  .results h3 {
+    color: #444;
+  }
+  
+  .meal-plan {
+    background-color: #f7fbfc;
+    border: 1px dashed #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .meal-plan h4 {
+    margin-bottom: 5px;
+    color: #2c7be5;
+  }
+ 
+  

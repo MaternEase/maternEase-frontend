@@ -55,7 +55,7 @@ const ChildTable = ({ title, subheader, tabs, tableHead, tableRows, onAddMemberC
   };
 
   const handleViewProfileClick = (childId) => {
-    navigate(`clinicattendee/childprofile${childId}`);
+    navigate(`clinicattendee/childprofile/${childId}`);
   };
 
   const handleReferToDoctorClick = (id) => {
