@@ -195,3 +195,70 @@ export const getAllChildren = async () => {
     throw new Error(error.response ? error.response.data : 'Error fetching children');
   }
 };
+
+
+export const getAllPosts = async () => {
+  try {
+    const token = AuthService.getToken();
+    if (!token) {
+      throw new Error('User not authenticated. Please log in.');
+    }
+
+    const response = await axios.get(`${API_URL}/blogs-get-all`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    // Construct full URL for the mediaPath
+    const postsWithFullImagePath = response.data.map(post => {
+      if (post.mediaPath) {
+        // Assuming base URL is 'http://localhost:8080/api/v1/midwife/uploads/'
+        post.mediaPath = `http://localhost:8082/api/v1/midwife/${post.mediaPath}`;
+      }
+      return post;
+    });
+
+    return postsWithFullImagePath; // Now the posts will have full media URLs
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw new Error(error.response ? error.response.data : 'Error fetching posts');
+  }
+};
+
+export const createPost = async (postData) => {
+  try {
+    const formData = new FormData();
+    formData.append("title", postData.title);
+    formData.append("content", postData.content);
+    formData.append("postType", postData.category);
+    
+    // Add media if it exists
+    if (postData.media) {
+      formData.append("mediaPath", postData.media);
+    }
+
+    // Retrieve the authentication token
+    const token = AuthService.getToken();
+    if (!token) {
+      throw new Error('User not authenticated. Please log in.');
+    }
+
+    // Make the request with Bearer token in headers
+    const response = await axios.post(`${API_URL}/blog-create`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // for file uploads
+        'Authorization': `Bearer ${token}`,  // Add Bearer token here
+      },
+    });
+
+    console.log('Response:', response);
+
+
+    return response.data;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw new Error(error.response ? error.response.data : 'Error creating post');
+  }
+};

@@ -23,12 +23,12 @@ const ReusableCard = ({ card, selectedCard, handleCardClick, menu }) => (
         </Dropdown>
       </Col> */}
     </Row>
-    <Statistic
-      value={card.value}
-      valueStyle={{ color: card.color }}
-      suffix={<span className="suffix-text">for today</span>}
-      style={{ marginTop: '16px' }}
-    />
+    {/* <Statistic
+      // value={card.value}
+      // valueStyle={{ color: card.color }}
+      // suffix={<span className="suffix-text">for today</span>}
+      // style={{ marginTop: '16px' }}
+    /> */}
     <div className="card-paragraph">
       <p>{card.paragraph}</p>
     </div>

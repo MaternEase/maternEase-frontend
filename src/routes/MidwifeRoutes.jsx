@@ -39,6 +39,9 @@ const MidwifeRoutes = () => {
       <Route path="height" element={<Height/>} />
       <Route path="growth" element={<Growth />} />
       <Route path="reports" element={<Reports />} />
+
+      <Route path="blog" element={<Reports />} />
+
       <Route path="messages" element={<Messages />} />
       <Route path="/profile/:id" element={<Bcard />} />
       <Route path="/full-calendar" element={<FullCalendarAdmin />} />
