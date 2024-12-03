@@ -33,10 +33,10 @@ const NoticeCalendar = ({ backPath }) => {
     // const [isAddEventModalVisible, setIsAddEventModalVisible] = useState(false);
     const [isReservationModalVisible, setIsReservationModalVisible] = useState(false);
     const [events, setEvents] = useState({
-        "2024-11-08": [
-            { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
-            { type: "vaccination", content: "Vaccination - Polio" },
-        ],
+        // "2024-11-08": [
+        //     { type: "child-clinic", content: "Child Clinic Appointment - Dr. Smith" },
+        //     // { type: "vaccination", content: "Vaccination - Polio" },
+        // ],
         "2024-11-10": [
             {
                 type: "expectant-mother-clinic",
@@ -47,7 +47,7 @@ const NoticeCalendar = ({ backPath }) => {
         "2024-11-15": [
             { type: "home-visit", content: "Home Visit - Mrs. Brown" },
             { type: "child-clinic", content: "Child Clinic Appointment - Dr. White" },
-            { type: "vaccination", content: "Vaccination - MMR" },
+            // { type: "vaccination", content: "Vaccination - MMR" },
         ],
         "2024-11-20": [
             {
@@ -92,7 +92,7 @@ const NoticeCalendar = ({ backPath }) => {
                 ))}
                 {userBookedData.map((item, index) => (
                     <li key={index} onClick={() => handleDateClick(value)}>
-                        <EventBadge type={item.type} content={`${item.content} (Booked by You)`} />
+                        {/*<EventBadge type={item.type} content={`${item.content} (Booked by You)`} />*/}
                     </li>
                 ))}
             </ul>
@@ -185,7 +185,7 @@ const NoticeCalendar = ({ backPath }) => {
             { time: "7:45 AM - 8:00 AM", booked: null },
             { time: "8:00 AM - 8:15 AM", booked: null },
             { time: "8:15 AM - 8:30 AM", booked: "others" },
-            { time: "1:00 PM - 1:15 PM", booked: "user" },
+            { time: "1:00 PM - 1:15 PM", booked: null },
         ];
 
         return timeSlots.map((slot, index) => (
