@@ -11,6 +11,7 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../../services/authService"; // Ensure AuthService is imported
 
 // Marker Component
 const Marker = ({ lat, lng }) => (
@@ -114,30 +115,51 @@ const Location = () => {
     // Confirm the marker position and address
     setConfirmedPosition(markerPosition);
     setConfirmedAddress(address);
-
-    // Show browser notification
-    if (Notification.permission === "granted") {
-      new Notification("Location Set", {
-        body: `Location confirmed: ${address}`,
-      });
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          new Notification("Location Set", {
-            body: `Location confirmed: ${address}`,
+  
+    const userId = AuthService.getUserId(); // Get user ID from AuthService
+    const role = AuthService.getUserRole(); // Get user role from AuthService
+  
+    // Send data to the backend
+    fetch("http://localhost:8082/api/v1/mother/set-location", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${AuthService.getToken()}`, // Include token for authentication
+      },
+      body: JSON.stringify({
+        latitude: markerPosition.lat,
+        longitude: markerPosition.lng,
+        address: address,
+        userId: userId, // Include user ID
+        role: role,     // Include user role
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response data:", data);  // Log the response for debugging
+        if (data.responseCode === "200") {  // Check if location saved successfully
+          alert("Location successfully saved!");
+          navigate("/mother/location", {
+            state: {
+              confirmedPosition: markerPosition,
+              confirmedAddress: address,
+              userId: userId,
+            },
           });
+        } else {
+          alert("Failed to save location. Please try again.");
         }
+      })
+      .catch((error) => {
+        console.error("Error saving location:", error);
+        alert("An error occurred while saving the location.");
       });
-    }
-
+  
     // Close the dialog
     setOpenDialog(false);
-
-    // Redirect to a new page that shows the selected location
-    navigate("/mother/location", {
-      state: { confirmedPosition: markerPosition, confirmedAddress: address }, // Use the correct address here
-    });
   };
+  
+  
 
   const handleDialogClose = (confirm) => {
     if (confirm) {
@@ -303,7 +325,7 @@ const Location = () => {
             color: "#fff",
             textAlign: "center",
             padding: "10px 0",
-            borderRadius: "10px", 
+            borderRadius: "10px",
           }}
         >
           Confirm Location

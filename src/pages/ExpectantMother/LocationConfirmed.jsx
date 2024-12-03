@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowBack } from "@mui/icons-material";
 import { Button } from "antd";
+import axios from "axios";
+import AuthService from "../../services/authService"; // Ensure AuthService is imported
 
-// Marker Component
+// Marker Component for Google Map
 const Marker = ({ lat, lng }) => (
   <PersonPinCircleIcon
     style={{
       color: "blue",
       fontSize: "40px",
-      transform: "translate(-50%, -100%)", // Center the marker over the pointer
+      transform: "translate(-50%, -100%)",
     }}
   />
 );
@@ -19,16 +21,65 @@ const Marker = ({ lat, lng }) => (
 const LocationConfirmed = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [locationData, setLocationData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Get the confirmed location and address from location state
-  const { confirmedPosition, confirmedAddress } = location.state || {};
+  const { confirmedPosition, confirmedAddress, userId } = location.state || {};
 
-  // Hardcoded address
-  const hardcodedAddress = "123 Temple St\nAhangama\nSri Lanka";
+  useEffect(() => {
+    if (userId) {
+      const storedUserData = JSON.parse(localStorage.getItem("user"));
+      if (storedUserData && storedUserData.token) {
+        setLoading(true);
+        axios
+          .get(`http://localhost:8082/api/v1/mother/get-location/${userId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${AuthService.getToken()}`, // Correct template literal usage
+            },
+          })
+          .then((response) => {
+            const { latitude, longitude, address, userId, role } = response.data;
+            if (latitude && longitude && address && userId && role) {
+              setLocationData({ latitude, longitude, address, userId, role });
+            } else {
+              console.error("Incomplete location data received.");
+              setLocationData(null);
+              setError("Incomplete location data received.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching location data:", error);
+            setError("Failed to load location data.");
+          })
+          .finally(() => setLoading(false));
+      } else {
+        console.error("No token found in stored user data.");
+        setError("No token found. Please log in again.");
+        setLoading(false);
+        navigate("/signin");
+      }
+    } else {
+      setError("User ID not found.");
+      setLoading(false);
+    }
+  }, [userId, navigate]);
 
-  if (!confirmedPosition) {
-    return <div>Location data not available</div>;
+  // If there's an error or still loading
+  if (loading) {
+    return <div>Loading location data...</div>;
   }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!locationData) {
+    return <div>No location data available.</div>;
+  }
+
+  const { latitude, longitude, address } = locationData;
 
   const handleBackButtonClick = () => {
     navigate("/mother/dashboard");
@@ -40,7 +91,6 @@ const LocationConfirmed = () => {
 
   return (
     <div style={{ minHeight: "100vh", padding: "20px" }}>
-      {/* Back Button */}
       <Button
         icon={<ArrowBack style={{ fontSize: 16 }} />}
         onClick={handleBackButtonClick}
@@ -53,46 +103,42 @@ const LocationConfirmed = () => {
         }}
       ></Button>
 
-      {/* Title */}
       <h2 style={{ textAlign: "center", color: "#192A51", fontSize: "28px" }}>
         Your Location
       </h2>
 
-      {/* Content Layout */}
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
           marginTop: "30px",
-          flexWrap: "wrap", // Enable wrapping for smaller screens
+          flexWrap: "wrap",
         }}
       >
-        {/* Map Container */}
         <div
           style={{
             height: "70vh",
             width: "73%",
             borderRadius: "10px",
             marginBottom: "20px",
-            flexBasis: "65%", // Adjust width for responsiveness
-            minWidth: "300px", // Prevent shrinking too much
+            flexBasis: "65%",
+            minWidth: "300px",
           }}
         >
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: "AIzaSyCcc5SDrNKsnCoo_hUNN9r0fvv-SJws7s8", // Replace with your actual key
+              key: "AIzaSyCcc5SDrNKsnCoo_hUNN9r0fvv-SJws7s8",
             }}
-            center={confirmedPosition}
+            center={{ lat: latitude, lng: longitude }}
             zoom={14}
             draggable={false}
             scrollwheel={false}
           >
-            <Marker lat={confirmedPosition.lat} lng={confirmedPosition.lng} />
+            <Marker lat={latitude} lng={longitude} />
           </GoogleMapReact>
         </div>
 
-        {/* Address Container */}
         <div
           style={{
             height: "70vh",
@@ -104,26 +150,25 @@ const LocationConfirmed = () => {
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             flexBasis: "30%",
             minWidth: "300px",
-            // textAlign: "center",
-            display: "flex", // Use flex layout
-            flexDirection: "column", // Arrange children vertically
-            position: "relative", // Allow absolute positioning inside this container
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
           }}
         >
           <div>
             <h3 style={{ color: "#333", marginBottom: "10px" }}>
-              <strong>Confirmed Address</strong>
+              <strong>Confirmed Location</strong>
             </h3>
             <p
               style={{
                 whiteSpace: "pre-line",
                 lineHeight: "1.6",
                 paddingBottom: "20px",
-                borderBottom: "1px solid #bbb",
+                // borderBottom: "1px solid #bbb",
               }}
             >
-              {confirmedAddress
-                ? confirmedAddress.split(",").map((line, index) => (
+              {address
+                ? address.split(",").map((line, index) => (
                     <span key={index}>
                       {line}
                       <br />
@@ -133,23 +178,7 @@ const LocationConfirmed = () => {
             </p>
           </div>
 
-          <div>
-            <h3
-              style={{ marginTop: "1git 0px", color: "#333", marginBottom: "10px" }}
-            >
-              <strong>Address</strong>
-            </h3>
-            <p style={{ whiteSpace: "pre-line", lineHeight: "1.6" }}>
-              {hardcodedAddress.split("\n").map((line, index) => (
-                <span key={index}>
-                  {line}
-                  <br />
-                </span>
-              ))}
-            </p>
-          </div>
-
-          <button
+          {/* <button
             onClick={handleEditLocation}
             style={{
               padding: "10px 20px",
@@ -158,13 +187,13 @@ const LocationConfirmed = () => {
               borderRadius: "5px",
               border: "none",
               cursor: "pointer",
-              position: "absolute", // Position the button absolutely
-              bottom: "30px", // Align to the bottom with padding
-              right: "30px", // Align to the right with padding
+              position: "absolute",
+              bottom: "30px",
+              right: "30px",
             }}
           >
             Edit Location
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

@@ -142,7 +142,7 @@ const SignIn = () => {
     localStorage.setItem(userKey, "true");
 
     setShowLocationPopup(false);
-    navigate("/mother/edit-location");
+    navigate("/mother/set-location");
   };
 
   const { marginLeft, marginTop, marginRight, marginBottom } = dimensions;
