@@ -6,14 +6,14 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {Modal,Form,Input,Select,message,Button,Card,Row,Col,Table,Space} from "antd";
+import {Modal,Form,Input,Select,message,Button,Card,Row,Col,Table,Space,notification} from "antd";
 
 import AssignStaffPopup from "../../components/Admin/AssignStaffPopup";
 import ProfileDetailsPopup from "../../components/Admin/ProfileDetailsPopup";
 import ExpectantMotherProfilePopup from "../../components/Admin/ExpectantMotherProfilePopup";
 import DeliveredMotherProfilePopup from "../../components/Admin/DeliveredMotherProfilePopup";
 import ChildProfilePopup from "../../components/Admin/ChildProfilePopup";
-import {getClinicNames} from "../../services/adminService";
+import {getClinicNames , getUnassignedMidwives, getMidwife3, getMidwife2, registerClinic} from "../../services/adminService";
 
 const { Option } = Select;
 const { Search: AntSearch } = Input;
@@ -29,11 +29,38 @@ const Clinics = () => {
   const [visibleDelivered, setVisibleDelivered] = useState(false);
   const [visibleChild, setVisibleChild] = useState(false);
   const [form] = Form.useForm();
+  const [midwives1, setMidwives1] = useState([]);
+  const [midwives2, setMidwives2] = useState([]);
+  const [midwives3, setMidwives3] = useState([]);
+
+  const [clinicDetails, setClinicDetails] = useState(null);
+  
 
 
   const [errorMessage, setErrorMessage] = useState('');
   const [clinicNameData, setClinicNameData] = useState([]);
 
+
+
+  useEffect(() => {
+    // Fetch the data for Midwife 1, Midwife 2, Midwife 3 on component mount
+    const fetchMidwives = async () => {
+      try {
+        const [midwife1Data, midwife2Data, midwife3Data] = await Promise.all([
+          getUnassignedMidwives(),
+          getMidwife2(),
+          getMidwife3(),
+        ]);
+        setMidwives1(midwife1Data);
+        setMidwives2(midwife2Data);
+        setMidwives3(midwife3Data);
+      } catch (error) {
+        console.error("Error fetching midwives", error);
+      }
+    };
+
+    fetchMidwives();
+  }, []);
 
 
   const fetchClinicNames = async () =>{
@@ -57,14 +84,56 @@ const Clinics = () => {
     fetchClinicNames();
   },[]);
 
+  const handleClinicChange = async (clinicName) => {
+    setValue(clinicName); // Assuming value is clinic name
+    try {
+      const details = await fetchClinicDetails(clinicName);
+      setClinicDetails(details);
+    } catch (error) {
+      console.error("Error fetching clinic details:", error);
+      notification.error({
+        message: 'Error',
+        description: 'Failed to fetch clinic details.',
+        duration: 5,
+      });
+    }
+  };
+
+  // const handleClinicChange = (value) => {
+  //   setValue(value);
+  //   // const selectedClinicName = clinicNameData[value]; // Get the selected clinic name based on the index
+  //   // console.log("Selected Clinic:", selectedClinicName);
+  //   // Handle the selection of the clinic (perhaps fetch more data or update state)
+  // };
 
 
+//Asigned midwifes get for clinic add
 
-  const handleClinicChange = (value) => {
-    setValue(value);
-    // const selectedClinicName = clinicNameData[value]; // Get the selected clinic name based on the index
-    // console.log("Selected Clinic:", selectedClinicName);
-    // Handle the selection of the clinic (perhaps fetch more data or update state)
+  const handleSubmit = async (values) => {
+    console.log("Form Data:", values);
+    try {
+      const formData = {
+        ...values,
+        // Add any extra data if necessary before submitting
+      };
+      const response = await registerClinic(formData);
+      
+      console.log("Clinic Registered:", response);
+      // Handle successful submission (e.g., close modal, show success message)
+
+      // Display success notification
+      notification.success({
+        message: 'Clinic Registered Successfully',
+        description: `The clinic ${values.clinicName} has been registered successfully!`,
+        duration: 7, // Automatically close after 3 seconds
+      });
+
+        // Close the modal after successful submission
+        setIsModalVisible(false);
+    } catch (error) {
+      console.error("Error registering clinic", error);
+      // Handle error (e.g., show error message)
+    }
   };
   
 
@@ -79,7 +148,7 @@ const Clinics = () => {
       id: "A5",
       created_at: "2019-02-12",
       location: "Community Hall",
-      midwives: ["Niramala Wasanthi", "Maduri Gunawardana", "Vishaka Sugandi"],
+      midwives: ["Niramala Wasanthi", "Maduri Gunawardana"],
       expectantMothers: [
         {
           id: 1,
@@ -974,86 +1043,141 @@ const Clinics = () => {
       </TabContext>
 
       <Modal
-        title={
-          <Typography variant="h6" sx={{ fontSize: 20, fontWeight: "bold" }}>
-            Add New Clinic
-          </Typography>
-        }
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={[
-          <div style={{ display: "flex", justifyContent: "flex-start" }}>
-            <Button
-              key="back"
-              onClick={handleCancel}
-              style={{
-                color: "#967aa1",
-                border: "none",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              onClick={() => form.submit()}
-              style={{
-                backgroundColor: "#967aa1",
-                borderColor: "#967aa1",
-                color: "#fff",
-              }}
-            >
-              Create
-            </Button>
-          </div>,
-        ]}
-        centered
-      >
-        <Form form={form} layout="vertical" onFinish={handleOk}>
-          <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Clinic Name</span>}
-            name="name"
-            rules={[
-              { required: true, message: "Please enter the clinic name" },
-            ]}
+      title={
+        <Typography variant="h6" sx={{ fontSize: 20, fontWeight: "bold" }}>
+          Add New Clinic
+        </Typography>
+      }
+      visible={isModalVisible}
+      onCancel={handleCancel}
+      footer={[
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <Button
+            key="back"
+            onClick={handleCancel}
+            style={{
+              color: "#967aa1",
+              border: "none",
+            }}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Location</span>}
-            name="location"
-            rules={[
-              { required: true, message: "Please enter the clinic location" },
-            ]}
+            Cancel
+          </Button>
+          <Button
+            key="submit"
+            type="primary"
+            onClick={() => form.submit()}
+            style={{
+              backgroundColor: "#967aa1",
+              borderColor: "#967aa1",
+              color: "#fff",
+            }}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife - 1</span>}
-            name="midwife1"
-            rules={[{ required: true, message: "Please select a midwife" }]}
-          >
-            <Select placeholder="Select a midwife">
-              <Option value="midwife1">Kamala Gamage</Option>
-              <Option value="midwife2">Nirmala Bandara</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife 2</span>}
-            name="midwife2"
-            rules={[{ required: true, message: "Please select a midwife" }]}
-          ></Form.Item>
-          <Form.Item
-            label={<span style={{ fontWeight: "bold" }}>Midwife 3</span>}
-            name="midwife3"
-          >
-            <Select placeholder="Select a midwife">
-              <Option value="midwife1">Divya Gunawaradana</Option>
-              <Option value="midwife2">Suramaya Fernando</Option>
-            </Select>
-          </Form.Item>
-        </Form>
-      </Modal>
+            Create
+          </Button>
+        </div>,
+      ]}
+      centered
+    >
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Clinic Name</span>}
+          name="clinicName"
+          rules={[{ required: true, message: "Please enter the clinic name" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Location</span>}
+          name="location"
+          rules={[{ required: true, message: "Please enter the clinic location" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Midwife - 1</span>}
+          name="midwifeOne"
+          rules={[{ required: true, message: "Please select a midwife" }]}
+        >
+          <Select placeholder="Select a midwife">
+            {midwives1.map((midwife, index) => (
+              <Option key={index} value={midwife}>
+                {}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Midwife - 2</span>}
+          name="midwifeTwo"
+          rules={[{ required: true, message: "Please select a midwife" }]}
+        >
+          <Select placeholder="Select a midwife">
+            {midwives2.map((midwife) => (
+              <Option key={midwife.id} value={midwife.fullName}>
+                {midwife.fullName}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Midwife - 3</span>}
+          name="midwifeThree"
+        >
+          <Select placeholder="Select a midwife">
+            {midwives3.map((midwife) => (
+              <Option key={midwife.id} value={midwife.fullName}>
+                {midwife.fullname}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        {/* New fields for firstweek and secondweek */}
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>First Week</span>}
+          name="firstClinicWeek"
+          rules={[{ required: true, message: "Please select a week" }]}
+        >
+          <Select placeholder="Select a week">
+            <Option value={1}>1</Option>
+            <Option value={2}>2</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Second Week</span>}
+          name="secondClinicWeek"
+          rules={[{ required: true, message: "Please select a week" }]}
+        >
+          <Select placeholder="Select a week">
+            <Option value={3}>3</Option>
+            <Option value={4}>4</Option>
+          </Select>
+        </Form.Item>
+
+        
+        <Form.Item
+          label={<span style={{ fontWeight: "bold" }}>Second Week</span>}
+          name="clinicDay"
+          rules={[{ required: true, message: "Please select a clinic day" }]}
+        >
+          <Select placeholder="Select a week">
+            <Option value={1}>Sunday</Option>
+            <Option value={2}>Monday</Option>
+            <Option value={3}>Tuesday</Option>
+            <Option value={4}>Wednsday</Option>
+            <Option value={5}>Thursday</Option>
+            <Option value={6}>Friday</Option>
+            <Option value={7}>Saturday</Option>
+          </Select>
+        </Form.Item>
+      </Form>
+    </Modal>
+
 
       {selectedClinic && (
         <AssignStaffPopup

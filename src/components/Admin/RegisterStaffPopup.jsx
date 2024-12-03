@@ -29,12 +29,8 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
         values.registeredDate = moment().format('YYYY-MM-DD');
         values.age = age; // Include age in form values
         form.resetFields();
-        onSubmit(values);
-        notification.success({
-          message: 'Success',
-          description: 'New Staff Member has been registered successfully.',
-          placement: 'bottomRight',
-        });
+        onSubmit(values);  // Call the onSubmit function passed from Dashboard
+        onClose();  // Close the modal after submit
       })
       .catch((info) => {
         console.log("Validate Failed:", info);
@@ -59,16 +55,14 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
           Submit
         </Button>,
       ]}
-      bodyStyle={{ padding: '16px 24px' }} // Adjust padding if needed
-      footerStyle={{ textAlign: 'start' }} // Align buttons to the start
-      form={form} // Bind form instance to modal
+      form={form}
     >
       <Form
         form={form}
         layout="vertical"
         name="register_staff_form"
         initialValues={{
-          registeredDate: moment().format('YYYY-MM-DD') // Set default value for registeredDate
+          registeredDate: moment().format('YYYY-MM-DD'), // Set default value for registeredDate
         }}
       >
         <Form.Item
@@ -84,8 +78,8 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
           rules={[{ required: true, message: "Please select a role!" }]}
         >
           <Select placeholder="Select role">
-            <Option value="midwife">Midwife</Option>
-            <Option value="doctor">Doctor</Option>
+            <Option value="midwife">MIDWIFE</Option>
+            <Option value="doctor">DOCTOR</Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -127,7 +121,7 @@ const RegisterStaffPopup = ({ visible, onClose, onSubmit }) => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="telephone"
+          name="contactNo"
           label="Telephone"
           rules={[{ required: true, message: "Please enter the telephone number!" }]}
         >

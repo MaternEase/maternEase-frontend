@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { notification } from "antd";
 import {
   Card,
   Row,
@@ -26,6 +27,8 @@ import OtherHousesOutlinedIcon from '@mui/icons-material/OtherHousesOutlined';
 
 import AssignMidwifePopup from "../../components/Admin/AssignMidwifePopup"; // Import the Assign midwife popup
 import RegisterStaffPopup from "../../components/Admin/RegisterStaffPopup"; // Import the Register staff popup
+import { registerstaff } from "../../services/adminService"
+
 
 const { Title } = Typography;
 const { Search: AntSearch } = Input;
@@ -82,6 +85,27 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
 
+
+  const handleRegisterSubmit = async (formData) => {
+    try {
+      const response = await registerstaff(formData); // Call the register API
+      console.log("Staff registered:", response);
+      notification.success({
+        message:(response.massage),
+        // description: 'New Staff Member has been registered successfully.',
+        placement: 'bottomRight',
+      });
+      setRegisterPopupVisible(false); // Close the popup on success
+    } catch (error) {
+      console.error("Error registering staff:", error);
+      notification.error({
+        message: 'Error',
+        description: 'There was an issue registering the staff.',
+        placement: 'bottomRight',
+      });
+    }
+  };
+
   const handleCardClick = (cardKey) => {
     setSelectedCard(cardKey);
     switch (cardKey) {
@@ -118,11 +142,7 @@ const Dashboard = () => {
     console.log(`Assigned clinics ${clinics} to midwife with key ${midwifeKey}`);
   };
 
-  const handleRegisterSubmit = (values) => {
-    console.log("Register Staff Values:", values);
-    setRegisterPopupVisible(false);
-  };
-
+  
   const menu = (
     <Menu>
       <Menu.Item key="1">View Details</Menu.Item>
@@ -447,6 +467,7 @@ const Dashboard = () => {
           </Col>
         ))}
       </Row>
+      
       <Row gutter={16} style={{ marginTop: 24 }}>
         <Col span={16}>
           <Card
@@ -531,10 +552,10 @@ const Dashboard = () => {
         onAssign={handleAssign}
       />
 
-      <RegisterStaffPopup
+<RegisterStaffPopup
         visible={isRegisterPopupVisible}
         onClose={() => setRegisterPopupVisible(false)}
-        onSubmit={handleRegisterSubmit}
+        onSubmit={handleRegisterSubmit} // Pass the handleRegisterSubmit function here
       />
 
     </div>
